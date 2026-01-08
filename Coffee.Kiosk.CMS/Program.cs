@@ -1,7 +1,13 @@
+using Coffee.Kiosk.CMS.CoffeeKDB;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
+
 namespace Coffee.Kiosk
 {
     internal static class Program
     {
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -10,6 +16,28 @@ namespace Coffee.Kiosk
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+
+            Console.WriteLine("Starting application...");   
+
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
+
+
+            var services = new ServiceCollection();
+
+            services.AddSingleton<IConfiguration>(configuration); 
+            services.AddTransient<DBInitializer>();
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            
+            var dbInitializer = serviceProvider.GetRequiredService<DBInitializer>();
+
+            
+            dbInitializer.CreateDataBase();
+
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
         }
