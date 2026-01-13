@@ -38,7 +38,7 @@ namespace Coffee.Kiosk
             dbInitializer.CreateDataBase();
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.Run(new AdminControlForm());
         }
     }
 }
