@@ -6,14 +6,18 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
     {
 
         private readonly string _connectionString;
+        private readonly string _connectionStringDatabase;
+
 
         public DBInitializer(IConfiguration configuration)
         {
 
             _connectionString = configuration.GetConnectionString("Default")
-
-
                     ?? throw new InvalidOperationException("Connection string 'Default' is missing in appsettings.json.");
+
+            _connectionStringDatabase = configuration.GetConnectionString("Database")
+                    ?? throw new InvalidOperationException("Connection string 'Database' is missing in appsettings.json.");
+
 
         }
 
@@ -30,7 +34,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                     {
                         cmd.CommandText = "CREATE DATABASE IF NOT EXISTS CoffeeKioskDB";
                         cmd.ExecuteNonQuery();
+                    }
+                }
 
+                using (var connection = DBhelper.CreateConnection(_connectionStringDatabase))
+                {
+                    using (var cmd = connection.CreateCommand())
+                    {
                         cmd.CommandText = @"CREATE TABLE IF NOT EXISTS accounts (
                                             Employee_ID INT AUTO_INCREMENT PRIMARY KEY,
                                             Full_Name VARCHAR(255) NOT NULL,
@@ -39,7 +49,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                                             Emergency_Contact VARCHAR(255) NOT NULL,    
                                             Job_Title VARCHAR(255) NOT NULL,
                                             Salary INT NOT NULL,
-                                            Status ENUM ('ACTIVE', 'DEACTIVATED') NOT NULL,
+                                            Status ENUM ('ACTIVE', 'DEACTIVATED') NOT NULL
                                             );";
                         cmd.ExecuteNonQuery();
                     }
