@@ -1,4 +1,4 @@
-namespace Coffee.Kiosk.KitchenMS
+namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class Form1 : Form
     {
