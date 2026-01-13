@@ -1,7 +1,6 @@
 using Coffee.Kiosk.CMS.CoffeeKDB;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
 
 namespace Coffee.Kiosk
 {
