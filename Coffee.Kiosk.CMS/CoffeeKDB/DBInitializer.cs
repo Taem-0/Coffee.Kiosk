@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Coffee.Kiosk.CMS.CoffeeKDB
 {
@@ -34,6 +29,18 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                     using (var cmd = connection.CreateCommand())
                     {
                         cmd.CommandText = "CREATE DATABASE IF NOT EXISTS CoffeeKioskDB";
+                        cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = @"CREATE TABLE IF NOT EXISTS accounts (
+                                            Employee_ID INT AUTO_INCREMENT PRIMARY KEY,
+                                            Full_Name VARCHAR(255) NOT NULL,
+                                            Phone_Number VARCHAR(255) NOT NULL,
+                                            Email_Address VARCHAR(255) NOT NULL,
+                                            Emergency_Contact VARCHAR(255) NOT NULL,    
+                                            Job_Title VARCHAR(255) NOT NULL,
+                                            Salary INT NOT NULL,
+                                            Status ENUM ('ACTIVE', 'DEACTIVATED') NOT NULL,
+                                            );";
                         cmd.ExecuteNonQuery();
                     }
                 }
