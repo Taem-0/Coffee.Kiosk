@@ -32,19 +32,22 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminControlForm));
             AdminFormHamburger = new MaterialSkin.Controls.MaterialTabControl();
             DashBoard = new TabPage();
-            tabPage2 = new TabPage();
-            AdminHamburgerIcons = new ImageList(components);
+            tabAccounts = new TabPage();
+            materialListView1 = new MaterialSkin.Controls.MaterialListView();
+            addEmpButton = new Button();
             tabPage1 = new TabPage();
             tabPage3 = new TabPage();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
+            AdminHamburgerIcons = new ImageList(components);
             AdminFormHamburger.SuspendLayout();
+            tabAccounts.SuspendLayout();
             SuspendLayout();
             // 
             // AdminFormHamburger
             // 
             AdminFormHamburger.Controls.Add(DashBoard);
-            AdminFormHamburger.Controls.Add(tabPage2);
+            AdminFormHamburger.Controls.Add(tabAccounts);
             AdminFormHamburger.Controls.Add(tabPage1);
             AdminFormHamburger.Controls.Add(tabPage3);
             AdminFormHamburger.Controls.Add(tabPage4);
@@ -63,23 +66,92 @@
             // DashBoard
             // 
             DashBoard.ImageKey = "Icon_Admin.png";
-            DashBoard.Location = new Point(4, 39);
+            DashBoard.Location = new Point(4, 41);
             DashBoard.Name = "DashBoard";
             DashBoard.Padding = new Padding(3);
-            DashBoard.Size = new Size(886, 490);
+            DashBoard.Size = new Size(886, 488);
             DashBoard.TabIndex = 0;
             DashBoard.Text = "Admin";
             DashBoard.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tabAccounts
             // 
-            tabPage2.Location = new Point(4, 39);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(886, 490);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "MockUp";
-            tabPage2.UseVisualStyleBackColor = true;
+            tabAccounts.Controls.Add(materialListView1);
+            tabAccounts.Controls.Add(addEmpButton);
+            tabAccounts.ImageKey = "user-management-svgrepo-com.png";
+            tabAccounts.Location = new Point(4, 41);
+            tabAccounts.Name = "tabAccounts";
+            tabAccounts.Padding = new Padding(3);
+            tabAccounts.Size = new Size(886, 488);
+            tabAccounts.TabIndex = 1;
+            tabAccounts.Text = "Accounts";
+            tabAccounts.UseVisualStyleBackColor = true;
+            // 
+            // materialListView1
+            // 
+            materialListView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            materialListView1.AutoSizeTable = false;
+            materialListView1.BackColor = Color.FromArgb(255, 255, 255);
+            materialListView1.BorderStyle = BorderStyle.None;
+            materialListView1.Depth = 0;
+            materialListView1.FullRowSelect = true;
+            materialListView1.Location = new Point(6, 55);
+            materialListView1.MinimumSize = new Size(200, 100);
+            materialListView1.MouseLocation = new Point(-1, -1);
+            materialListView1.MouseState = MaterialSkin.MouseState.OUT;
+            materialListView1.Name = "materialListView1";
+            materialListView1.OwnerDraw = true;
+            materialListView1.Size = new Size(872, 427);
+            materialListView1.TabIndex = 1;
+            materialListView1.UseCompatibleStateImageBehavior = false;
+            materialListView1.View = View.Details;
+            materialListView1.SelectedIndexChanged += materialListView1_SelectedIndexChanged;
+            // 
+            // addEmpButton
+            // 
+            addEmpButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            addEmpButton.Location = new Point(720, 14);
+            addEmpButton.Name = "addEmpButton";
+            addEmpButton.Size = new Size(158, 35);
+            addEmpButton.TabIndex = 0;
+            addEmpButton.Text = "+ Add Employee";
+            addEmpButton.UseVisualStyleBackColor = true;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Location = new Point(4, 41);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Size = new Size(886, 488);
+            tabPage1.TabIndex = 2;
+            tabPage1.Text = "MockUp";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            tabPage3.Location = new Point(4, 41);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Size = new Size(886, 488);
+            tabPage3.TabIndex = 3;
+            tabPage3.Text = "MockUp";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            tabPage4.Location = new Point(4, 41);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Size = new Size(886, 488);
+            tabPage4.TabIndex = 4;
+            tabPage4.Text = "MockUp";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            tabPage5.Location = new Point(4, 41);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Size = new Size(886, 488);
+            tabPage5.TabIndex = 5;
+            tabPage5.Text = "MockUp";
+            tabPage5.UseVisualStyleBackColor = true;
             // 
             // AdminHamburgerIcons
             // 
@@ -87,42 +159,7 @@
             AdminHamburgerIcons.ImageStream = (ImageListStreamer)resources.GetObject("AdminHamburgerIcons.ImageStream");
             AdminHamburgerIcons.TransparentColor = Color.Transparent;
             AdminHamburgerIcons.Images.SetKeyName(0, "Icon_Admin.png");
-            // 
-            // tabPage1
-            // 
-            tabPage1.Location = new Point(4, 39);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(886, 490);
-            tabPage1.TabIndex = 2;
-            tabPage1.Text = "MockUp";
-            tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            tabPage3.Location = new Point(4, 39);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(886, 490);
-            tabPage3.TabIndex = 3;
-            tabPage3.Text = "MockUp";
-            tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            tabPage4.Location = new Point(4, 39);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(886, 490);
-            tabPage4.TabIndex = 4;
-            tabPage4.Text = "MockUp";
-            tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            tabPage5.Location = new Point(4, 39);
-            tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(886, 490);
-            tabPage5.TabIndex = 5;
-            tabPage5.Text = "MockUp";
-            tabPage5.UseVisualStyleBackColor = true;
+            AdminHamburgerIcons.Images.SetKeyName(1, "user-management-svgrepo-com.png");
             // 
             // AdminControlForm
             // 
@@ -136,6 +173,7 @@
             Text = "Form1";
             Load += Form1_Load;
             AdminFormHamburger.ResumeLayout(false);
+            tabAccounts.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -143,11 +181,13 @@
 
         private MaterialSkin.Controls.MaterialTabControl AdminFormHamburger;
         private TabPage DashBoard;
-        private TabPage tabPage2;
+        private TabPage tabAccounts;
         private ImageList AdminHamburgerIcons;
         private TabPage tabPage1;
         private TabPage tabPage3;
         private TabPage tabPage4;
         private TabPage tabPage5;
+        private Button addEmpButton;
+        private MaterialSkin.Controls.MaterialListView materialListView1;
     }
 }

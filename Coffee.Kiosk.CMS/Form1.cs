@@ -1,6 +1,6 @@
 using MaterialSkin;
 using MaterialSkin.Controls;
-
+using Coffee.Kiosk.CMS.Helpers; 
 namespace Coffee.Kiosk
 {
     public partial class AdminControlForm : MaterialForm
@@ -18,8 +18,14 @@ namespace Coffee.Kiosk
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            UIhelp.buttonNaRound(addEmpButton, 20);
+
         }
 
-        
+
+        private void materialListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
