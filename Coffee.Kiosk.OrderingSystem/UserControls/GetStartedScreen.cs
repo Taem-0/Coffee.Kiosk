@@ -1,0 +1,48 @@
+﻿using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Coffee.Kiosk.OrderingSystem
+{
+    public partial class GetStartedScreen : UserControl
+    {
+
+        internal event Action NextClicked;
+
+        MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
+
+        public GetStartedScreen()
+        {
+            InitializeComponent();
+        }
+
+        private void GetStartedScreen_Load(object sender, EventArgs e)
+        {
+            UI_Handling.centerPanel(panel1, panelButtonGetStarted);
+            button1.BackColor = UI_ColorScheme.Primary;
+        }
+
+        private void GetStartedScreen_Resize(object sender, EventArgs e)
+        {
+            UI_Handling.centerPanel(panel1, panelButtonGetStarted);
+        }
+
+        private void getStartedButton_Click(object sender, EventArgs e)
+        {
+            NextClicked?.Invoke();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            NextClicked?.Invoke();
+        }
+    }
+}
