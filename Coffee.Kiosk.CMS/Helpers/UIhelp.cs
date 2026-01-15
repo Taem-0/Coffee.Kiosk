@@ -12,6 +12,14 @@ namespace Coffee.Kiosk.CMS.Helpers
     internal static class UIhelp
     {
 
+        public static void CallControl(UserControl control, Panel panel)
+        {
+            panel.Controls.Clear();
+            control.Dock = DockStyle.Fill;
+            panel.Controls.Add(control);
+            control.BringToFront();
+        }   
+
         public static void buttonNaRound(Button button, int radius)
         {
             GraphicsPath path = new GraphicsPath();
