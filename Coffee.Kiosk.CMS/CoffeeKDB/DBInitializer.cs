@@ -48,7 +48,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                                             Email_Address VARCHAR(255) NOT NULL,
                                             Emergency_Contact VARCHAR(255) NOT NULL,    
                                             Job_Title VARCHAR(255) NOT NULL,
-                                            Salary INT NOT NULL,
+                                            Salary DECIMAL(10,2) NOT NULL,
                                             Status ENUM ('ACTIVE', 'DEACTIVATED') NOT NULL
                                             );";
                         cmd.ExecuteNonQuery();

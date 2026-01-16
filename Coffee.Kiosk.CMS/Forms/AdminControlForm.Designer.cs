@@ -33,12 +33,12 @@
             AdminFormHamburger = new MaterialSkin.Controls.MaterialTabControl();
             DashBoard = new TabPage();
             tabAccounts = new TabPage();
+            AccountsContentPanel = new Panel();
             tabPage1 = new TabPage();
             tabPage3 = new TabPage();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
             AdminHamburgerIcons = new ImageList(components);
-            AccountsContentPanel = new Panel();
             AdminFormHamburger.SuspendLayout();
             tabAccounts.SuspendLayout();
             SuspendLayout();
@@ -59,7 +59,7 @@
             AdminFormHamburger.Multiline = true;
             AdminFormHamburger.Name = "AdminFormHamburger";
             AdminFormHamburger.SelectedIndex = 0;
-            AdminFormHamburger.Size = new Size(894, 533);
+            AdminFormHamburger.Size = new Size(1914, 1013);
             AdminFormHamburger.TabIndex = 0;
             // 
             // DashBoard
@@ -68,7 +68,7 @@
             DashBoard.Location = new Point(4, 41);
             DashBoard.Name = "DashBoard";
             DashBoard.Padding = new Padding(3);
-            DashBoard.Size = new Size(886, 488);
+            DashBoard.Size = new Size(1906, 968);
             DashBoard.TabIndex = 0;
             DashBoard.Text = "Admin";
             DashBoard.UseVisualStyleBackColor = true;
@@ -80,16 +80,24 @@
             tabAccounts.Location = new Point(4, 41);
             tabAccounts.Name = "tabAccounts";
             tabAccounts.Padding = new Padding(3);
-            tabAccounts.Size = new Size(886, 488);
+            tabAccounts.Size = new Size(1906, 968);
             tabAccounts.TabIndex = 1;
             tabAccounts.Text = "Accounts";
             tabAccounts.UseVisualStyleBackColor = true;
+            // 
+            // AccountsContentPanel
+            // 
+            AccountsContentPanel.Dock = DockStyle.Fill;
+            AccountsContentPanel.Location = new Point(3, 3);
+            AccountsContentPanel.Name = "AccountsContentPanel";
+            AccountsContentPanel.Size = new Size(1900, 962);
+            AccountsContentPanel.TabIndex = 1;
             // 
             // tabPage1
             // 
             tabPage1.Location = new Point(4, 41);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(886, 488);
+            tabPage1.Size = new Size(1906, 968);
             tabPage1.TabIndex = 2;
             tabPage1.Text = "MockUp";
             tabPage1.UseVisualStyleBackColor = true;
@@ -98,7 +106,7 @@
             // 
             tabPage3.Location = new Point(4, 41);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(886, 488);
+            tabPage3.Size = new Size(1906, 968);
             tabPage3.TabIndex = 3;
             tabPage3.Text = "MockUp";
             tabPage3.UseVisualStyleBackColor = true;
@@ -107,7 +115,7 @@
             // 
             tabPage4.Location = new Point(4, 41);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(886, 488);
+            tabPage4.Size = new Size(1906, 968);
             tabPage4.TabIndex = 4;
             tabPage4.Text = "MockUp";
             tabPage4.UseVisualStyleBackColor = true;
@@ -116,7 +124,7 @@
             // 
             tabPage5.Location = new Point(4, 41);
             tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(886, 488);
+            tabPage5.Size = new Size(1906, 968);
             tabPage5.TabIndex = 5;
             tabPage5.Text = "MockUp";
             tabPage5.UseVisualStyleBackColor = true;
@@ -129,24 +137,17 @@
             AdminHamburgerIcons.Images.SetKeyName(0, "Icon_Admin.png");
             AdminHamburgerIcons.Images.SetKeyName(1, "user-management-svgrepo-com.png");
             // 
-            // AccountsContentPanel
-            // 
-            AccountsContentPanel.Dock = DockStyle.Fill;
-            AccountsContentPanel.Location = new Point(3, 3);
-            AccountsContentPanel.Name = "AccountsContentPanel";
-            AccountsContentPanel.Size = new Size(880, 482);
-            AccountsContentPanel.TabIndex = 1;
-            // 
             // AdminControlForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(900, 600);
+            ClientSize = new Size(800, 450);
             Controls.Add(AdminFormHamburger);
             DrawerShowIconsWhenHidden = true;
             DrawerTabControl = AdminFormHamburger;
             Name = "AdminControlForm";
             Text = "Form1";
+            WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             AdminFormHamburger.ResumeLayout(false);
             tabAccounts.ResumeLayout(false);
