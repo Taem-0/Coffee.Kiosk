@@ -1,3 +1,4 @@
+using Coffee.Kiosk.OrderingSystem.Helper;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
@@ -20,16 +21,26 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void CoffeeKiosk_Load(object sender, EventArgs e)
         {
+            showGetStartedScreen();
+        }
+
+
+        private void showGetStartedScreen()
+        {
             var getStartedScreen = new GetStartedScreen();
 
             getStartedScreen.NextClicked += () =>
             {
-                UI_Handling.loadUserControl(mainPanel, new DineInTakeOut());
+                var dineInTakeOut = new DineInTakeOut();
+                UI_Handling.loadUserControl(mainPanel, dineInTakeOut);
             };
 
-            UI_Handling.loadUserControl(mainPanel, getStartedScreen);
+            Helper.UI_Handling.loadUserControl(mainPanel, getStartedScreen, true);
+        }
 
-
+        internal void finishOrder()
+        {
+            showGetStartedScreen();
         }
     }
 }

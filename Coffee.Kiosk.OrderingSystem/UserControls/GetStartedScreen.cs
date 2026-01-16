@@ -1,4 +1,5 @@
-﻿using MaterialSkin;
+﻿using Coffee.Kiosk.OrderingSystem.Helper;
+using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
