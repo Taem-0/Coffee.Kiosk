@@ -23,6 +23,7 @@ namespace Coffee.Kiosk.OrderingSystem
         public GetStartedScreen()
         {
             InitializeComponent();
+            UI_Handling.fixVisualShifts(this);
         }
 
         private void GetStartedScreen_Load(object sender, EventArgs e)
@@ -33,12 +34,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void GetStartedScreen_Resize(object sender, EventArgs e)
         {
-            UI_Handling.centerPanel(panel1, panelButtonGetStarted);
-        }
-
-        private void getStartedButton_Click(object sender, EventArgs e)
-        {
-            NextClicked?.Invoke();
+            UI_Handling.centerPanel(panel1, panelButtonGetStarted, 3);
         }
 
         private void button1_Click(object sender, EventArgs e)

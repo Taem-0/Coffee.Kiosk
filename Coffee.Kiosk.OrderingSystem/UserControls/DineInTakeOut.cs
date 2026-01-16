@@ -30,19 +30,20 @@ namespace Coffee.Kiosk.OrderingSystem
         public DineInTakeOut()
         {
             InitializeComponent();
+            UI_Handling.fixVisualShifts(this);
         }
 
         private void DineInTakeOut_Load(object sender, EventArgs e)
         {
             UI_Handling.centerPanel(panel1, DineInTakeOutLogo);
-            UI_Handling.centerPanel(panel2, panel3, 2);
+            UI_Handling.centerPanel(panel2, panel3);
             DineInTakeOutLogo.Image = Image.FromFile(UI_Images.logoImage());
         }
 
         private void DineInTakeOut_Resize(object sender, EventArgs e)
         {
             UI_Handling.centerPanel(panel1, DineInTakeOutLogo);
-            UI_Handling.centerPanel(panel2, panel3, 2);
+            UI_Handling.centerPanel(panel2, panel3);
         }
 
 

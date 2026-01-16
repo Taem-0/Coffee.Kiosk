@@ -17,16 +17,20 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             circle
         }
 
-        internal static void loadUserControl(Panel mainScreen, UserControl userControl, bool clearUserControls = false)
+        internal static void loadUserControl(Panel mainScreen, UserControl userControl)
         {
-
-            if (clearUserControls)
-            {
-                for (int i = 0; i < mainScreen.Controls.Count; i++) { mainScreen.Controls[i].Dispose(); }
-            }
                 mainScreen.Controls.Clear();
                 userControl.Dock = DockStyle.Fill;
                 mainScreen.Controls.Add(userControl);
+        }
+
+        internal static void fixVisualShifts(UserControl e)
+        {
+            // what the six sev*n is this you ask? remove it from DineInTakeOut.cs and GetStartedScreen.cs and try pressing next and back
+            // fixes unexplainable ui bug making buttons, images, etc... a little bit smaller
+            // bug was added by Materialskin
+            e.AutoScaleMode = AutoScaleMode.None;
+            e.Font = SystemFonts.MessageBoxFont;
         }
 
         internal static void centerPanel(Panel outerPanel, Panel innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
