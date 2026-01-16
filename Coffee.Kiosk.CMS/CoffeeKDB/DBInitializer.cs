@@ -42,7 +42,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                     using (var cmd = connection.CreateCommand())
                     {
                         cmd.CommandText = @"CREATE TABLE IF NOT EXISTS accounts (
-                                            Employee_ID INT AUTO_INCREMENT PRIMARY KEY,
+                                            ID INT AUTO_INCREMENT PRIMARY KEY,
                                             Full_Name VARCHAR(255) NOT NULL,
                                             Phone_Number VARCHAR(255) NOT NULL,
                                             Email_Address VARCHAR(255) NOT NULL,

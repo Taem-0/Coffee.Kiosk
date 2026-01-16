@@ -33,13 +33,12 @@
             AdminFormHamburger = new MaterialSkin.Controls.MaterialTabControl();
             DashBoard = new TabPage();
             tabAccounts = new TabPage();
-            materialListView1 = new MaterialSkin.Controls.MaterialListView();
-            addEmpButton = new Button();
             tabPage1 = new TabPage();
             tabPage3 = new TabPage();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
             AdminHamburgerIcons = new ImageList(components);
+            AccountsContentPanel = new Panel();
             AdminFormHamburger.SuspendLayout();
             tabAccounts.SuspendLayout();
             SuspendLayout();
@@ -76,8 +75,7 @@
             // 
             // tabAccounts
             // 
-            tabAccounts.Controls.Add(materialListView1);
-            tabAccounts.Controls.Add(addEmpButton);
+            tabAccounts.Controls.Add(AccountsContentPanel);
             tabAccounts.ImageKey = "user-management-svgrepo-com.png";
             tabAccounts.Location = new Point(4, 41);
             tabAccounts.Name = "tabAccounts";
@@ -86,36 +84,6 @@
             tabAccounts.TabIndex = 1;
             tabAccounts.Text = "Accounts";
             tabAccounts.UseVisualStyleBackColor = true;
-            // 
-            // materialListView1
-            // 
-            materialListView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            materialListView1.AutoSizeTable = false;
-            materialListView1.BackColor = Color.FromArgb(255, 255, 255);
-            materialListView1.BorderStyle = BorderStyle.None;
-            materialListView1.Depth = 0;
-            materialListView1.FullRowSelect = true;
-            materialListView1.Location = new Point(6, 55);
-            materialListView1.MinimumSize = new Size(200, 100);
-            materialListView1.MouseLocation = new Point(-1, -1);
-            materialListView1.MouseState = MaterialSkin.MouseState.OUT;
-            materialListView1.Name = "materialListView1";
-            materialListView1.OwnerDraw = true;
-            materialListView1.Size = new Size(872, 427);
-            materialListView1.TabIndex = 1;
-            materialListView1.UseCompatibleStateImageBehavior = false;
-            materialListView1.View = View.Details;
-            materialListView1.SelectedIndexChanged += materialListView1_SelectedIndexChanged;
-            // 
-            // addEmpButton
-            // 
-            addEmpButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            addEmpButton.Location = new Point(720, 14);
-            addEmpButton.Name = "addEmpButton";
-            addEmpButton.Size = new Size(158, 35);
-            addEmpButton.TabIndex = 0;
-            addEmpButton.Text = "+ Add Employee";
-            addEmpButton.UseVisualStyleBackColor = true;
             // 
             // tabPage1
             // 
@@ -161,6 +129,14 @@
             AdminHamburgerIcons.Images.SetKeyName(0, "Icon_Admin.png");
             AdminHamburgerIcons.Images.SetKeyName(1, "user-management-svgrepo-com.png");
             // 
+            // AccountsContentPanel
+            // 
+            AccountsContentPanel.Dock = DockStyle.Fill;
+            AccountsContentPanel.Location = new Point(3, 3);
+            AccountsContentPanel.Name = "AccountsContentPanel";
+            AccountsContentPanel.Size = new Size(880, 482);
+            AccountsContentPanel.TabIndex = 1;
+            // 
             // AdminControlForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -187,7 +163,6 @@
         private TabPage tabPage3;
         private TabPage tabPage4;
         private TabPage tabPage5;
-        private Button addEmpButton;
-        private MaterialSkin.Controls.MaterialListView materialListView1;
+        private Panel AccountsContentPanel;
     }
 }
