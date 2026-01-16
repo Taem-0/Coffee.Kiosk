@@ -10,6 +10,9 @@ namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class CoffeeKioskMainForm : MaterialForm
     {
+        private GetStartedScreen? getStartedScreen;
+        private DineInTakeOut? dineInTakeOut;
+
         public CoffeeKioskMainForm()
         {
             InitializeComponent();
@@ -27,19 +30,51 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void showGetStartedScreen()
         {
-            var getStartedScreen = new GetStartedScreen();
+            //var getStartedScreen = new GetStartedScreen();
+            //Helper.UI_Handling.loadUserControl(mainPanel, getStartedScreen, true);
 
-            getStartedScreen.NextClicked += () =>
+            //getStartedScreen.NextClicked += () =>
+            //{
+            //    var dineInTakeOut = new DineInTakeOut();
+            //    UI_Handling.loadUserControl(mainPanel, dineInTakeOut);
+
+            //    dineInTakeOut.backButtonClicked += () =>
+            //    {
+            //        Helper.UI_Handling.loadUserControl(mainPanel, getStartedScreen);
+            //    };
+            //};
+            // Rewriting this to avoid nesting
+
+
+            if (getStartedScreen == null)
             {
-                var dineInTakeOut = new DineInTakeOut();
-                UI_Handling.loadUserControl(mainPanel, dineInTakeOut);
-            };
+                getStartedScreen = new GetStartedScreen();
+                getStartedScreen.NextClicked += showDineInTakeOutScreen;
+            }
+            UI_Handling.loadUserControl(mainPanel, getStartedScreen);
+        }
 
-            Helper.UI_Handling.loadUserControl(mainPanel, getStartedScreen, true);
+        private void showDineInTakeOutScreen()
+        {
+            if (dineInTakeOut == null)
+            {
+                dineInTakeOut = new DineInTakeOut();
+                dineInTakeOut.backButtonClicked += () =>
+                {
+                    UI_Handling.loadUserControl(mainPanel, getStartedScreen!);
+                };
+            }
+            UI_Handling.loadUserControl(mainPanel, dineInTakeOut);
         }
 
         internal void finishOrder()
         {
+            getStartedScreen?.Dispose();
+            dineInTakeOut?.Dispose();
+
+            getStartedScreen = null;
+            dineInTakeOut = null;
+            
             showGetStartedScreen();
         }
     }

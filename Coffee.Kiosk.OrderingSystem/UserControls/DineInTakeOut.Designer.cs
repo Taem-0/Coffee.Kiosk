@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DineInTakeOut));
             DineInTakeOutLogo = new PictureBox();
             panel1 = new Panel();
+            BackButton = new MaterialSkin.Controls.MaterialFloatingActionButton();
             panel2 = new Panel();
             panel3 = new Panel();
             TakeOut_Button = new PictureBox();
@@ -56,12 +57,31 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(BackButton);
             panel1.Controls.Add(DineInTakeOutLogo);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(901, 376);
             panel1.TabIndex = 2;
+            // 
+            // BackButton
+            // 
+            BackButton.AnimateShowHideButton = true;
+            BackButton.Depth = 0;
+            BackButton.DrawShadows = false;
+            BackButton.Icon = (Image)resources.GetObject("BackButton.Icon");
+            BackButton.Location = new Point(22, 26);
+            BackButton.MouseState = MaterialSkin.MouseState.HOVER;
+            BackButton.Name = "BackButton";
+            BackButton.Size = new Size(59, 59);
+            BackButton.TabIndex = 2;
+            BackButton.Text = "materialFloatingActionButton1";
+            BackButton.UseVisualStyleBackColor = true;
+            BackButton.Click += BackButton_Click;
+            BackButton.Paint += BackButton_Paint;
+            BackButton.MouseEnter += BackButton_MouseEnter;
+            BackButton.MouseLeave += BackButton_MouseLeave;
             // 
             // panel2
             // 
@@ -85,7 +105,7 @@
             // TakeOut_Button
             // 
             TakeOut_Button.Dock = DockStyle.Left;
-            TakeOut_Button.Image = (Image)resources.GetObject("TakeOut_Button.Image");
+            TakeOut_Button.Image = Properties.Resources.TakeOut;
             TakeOut_Button.Location = new Point(260, 0);
             TakeOut_Button.Name = "TakeOut_Button";
             TakeOut_Button.Size = new Size(236, 289);
@@ -107,7 +127,7 @@
             // DineIn_Button
             // 
             DineIn_Button.Dock = DockStyle.Left;
-            DineIn_Button.Image = (Image)resources.GetObject("DineIn_Button.Image");
+            DineIn_Button.Image = Properties.Resources.DineIn;
             DineIn_Button.Location = new Point(0, 0);
             DineIn_Button.Name = "DineIn_Button";
             DineIn_Button.Size = new Size(230, 289);
@@ -145,5 +165,6 @@
         private PictureBox TakeOut_Button;
         private Panel panel4;
         private PictureBox DineIn_Button;
+        private MaterialSkin.Controls.MaterialFloatingActionButton BackButton;
     }
 }

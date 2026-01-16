@@ -11,6 +11,12 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
 {
     internal class UI_Handling
     {
+        internal enum boxOrCircle
+        {
+            box,
+            circle
+        }
+
         internal static void loadUserControl(Panel mainScreen, UserControl userControl, bool clearUserControls = false)
         {
 
@@ -47,11 +53,18 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
         }
 
-        internal static void darkenOnHover(PaintEventArgs e, Rectangle stuffToHover)
+        internal static void darkenOnHover(PaintEventArgs e, Rectangle stuffToHover, boxOrCircle shape)
         {
-            using var brush = new SolidBrush(Color.FromArgb(80, Color.Black));
-            e.Graphics.FillRectangle(brush, stuffToHover);
+            using var brush = new SolidBrush(Color.FromArgb(67, Color.Black));
+            if (shape == boxOrCircle.box)
+            {
+                e.Graphics.FillRectangle(brush, stuffToHover);
+            }else
+            {
+                e.Graphics.FillEllipse(brush, stuffToHover);
+            }
         }
+
     }
 
     internal class UI_ColorScheme

@@ -16,7 +16,7 @@ namespace Coffee.Kiosk.OrderingSystem
     public partial class GetStartedScreen : UserControl
     {
 
-        internal event Action NextClicked;
+        internal event Action? NextClicked;
 
         MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
 

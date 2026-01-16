@@ -14,8 +14,18 @@ namespace Coffee.Kiosk.OrderingSystem
     public partial class DineInTakeOut : UserControl
     {
 
+        internal enum Choices
+        {
+            DineIn,
+            TakeOut
+        }
+
+        internal event Action? backButtonClicked;
+
+        bool isHoveredBackButton = false;
         bool isHoveredDineIn = false;
         bool isHoveredTakeOut = false;
+        internal Choices userChoice;
 
         public DineInTakeOut()
         {
@@ -25,15 +35,16 @@ namespace Coffee.Kiosk.OrderingSystem
         private void DineInTakeOut_Load(object sender, EventArgs e)
         {
             UI_Handling.centerPanel(panel1, DineInTakeOutLogo);
-            UI_Handling.centerPanel(panel2, panel3, this.Size.Height < 800 ? 2 : 1);
+            UI_Handling.centerPanel(panel2, panel3, 2);
             DineInTakeOutLogo.Image = Image.FromFile(UI_Images.logoImage());
         }
 
         private void DineInTakeOut_Resize(object sender, EventArgs e)
         {
             UI_Handling.centerPanel(panel1, DineInTakeOutLogo);
-            UI_Handling.centerPanel(panel2, panel3, this.Size.Height < 800 ? 2 : 1);
+            UI_Handling.centerPanel(panel2, panel3, 2);
         }
+
 
 
         private void DineIn_Button_MouseEnter(object sender, EventArgs e)
@@ -51,7 +62,7 @@ namespace Coffee.Kiosk.OrderingSystem
         private void DineIn_Button_Paint(object sender, PaintEventArgs e)
         {
             if (!isHoveredDineIn) return;
-            UI_Handling.darkenOnHover(e, DineIn_Button.ClientRectangle);
+            UI_Handling.darkenOnHover(e, DineIn_Button.ClientRectangle, UI_Handling.boxOrCircle.box);
         }
 
         private void TakeOut_Button_MouseEnter(object sender, EventArgs e)
@@ -67,8 +78,30 @@ namespace Coffee.Kiosk.OrderingSystem
         private void TakeOut_Button_Paint(object sender, PaintEventArgs e)
         {
             if (!isHoveredTakeOut) return;
-            UI_Handling.darkenOnHover(e, TakeOut_Button.ClientRectangle);
+            UI_Handling.darkenOnHover(e, TakeOut_Button.ClientRectangle, UI_Handling.boxOrCircle.circle);
+        }
 
+        private void BackButton_MouseEnter(object sender, EventArgs e)
+        {
+            isHoveredBackButton = true;
+            TakeOut_Button.Invalidate();
+        }
+
+        private void BackButton_MouseLeave(object sender, EventArgs e)
+        {
+            isHoveredBackButton = false;
+            TakeOut_Button.Invalidate();
+        }
+
+        private void BackButton_Paint(object sender, PaintEventArgs e)
+        {
+            if (!isHoveredBackButton) return;
+            UI_Handling.darkenOnHover(e, BackButton.ClientRectangle, UI_Handling.boxOrCircle.circle);
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            backButtonClicked?.Invoke();
         }
     }
 }
