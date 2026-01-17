@@ -48,7 +48,7 @@
             // DineInTakeOutLogo
             // 
             DineInTakeOutLogo.Image = Properties.Resources.Tux;
-            DineInTakeOutLogo.Location = new Point(158, 46);
+            DineInTakeOutLogo.Location = new Point(270, 47);
             DineInTakeOutLogo.Margin = new Padding(0);
             DineInTakeOutLogo.Name = "DineInTakeOutLogo";
             DineInTakeOutLogo.Size = new Size(247, 178);
@@ -90,10 +90,10 @@
             // 
             panel2.Controls.Add(panel3);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 280);
+            panel2.Location = new Point(0, 225);
             panel2.Margin = new Padding(0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(788, 340);
+            panel2.Size = new Size(788, 395);
             panel2.TabIndex = 3;
             // 
             // panel3
@@ -118,6 +118,7 @@
             TakeOut_Button.SizeMode = PictureBoxSizeMode.StretchImage;
             TakeOut_Button.TabIndex = 4;
             TakeOut_Button.TabStop = false;
+            TakeOut_Button.Click += TakeOut_Button_Click;
             TakeOut_Button.Paint += TakeOut_Button_Paint;
             TakeOut_Button.MouseEnter += TakeOut_Button_MouseEnter;
             TakeOut_Button.MouseLeave += TakeOut_Button_MouseLeave;
@@ -142,14 +143,15 @@
             DineIn_Button.SizeMode = PictureBoxSizeMode.StretchImage;
             DineIn_Button.TabIndex = 2;
             DineIn_Button.TabStop = false;
+            DineIn_Button.Click += DineIn_Button_Click;
             DineIn_Button.Paint += DineIn_Button_Paint;
             DineIn_Button.MouseEnter += DineIn_Button_MouseEnter;
             DineIn_Button.MouseLeave += DineIn_Button_MouseLeave;
             // 
             // DineInTakeOut
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             Controls.Add(panel2);
             Controls.Add(panel1);
             Margin = new Padding(0);

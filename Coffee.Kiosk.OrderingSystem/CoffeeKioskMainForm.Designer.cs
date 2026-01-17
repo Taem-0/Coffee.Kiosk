@@ -49,6 +49,7 @@
             BackColor = Color.FromArgb(203, 183, 153);
             ClientSize = new Size(676, 675);
             Controls.Add(mainPanel);
+            DrawerAutoHide = false;
             FormStyle = FormStyles.ActionBar_None;
             Margin = new Padding(3, 2, 3, 2);
             MinimumSize = new Size(0, 675);

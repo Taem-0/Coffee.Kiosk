@@ -12,6 +12,9 @@ namespace Coffee.Kiosk.OrderingSystem
     {
         private GetStartedScreen? getStartedScreen;
         private DineInTakeOut? dineInTakeOut;
+        private KioskMenu? kioskMenu;
+
+        private Models.Orders? currentOrder;
 
         public CoffeeKioskMainForm()
         {
@@ -24,58 +27,66 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void CoffeeKiosk_Load(object sender, EventArgs e)
         {
-            showGetStartedScreen();
+            ShowGetStartedScreen();
         }
 
 
-        private void showGetStartedScreen()
+        private void ShowGetStartedScreen()
         {
-            //var getStartedScreen = new GetStartedScreen();
-            //Helper.UI_Handling.loadUserControl(mainPanel, getStartedScreen, true);
-
-            //getStartedScreen.NextClicked += () =>
-            //{
-            //    var dineInTakeOut = new DineInTakeOut();
-            //    UI_Handling.loadUserControl(mainPanel, dineInTakeOut);
-
-            //    dineInTakeOut.backButtonClicked += () =>
-            //    {
-            //        Helper.UI_Handling.loadUserControl(mainPanel, getStartedScreen);
-            //    };
-            //};
-            // Rewriting this to avoid nesting
-
-
             if (getStartedScreen == null)
             {
                 getStartedScreen = new GetStartedScreen();
-                getStartedScreen.NextClicked += showDineInTakeOutScreen;
+                getStartedScreen.NextClicked += ShowDineInTakeOutScreen;
             }
             UI_Handling.loadUserControl(mainPanel, getStartedScreen);
         }
 
-        private void showDineInTakeOutScreen()
+        private void ShowDineInTakeOutScreen()
         {
             if (dineInTakeOut == null)
             {
                 dineInTakeOut = new DineInTakeOut();
+
                 dineInTakeOut.backButtonClicked += () =>
                 {
                     UI_Handling.loadUserControl(mainPanel, getStartedScreen!);
                 };
+
+                dineInTakeOut.hasPickedAChoice += () =>
+                {
+                    currentOrder = new Models.Orders();
+                    currentOrder.Type = dineInTakeOut.lastChoice;
+                    ShowKioskMenuScreen();
+                };
+
             }
             UI_Handling.loadUserControl(mainPanel, dineInTakeOut);
         }
 
-        internal void finishOrder()
+        private void ShowKioskMenuScreen()
+        {
+            if (kioskMenu == null)
+            {
+                kioskMenu = new KioskMenu();
+
+                kioskMenu.startOverClicked += FinishOrder;
+            }
+            UI_Handling.loadUserControl(mainPanel, kioskMenu);
+        }
+
+        internal void FinishOrder()
         {
             getStartedScreen?.Dispose();
             dineInTakeOut?.Dispose();
+            kioskMenu?.Dispose();
 
             getStartedScreen = null;
             dineInTakeOut = null;
+            kioskMenu = null;
+
+            currentOrder = null;
             
-            showGetStartedScreen();
+            ShowGetStartedScreen();
         }
     }
 }

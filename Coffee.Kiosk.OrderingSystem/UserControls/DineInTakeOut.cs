@@ -14,18 +14,15 @@ namespace Coffee.Kiosk.OrderingSystem
     public partial class DineInTakeOut : UserControl
     {
 
-        internal enum Choices
-        {
-            DineIn,
-            TakeOut
-        }
 
         internal event Action? backButtonClicked;
+        internal event Action? hasPickedAChoice;
 
         bool isHoveredBackButton = false;
         bool isHoveredDineIn = false;
         bool isHoveredTakeOut = false;
-        internal Choices userChoice;
+
+        internal Models.Orders.TypeOfOrder lastChoice;
 
         public DineInTakeOut()
         {
@@ -46,7 +43,30 @@ namespace Coffee.Kiosk.OrderingSystem
             UI_Handling.centerPanel(panel2, panel3);
         }
 
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            backButtonClicked?.Invoke();
+        }
 
+
+        private void DineIn_Button_Click(object sender, EventArgs e)
+        {
+            hasPickedAChoice?.Invoke();
+            lastChoice = Models.Orders.TypeOfOrder.DineIn;
+        }
+
+        private void TakeOut_Button_Click(object sender, EventArgs e)
+        {
+            hasPickedAChoice?.Invoke();
+            lastChoice = Models.Orders.TypeOfOrder.TakeOut;
+        }
+
+
+
+
+
+
+        // --------------------------------------------------------------------------
 
         private void DineIn_Button_MouseEnter(object sender, EventArgs e)
         {
@@ -100,9 +120,5 @@ namespace Coffee.Kiosk.OrderingSystem
             UI_Handling.darkenOnHover(e, BackButton.ClientRectangle, UI_Handling.boxOrCircle.circle);
         }
 
-        private void BackButton_Click(object sender, EventArgs e)
-        {
-            backButtonClicked?.Invoke();
-        }
     }
 }

@@ -33,6 +33,13 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             e.Font = SystemFonts.MessageBoxFont;
         }
 
+        internal static void materialDrawer(MaterialForm e, MaterialTabControl materialControl, bool shown)
+        {
+            materialControl.Visible = shown;
+            e.FormStyle = shown ? MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_40 : MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_None; 
+            e.DrawerIsOpen = false;
+        }
+
         internal static void centerPanel(Panel outerPanel, Panel innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
         {
             innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;
