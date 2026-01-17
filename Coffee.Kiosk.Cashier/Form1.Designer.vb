@@ -22,10 +22,34 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container()
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Text = "Form1"
+        Panel1 = New Panel()
+        SuspendLayout()
+        ' 
+        ' Panel1
+        ' 
+        Panel1.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        Panel1.Dock = DockStyle.Left
+        Panel1.Location = New Point(0, 0)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(273, 648)
+        Panel1.TabIndex = 0
+        ' 
+        ' Form1
+        ' 
+        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.Beige
+        ClientSize = New Size(1223, 648)
+        ControlBox = False
+        Controls.Add(Panel1)
+        Font = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
+        FormBorderStyle = FormBorderStyle.FixedSingle
+        Name = "Form1"
+        StartPosition = FormStartPosition.CenterScreen
+        ResumeLayout(False)
     End Sub
+
+    Friend WithEvents Panel1 As Panel
 
 End Class
