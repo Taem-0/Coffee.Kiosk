@@ -24,5 +24,18 @@ namespace Coffee.Kiosk.CMS
         {
 
         }
+
+
+        private void RegistrationTitleDivider_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialLabel2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
