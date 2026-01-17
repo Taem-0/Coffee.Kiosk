@@ -48,9 +48,10 @@
             // DineInTakeOutLogo
             // 
             DineInTakeOutLogo.Image = Properties.Resources.Tux;
-            DineInTakeOutLogo.Location = new Point(180, 61);
+            DineInTakeOutLogo.Location = new Point(158, 46);
+            DineInTakeOutLogo.Margin = new Padding(0);
             DineInTakeOutLogo.Name = "DineInTakeOutLogo";
-            DineInTakeOutLogo.Size = new Size(282, 238);
+            DineInTakeOutLogo.Size = new Size(247, 178);
             DineInTakeOutLogo.SizeMode = PictureBoxSizeMode.Zoom;
             DineInTakeOutLogo.TabIndex = 1;
             DineInTakeOutLogo.TabStop = false;
@@ -61,8 +62,9 @@
             panel1.Controls.Add(DineInTakeOutLogo);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(901, 376);
+            panel1.Size = new Size(788, 282);
             panel1.TabIndex = 2;
             // 
             // BackButton
@@ -71,10 +73,11 @@
             BackButton.Depth = 0;
             BackButton.DrawShadows = false;
             BackButton.Icon = (Image)resources.GetObject("BackButton.Icon");
-            BackButton.Location = new Point(22, 26);
+            BackButton.Location = new Point(19, 20);
+            BackButton.Margin = new Padding(0);
             BackButton.MouseState = MaterialSkin.MouseState.HOVER;
             BackButton.Name = "BackButton";
-            BackButton.Size = new Size(59, 59);
+            BackButton.Size = new Size(59, 61);
             BackButton.TabIndex = 2;
             BackButton.Text = "materialFloatingActionButton1";
             BackButton.UseVisualStyleBackColor = true;
@@ -87,9 +90,10 @@
             // 
             panel2.Controls.Add(panel3);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 373);
+            panel2.Location = new Point(0, 280);
+            panel2.Margin = new Padding(0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(901, 453);
+            panel2.Size = new Size(788, 340);
             panel2.TabIndex = 3;
             // 
             // panel3
@@ -97,19 +101,21 @@
             panel3.Controls.Add(TakeOut_Button);
             panel3.Controls.Add(panel4);
             panel3.Controls.Add(DineIn_Button);
-            panel3.Location = new Point(105, 6);
+            panel3.Location = new Point(176, 61);
+            panel3.Margin = new Padding(0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(498, 289);
+            panel3.Size = new Size(440, 217);
             panel3.TabIndex = 0;
             // 
             // TakeOut_Button
             // 
             TakeOut_Button.Dock = DockStyle.Left;
             TakeOut_Button.Image = Properties.Resources.TakeOut;
-            TakeOut_Button.Location = new Point(260, 0);
+            TakeOut_Button.Location = new Point(238, 0);
+            TakeOut_Button.Margin = new Padding(0);
             TakeOut_Button.Name = "TakeOut_Button";
-            TakeOut_Button.Size = new Size(236, 289);
-            TakeOut_Button.SizeMode = PictureBoxSizeMode.Zoom;
+            TakeOut_Button.Size = new Size(200, 217);
+            TakeOut_Button.SizeMode = PictureBoxSizeMode.StretchImage;
             TakeOut_Button.TabIndex = 4;
             TakeOut_Button.TabStop = false;
             TakeOut_Button.Paint += TakeOut_Button_Paint;
@@ -119,9 +125,10 @@
             // panel4
             // 
             panel4.Dock = DockStyle.Left;
-            panel4.Location = new Point(230, 0);
+            panel4.Location = new Point(200, 0);
+            panel4.Margin = new Padding(0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(30, 289);
+            panel4.Size = new Size(38, 217);
             panel4.TabIndex = 3;
             // 
             // DineIn_Button
@@ -129,9 +136,10 @@
             DineIn_Button.Dock = DockStyle.Left;
             DineIn_Button.Image = Properties.Resources.DineIn;
             DineIn_Button.Location = new Point(0, 0);
+            DineIn_Button.Margin = new Padding(0);
             DineIn_Button.Name = "DineIn_Button";
-            DineIn_Button.Size = new Size(230, 289);
-            DineIn_Button.SizeMode = PictureBoxSizeMode.Zoom;
+            DineIn_Button.Size = new Size(200, 217);
+            DineIn_Button.SizeMode = PictureBoxSizeMode.StretchImage;
             DineIn_Button.TabIndex = 2;
             DineIn_Button.TabStop = false;
             DineIn_Button.Paint += DineIn_Button_Paint;
@@ -140,12 +148,13 @@
             // 
             // DineInTakeOut
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel2);
             Controls.Add(panel1);
+            Margin = new Padding(0);
             Name = "DineInTakeOut";
-            Size = new Size(901, 826);
+            Size = new Size(788, 620);
             Load += DineInTakeOut_Load;
             Resize += DineInTakeOut_Resize;
             ((System.ComponentModel.ISupportInitialize)DineInTakeOutLogo).EndInit();
