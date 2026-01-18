@@ -28,27 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            flowCategories = new FlowLayoutPanel();
+            categoryItem1 = new Coffee.Kiosk.OrderingSystem.UserControls.CategoryItem();
             panel1 = new Panel();
             StartOver_Button = new Label();
             panel2 = new Panel();
             label2 = new Label();
             pictureBox1 = new PictureBox();
+            flowCategories.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // flowCategories
             // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Dock = DockStyle.Left;
-            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(0, 56);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(120, 491);
-            flowLayoutPanel1.TabIndex = 0;
-            flowLayoutPanel1.WrapContents = false;
+            flowCategories.AutoScroll = true;
+            flowCategories.Controls.Add(categoryItem1);
+            flowCategories.Dock = DockStyle.Left;
+            flowCategories.FlowDirection = FlowDirection.TopDown;
+            flowCategories.Location = new Point(0, 56);
+            flowCategories.Name = "flowCategories";
+            flowCategories.Size = new Size(120, 491);
+            flowCategories.TabIndex = 0;
+            flowCategories.WrapContents = false;
+            // 
+            // categoryItem1
+            // 
+            categoryItem1.Location = new Point(3, 3);
+            categoryItem1.Name = "categoryItem1";
+            categoryItem1.Size = new Size(110, 131);
+            categoryItem1.TabIndex = 3;
             // 
             // panel1
             // 
@@ -108,11 +118,12 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(flowCategories);
             Controls.Add(panel1);
             Controls.Add(panel2);
             Name = "KioskMenu";
             Size = new Size(673, 625);
+            flowCategories.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -123,11 +134,12 @@
 
         #endregion
 
-        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowCategories;
         private Panel panel1;
         private Label StartOver_Button;
         private Panel panel2;
         private Label label2;
         private PictureBox pictureBox1;
+        private UserControls.CategoryItem categoryItem1;
     }
 }

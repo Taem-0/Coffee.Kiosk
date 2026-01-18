@@ -39,8 +39,25 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             e.FormStyle = shown ? MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_40 : MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_None; 
             e.DrawerIsOpen = false;
         }
+        internal static void darkenOnHover(PaintEventArgs e, Rectangle stuffToHover, boxOrCircle shape)
+        {
+            using var brush = new SolidBrush(Color.FromArgb(67, Color.Black));
+            if (shape == boxOrCircle.box)
+            {
+                e.Graphics.FillRectangle(brush, stuffToHover);
+            }else
+            {
+                e.Graphics.FillEllipse(brush, stuffToHover);
+            }
+        }
 
         internal static void centerPanel(Panel outerPanel, Panel innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
+        {
+            innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;
+            innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
+        }
+
+        internal static void centerPanel(Panel outerPanel, Label innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
         {
             innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;
             innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
@@ -64,18 +81,11 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
         }
 
-        internal static void darkenOnHover(PaintEventArgs e, Rectangle stuffToHover, boxOrCircle shape)
+        internal static void centerPanel(UserControl outerPanel, PictureBox innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
         {
-            using var brush = new SolidBrush(Color.FromArgb(67, Color.Black));
-            if (shape == boxOrCircle.box)
-            {
-                e.Graphics.FillRectangle(brush, stuffToHover);
-            }else
-            {
-                e.Graphics.FillEllipse(brush, stuffToHover);
-            }
+            innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;
+            innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
         }
-
     }
 
     internal class UI_ColorScheme

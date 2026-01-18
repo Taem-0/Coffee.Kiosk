@@ -20,6 +20,11 @@ namespace Coffee.Kiosk.OrderingSystem
         public KioskMenu()
         {
             InitializeComponent();
+
+            flowCategories.Dock = DockStyle.Left;
+            flowCategories.FlowDirection = FlowDirection.TopDown;
+            flowCategories.WrapContents = false;
+            flowCategories.AutoScroll = true;
         }
         private void StartOver_Button_Click(object sender, EventArgs e)
         {
