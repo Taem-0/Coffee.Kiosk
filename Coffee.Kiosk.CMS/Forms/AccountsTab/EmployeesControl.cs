@@ -1,4 +1,5 @@
 ﻿using Coffee.Kiosk.CMS.CoffeeKDB;
+using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.Helpers;
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,17 @@ namespace Coffee.Kiosk.CMS
 {
     public partial class EmployeesControl : UserControl
     {
-
-        private RegisterControl registerControl = new RegisterControl();
+        private RegisterControl registerControl;
+        private RegistrationController _controller;
 
         public AdminControlForm? ParentFormReference { get; set; }
 
-
-        public EmployeesControl()
+        public EmployeesControl(RegistrationController controller)
         {
             InitializeComponent();
+
+            _controller = controller ?? throw new ArgumentNullException(nameof(controller));
+            registerControl = new RegisterControl(_controller);
 
             UIhelp.buttonNaRound(addEmpButton, 20);
         }
@@ -32,10 +35,8 @@ namespace Coffee.Kiosk.CMS
             if (ParentFormReference == null) return;
 
             registerControl.ParentFormReference = ParentFormReference;
-
             ParentFormReference.ShowInAccountsPanel(registerControl);
         }
-
-
     }
+
 }
