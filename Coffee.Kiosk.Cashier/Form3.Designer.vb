@@ -31,7 +31,7 @@ Partial Class Form3
         ' 
         PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), Image)
         PictureBox1.BackgroundImageLayout = ImageLayout.Stretch
-        PictureBox1.Location = New Point(805, 31)
+        PictureBox1.Location = New Point(794, 31)
         PictureBox1.Name = "PictureBox1"
         PictureBox1.Size = New Size(276, 275)
         PictureBox1.TabIndex = 1
