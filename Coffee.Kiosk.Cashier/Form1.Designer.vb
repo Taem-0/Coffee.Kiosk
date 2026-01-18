@@ -22,34 +22,70 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Panel1 = New Panel()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
+        PictureBox1 = New PictureBox()
+        btnLogIn = New Button()
+        btnSignUp = New Button()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
-        ' Panel1
+        ' PictureBox1
         ' 
-        Panel1.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        Panel1.Dock = DockStyle.Left
-        Panel1.Location = New Point(0, 0)
-        Panel1.Name = "Panel1"
-        Panel1.Size = New Size(273, 648)
-        Panel1.TabIndex = 0
+        PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), Image)
+        PictureBox1.BackgroundImageLayout = ImageLayout.Stretch
+        PictureBox1.Location = New Point(646, 83)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(626, 597)
+        PictureBox1.TabIndex = 0
+        PictureBox1.TabStop = False
+        ' 
+        ' btnLogIn
+        ' 
+        btnLogIn.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnLogIn.FlatStyle = FlatStyle.Popup
+        btnLogIn.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
+        btnLogIn.ForeColor = Color.White
+        btnLogIn.Location = New Point(437, 777)
+        btnLogIn.Name = "btnLogIn"
+        btnLogIn.Size = New Size(424, 81)
+        btnLogIn.TabIndex = 1
+        btnLogIn.Text = "LOG IN"
+        btnLogIn.UseVisualStyleBackColor = False
+        ' 
+        ' btnSignUp
+        ' 
+        btnSignUp.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnSignUp.FlatStyle = FlatStyle.Popup
+        btnSignUp.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
+        btnSignUp.ForeColor = Color.White
+        btnSignUp.Location = New Point(1057, 777)
+        btnSignUp.Name = "btnSignUp"
+        btnSignUp.Size = New Size(424, 81)
+        btnSignUp.TabIndex = 2
+        btnSignUp.Text = "SIGN UP"
+        btnSignUp.UseVisualStyleBackColor = False
         ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
-        ClientSize = New Size(1223, 648)
+        ClientSize = New Size(1878, 998)
         ControlBox = False
-        Controls.Add(Panel1)
+        Controls.Add(btnSignUp)
+        Controls.Add(btnLogIn)
+        Controls.Add(PictureBox1)
         Font = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         ForeColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
         FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "Form1"
         StartPosition = FormStartPosition.CenterScreen
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents btnLogIn As Button
+    Friend WithEvents btnSignUp As Button
 
 End Class
