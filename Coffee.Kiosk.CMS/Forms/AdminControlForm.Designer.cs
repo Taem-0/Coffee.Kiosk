@@ -59,7 +59,7 @@
             AdminFormHamburger.Multiline = true;
             AdminFormHamburger.Name = "AdminFormHamburger";
             AdminFormHamburger.SelectedIndex = 0;
-            AdminFormHamburger.Size = new Size(1914, 1013);
+            AdminFormHamburger.Size = new Size(894, 533);
             AdminFormHamburger.TabIndex = 0;
             // 
             // DashBoard
@@ -68,7 +68,7 @@
             DashBoard.Location = new Point(4, 41);
             DashBoard.Name = "DashBoard";
             DashBoard.Padding = new Padding(3);
-            DashBoard.Size = new Size(1906, 968);
+            DashBoard.Size = new Size(886, 488);
             DashBoard.TabIndex = 0;
             DashBoard.Text = "Admin";
             DashBoard.UseVisualStyleBackColor = true;
@@ -141,7 +141,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(900, 600);
             Controls.Add(AdminFormHamburger);
             DrawerShowIconsWhenHidden = true;
             DrawerTabControl = AdminFormHamburger;
