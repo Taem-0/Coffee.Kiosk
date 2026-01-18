@@ -33,24 +33,30 @@
             // 
             // mainPanel
             // 
+            mainPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             mainPanel.BackColor = Color.White;
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(3, 24);
+            mainPanel.Margin = new Padding(0);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(767, 733);
+            mainPanel.Size = new Size(670, 649);
             mainPanel.TabIndex = 0;
             // 
-            // CoffeeKiosk
+            // CoffeeKioskMainForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(203, 183, 153);
-            ClientSize = new Size(773, 760);
+            ClientSize = new Size(676, 675);
             Controls.Add(mainPanel);
+            DrawerAutoHide = false;
             FormStyle = FormStyles.ActionBar_None;
-            Name = "CoffeeKiosk";
-            Padding = new Padding(3, 24, 3, 3);
+            Margin = new Padding(3, 2, 3, 2);
+            MinimumSize = new Size(0, 675);
+            Name = "CoffeeKioskMainForm";
+            Padding = new Padding(3, 24, 3, 2);
             RightToLeft = RightToLeft.No;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "KIOSK";
             Load += CoffeeKiosk_Load;
             ResumeLayout(false);

@@ -1,4 +1,5 @@
-﻿using MaterialSkin;
+﻿using Coffee.Kiosk.OrderingSystem.Helper;
+using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,14 @@ namespace Coffee.Kiosk.OrderingSystem
     public partial class GetStartedScreen : UserControl
     {
 
-        internal event Action NextClicked;
+        internal event Action? NextClicked;
 
         MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
 
         public GetStartedScreen()
         {
             InitializeComponent();
+            UI_Handling.fixVisualShifts(this);
         }
 
         private void GetStartedScreen_Load(object sender, EventArgs e)
@@ -32,12 +34,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void GetStartedScreen_Resize(object sender, EventArgs e)
         {
-            UI_Handling.centerPanel(panel1, panelButtonGetStarted);
-        }
-
-        private void getStartedButton_Click(object sender, EventArgs e)
-        {
-            NextClicked?.Invoke();
+            UI_Handling.centerPanel(panel1, panelButtonGetStarted, 3);
         }
 
         private void button1_Click(object sender, EventArgs e)
