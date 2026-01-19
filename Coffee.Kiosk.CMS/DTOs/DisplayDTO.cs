@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Coffee.Kiosk.CMS.Models
+namespace Coffee.Kiosk.CMS.DTOs
 {
-    public class Employee
+    public class DisplayDTO
     {
-
-        public int Id { get; set; } 
 
         public string FullName { get; set; } = string.Empty;
 
@@ -21,15 +19,9 @@ namespace Coffee.Kiosk.CMS.Models
 
         public string JobTitle { get; set; } = string.Empty;
 
-        public decimal Salary { get; set; } = decimal.Zero;
+        public string Salary { get; set; } = string.Empty;
 
-        public AccountStatus Status { get; set; } = AccountStatus.ACTIVE;
+        public string Status { get; set; }  = string.Empty;
 
-    }
-
-    public enum AccountStatus
-    {
-        ACTIVE,
-        DEACTIVATED
     }
 }

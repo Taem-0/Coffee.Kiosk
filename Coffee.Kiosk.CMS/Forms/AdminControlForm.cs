@@ -15,8 +15,8 @@ namespace Coffee.Kiosk
         private RegisterControl registerControl;
         private EmployeesControl employeesControl;
         private RegistrationValidation validator;
-        private RegistrationService service;
-        private RegistrationController controller;
+        private AccountsService service;
+        private AccountController controller;
 
         private readonly Stack<UserControl> _navigationStack = new();
 
@@ -31,12 +31,12 @@ namespace Coffee.Kiosk
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
 
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            var dbManager = new DBManager(configuration);
+            var dbManager = new AccountDBManager(configuration);
 
             //Dependency Injection: Initialize injections HERE.
             validator = new RegistrationValidation();
-            service = new RegistrationService(dbManager);
-            controller = new RegistrationController(validator, service);
+            service = new AccountsService(dbManager);
+            controller = new AccountController(validator, service);
 
             registerControl = new RegisterControl(controller);
             registerControl.ParentFormReference = this;

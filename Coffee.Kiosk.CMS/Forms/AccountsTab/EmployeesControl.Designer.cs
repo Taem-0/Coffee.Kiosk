@@ -28,15 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ListViewItem listViewItem1 = new ListViewItem("");
             EmployeeListView = new MaterialSkin.Controls.MaterialListView();
-            FullName = new ColumnHeader();
-            PhoneNumber = new ColumnHeader();
-            EmailAddress = new ColumnHeader();
-            EmergencyNumber = new ColumnHeader();
-            JobTitle = new ColumnHeader();
-            Salary = new ColumnHeader();
-            AccountStatus = new ColumnHeader();
             addEmpButton = new Button();
             SuspendLayout();
             // 
@@ -46,10 +38,8 @@
             EmployeeListView.AutoSizeTable = false;
             EmployeeListView.BackColor = Color.FromArgb(255, 255, 255);
             EmployeeListView.BorderStyle = BorderStyle.None;
-            EmployeeListView.Columns.AddRange(new ColumnHeader[] { FullName, PhoneNumber, EmailAddress, EmergencyNumber, JobTitle, Salary, AccountStatus });
             EmployeeListView.Depth = 0;
             EmployeeListView.FullRowSelect = true;
-            EmployeeListView.Items.AddRange(new ListViewItem[] { listViewItem1 });
             EmployeeListView.Location = new Point(0, 55);
             EmployeeListView.MinimumSize = new Size(200, 100);
             EmployeeListView.MouseLocation = new Point(-1, -1);
@@ -60,38 +50,8 @@
             EmployeeListView.TabIndex = 3;
             EmployeeListView.UseCompatibleStateImageBehavior = false;
             EmployeeListView.View = View.Details;
+            EmployeeListView.SelectedIndexChanged += EmployeeListView_SelectedIndexChanged;
             EmployeeListView.Resize += EmployeeListView_Resize;
-            // 
-            // FullName
-            // 
-            FullName.Text = "Full Name";
-            FullName.Width = 200;
-            // 
-            // PhoneNumber
-            // 
-            PhoneNumber.Text = "Phone Number";
-            PhoneNumber.Width = 200;
-            // 
-            // EmailAddress
-            // 
-            EmailAddress.Text = "Email Address";
-            EmailAddress.Width = 200;
-            // 
-            // EmergencyNumber
-            // 
-            EmergencyNumber.Text = "Emergency Contact";
-            // 
-            // JobTitle
-            // 
-            JobTitle.Text = "Job Title";
-            // 
-            // Salary
-            // 
-            Salary.Text = "Salary";
-            // 
-            // AccountStatus
-            // 
-            AccountStatus.Text = "Account Status";
             // 
             // addEmpButton
             // 
@@ -119,12 +79,5 @@
 
         private MaterialSkin.Controls.MaterialListView EmployeeListView;
         private Button addEmpButton;
-        private ColumnHeader FullName;
-        private ColumnHeader PhoneNumber;
-        private ColumnHeader EmailAddress;
-        private ColumnHeader EmergencyNumber;
-        private ColumnHeader JobTitle;
-        private ColumnHeader Salary;
-        private ColumnHeader AccountStatus;
     }
 }
