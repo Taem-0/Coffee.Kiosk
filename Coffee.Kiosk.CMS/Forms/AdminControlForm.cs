@@ -18,9 +18,7 @@ namespace Coffee.Kiosk
         private RegistrationService service;
         private RegistrationController controller;
 
-
-
-        private void ShowEmployees() => UIhelp.CallControl(employeesControl, AccountsContentPanel);
+        private readonly Stack<UserControl> _navigationStack = new();
 
 
         public AdminControlForm()
@@ -52,14 +50,30 @@ namespace Coffee.Kiosk
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            ShowEmployees();
-
+            ShowInAccountsPanel(employeesControl);
         }
 
         public void ShowInAccountsPanel(UserControl control)
         {
+            if (AccountsContentPanel.Controls.Count > 0)
+            {
+                var current = AccountsContentPanel.Controls[0] as UserControl;
+                if (current != null)
+                    _navigationStack.Push(current);
+            }
+
             UIhelp.CallControl(control, AccountsContentPanel);
         }
+
+        public void GoBack()
+        {
+            if (_navigationStack.Count == 0)
+                return;
+
+            var previous = _navigationStack.Pop();
+            UIhelp.CallControl(previous, AccountsContentPanel);
+        }
+
 
     }
 }
