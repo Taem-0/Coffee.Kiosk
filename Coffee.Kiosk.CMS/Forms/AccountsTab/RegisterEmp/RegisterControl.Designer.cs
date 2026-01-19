@@ -377,6 +377,7 @@
             CancelButton.TabIndex = 15;
             CancelButton.Text = "Cancel";
             CancelButton.UseVisualStyleBackColor = true;
+            CancelButton.Click += CancelButton_Click;
             // 
             // RegisterControl
             // 

@@ -10,12 +10,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Coffee.Kiosk.CMS
 {
     public partial class EmployeesControl : UserControl
     {
-        private RegisterControl registerControl;
         private RegistrationController _controller;
 
         public AdminControlForm? ParentFormReference { get; set; }
@@ -25,17 +25,37 @@ namespace Coffee.Kiosk.CMS
             InitializeComponent();
 
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
-            registerControl = new RegisterControl(_controller);
 
             UIhelp.buttonNaRound(addEmpButton, 20);
         }
+
 
         private void addEmpButton_Click(object sender, EventArgs e)
         {
             if (ParentFormReference == null) return;
 
-            registerControl.ParentFormReference = ParentFormReference;
-            ParentFormReference.ShowInAccountsPanel(registerControl);
+            ParentFormReference.ShowInAccountsPanel(
+                new RegisterControl(_controller)
+                {
+                    ParentFormReference = ParentFormReference
+                }
+            );
+        }
+
+
+        private void EmployeeListView_Resize(object sender, EventArgs e)
+        {
+ 
+            int totalWidth = EmployeeListView.ClientSize.Width;
+
+            EmployeeListView.Columns[0].Width = (int)(totalWidth * 0.15); 
+            EmployeeListView.Columns[1].Width = (int)(totalWidth * 0.15); 
+            EmployeeListView.Columns[2].Width = (int)(totalWidth * 0.15);
+            EmployeeListView.Columns[3].Width = (int)(totalWidth * 0.15); 
+            EmployeeListView.Columns[4].Width = (int)(totalWidth * 0.15); 
+            EmployeeListView.Columns[5].Width = (int)(totalWidth * 0.15); 
+            EmployeeListView.Columns[6].Width = (int)(totalWidth * 0.10);
+
         }
     }
 
