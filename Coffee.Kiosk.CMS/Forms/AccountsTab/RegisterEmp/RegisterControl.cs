@@ -21,9 +21,9 @@ namespace Coffee.Kiosk.CMS
         public AdminControlForm? ParentFormReference { get; set; }
 
         //From here.
-        private readonly RegistrationController _controller;
+        private readonly AccountController _controller;
 
-        public RegisterControl(RegistrationController registrationController)
+        public RegisterControl(AccountController registrationController)
         {
             InitializeComponent();
             _controller = registrationController ?? throw new ArgumentNullException(nameof(registrationController));

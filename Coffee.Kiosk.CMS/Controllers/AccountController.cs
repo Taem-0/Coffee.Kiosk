@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Coffee.Kiosk.CMS.Controllers
 {
-    public class RegistrationController
+    public class AccountController
     {
 
         private readonly RegistrationValidation _validation;
-        private readonly RegistrationService _service;
+        private readonly AccountsService _service;
 
-        public RegistrationController(RegistrationValidation validation, RegistrationService service)
+        public AccountController(RegistrationValidation validation, AccountsService service)
         {
             _validation = validation ?? throw new ArgumentNullException(nameof(validation));    
 
@@ -35,6 +35,13 @@ namespace Coffee.Kiosk.CMS.Controllers
             _service.RegisterUser(request);
 
             return result;
+
+        }
+
+        public List<DisplayDTO> GetDisplayDTOs()
+        {
+
+            return _service.DisplayAccounts();
 
         }
 
