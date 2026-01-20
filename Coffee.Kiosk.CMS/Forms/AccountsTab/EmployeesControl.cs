@@ -1,17 +1,7 @@
-﻿using Coffee.Kiosk.CMS.CoffeeKDB;
-using Coffee.Kiosk.CMS.Controllers;
+﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
 using Coffee.Kiosk.CMS.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace Coffee.Kiosk.CMS
 {
@@ -29,8 +19,6 @@ namespace Coffee.Kiosk.CMS
 
             UIhelp.buttonNaRound(addEmpButton, 20);
 
-            List<DisplayDTO> tableData = _controller.GetDisplayDTOs();
-
             EmployeeListView.Columns.Add("Full Name", 200, HorizontalAlignment.Left);
             EmployeeListView.Columns.Add("Phone", 200, HorizontalAlignment.Left);
             EmployeeListView.Columns.Add("Email", 200, HorizontalAlignment.Left);
@@ -38,6 +26,30 @@ namespace Coffee.Kiosk.CMS
             EmployeeListView.Columns.Add("Job Title", 200, HorizontalAlignment.Left);
             EmployeeListView.Columns.Add("Salary", 200, HorizontalAlignment.Left);
             EmployeeListView.Columns.Add("Status", 200, HorizontalAlignment.Left);
+
+            LoadTable();
+        }
+
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+
+            if (Visible)
+            {
+                LoadTable();
+            }
+        }
+
+
+        private void LoadTable()
+        {
+
+            EmployeeListView.BeginUpdate();
+            EmployeeListView.Items.Clear();
+
+            List<DisplayDTO> tableData = _controller.GetDisplayDTOs();
+
+
 
             foreach (var data in tableData)
             {
@@ -49,12 +61,13 @@ namespace Coffee.Kiosk.CMS
                 item.SubItems.Add(data.Salary);
                 item.SubItems.Add(data.Status);
 
-                EmployeeListView.Items.Add(item);    
+                EmployeeListView.Items.Add(item);
 
             }
 
-        }
+            EmployeeListView.EndUpdate();
 
+        }
 
         private void addEmpButton_Click(object sender, EventArgs e)
         {
@@ -68,6 +81,8 @@ namespace Coffee.Kiosk.CMS
                 }
             );
             //To here is how we call a user control for navigationnnn
+
+
         }
 
 

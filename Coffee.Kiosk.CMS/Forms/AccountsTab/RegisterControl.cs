@@ -17,7 +17,6 @@ namespace Coffee.Kiosk.CMS
     public partial class RegisterControl : UserControl
     {
 
-
         public AdminControlForm? ParentFormReference { get; set; }
 
         //From here.
@@ -68,7 +67,9 @@ namespace Coffee.Kiosk.CMS
 
             if (result.IsValid)
             {
+
                 MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ParentFormReference?.GoBack();
 
             }
 
@@ -81,5 +82,7 @@ namespace Coffee.Kiosk.CMS
             ParentFormReference?.GoBack();
 
         }
+
+
     }
 }

@@ -50,7 +50,6 @@
             EmployeeListView.TabIndex = 3;
             EmployeeListView.UseCompatibleStateImageBehavior = false;
             EmployeeListView.View = View.Details;
-            EmployeeListView.SelectedIndexChanged += EmployeeListView_SelectedIndexChanged;
             EmployeeListView.Resize += EmployeeListView_Resize;
             // 
             // addEmpButton
