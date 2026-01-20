@@ -1,6 +1,7 @@
 using Coffee.Kiosk.CMS;
 using Coffee.Kiosk.CMS.CoffeeKDB;
 using Coffee.Kiosk.CMS.Controllers;
+using Coffee.Kiosk.CMS.Forms.AccountsTab;
 using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
 using Coffee.Kiosk.CMS.Services;
@@ -14,6 +15,7 @@ namespace Coffee.Kiosk
 
         private RegisterControl registerControl;
         private EmployeesControl employeesControl;
+        private UpdateAccount updateControl;
         private RegistrationValidation validator;
         private AccountsService service;
         private AccountController controller;
@@ -44,6 +46,9 @@ namespace Coffee.Kiosk
             employeesControl = new EmployeesControl(controller); 
             employeesControl.ParentFormReference = this;
 
+            updateControl = new UpdateAccount(controller);
+            updateControl.ParentFormReference = this;
+
 
         }
 
@@ -64,6 +69,8 @@ namespace Coffee.Kiosk
 
             UIhelp.CallControl(control, AccountsContentPanel);
         }
+
+
 
         public void GoBack()
         {
