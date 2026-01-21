@@ -23,6 +23,7 @@ namespace Coffee.Kiosk.OrderingSystem
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             UI_ColorScheme.initializeMaterialSkinThemes();
+            UI_Images.loadLogoImage();
         }
 
         private void CoffeeKiosk_Load(object sender, EventArgs e)

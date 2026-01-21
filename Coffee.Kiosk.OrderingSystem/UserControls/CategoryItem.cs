@@ -16,14 +16,25 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         internal int CategoryId { get; private set; }
         internal event Action<int>? CategoryClicked;
 
+        public CategoryItem(int categoryId, string name, string iconPath = "C:/Images/default_icon.png")
+        {
+            InitializeComponent();
+
+            CategoryId = categoryId;
+            label1.Text = name;
+
+            pictureBox1.Image = UI_Images.loadImageFromFile(iconPath);
+
+        }
+
         public CategoryItem(int categoryId, string name, Image icon)
         {
             InitializeComponent();
 
             CategoryId = categoryId;
             label1.Text = name;
-            pictureBox1.Image = icon;
 
+            pictureBox1.Image = icon;
         }
 
         private void CategoryItem_Load(object sender, EventArgs e)
@@ -55,30 +66,30 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         // --------------------------------------------------------------------------
 
         bool isHovered = false;
-
-        private void CategoryItem_MouseEnter(object sender, EventArgs e)
-        {
-
-        }
-
         private void pictureBox1_MouseEnter(object sender, EventArgs e)
         {
             isHovered = true;
             pictureBox1.Invalidate();
-
+            label1.Invalidate();
         }
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
         {
             isHovered = false;
             pictureBox1.Invalidate();
-
+            label1.Invalidate();
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             if (!isHovered) return;
             UI_Handling.darkenOnHover(e, pictureBox1.ClientRectangle, UI_Handling.boxOrCircle.box);
+        }
+
+        private void label1_Paint(object sender, PaintEventArgs e)
+        {
+            if (!isHovered) return;
+            UI_Handling.darkenOnHover(e, label1.ClientRectangle, UI_Handling.boxOrCircle.box);
         }
     }
 }

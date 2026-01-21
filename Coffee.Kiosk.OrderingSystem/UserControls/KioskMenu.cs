@@ -17,6 +17,22 @@ namespace Coffee.Kiosk.OrderingSystem
     public partial class KioskMenu : UserControl
     {
 
+        private record CategoryData(
+            int Id,
+            string Name,
+            string IconPath
+            );
+
+        //dummy data
+        private readonly CategoryData[] categories =
+        {
+            new(1, "Coffee",  "C:/Images/Kiosk/Main Menu/COFFEE.png"),
+            new(2, "Milktea", "C:/Images/Kiosk/Main Menu/MILKTEA.png"),
+            new(3, "Pastry",  "C:/Images/Kiosk/Main Menu/PASTRY.png"),
+            new(4, "Snacks",  "C:/Images/Kiosk/Main Menu/SNACKS.png"),
+            new(5, "Meals",   "C:/Images/Kiosk/Main Menu/MEALS.png"),
+        };
+
         internal event Action? startOverClicked;
 
         private readonly Dictionary<int, UserControl> categoryPage = new();
@@ -34,6 +50,7 @@ namespace Coffee.Kiosk.OrderingSystem
             flowCategories.AutoScroll = true;
 
             LoadCategories();
+            ShowHome();
         }
         private void StartOver_Button_Click(object sender, EventArgs e)
         {
@@ -43,13 +60,20 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void LoadCategories()
         {
+            flowCategories.SuspendLayout();
             flowCategories.Controls.Clear();
 
             var homeItem = new CategoryItem(HOME_CATEGORY_ID, "Home", Properties.Resources.HOME);
-
             homeItem.CategoryClicked += OnCategoryClicked;
-
             flowCategories.Controls.Add(homeItem);
+
+            for (int i = 0; i < categories.Length; i++)
+            {
+                var categoryItem = new CategoryItem(categories[i].Id, categories[i].Name, UI_Images.loadImageFromFile(categories[i].IconPath));
+                categoryItem.CategoryClicked += OnCategoryClicked;
+                flowCategories.Controls.Add(categoryItem);
+            }
+            flowCategories.ResumeLayout();
         }
 
         private void OnCategoryClicked(int categoryId)
@@ -57,9 +81,11 @@ namespace Coffee.Kiosk.OrderingSystem
             if (categoryId == HOME_CATEGORY_ID)
             {
                 ShowHome();
-                return;
             }
-            ShowCategory(categoryId);
+            else
+            {
+                ShowCategory(categoryId);
+            }
         }
 
         private void ShowHome()
@@ -69,7 +95,6 @@ namespace Coffee.Kiosk.OrderingSystem
                 homePage = new HomePage();
                 categoryPage[HOME_CATEGORY_ID] = homePage;
             }
-
             ShowPage(homePage);
         }
 
@@ -121,6 +146,16 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             isHoveredStartOver = false;
             StartOver_Button.Invalidate();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BottomPanel_Paint(object sender, PaintEventArgs e)
+        {
+            UI_Handling.drawBorderSides(e, BottomPanel.ClientRectangle, UI_Handling.borderSide.Top, Color.Black, 2);
         }
     }
 }

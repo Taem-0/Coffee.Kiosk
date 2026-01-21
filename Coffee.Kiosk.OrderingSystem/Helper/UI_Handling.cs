@@ -17,6 +17,17 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             circle
         }
 
+        [Flags]
+        internal enum borderSide
+        {
+            None = 0,
+            Top = 1,
+            Bottom = 2,
+            Left = 3,
+            Right = 4,
+            All = Top | Bottom | Left | Right
+        }
+
         internal static void loadUserControl(Panel mainScreen, UserControl userControl)
         {
                 mainScreen.Controls.Clear();
@@ -26,9 +37,6 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
 
         internal static void fixVisualShifts(UserControl e)
         {
-            // what the six sev*n is this you ask? remove it from DineInTakeOut.cs and GetStartedScreen.cs and try pressing next and back
-            // fixes unexplainable ui bug making buttons, images, etc... a little bit smaller
-            // bug was added by Materialskin
             e.AutoScaleMode = AutoScaleMode.None;
             e.Font = SystemFonts.MessageBoxFont;
         }
@@ -49,6 +57,35 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             {
                 e.Graphics.FillEllipse(brush, stuffToHover);
             }
+        }
+
+        internal static void drawBorder(PaintEventArgs e, Rectangle rect, boxOrCircle shape, Color color, int thickness = 2)
+        {
+            using var pen = new Pen(color, thickness)
+            {
+                Alignment = System.Drawing.Drawing2D.PenAlignment.Inset
+            };
+
+            if (shape == boxOrCircle.box)
+            {
+                e.Graphics.DrawRectangle(pen, rect);
+            }
+            else
+            {
+                e.Graphics.DrawEllipse(pen, rect);
+            }
+        }
+
+        internal static void drawBorderSides(PaintEventArgs e, Rectangle rect, borderSide sides , Color color, int thickness = 2)
+        {
+            using var pen = new Pen(color, thickness)
+            {
+                Alignment = System.Drawing.Drawing2D.PenAlignment.Inset
+            };
+            if (sides.HasFlag(borderSide.Top)) e.Graphics.DrawLine(pen, rect.Left, rect.Top, rect.Right, rect.Top);
+            if (sides.HasFlag(borderSide.Bottom)) e.Graphics.DrawLine(pen, rect.Left, rect.Bottom, rect.Right, rect.Bottom);
+            if (sides.HasFlag(borderSide.Left)) e.Graphics.DrawLine(pen, rect.Left, rect.Top, rect.Left, rect.Bottom);
+            if (sides.HasFlag(borderSide.Right)) e.Graphics.DrawLine(pen, rect.Right, rect.Top, rect.Right, rect.Bottom);
         }
 
         internal static void centerPanel(Panel outerPanel, Panel innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
@@ -115,17 +152,19 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
     {
         // !!IMPORTANT!! CHANGE LATER FOR DATABASE 
         private static string logoPath = "C:/Images/Logo.png";
-        private static string logoPathFallback = "../../../Resources/Tux.png";
+        internal static Image logoImage = Properties.Resources.default_icon;
 
-        internal static string logoImage()
+        internal static void loadLogoImage()
         {
-            //if (File.Exists(logoPath))
-            //{
-            //    return logoPath;
-            //}
-            //return logoPathFallback;
-
-            return File.Exists(logoPath) ? logoPath : logoPathFallback; 
+            if (File.Exists(logoPath))
+                logoImage = Image.FromFile(logoPath);
+            else
+                logoImage = Properties.Resources.default_icon;
         }
+        internal static Image loadImageFromFile(string path) 
+        { 
+            return File.Exists(path) ? Image.FromFile(path) : Properties.Resources.default_icon; 
+        }
+
     }
 }
