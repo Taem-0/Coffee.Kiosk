@@ -1,4 +1,5 @@
 ﻿using Coffee.Kiosk.OrderingSystem.Helper;
+using Coffee.Kiosk.OrderingSystem.UserControls;
 using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
@@ -9,21 +10,116 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.ApplicationModel.Contacts;
 
 namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class KioskMenu : UserControl
     {
 
+        private record CategoryData(
+            int Id,
+            string Name,
+            string IconPath
+            );
+
+        //dummy data
+        private readonly CategoryData[] categories =
+        {
+            new(1, "Coffee",  "C:/Images/Kiosk/Main Menu/COFFEE.png"),
+            new(2, "Milktea", "C:/Images/Kiosk/Main Menu/MILKTEA.png"),
+            new(3, "Pastry",  "C:/Images/Kiosk/Main Menu/PASTRY.png"),
+            new(4, "Snacks",  "C:/Images/Kiosk/Main Menu/SNACKS.png"),
+            new(5, "Meals",   "C:/Images/Kiosk/Main Menu/MEALS.png"),
+        };
+
         internal event Action? startOverClicked;
+
+        private readonly Dictionary<int, UserControl> categoryPage = new();
+        private UserControl? currentPage;
+
+        private const int HOME_CATEGORY_ID = 0;
 
         public KioskMenu()
         {
             InitializeComponent();
+
+            flowCategories.Dock = DockStyle.Left;
+            flowCategories.FlowDirection = FlowDirection.TopDown;
+            flowCategories.WrapContents = false;
+            flowCategories.AutoScroll = true;
+
+            LoadCategories();
+            ShowHome();
         }
         private void StartOver_Button_Click(object sender, EventArgs e)
         {
             startOverClicked?.Invoke();
+        }
+
+
+        private void LoadCategories()
+        {
+            flowCategories.SuspendLayout();
+            flowCategories.Controls.Clear();
+
+            var homeItem = new CategoryItem(HOME_CATEGORY_ID, "Home", Properties.Resources.HOME);
+            homeItem.CategoryClicked += OnCategoryClicked;
+            flowCategories.Controls.Add(homeItem);
+
+            for (int i = 0; i < categories.Length; i++)
+            {
+                var categoryItem = new CategoryItem(categories[i].Id, categories[i].Name, UI_Images.loadImageFromFile(categories[i].IconPath));
+                categoryItem.CategoryClicked += OnCategoryClicked;
+                flowCategories.Controls.Add(categoryItem);
+            }
+            flowCategories.ResumeLayout();
+        }
+
+        private void OnCategoryClicked(int categoryId)
+        {
+            if (categoryId == HOME_CATEGORY_ID)
+            {
+                ShowHome();
+            }
+            else
+            {
+                ShowCategory(categoryId);
+            }
+        }
+
+        private void ShowHome()
+        {
+            if (!categoryPage.TryGetValue(HOME_CATEGORY_ID, out var homePage))
+            {
+                homePage = new HomePage();
+                categoryPage[HOME_CATEGORY_ID] = homePage;
+            }
+            ShowPage(homePage);
+        }
+
+        private void ShowCategory(int categoryId)
+        {
+            if (!categoryPage.TryGetValue(categoryId, out var page))
+            {
+                page = new CategoryPage(categoryId);
+                categoryPage[categoryId] = page;
+            }
+
+            ShowPage(page);
+        }
+
+        private void ShowPage(UserControl page)
+        {
+            if (currentPage == page)
+                return;
+
+            ContentPanel.Controls.Clear();
+
+            page.Dock = DockStyle.Fill;
+            ContentPanel.Controls.Add(page);
+
+            currentPage = page;
         }
 
 
@@ -50,6 +146,16 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             isHoveredStartOver = false;
             StartOver_Button.Invalidate();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BottomPanel_Paint(object sender, PaintEventArgs e)
+        {
+            UI_Handling.drawBorderSides(e, BottomPanel.ClientRectangle, UI_Handling.borderSide.Top, Color.Black, 2);
         }
     }
 }

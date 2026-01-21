@@ -34,7 +34,7 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             UI_Handling.centerPanel(panel1, DineInTakeOutLogo);
             UI_Handling.centerPanel(panel2, panel3);
-            DineInTakeOutLogo.Image = Image.FromFile(UI_Images.logoImage());
+            DineInTakeOutLogo.Image = UI_Images.logoImage;
         }
 
         private void DineInTakeOut_Resize(object sender, EventArgs e)

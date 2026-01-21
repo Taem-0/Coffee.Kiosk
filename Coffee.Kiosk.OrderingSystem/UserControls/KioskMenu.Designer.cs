@@ -28,44 +28,60 @@
         /// </summary>
         private void InitializeComponent()
         {
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            panel1 = new Panel();
+            flowCategories = new FlowLayoutPanel();
+            BottomPanel = new Panel();
+            pictureBox2 = new PictureBox();
             StartOver_Button = new Label();
-            panel2 = new Panel();
+            AdPanel = new Panel();
             label2 = new Label();
             pictureBox1 = new PictureBox();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
+            ContentPanel = new Panel();
+            BottomPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            AdPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // flowCategories
             // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Dock = DockStyle.Left;
-            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(0, 56);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(120, 491);
-            flowLayoutPanel1.TabIndex = 0;
-            flowLayoutPanel1.WrapContents = false;
+            flowCategories.AutoScroll = true;
+            flowCategories.Dock = DockStyle.Left;
+            flowCategories.FlowDirection = FlowDirection.TopDown;
+            flowCategories.Location = new Point(0, 56);
+            flowCategories.Name = "flowCategories";
+            flowCategories.Size = new Size(125, 457);
+            flowCategories.TabIndex = 0;
+            flowCategories.WrapContents = false;
             // 
-            // panel1
+            // BottomPanel
             // 
-            panel1.Controls.Add(StartOver_Button);
-            panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 547);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(673, 78);
-            panel1.TabIndex = 1;
+            BottomPanel.Controls.Add(pictureBox2);
+            BottomPanel.Controls.Add(StartOver_Button);
+            BottomPanel.Dock = DockStyle.Bottom;
+            BottomPanel.Location = new Point(0, 513);
+            BottomPanel.Name = "BottomPanel";
+            BottomPanel.Size = new Size(673, 112);
+            BottomPanel.TabIndex = 1;
+            BottomPanel.Paint += BottomPanel_Paint;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.CART__1__1_;
+            pictureBox2.Location = new Point(36, 4);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(80, 80);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 1;
+            pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
             // 
             // StartOver_Button
             // 
             StartOver_Button.AutoSize = true;
-            StartOver_Button.Font = new Font("Segoe UI", 17F);
-            StartOver_Button.Location = new Point(0, 47);
+            StartOver_Button.Font = new Font("Segoe UI", 14F);
+            StartOver_Button.Location = new Point(0, 87);
             StartOver_Button.Name = "StartOver_Button";
-            StartOver_Button.Size = new Size(141, 31);
+            StartOver_Button.Size = new Size(116, 25);
             StartOver_Button.TabIndex = 0;
             StartOver_Button.Text = "← Start Over";
             StartOver_Button.Click += StartOver_Button_Click;
@@ -73,15 +89,15 @@
             StartOver_Button.MouseEnter += StartOver_Button_MouseEnter;
             StartOver_Button.MouseLeave += StartOver_Button_MouseLeave;
             // 
-            // panel2
+            // AdPanel
             // 
-            panel2.Controls.Add(label2);
-            panel2.Controls.Add(pictureBox1);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(673, 56);
-            panel2.TabIndex = 2;
+            AdPanel.Controls.Add(label2);
+            AdPanel.Controls.Add(pictureBox1);
+            AdPanel.Dock = DockStyle.Top;
+            AdPanel.Location = new Point(0, 0);
+            AdPanel.Name = "AdPanel";
+            AdPanel.Size = new Size(673, 56);
+            AdPanel.TabIndex = 2;
             // 
             // label2
             // 
@@ -95,39 +111,51 @@
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.Tux;
+            pictureBox1.Image = Properties.Resources.Cafe_Brand_Web_Banner_Design;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Margin = new Padding(0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(673, 56);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
+            // 
+            // ContentPanel
+            // 
+            ContentPanel.Dock = DockStyle.Fill;
+            ContentPanel.Location = new Point(125, 56);
+            ContentPanel.Name = "ContentPanel";
+            ContentPanel.Size = new Size(548, 457);
+            ContentPanel.TabIndex = 3;
             // 
             // KioskMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(flowLayoutPanel1);
-            Controls.Add(panel1);
-            Controls.Add(panel2);
+            Controls.Add(ContentPanel);
+            Controls.Add(flowCategories);
+            Controls.Add(BottomPanel);
+            Controls.Add(AdPanel);
             Name = "KioskMenu";
             Size = new Size(673, 625);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            BottomPanel.ResumeLayout(false);
+            BottomPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            AdPanel.ResumeLayout(false);
+            AdPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Panel panel1;
+        private FlowLayoutPanel flowCategories;
+        private Panel BottomPanel;
         private Label StartOver_Button;
-        private Panel panel2;
+        private Panel AdPanel;
         private Label label2;
         private PictureBox pictureBox1;
+        private Panel ContentPanel;
+        private PictureBox pictureBox2;
     }
 }
