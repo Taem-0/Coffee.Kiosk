@@ -16,10 +16,13 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         internal int CategoryId { get; private set; }
         internal event Action<int>? CategoryClicked;
 
-        bool isHovered = false;
-        public CategoryItem()
+        public CategoryItem(int categoryId, string name, Image icon)
         {
             InitializeComponent();
+
+            CategoryId = categoryId;
+            label1.Text = name;
+            pictureBox1.Image = icon;
 
         }
 
@@ -34,7 +37,12 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            CategoryClicked?.Invoke(CategoryId);
 
+        }
+        private void CategoryItem_Click(object sender, EventArgs e)
+        {
+            CategoryClicked?.Invoke(CategoryId);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -45,10 +53,32 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 
 
         // --------------------------------------------------------------------------
+
+        bool isHovered = false;
+
         private void CategoryItem_MouseEnter(object sender, EventArgs e)
         {
 
         }
 
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            isHovered = true;
+            pictureBox1.Invalidate();
+
+        }
+
+        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            isHovered = false;
+            pictureBox1.Invalidate();
+
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            if (!isHovered) return;
+            UI_Handling.darkenOnHover(e, pictureBox1.ClientRectangle, UI_Handling.boxOrCircle.box);
+        }
     }
 }

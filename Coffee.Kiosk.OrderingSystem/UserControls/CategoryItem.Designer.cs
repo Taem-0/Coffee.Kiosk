@@ -30,8 +30,9 @@
         {
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
+            CategoryName = new MaterialSkin.Controls.MaterialLabel();
             panel2 = new Panel();
-            materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -40,46 +41,58 @@
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.TakeOut;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(500, 438);
+            pictureBox1.Size = new Size(110, 82);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
+            pictureBox1.Paint += pictureBox1_Paint;
+            pictureBox1.MouseEnter += pictureBox1_MouseEnter;
+            pictureBox1.MouseLeave += pictureBox1_MouseLeave;
             // 
             // panel1
             // 
             panel1.Controls.Add(pictureBox1);
+            panel1.Controls.Add(CategoryName);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(500, 438);
+            panel1.Size = new Size(110, 82);
             panel1.TabIndex = 2;
+            // 
+            // CategoryName
+            // 
+            CategoryName.AutoSize = true;
+            CategoryName.Depth = 0;
+            CategoryName.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            CategoryName.Location = new Point(3, 0);
+            CategoryName.MouseState = MaterialSkin.MouseState.HOVER;
+            CategoryName.Name = "CategoryName";
+            CategoryName.Size = new Size(110, 19);
+            CategoryName.TabIndex = 0;
+            CategoryName.Text = "Category Name";
+            CategoryName.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
-            panel2.Controls.Add(materialLabel1);
+            panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 438);
+            panel2.Location = new Point(0, 82);
             panel2.Name = "panel2";
-            panel2.Size = new Size(500, 52);
+            panel2.Size = new Size(110, 18);
             panel2.TabIndex = 3;
             // 
-            // materialLabel1
+            // label1
             // 
-            materialLabel1.AutoSize = true;
-            materialLabel1.Depth = 0;
-            materialLabel1.Dock = DockStyle.Fill;
-            materialLabel1.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            materialLabel1.Location = new Point(0, 0);
-            materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel1.Name = "materialLabel1";
-            materialLabel1.Size = new Size(110, 19);
-            materialLabel1.TabIndex = 0;
-            materialLabel1.Text = "Category Name";
-            materialLabel1.TextAlign = ContentAlignment.TopCenter;
+            label1.Dock = DockStyle.Fill;
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(110, 18);
+            label1.TabIndex = 1;
+            label1.Text = "label1";
+            label1.TextAlign = ContentAlignment.TopCenter;
             // 
             // CategoryItem
             // 
@@ -88,14 +101,15 @@
             Controls.Add(panel1);
             Controls.Add(panel2);
             Name = "CategoryItem";
-            Size = new Size(500, 490);
+            Size = new Size(110, 100);
             Load += CategoryItem_Load;
+            Click += CategoryItem_Click;
             MouseEnter += CategoryItem_MouseEnter;
             Resize += CategoryItem_Resize;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             panel2.ResumeLayout(false);
-            panel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -104,6 +118,7 @@
         private PictureBox pictureBox1;
         private Panel panel1;
         private Panel panel2;
-        private MaterialSkin.Controls.MaterialLabel materialLabel1;
+        private MaterialSkin.Controls.MaterialLabel CategoryName;
+        private Label label1;
     }
 }

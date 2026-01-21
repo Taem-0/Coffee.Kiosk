@@ -29,22 +29,20 @@
         private void InitializeComponent()
         {
             flowCategories = new FlowLayoutPanel();
-            categoryItem1 = new Coffee.Kiosk.OrderingSystem.UserControls.CategoryItem();
-            panel1 = new Panel();
+            BottomPanel = new Panel();
             StartOver_Button = new Label();
-            panel2 = new Panel();
+            AdPanel = new Panel();
             label2 = new Label();
             pictureBox1 = new PictureBox();
-            flowCategories.SuspendLayout();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
+            ContentPanel = new Panel();
+            BottomPanel.SuspendLayout();
+            AdPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // flowCategories
             // 
             flowCategories.AutoScroll = true;
-            flowCategories.Controls.Add(categoryItem1);
             flowCategories.Dock = DockStyle.Left;
             flowCategories.FlowDirection = FlowDirection.TopDown;
             flowCategories.Location = new Point(0, 56);
@@ -53,21 +51,14 @@
             flowCategories.TabIndex = 0;
             flowCategories.WrapContents = false;
             // 
-            // categoryItem1
+            // BottomPanel
             // 
-            categoryItem1.Location = new Point(3, 3);
-            categoryItem1.Name = "categoryItem1";
-            categoryItem1.Size = new Size(110, 131);
-            categoryItem1.TabIndex = 3;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(StartOver_Button);
-            panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 547);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(673, 78);
-            panel1.TabIndex = 1;
+            BottomPanel.Controls.Add(StartOver_Button);
+            BottomPanel.Dock = DockStyle.Bottom;
+            BottomPanel.Location = new Point(0, 547);
+            BottomPanel.Name = "BottomPanel";
+            BottomPanel.Size = new Size(673, 78);
+            BottomPanel.TabIndex = 1;
             // 
             // StartOver_Button
             // 
@@ -83,15 +74,15 @@
             StartOver_Button.MouseEnter += StartOver_Button_MouseEnter;
             StartOver_Button.MouseLeave += StartOver_Button_MouseLeave;
             // 
-            // panel2
+            // AdPanel
             // 
-            panel2.Controls.Add(label2);
-            panel2.Controls.Add(pictureBox1);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(673, 56);
-            panel2.TabIndex = 2;
+            AdPanel.Controls.Add(label2);
+            AdPanel.Controls.Add(pictureBox1);
+            AdPanel.Dock = DockStyle.Top;
+            AdPanel.Location = new Point(0, 0);
+            AdPanel.Name = "AdPanel";
+            AdPanel.Size = new Size(673, 56);
+            AdPanel.TabIndex = 2;
             // 
             // label2
             // 
@@ -105,29 +96,37 @@
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.Tux;
+            pictureBox1.Image = Properties.Resources.Cafe_Brand_Web_Banner_Design;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Margin = new Padding(0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(673, 56);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
+            // 
+            // ContentPanel
+            // 
+            ContentPanel.Dock = DockStyle.Fill;
+            ContentPanel.Location = new Point(120, 56);
+            ContentPanel.Name = "ContentPanel";
+            ContentPanel.Size = new Size(553, 491);
+            ContentPanel.TabIndex = 3;
             // 
             // KioskMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(ContentPanel);
             Controls.Add(flowCategories);
-            Controls.Add(panel1);
-            Controls.Add(panel2);
+            Controls.Add(BottomPanel);
+            Controls.Add(AdPanel);
             Name = "KioskMenu";
             Size = new Size(673, 625);
-            flowCategories.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            BottomPanel.ResumeLayout(false);
+            BottomPanel.PerformLayout();
+            AdPanel.ResumeLayout(false);
+            AdPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
@@ -135,11 +134,11 @@
         #endregion
 
         private FlowLayoutPanel flowCategories;
-        private Panel panel1;
+        private Panel BottomPanel;
         private Label StartOver_Button;
-        private Panel panel2;
+        private Panel AdPanel;
         private Label label2;
         private PictureBox pictureBox1;
-        private UserControls.CategoryItem categoryItem1;
+        private Panel ContentPanel;
     }
 }
