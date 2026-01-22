@@ -35,7 +35,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
                     product.Id,
                     product.CategoryId,
                     product.Name,
-                    UI_Images.loadImageFromFile(product.ImagePath),
+                    product.ImagePath,
                     product.Price
                     );
                 productItem.productClicked += OnProductClicked;

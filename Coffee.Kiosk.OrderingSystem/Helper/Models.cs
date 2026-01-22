@@ -34,6 +34,11 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             categoryData.Add(new(4, "Snacks", "C:/Images/Kiosk/Main Menu/SNACKS.png"));
             categoryData.Add(new(5, "Meals", "C:/Images/Kiosk/Main Menu/MEALS.png"));
         }
+        internal static void LoadFromDataBase()
+        {
+            categoryData.Clear();
+            categoryData = Sql.Queries.GetAllCategories();
+        }
     }
 
     internal class Product

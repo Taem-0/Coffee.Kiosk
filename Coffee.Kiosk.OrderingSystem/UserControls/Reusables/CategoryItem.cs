@@ -23,7 +23,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             CategoryId = categoryId;
             label1.Text = name;
 
-            pictureBox1.Image = UI_Images.loadImageFromFile(iconPath);
+            Task.Run(() =>
+            {
+                var img = UI_Images.loadImageFromFile(iconPath);
+                pictureBox1.Invoke( () =>  { pictureBox1.Image = img; });
+            });
 
         }
 

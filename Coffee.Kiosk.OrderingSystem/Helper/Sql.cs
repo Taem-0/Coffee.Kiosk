@@ -11,7 +11,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
     internal static class DBInitializer
     {
         private static string? _connectionString;
-        private static string? _connectionStringDatabase;
+        internal static string? connectionStringDatabase;
 
         private static string[] tableCommands =
         {
@@ -47,7 +47,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
             _connectionString = configuration.GetConnectionString("Default")
                 ?? throw new InvalidOperationException("Connection string 'Default' is missing in appsettings.json.");
 
-            _connectionStringDatabase = configuration.GetConnectionString("Database")
+            connectionStringDatabase = configuration.GetConnectionString("Database")
                 ?? throw new InvalidOperationException("Connection string 'Database' is missing in appsettings.json.");
 
             CreateDatabase();
@@ -64,7 +64,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 createDbCmd.CommandText = "CREATE DATABASE IF NOT EXISTS CoffeeKioskDB;";
                 createDbCmd.ExecuteNonQuery();
 
-                using var dbConnection = new MySqlConnection(_connectionStringDatabase);
+                using var dbConnection = new MySqlConnection(connectionStringDatabase);
                 dbConnection.Open();
 
                 for (int i = 0; i < tableCommands.Length; i++)
@@ -85,13 +85,13 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
     internal class Queries 
     {
-        internal static List<Models.Category.CategoryData> GetAllCategories(string connectionString)
+        internal static List<Models.Category.CategoryData> GetAllCategories()
         {
             var result = new List<Models.Category.CategoryData>();
 
             try
             {
-                using var conn = new MySqlConnection(connectionString);
+                using var conn = new MySqlConnection(Sql.DBInitializer.connectionStringDatabase);
                 conn.Open();
 
                 using var cmd = conn.CreateCommand();
