@@ -9,6 +9,8 @@ namespace Coffee.Kiosk.CMS.DTOs
     public class DisplayDTO
     {
 
+        public string PrimaryID { get; set; } = string.Empty;
+
         public string FullName { get; set; } = string.Empty;
 
         public string PhoneNumber { get; set; } = string.Empty;

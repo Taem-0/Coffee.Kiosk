@@ -1,5 +1,6 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
+using Coffee.Kiosk.CMS.Forms.AccountsTab;
 using Coffee.Kiosk.CMS.Helpers;
 
 
@@ -50,7 +51,6 @@ namespace Coffee.Kiosk.CMS
             List<DisplayDTO> tableData = _controller.GetDisplayDTOs();
 
 
-
             foreach (var data in tableData)
             {
                 ListViewItem item = new ListViewItem(data.FullName);
@@ -60,6 +60,8 @@ namespace Coffee.Kiosk.CMS
                 item.SubItems.Add(data.JobTitle);
                 item.SubItems.Add(data.Salary);
                 item.SubItems.Add(data.Status);
+
+                item.Tag = data;
 
                 EmployeeListView.Items.Add(item);
 
@@ -71,15 +73,11 @@ namespace Coffee.Kiosk.CMS
 
         private void addEmpButton_Click(object sender, EventArgs e)
         {
+
             //From here
             if (ParentFormReference == null) return;
 
-            ParentFormReference.ShowInAccountsPanel(
-                new RegisterControl(_controller)
-                {
-                    ParentFormReference = ParentFormReference
-                }
-            );
+            ParentFormReference?.ShowRegister();
             //To here is how we call a user control for navigationnnn
 
 
@@ -99,6 +97,18 @@ namespace Coffee.Kiosk.CMS
             EmployeeListView.Columns[5].Width = (int)(totalWidth * 0.15);
             EmployeeListView.Columns[6].Width = (int)(totalWidth * 0.10);
 
+        }
+
+        private void EmployeeListView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (EmployeeListView.SelectedItems.Count != 1)
+                return;
+
+            var selectedAccount = EmployeeListView.SelectedItems[0].Tag as DisplayDTO;
+            if (selectedAccount == null)
+                return;
+
+            ParentFormReference?.ShowUpdate(selectedAccount);
         }
 
 

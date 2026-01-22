@@ -1,6 +1,7 @@
 using Coffee.Kiosk.CMS;
 using Coffee.Kiosk.CMS.CoffeeKDB;
 using Coffee.Kiosk.CMS.Controllers;
+using Coffee.Kiosk.CMS.DTOs;
 using Coffee.Kiosk.CMS.Forms.AccountsTab;
 using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
@@ -70,6 +71,16 @@ namespace Coffee.Kiosk
             UIhelp.CallControl(control, AccountsContentPanel);
         }
 
+        public void ShowRegister()
+        {
+            ShowInAccountsPanel(registerControl);
+        }
+
+        public void ShowUpdate(DisplayDTO dto)
+        {
+            updateControl.DisplayAccount(dto);
+            ShowInAccountsPanel(updateControl);
+        }
 
 
         public void GoBack()

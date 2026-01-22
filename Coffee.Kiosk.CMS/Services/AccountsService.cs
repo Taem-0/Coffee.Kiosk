@@ -47,7 +47,7 @@ namespace Coffee.Kiosk.CMS.Services
             {
                 DisplayDTO display = new()
                 {
-
+                    PrimaryID = account.Id.ToString(),
                     FullName = account.FullName,
                     PhoneNumber = account.PhoneNumber,
                     Email = account.Email,  
@@ -64,7 +64,6 @@ namespace Coffee.Kiosk.CMS.Services
             return tableDisplay;
 
         } 
-
 
 
     }

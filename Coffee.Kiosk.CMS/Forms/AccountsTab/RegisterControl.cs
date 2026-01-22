@@ -1,16 +1,6 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
-using Mysqlx.Session;
-using MySqlX.XDevAPI.Common;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 
 namespace Coffee.Kiosk.CMS
 {
