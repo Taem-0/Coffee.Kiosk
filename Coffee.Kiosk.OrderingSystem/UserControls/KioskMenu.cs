@@ -16,23 +16,6 @@ namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class KioskMenu : UserControl
     {
-
-        private record CategoryData(
-            int Id,
-            string Name,
-            string IconPath
-            );
-
-        //dummy data
-        private readonly CategoryData[] categories =
-        {
-            new(1, "Coffee",  "C:/Images/Kiosk/Main Menu/COFFEE.png"),
-            new(2, "Milktea", "C:/Images/Kiosk/Main Menu/MILKTEA.png"),
-            new(3, "Pastry",  "C:/Images/Kiosk/Main Menu/PASTRY.png"),
-            new(4, "Snacks",  "C:/Images/Kiosk/Main Menu/SNACKS.png"),
-            new(5, "Meals",   "C:/Images/Kiosk/Main Menu/MEALS.png"),
-        };
-
         internal event Action? startOverClicked;
 
         private readonly Dictionary<int, UserControl> categoryPage = new();
@@ -56,8 +39,6 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             startOverClicked?.Invoke();
         }
-
-
         private void LoadCategories()
         {
             flowCategories.SuspendLayout();
@@ -67,9 +48,13 @@ namespace Coffee.Kiosk.OrderingSystem
             homeItem.CategoryClicked += OnCategoryClicked;
             flowCategories.Controls.Add(homeItem);
 
-            for (int i = 0; i < categories.Length; i++)
+            for (int i = 0; i < Models.Category.categoryData.Count; i++)
             {
-                var categoryItem = new CategoryItem(categories[i].Id, categories[i].Name, UI_Images.loadImageFromFile(categories[i].IconPath));
+                var categoryItem = new CategoryItem(
+                    Models.Category.categoryData[i].Id,
+                    Models.Category.categoryData[i].Name,
+                    UI_Images.loadImageFromFile(Models.Category.categoryData[i].IconPath)
+                    );
                 categoryItem.CategoryClicked += OnCategoryClicked;
                 flowCategories.Controls.Add(categoryItem);
             }

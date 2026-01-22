@@ -28,29 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            flowProducts = new FlowLayoutPanel();
             SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // flowProducts
             // 
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(0, 0);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(476, 479);
-            flowLayoutPanel1.TabIndex = 0;
+            flowProducts.AutoScroll = true;
+            flowProducts.Dock = DockStyle.Fill;
+            flowProducts.Location = new Point(0, 0);
+            flowProducts.Name = "flowProducts";
+            flowProducts.Padding = new Padding(0, 25, 0, 0);
+            flowProducts.Size = new Size(495, 573);
+            flowProducts.TabIndex = 0;
             // 
             // CategoryPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(flowProducts);
             Name = "CategoryPage";
-            Size = new Size(476, 479);
+            Size = new Size(495, 573);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowProducts;
     }
 }
