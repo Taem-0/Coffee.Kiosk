@@ -18,7 +18,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 
         internal int ProductId { get; set; }
         internal int CategoryId { get; set; }
-        public ProductItem(int productId, int categoryId, string name, Image image, decimal price)
+        public ProductItem(int productId, int categoryId, string name, string imagePath, decimal price)
         {
             InitializeComponent();
 
@@ -27,7 +27,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 
             productName.Text = name;
             productPrice.Text = $"PHP {price:0,00}";
-            pictureBox1.Image = image;
+            Task.Run(() =>
+            {
+                var img = UI_Images.loadImageFromFile(imagePath);
+                pictureBox1.Invoke( () => pictureBox1.Image = img );
+            });
         }
         private void pictureBox1_Click(object sender, EventArgs e)
         {

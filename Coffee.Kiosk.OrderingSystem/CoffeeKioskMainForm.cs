@@ -37,6 +37,7 @@ namespace Coffee.Kiosk.OrderingSystem
                 .Build();
             DBInitializer.Init(config);
 
+            //Models.Category.LoadFromDataBase();
 
             // remove after connecting to database
             Models.Category.LoadDummyData();
@@ -48,9 +49,40 @@ namespace Coffee.Kiosk.OrderingSystem
             ShowGetStartedScreen();
         }
 
+        private void loadEverything()
+        {
+            if (getStartedScreen == null)
+            {
+                getStartedScreen = new GetStartedScreen();
+                getStartedScreen.NextClicked += ShowDineInTakeOutScreen;
+            }
+            if (dineInTakeOut == null)
+            {
+                dineInTakeOut = new DineInTakeOut();
+
+                dineInTakeOut.backButtonClicked += () =>
+                {
+                    UI_Handling.loadUserControl(mainPanel, getStartedScreen!);
+                };
+
+                dineInTakeOut.hasPickedAChoice += () =>
+                {
+                    currentOrder = new Models.Orders();
+                    currentOrder.Type = dineInTakeOut.lastChoice;
+                    ShowKioskMenuScreen();
+                };
+            }
+            if (kioskMenu == null)
+            {
+                kioskMenu = new KioskMenu();
+                kioskMenu.startOverClicked += FinishOrder;
+            }
+        }
+
 
         private void ShowGetStartedScreen()
         {
+            loadEverything();
             if (getStartedScreen == null)
             {
                 getStartedScreen = new GetStartedScreen();
@@ -94,13 +126,13 @@ namespace Coffee.Kiosk.OrderingSystem
 
         internal void FinishOrder()
         {
-            getStartedScreen?.Dispose();
-            dineInTakeOut?.Dispose();
-            kioskMenu?.Dispose();
+            //getStartedScreen?.Dispose();
+            //dineInTakeOut?.Dispose();
+            //kioskMenu?.Dispose();
 
-            getStartedScreen = null;
-            dineInTakeOut = null;
-            kioskMenu = null;
+            //getStartedScreen = null;
+            //dineInTakeOut = null;
+            //kioskMenu = null;
 
             currentOrder = null;
             

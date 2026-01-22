@@ -22,6 +22,7 @@ namespace Coffee.Kiosk.OrderingSystem
         private UserControl? currentPage;
 
         private const int HOME_CATEGORY_ID = 0;
+        private HomePage? homePage;
 
         public KioskMenu()
         {
@@ -75,7 +76,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowHome()
         {
-            if (!categoryPage.TryGetValue(HOME_CATEGORY_ID, out var homePage))
+            if (homePage == null)
             {
                 homePage = new HomePage();
                 categoryPage[HOME_CATEGORY_ID] = homePage;
@@ -85,7 +86,8 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowCategory(int categoryId)
         {
-            if (!categoryPage.TryGetValue(categoryId, out var page))
+            UserControl? page;
+            if (!categoryPage.TryGetValue(categoryId, out page))
             {
                 page = new CategoryPage(categoryId);
                 categoryPage[categoryId] = page;
@@ -99,11 +101,7 @@ namespace Coffee.Kiosk.OrderingSystem
             if (currentPage == page)
                 return;
 
-            ContentPanel.Controls.Clear();
-
-            page.Dock = DockStyle.Fill;
-            ContentPanel.Controls.Add(page);
-
+            UI_Handling.loadUserControl(ContentPanel, page);
             currentPage = page;
         }
 
