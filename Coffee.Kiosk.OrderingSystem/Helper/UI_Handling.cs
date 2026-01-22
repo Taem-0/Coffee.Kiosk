@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Coffee.Kiosk.OrderingSystem.Helper
 {
@@ -163,7 +164,8 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
         }
         internal static Image loadImageFromFile(string path) 
         { 
-            return File.Exists(path) ? Image.FromFile(path) : Properties.Resources.default_icon; 
+            return string.IsNullOrEmpty(path) ?  Properties.Resources.default_icon 
+            : File.Exists(path) ? Image.FromFile(path) : Properties.Resources.default_icon; 
         }
 
     }

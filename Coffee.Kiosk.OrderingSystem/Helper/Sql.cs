@@ -85,6 +85,35 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
     internal class Queries 
     {
+        internal static List<Models.Category.CategoryData> GetAllCategories(string connectionString)
+        {
+            var result = new List<Models.Category.CategoryData>();
+
+            try
+            {
+                using var conn = new MySqlConnection(connectionString);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM category;";
+
+                using var row = cmd.ExecuteReader();
+                while (row.Read())
+                {
+                    result.Add(new Models.Category.CategoryData(
+                        row.GetInt32(0),
+                        row.GetString(1),
+                        row.IsDBNull(2) ? string.Empty : row.GetString(2)
+                        ));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\033[1;31m{ex}\033[0m");
+                MessageBox.Show("Failed to retrieve categories.");
+            }
+            return result;
+        }
     }
 }
 
