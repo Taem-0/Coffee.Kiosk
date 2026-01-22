@@ -1,11 +1,7 @@
 ﻿using Coffee.Kiosk.CMS.CoffeeKDB;
 using Coffee.Kiosk.CMS.DTOs;
 using Coffee.Kiosk.CMS.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace Coffee.Kiosk.CMS.Services
 {
@@ -63,8 +59,41 @@ namespace Coffee.Kiosk.CMS.Services
 
             return tableDisplay;
 
-        } 
+        }
+
+        public void UpdateUser(DisplayDTO request)
+        {
 
 
+
+            var employee = new Employee
+            {
+                Id = int.Parse(request.PrimaryID),
+                FullName = request.FullName,
+                PhoneNumber = request.PhoneNumber,
+                Email = request.Email,
+                EmergencyNumber = request.EmergencyNumber,
+                JobTitle = request.JobTitle,
+                Salary = decimal.Parse(request.Salary),
+                Status = AccountStatus.ACTIVE
+            };
+
+            _dBManager.UpdateEmployee(employee);
+
+
+        }
+
+        public void Deactivate(DisplayDTO request)
+        {
+
+            var employee = new Employee
+            {
+                Id = int.Parse(request.PrimaryID),
+                Status = AccountStatus.DEACTIVATED
+            };
+
+            _dBManager.DeactivateEmployee(employee);
+
+        }
     }
 }

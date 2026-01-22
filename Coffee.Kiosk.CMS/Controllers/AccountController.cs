@@ -14,11 +14,14 @@ namespace Coffee.Kiosk.CMS.Controllers
     {
 
         private readonly RegistrationValidation _validation;
+        private readonly UpdateValidation _updateValidation;
         private readonly AccountsService _service;
 
-        public AccountController(RegistrationValidation validation, AccountsService service)
+        public AccountController(RegistrationValidation validation, UpdateValidation updateValidation, AccountsService service)
         {
             _validation = validation ?? throw new ArgumentNullException(nameof(validation));    
+
+            _updateValidation = updateValidation ?? throw new ArgumentNullException(nameof(updateValidation));
 
             _service = service ??throw new ArgumentNullException(nameof(service));
         }
@@ -38,6 +41,24 @@ namespace Coffee.Kiosk.CMS.Controllers
 
         }
 
+        public ValidationResults Update(DisplayDTO request)
+        {
+
+            ValidationResults result = _updateValidation.Validate(request);
+
+            if (!result.IsValid)
+                return result;
+
+
+            _service.UpdateUser(request);
+
+            return result;
+
+        }
+
+
+
+
         public List<DisplayDTO> GetDisplayDTOs()
         {
 
@@ -45,12 +66,13 @@ namespace Coffee.Kiosk.CMS.Controllers
 
         }
 
-        public void RetrieveDisplayDTO(DisplayDTO selectedRow)
+        
+
+        public void DeactivateAccount(DisplayDTO currentAccount)
         {
 
-            
-            
-        }
+            _service.Deactivate(currentAccount);
 
+        }
     }
 }

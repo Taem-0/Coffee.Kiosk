@@ -12,10 +12,10 @@ namespace Coffee.Kiosk.CMS
         //From here.
         private readonly AccountController _controller;
 
-        public RegisterControl(AccountController registrationController)
+        public RegisterControl(AccountController accountController)
         {
             InitializeComponent();
-            _controller = registrationController ?? throw new ArgumentNullException(nameof(registrationController));
+            _controller = accountController ?? throw new ArgumentNullException(nameof(accountController));
         }
         //To here, This is the basic structure of initializing your Dependency injections on each class.
         //Dependency Injections are just another way of calling a class in another class but like... they're blind you know likeee

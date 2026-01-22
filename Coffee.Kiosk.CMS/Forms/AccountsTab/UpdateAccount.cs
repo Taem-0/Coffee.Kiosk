@@ -1,5 +1,6 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
+using Coffee.Kiosk.CMS.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +16,12 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
     public partial class UpdateAccount : UserControl
     {
 
-        public AdminControlForm ParentFormReference {  get; set; }
+
+        public AdminControlForm? ParentFormReference { get; set; }
 
         private readonly AccountController _controller;
+
+        private DisplayDTO _currentAccount;
 
 
         public UpdateAccount(AccountController accountController)
@@ -30,6 +34,8 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         public void DisplayAccount(DisplayDTO account)
         {
 
+            _currentAccount = account;
+
             fullNameTextBox.Text = account.FullName;
             phoneNumTextBox.Text = account.PhoneNumber;
             emailAddressTextBox.Text = account.Email;
@@ -39,7 +45,66 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         }
 
+        private void InputCollection()
+        {
+            _currentAccount.FullName = fullNameTextBox.Text;
+            _currentAccount.PhoneNumber = phoneNumTextBox.Text;
+            _currentAccount.Email = emailAddressTextBox.Text;
+            _currentAccount.EmergencyNumber = emergencyContactTextBox.Text;
+            _currentAccount.JobTitle = jobTitleTextBox.Text;
+            _currentAccount.Salary = salaryTextBox.Text;
+
+            var result = _controller.Update(_currentAccount);
 
 
+            if (!result.IsValid)
+            {
+                MessageBox.Show(string.Join(Environment.NewLine, result.Errors.Values), "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (result.IsValid)
+            {
+
+                MessageBox.Show("Update successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ParentFormReference?.GoBack();
+
+            }
+        }
+
+        private void Deactivate()
+        {
+
+            var confirmation = MessageBox.Show($"Are you sure you want to deactivate {_currentAccount.FullName}?","Confirm Deactivation",
+                                                MessageBoxButtons.YesNo,
+                                                MessageBoxIcon.Warning
+    );
+
+            if (confirmation != DialogResult.Yes)
+            {
+                return;
+            }
+
+            _controller.DeactivateAccount(_currentAccount);
+
+            MessageBox.Show("Account has been deactivated successfully.!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ParentFormReference?.GoBack();
+
+        }
+
+        private void UpdateButton_Click(object sender, EventArgs e)
+        {
+            InputCollection();
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            ParentFormReference?.GoBack();
+        }
+
+        private void DeactivateButton_Click(object sender, EventArgs e)
+        {
+            Deactivate();
+        }
     }
 }
