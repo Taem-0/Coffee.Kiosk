@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coffee.Kiosk.OrderingSystem.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,43 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 {
     public partial class CategoryPage : UserControl
     {
+        internal int CategoryId { get; set; }
+
         public CategoryPage(int categoryId)
         {
             InitializeComponent();
+            CategoryId = categoryId;
+
+            LoadProduct();
         }
+
+        internal void LoadProduct()
+        {
+            flowProducts.Controls.Clear();
+
+            var products = Models.Product.productData.Where(p => p.CategoryId == CategoryId);
+
+            foreach (var product in products)
+            {
+                var productItem = new ProductItem(
+                    product.Id,
+                    product.CategoryId,
+                    product.Name,
+                    UI_Images.loadImageFromFile(product.ImagePath),
+                    product.Price
+                    );
+                productItem.productClicked += OnProductClicked;
+
+                flowProducts.Controls.Add(productItem);
+            }
+        }
+
+        internal void OnProductClicked(int productId)
+        {
+            MessageBox.Show($"""
+                Product ID = {productId}
+                TODO later :)))
+                """);
+        } 
     }
 }

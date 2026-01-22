@@ -1,7 +1,10 @@
 using Coffee.Kiosk.OrderingSystem.Helper;
+using Coffee.Kiosk.OrderingSystem.Sql;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using Microsoft.Extensions.Configuration;
 using System;
+using System.Configuration;
 using System.Drawing;
 
 
@@ -10,6 +13,9 @@ namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class CoffeeKioskMainForm : MaterialForm
     {
+
+        public event EventHandler? bruh;
+        
         private GetStartedScreen? getStartedScreen;
         private DineInTakeOut? dineInTakeOut;
         private KioskMenu? kioskMenu;
@@ -24,6 +30,17 @@ namespace Coffee.Kiosk.OrderingSystem
             materialSkinManager.AddFormToManage(this);
             UI_ColorScheme.initializeMaterialSkinThemes();
             UI_Images.loadLogoImage();
+
+            var config = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+            DBInitializer.Init(config);
+
+
+            // remove after connecting to database
+            Models.Category.LoadDummyData();
+            Models.Product.LoadDummyData();
         }
 
         private void CoffeeKiosk_Load(object sender, EventArgs e)
