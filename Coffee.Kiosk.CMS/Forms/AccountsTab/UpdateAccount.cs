@@ -1,4 +1,5 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
+using Coffee.Kiosk.CMS.DTOs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,17 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         }
 
+        public void DisplayAccount(DisplayDTO account)
+        {
+
+            fullNameTextBox.Text = account.FullName;
+            phoneNumTextBox.Text = account.PhoneNumber;
+            emailAddressTextBox.Text = account.Email;
+            emergencyContactTextBox.Text = account.EmergencyNumber;
+            jobTitleTextBox.Text = account.JobTitle;
+            salaryTextBox.Text = account.Salary;
+
+        }
 
 
 

@@ -51,6 +51,7 @@
             EmployeeListView.UseCompatibleStateImageBehavior = false;
             EmployeeListView.View = View.Details;
             EmployeeListView.Resize += EmployeeListView_Resize;
+            EmployeeListView.MouseDoubleClick += EmployeeListView_MouseDoubleClick;
             // 
             // addEmpButton
             // 

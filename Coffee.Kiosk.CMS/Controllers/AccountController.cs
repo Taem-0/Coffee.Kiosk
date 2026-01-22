@@ -45,5 +45,12 @@ namespace Coffee.Kiosk.CMS.Controllers
 
         }
 
+        public void RetrieveDisplayDTO(DisplayDTO selectedRow)
+        {
+
+            
+            
+        }
+
     }
 }
