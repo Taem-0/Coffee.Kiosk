@@ -60,6 +60,65 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
 
         }
 
+        public void UpdateEmployee(Employee employee)
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+            try
+            {
+                command.CommandText = @"UPDATE accounts
+                                              SET Full_Name = @fullName,
+                                                  Phone_Number = @phoneNumber,
+                                                  Email_Address = @emailAddress,
+                                                  Emergency_Contact = @emergencyContact,
+                                                  Job_Title = @jobTitle,
+                                                  Salary = @salary
+                                              WHERE 
+                                                  ID = @id";
+           
+                command.Parameters.AddWithValue("@fullName", employee.FullName);
+                command.Parameters.AddWithValue("@phoneNumber", employee.PhoneNumber);
+                command.Parameters.AddWithValue("@emailAddress", employee.Email);
+                command.Parameters.AddWithValue("@emergencyContact", employee.EmergencyNumber);
+                command.Parameters.AddWithValue("@jobTitle", employee.JobTitle);
+                command.Parameters.AddWithValue("@salary", employee.Salary);
+                command.Parameters.AddWithValue("@id", employee.Id);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR: {ex.Message}");
+
+            }
+        }
+
+        public void DeactivateEmployee(Employee employee)
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+            try
+            {
+
+                command.CommandText = @"UPDATE accounts
+                                              SET Status = @status
+                                              WHERE 
+                                                  ID = @id";
+
+                command.Parameters.AddWithValue("@status", employee.Status.ToString());
+                command.Parameters.AddWithValue("@id", employee.Id);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR: {ex.Message}");
+            }
+        }
+
         public List<Employee> GetEmployees()
         {
 
@@ -69,7 +128,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             using var command = connection.CreateCommand();
             try
             {
-                command.CommandText = @"SELECT * FROM accounts";
+                command.CommandText = @"SELECT * FROM accounts WHERE Status = 'ACTIVE'";
 
                 using var reader = command.ExecuteReader();
 

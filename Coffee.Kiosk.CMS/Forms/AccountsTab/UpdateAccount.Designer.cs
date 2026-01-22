@@ -46,7 +46,7 @@
             materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             UpdateEmpTitle = new MaterialSkin.Controls.MaterialLabel();
             RegistrationTitleDivider = new MaterialSkin.Controls.MaterialDivider();
-            button1 = new Button();
+            CancelButton = new Button();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -59,6 +59,7 @@
             DeactivateButton.TabIndex = 25;
             DeactivateButton.Text = "Deactivate";
             DeactivateButton.UseVisualStyleBackColor = true;
+            DeactivateButton.Click += DeactivateButton_Click;
             // 
             // materialLabel5
             // 
@@ -150,6 +151,7 @@
             UpdateButton.TabIndex = 24;
             UpdateButton.Text = "Update";
             UpdateButton.UseVisualStyleBackColor = true;
+            UpdateButton.Click += UpdateButton_Click;
             // 
             // tableLayoutPanel2
             // 
@@ -378,21 +380,21 @@
             RegistrationTitleDivider.TabIndex = 16;
             RegistrationTitleDivider.Text = "materialDivider1";
             // 
-            // button1
+            // CancelButton
             // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.Location = new Point(765, 482);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 26;
-            button1.Text = "Cancel";
-            button1.UseVisualStyleBackColor = true;
+            CancelButton.Location = new Point(765, 482);
+            CancelButton.Name = "CancelButton";
+            CancelButton.Size = new Size(112, 34);
+            CancelButton.TabIndex = 26;
+            CancelButton.Text = "Cancel";
+            CancelButton.UseVisualStyleBackColor = true;
+            CancelButton.Click += CancelButton_Click;
             // 
             // UpdateAccount
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(button1);
+            Controls.Add(CancelButton);
             Controls.Add(DeactivateButton);
             Controls.Add(UpdateButton);
             Controls.Add(tableLayoutPanel2);
@@ -433,6 +435,6 @@
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private MaterialSkin.Controls.MaterialLabel UpdateEmpTitle;
         private MaterialSkin.Controls.MaterialDivider RegistrationTitleDivider;
-        private Button button1;
+        private Button CancelButton;
     }
 }

@@ -18,6 +18,7 @@ namespace Coffee.Kiosk
         private EmployeesControl employeesControl;
         private UpdateAccount updateControl;
         private RegistrationValidation validator;
+        private UpdateValidation updateValidation;
         private AccountsService service;
         private AccountController controller;
 
@@ -38,8 +39,9 @@ namespace Coffee.Kiosk
 
             //Dependency Injection: Initialize injections HERE.
             validator = new RegistrationValidation();
+            updateValidation = new UpdateValidation();
             service = new AccountsService(dbManager);
-            controller = new AccountController(validator, service);
+            controller = new AccountController(validator, updateValidation, service);
 
             registerControl = new RegisterControl(controller);
             registerControl.ParentFormReference = this;
