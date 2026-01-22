@@ -54,21 +54,23 @@
             AdminFormHamburger.Depth = 0;
             AdminFormHamburger.Dock = DockStyle.Fill;
             AdminFormHamburger.ImageList = AdminHamburgerIcons;
-            AdminFormHamburger.Location = new Point(3, 64);
+            AdminFormHamburger.Location = new Point(2, 51);
+            AdminFormHamburger.Margin = new Padding(2, 2, 2, 2);
             AdminFormHamburger.MouseState = MaterialSkin.MouseState.HOVER;
             AdminFormHamburger.Multiline = true;
             AdminFormHamburger.Name = "AdminFormHamburger";
             AdminFormHamburger.SelectedIndex = 0;
-            AdminFormHamburger.Size = new Size(894, 533);
+            AdminFormHamburger.Size = new Size(716, 427);
             AdminFormHamburger.TabIndex = 0;
             // 
             // DashBoard
             // 
             DashBoard.ImageKey = "Icon_Admin.png";
             DashBoard.Location = new Point(4, 41);
+            DashBoard.Margin = new Padding(2, 2, 2, 2);
             DashBoard.Name = "DashBoard";
-            DashBoard.Padding = new Padding(3);
-            DashBoard.Size = new Size(886, 488);
+            DashBoard.Padding = new Padding(2, 2, 2, 2);
+            DashBoard.Size = new Size(708, 382);
             DashBoard.TabIndex = 0;
             DashBoard.Text = "Admin";
             DashBoard.UseVisualStyleBackColor = true;
@@ -78,9 +80,10 @@
             tabAccounts.Controls.Add(AccountsContentPanel);
             tabAccounts.ImageKey = "user-management-svgrepo-com.png";
             tabAccounts.Location = new Point(4, 41);
+            tabAccounts.Margin = new Padding(2, 2, 2, 2);
             tabAccounts.Name = "tabAccounts";
-            tabAccounts.Padding = new Padding(3);
-            tabAccounts.Size = new Size(1906, 968);
+            tabAccounts.Padding = new Padding(2, 2, 2, 2);
+            tabAccounts.Size = new Size(708, 382);
             tabAccounts.TabIndex = 1;
             tabAccounts.Text = "Accounts";
             tabAccounts.UseVisualStyleBackColor = true;
@@ -88,16 +91,18 @@
             // AccountsContentPanel
             // 
             AccountsContentPanel.Dock = DockStyle.Fill;
-            AccountsContentPanel.Location = new Point(3, 3);
+            AccountsContentPanel.Location = new Point(2, 2);
+            AccountsContentPanel.Margin = new Padding(2, 2, 2, 2);
             AccountsContentPanel.Name = "AccountsContentPanel";
-            AccountsContentPanel.Size = new Size(1900, 962);
+            AccountsContentPanel.Size = new Size(704, 378);
             AccountsContentPanel.TabIndex = 1;
             // 
             // tabPage1
             // 
             tabPage1.Location = new Point(4, 41);
+            tabPage1.Margin = new Padding(2, 2, 2, 2);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(1906, 968);
+            tabPage1.Size = new Size(708, 382);
             tabPage1.TabIndex = 2;
             tabPage1.Text = "MockUp";
             tabPage1.UseVisualStyleBackColor = true;
@@ -105,8 +110,9 @@
             // tabPage3
             // 
             tabPage3.Location = new Point(4, 41);
+            tabPage3.Margin = new Padding(2, 2, 2, 2);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(1906, 968);
+            tabPage3.Size = new Size(707, 381);
             tabPage3.TabIndex = 3;
             tabPage3.Text = "MockUp";
             tabPage3.UseVisualStyleBackColor = true;
@@ -114,8 +120,9 @@
             // tabPage4
             // 
             tabPage4.Location = new Point(4, 41);
+            tabPage4.Margin = new Padding(2, 2, 2, 2);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(1906, 968);
+            tabPage4.Size = new Size(707, 381);
             tabPage4.TabIndex = 4;
             tabPage4.Text = "MockUp";
             tabPage4.UseVisualStyleBackColor = true;
@@ -123,8 +130,9 @@
             // tabPage5
             // 
             tabPage5.Location = new Point(4, 41);
+            tabPage5.Margin = new Padding(2, 2, 2, 2);
             tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(1906, 968);
+            tabPage5.Size = new Size(707, 381);
             tabPage5.TabIndex = 5;
             tabPage5.Text = "MockUp";
             tabPage5.UseVisualStyleBackColor = true;
@@ -139,13 +147,15 @@
             // 
             // AdminControlForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(900, 600);
+            ClientSize = new Size(720, 480);
             Controls.Add(AdminFormHamburger);
             DrawerShowIconsWhenHidden = true;
             DrawerTabControl = AdminFormHamburger;
+            Margin = new Padding(2, 2, 2, 2);
             Name = "AdminControlForm";
+            Padding = new Padding(2, 51, 2, 2);
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
