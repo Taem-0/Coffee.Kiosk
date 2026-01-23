@@ -33,7 +33,7 @@ Partial Class Form1
         ' 
         PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), Image)
         PictureBox1.BackgroundImageLayout = ImageLayout.Stretch
-        PictureBox1.Location = New Point(646, 83)
+        PictureBox1.Location = New Point(685, 88)
         PictureBox1.Name = "PictureBox1"
         PictureBox1.Size = New Size(626, 597)
         PictureBox1.TabIndex = 0
@@ -45,7 +45,7 @@ Partial Class Form1
         btnLogIn.FlatStyle = FlatStyle.Popup
         btnLogIn.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
         btnLogIn.ForeColor = Color.White
-        btnLogIn.Location = New Point(437, 777)
+        btnLogIn.Location = New Point(476, 782)
         btnLogIn.Name = "btnLogIn"
         btnLogIn.Size = New Size(424, 81)
         btnLogIn.TabIndex = 1
@@ -58,7 +58,7 @@ Partial Class Form1
         btnSignUp.FlatStyle = FlatStyle.Popup
         btnSignUp.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
         btnSignUp.ForeColor = Color.White
-        btnSignUp.Location = New Point(1057, 777)
+        btnSignUp.Location = New Point(1096, 782)
         btnSignUp.Name = "btnSignUp"
         btnSignUp.Size = New Size(424, 81)
         btnSignUp.TabIndex = 2
@@ -70,7 +70,7 @@ Partial Class Form1
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
-        ClientSize = New Size(1878, 998)
+        ClientSize = New Size(1920, 1080)
         ControlBox = False
         Controls.Add(btnSignUp)
         Controls.Add(btnLogIn)

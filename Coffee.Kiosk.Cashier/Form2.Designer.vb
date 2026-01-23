@@ -37,7 +37,7 @@ Partial Class Form2
         ' 
         PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), Image)
         PictureBox1.BackgroundImageLayout = ImageLayout.Stretch
-        PictureBox1.Location = New Point(791, 64)
+        PictureBox1.Location = New Point(815, 71)
         PictureBox1.Name = "PictureBox1"
         PictureBox1.Size = New Size(276, 275)
         PictureBox1.TabIndex = 0
@@ -48,7 +48,7 @@ Partial Class Form2
         txtUsername.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
         txtUsername.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         txtUsername.ForeColor = Color.White
-        txtUsername.Location = New Point(598, 510)
+        txtUsername.Location = New Point(622, 517)
         txtUsername.Multiline = True
         txtUsername.Name = "txtUsername"
         txtUsername.Size = New Size(677, 63)
@@ -59,7 +59,7 @@ Partial Class Form2
         txtPassword.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
         txtPassword.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         txtPassword.ForeColor = Color.White
-        txtPassword.Location = New Point(598, 655)
+        txtPassword.Location = New Point(622, 662)
         txtPassword.Multiline = True
         txtPassword.Name = "txtPassword"
         txtPassword.Size = New Size(677, 60)
@@ -70,7 +70,7 @@ Partial Class Form2
         lblUsername.AutoSize = True
         lblUsername.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblUsername.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        lblUsername.Location = New Point(599, 481)
+        lblUsername.Location = New Point(623, 488)
         lblUsername.Name = "lblUsername"
         lblUsername.Size = New Size(104, 28)
         lblUsername.TabIndex = 3
@@ -81,7 +81,7 @@ Partial Class Form2
         lblPassword.AutoSize = True
         lblPassword.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblPassword.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        lblPassword.Location = New Point(599, 627)
+        lblPassword.Location = New Point(623, 634)
         lblPassword.Name = "lblPassword"
         lblPassword.Size = New Size(97, 28)
         lblPassword.TabIndex = 4
@@ -92,7 +92,7 @@ Partial Class Form2
         llblForgotPass.AutoSize = True
         llblForgotPass.Font = New Font("Segoe UI", 13.8F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
         llblForgotPass.LinkColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        llblForgotPass.Location = New Point(843, 741)
+        llblForgotPass.Location = New Point(867, 748)
         llblForgotPass.Name = "llblForgotPass"
         llblForgotPass.Size = New Size(192, 31)
         llblForgotPass.TabIndex = 5
@@ -105,7 +105,7 @@ Partial Class Form2
         btnLogIn2.FlatStyle = FlatStyle.Popup
         btnLogIn2.Font = New Font("Segoe UI", 13.8F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
         btnLogIn2.ForeColor = Color.White
-        btnLogIn2.Location = New Point(764, 828)
+        btnLogIn2.Location = New Point(788, 835)
         btnLogIn2.Name = "btnLogIn2"
         btnLogIn2.Size = New Size(350, 63)
         btnLogIn2.TabIndex = 6
@@ -117,7 +117,7 @@ Partial Class Form2
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
-        ClientSize = New Size(1878, 998)
+        ClientSize = New Size(1920, 1080)
         ControlBox = False
         Controls.Add(btnLogIn2)
         Controls.Add(llblForgotPass)
