@@ -89,14 +89,14 @@ namespace Coffee.Kiosk.CMS
 
             int totalWidth = EmployeeListView.ClientSize.Width;
 
-            // ayaw mag run sakin eh, uncomment mo nalang
-            //EmployeeListView.Columns[0].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[1].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[2].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[3].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[4].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[5].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[6].Width = (int)(totalWidth * 0.10);
+            //GUMAGANA NGA !!
+            EmployeeListView.Columns[0].Width = (int)(totalWidth * 0.15);
+            EmployeeListView.Columns[1].Width = (int)(totalWidth * 0.15);
+            EmployeeListView.Columns[2].Width = (int)(totalWidth * 0.15);
+            EmployeeListView.Columns[3].Width = (int)(totalWidth * 0.15);
+            EmployeeListView.Columns[4].Width = (int)(totalWidth * 0.15);
+            EmployeeListView.Columns[5].Width = (int)(totalWidth * 0.15);
+            EmployeeListView.Columns[6].Width = (int)(totalWidth * 0.10);
 
         }
 
