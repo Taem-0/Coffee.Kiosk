@@ -25,10 +25,8 @@ Partial Class CashierHome
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CashierHome))
         Panel1 = New Panel()
         btnSettings = New Button()
-        btnCustomers = New Button()
-        btnHisory = New Button()
+        btnHistory = New Button()
         btnMenu = New Button()
-        btnHome = New Button()
         btnSignOut = New Button()
         LogoBox = New PictureBox()
         HomeScreenPanel = New Panel()
@@ -40,10 +38,8 @@ Partial Class CashierHome
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
         Panel1.Controls.Add(btnSettings)
-        Panel1.Controls.Add(btnCustomers)
-        Panel1.Controls.Add(btnHisory)
+        Panel1.Controls.Add(btnHistory)
         Panel1.Controls.Add(btnMenu)
-        Panel1.Controls.Add(btnHome)
         Panel1.Controls.Add(btnSignOut)
         Panel1.Controls.Add(LogoBox)
         Panel1.Location = New Point(0, 0)
@@ -58,37 +54,24 @@ Partial Class CashierHome
         btnSettings.BackgroundImageLayout = ImageLayout.Zoom
         btnSettings.FlatStyle = FlatStyle.Flat
         btnSettings.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        btnSettings.Location = New Point(81, 649)
+        btnSettings.Location = New Point(81, 473)
         btnSettings.Name = "btnSettings"
         btnSettings.Size = New Size(87, 80)
         btnSettings.TabIndex = 4
         btnSettings.UseVisualStyleBackColor = False
         ' 
-        ' btnCustomers
+        ' btnHistory
         ' 
-        btnCustomers.BackColor = Color.Transparent
-        btnCustomers.BackgroundImage = CType(resources.GetObject("btnCustomers.BackgroundImage"), Image)
-        btnCustomers.BackgroundImageLayout = ImageLayout.Zoom
-        btnCustomers.FlatStyle = FlatStyle.Flat
-        btnCustomers.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        btnCustomers.Location = New Point(81, 543)
-        btnCustomers.Name = "btnCustomers"
-        btnCustomers.Size = New Size(87, 80)
-        btnCustomers.TabIndex = 2
-        btnCustomers.UseVisualStyleBackColor = False
-        ' 
-        ' btnHisory
-        ' 
-        btnHisory.BackColor = Color.Transparent
-        btnHisory.BackgroundImage = CType(resources.GetObject("btnHisory.BackgroundImage"), Image)
-        btnHisory.BackgroundImageLayout = ImageLayout.Zoom
-        btnHisory.FlatStyle = FlatStyle.Flat
-        btnHisory.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        btnHisory.Location = New Point(81, 444)
-        btnHisory.Name = "btnHisory"
-        btnHisory.Size = New Size(87, 80)
-        btnHisory.TabIndex = 3
-        btnHisory.UseVisualStyleBackColor = False
+        btnHistory.BackColor = Color.Transparent
+        btnHistory.BackgroundImage = CType(resources.GetObject("btnHistory.BackgroundImage"), Image)
+        btnHistory.BackgroundImageLayout = ImageLayout.Zoom
+        btnHistory.FlatStyle = FlatStyle.Flat
+        btnHistory.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnHistory.Location = New Point(80, 356)
+        btnHistory.Name = "btnHistory"
+        btnHistory.Size = New Size(87, 80)
+        btnHistory.TabIndex = 3
+        btnHistory.UseVisualStyleBackColor = False
         ' 
         ' btnMenu
         ' 
@@ -97,24 +80,11 @@ Partial Class CashierHome
         btnMenu.BackgroundImageLayout = ImageLayout.Zoom
         btnMenu.FlatStyle = FlatStyle.Flat
         btnMenu.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        btnMenu.Location = New Point(81, 347)
+        btnMenu.Location = New Point(81, 244)
         btnMenu.Name = "btnMenu"
         btnMenu.Size = New Size(87, 80)
         btnMenu.TabIndex = 2
         btnMenu.UseVisualStyleBackColor = False
-        ' 
-        ' btnHome
-        ' 
-        btnHome.BackColor = Color.Transparent
-        btnHome.BackgroundImage = CType(resources.GetObject("btnHome.BackgroundImage"), Image)
-        btnHome.BackgroundImageLayout = ImageLayout.Zoom
-        btnHome.FlatStyle = FlatStyle.Flat
-        btnHome.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        btnHome.Location = New Point(81, 258)
-        btnHome.Name = "btnHome"
-        btnHome.Size = New Size(87, 80)
-        btnHome.TabIndex = 1
-        btnHome.UseVisualStyleBackColor = False
         ' 
         ' btnSignOut
         ' 
@@ -167,10 +137,8 @@ Partial Class CashierHome
     Friend WithEvents Panel1 As Panel
     Friend WithEvents LogoBox As PictureBox
     Friend WithEvents btnSignOut As Button
-    Friend WithEvents btnHome As Button
     Friend WithEvents btnSettings As Button
-    Friend WithEvents btnCustomers As Button
-    Friend WithEvents btnHisory As Button
+    Friend WithEvents btnHistory As Button
     Friend WithEvents btnMenu As Button
     Friend WithEvents HomeScreenPanel As Panel
 End Class

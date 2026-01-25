@@ -1,25 +1,34 @@
 ﻿Public Class LogInForm
 
     Private Sub LogInForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ShowSignIn()
+        ShowSignInControl()
     End Sub
 
-    Public Sub ShowControl(ctrl As UserControl)
+    Public Sub ShowSignInControl()
         LogInPanel.Controls.Clear()
-        ctrl.Dock = DockStyle.Fill
-        LogInPanel.Controls.Add(ctrl)
+
+        Dim signIn As New SignInControl()
+        signIn.Dock = DockStyle.Fill
+
+        LogInPanel.Controls.Add(signIn)
     End Sub
 
-    Public Sub ShowSignIn()
-        ShowControl(New SignInControl())
+    Public Sub ShowLogInControl()
+        LogInPanel.Controls.Clear()
+
+        Dim login As New LogInControl()
+        login.Dock = DockStyle.Fill
+
+        LogInPanel.Controls.Add(login)
     End Sub
 
-    Public Sub ShowLogin()
-        ShowControl(New LogInControl())
-    End Sub
+    Public Sub ShowSignUpControl()
+        LogInPanel.Controls.Clear()
 
-    Public Sub ShowSignUp()
-        ShowControl(New SignUpControl())
+        Dim signUp As New SignUpControl()
+        signUp.Dock = DockStyle.Fill
+
+        LogInPanel.Controls.Add(signUp)
     End Sub
 
 End Class
