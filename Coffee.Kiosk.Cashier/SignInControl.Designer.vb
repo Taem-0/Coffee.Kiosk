@@ -24,8 +24,8 @@ Partial Class SignInControl
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SignInControl))
         LogoBox = New PictureBox()
-        btnLogIn = New Button()
-        btnSignUp = New Button()
+        btnLogin = New Button()
+        btnSignup = New Button()
         CType(LogoBox, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -33,54 +33,54 @@ Partial Class SignInControl
         ' 
         LogoBox.BackgroundImage = CType(resources.GetObject("LogoBox.BackgroundImage"), Image)
         LogoBox.BackgroundImageLayout = ImageLayout.Zoom
-        LogoBox.Location = New Point(126, 119)
+        LogoBox.Location = New Point(231, 141)
         LogoBox.Name = "LogoBox"
-        LogoBox.Size = New Size(698, 644)
+        LogoBox.Size = New Size(694, 624)
         LogoBox.TabIndex = 0
         LogoBox.TabStop = False
         ' 
-        ' btnLogIn
+        ' btnLogin
         ' 
-        btnLogIn.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        btnLogIn.FlatStyle = FlatStyle.Popup
-        btnLogIn.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-        btnLogIn.ForeColor = Color.White
-        btnLogIn.Location = New Point(53, 843)
-        btnLogIn.Name = "btnLogIn"
-        btnLogIn.Size = New Size(339, 67)
-        btnLogIn.TabIndex = 1
-        btnLogIn.Text = "LOG IN"
-        btnLogIn.UseVisualStyleBackColor = False
+        btnLogin.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnLogin.FlatStyle = FlatStyle.Popup
+        btnLogin.Font = New Font("Segoe UI", 12F, FontStyle.Bold Or FontStyle.Italic)
+        btnLogin.ForeColor = Color.White
+        btnLogin.Location = New Point(86, 847)
+        btnLogin.Name = "btnLogin"
+        btnLogin.Size = New Size(385, 80)
+        btnLogin.TabIndex = 1
+        btnLogin.Text = "LOG IN"
+        btnLogin.UseVisualStyleBackColor = False
         ' 
-        ' btnSignUp
+        ' btnSignup
         ' 
-        btnSignUp.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        btnSignUp.FlatStyle = FlatStyle.Popup
-        btnSignUp.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-        btnSignUp.ForeColor = Color.White
-        btnSignUp.Location = New Point(566, 843)
-        btnSignUp.Name = "btnSignUp"
-        btnSignUp.Size = New Size(339, 67)
-        btnSignUp.TabIndex = 2
-        btnSignUp.Text = "SIGN UP"
-        btnSignUp.UseVisualStyleBackColor = False
+        btnSignup.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnSignup.FlatStyle = FlatStyle.Popup
+        btnSignup.Font = New Font("Segoe UI", 12F, FontStyle.Bold Or FontStyle.Italic)
+        btnSignup.ForeColor = Color.White
+        btnSignup.Location = New Point(677, 847)
+        btnSignup.Name = "btnSignup"
+        btnSignup.Size = New Size(385, 80)
+        btnSignup.TabIndex = 2
+        btnSignup.Text = "SIGN UP"
+        btnSignup.UseVisualStyleBackColor = False
         ' 
         ' SignInControl
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
-        Controls.Add(btnSignUp)
-        Controls.Add(btnLogIn)
+        Controls.Add(btnSignup)
+        Controls.Add(btnLogin)
         Controls.Add(LogoBox)
         Name = "SignInControl"
-        Size = New Size(968, 1073)
+        Size = New Size(1172, 1081)
         CType(LogoBox, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
     Friend WithEvents LogoBox As PictureBox
-    Friend WithEvents btnLogIn As Button
-    Friend WithEvents btnSignUp As Button
+    Friend WithEvents btnLogin As Button
+    Friend WithEvents btnSignup As Button
 
 End Class

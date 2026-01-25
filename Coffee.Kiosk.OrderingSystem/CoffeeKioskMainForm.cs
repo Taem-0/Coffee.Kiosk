@@ -117,7 +117,7 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             if (kioskMenu == null)
             {
-                kioskMenu = new KioskMenu();
+                kioskMenu = new KioskMenu();//
 
                 kioskMenu.startOverClicked += FinishOrder;
             }
@@ -126,13 +126,13 @@ namespace Coffee.Kiosk.OrderingSystem
 
         internal void FinishOrder()
         {
-            //getStartedScreen?.Dispose();
-            //dineInTakeOut?.Dispose();
-            //kioskMenu?.Dispose();
+            getStartedScreen?.Dispose();
+            dineInTakeOut?.Dispose();
+            kioskMenu?.Dispose();
 
-            //getStartedScreen = null;
-            //dineInTakeOut = null;
-            //kioskMenu = null;
+            getStartedScreen = null;
+            dineInTakeOut = null;
+            kioskMenu = null;
 
             currentOrder = null;
             
