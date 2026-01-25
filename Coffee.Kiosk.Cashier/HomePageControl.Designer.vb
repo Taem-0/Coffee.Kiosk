@@ -24,7 +24,7 @@ Partial Class HomePageControl
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(HomePageControl))
         lblFullName = New Label()
-        PictureBox2 = New PictureBox()
+        ProfileBox = New PictureBox()
         txtSearch = New TextBox()
         TextBox1 = New TextBox()
         DataGridView1 = New DataGridView()
@@ -36,7 +36,7 @@ Partial Class HomePageControl
         btnSnacks = New Button()
         btnMeals = New Button()
         MenuPanel = New Panel()
-        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
+        CType(ProfileBox, ComponentModel.ISupportInitialize).BeginInit()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -51,15 +51,15 @@ Partial Class HomePageControl
         lblFullName.TabIndex = 1
         lblFullName.Text = "Staff Name " & vbCrLf & "Louie Jein Banting" & vbCrLf
         ' 
-        ' PictureBox2
+        ' ProfileBox
         ' 
-        PictureBox2.BackgroundImage = CType(resources.GetObject("PictureBox2.BackgroundImage"), Image)
-        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
-        PictureBox2.Location = New Point(1561, 20)
-        PictureBox2.Name = "PictureBox2"
-        PictureBox2.Size = New Size(84, 78)
-        PictureBox2.TabIndex = 2
-        PictureBox2.TabStop = False
+        ProfileBox.BackgroundImage = CType(resources.GetObject("ProfileBox.BackgroundImage"), Image)
+        ProfileBox.BackgroundImageLayout = ImageLayout.Zoom
+        ProfileBox.Location = New Point(1561, 20)
+        ProfileBox.Name = "ProfileBox"
+        ProfileBox.Size = New Size(84, 78)
+        ProfileBox.TabIndex = 2
+        ProfileBox.TabStop = False
         ' 
         ' txtSearch
         ' 
@@ -80,7 +80,7 @@ Partial Class HomePageControl
         TextBox1.Name = "TextBox1"
         TextBox1.Size = New Size(395, 43)
         TextBox1.TabIndex = 4
-        TextBox1.Text = "Enter Code: "
+        TextBox1.Text = " Enter Code: "
         ' 
         ' DataGridView1
         ' 
@@ -188,7 +188,7 @@ Partial Class HomePageControl
         ' 
         MenuPanel.Location = New Point(65, 236)
         MenuPanel.Name = "MenuPanel"
-        MenuPanel.Size = New Size(907, 724)
+        MenuPanel.Size = New Size(921, 724)
         MenuPanel.TabIndex = 13
         ' 
         ' HomePageControl
@@ -207,17 +207,17 @@ Partial Class HomePageControl
         Controls.Add(DataGridView1)
         Controls.Add(TextBox1)
         Controls.Add(txtSearch)
-        Controls.Add(PictureBox2)
+        Controls.Add(ProfileBox)
         Controls.Add(lblFullName)
         Name = "HomePageControl"
         Size = New Size(1669, 1082)
-        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
+        CType(ProfileBox, ComponentModel.ISupportInitialize).EndInit()
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
     Friend WithEvents lblFullName As Label
-    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents ProfileBox As PictureBox
     Friend WithEvents txtSearch As TextBox
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents DataGridView1 As DataGridView
