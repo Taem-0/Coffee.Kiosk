@@ -34,7 +34,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             catch (Exception ex)
             {
                 Console.WriteLine($"\033[1;31m{ex}\033[0m");
-                MessageBox.Show("failed to retrieve categories");
+                //MessageBox.Show("failed to retrieve categories");
             }
             return result;
         }

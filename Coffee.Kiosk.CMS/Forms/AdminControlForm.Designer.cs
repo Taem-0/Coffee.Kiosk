@@ -108,7 +108,7 @@
             Kiosk.Name = "Kiosk";
             Kiosk.Size = new Size(708, 382);
             Kiosk.TabIndex = 2;
-            Kiosk.Text = "MockUp";
+            Kiosk.Text = "Kiosk";
             Kiosk.UseVisualStyleBackColor = true;
             // 
             // orderingSystem1
@@ -121,30 +121,30 @@
             // 
             // tabPage3
             // 
-            tabPage3.Location = new Point(4, 54);
+            tabPage3.Location = new Point(4, 41);
             tabPage3.Margin = new Padding(2);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(192, 42);
+            tabPage3.Size = new Size(708, 382);
             tabPage3.TabIndex = 3;
             tabPage3.Text = "MockUp";
             tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
-            tabPage4.Location = new Point(4, 79);
+            tabPage4.Location = new Point(4, 41);
             tabPage4.Margin = new Padding(2);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(192, 17);
+            tabPage4.Size = new Size(708, 382);
             tabPage4.TabIndex = 4;
             tabPage4.Text = "MockUp";
             tabPage4.UseVisualStyleBackColor = true;
             // 
             // tabPage5
             // 
-            tabPage5.Location = new Point(4, 79);
+            tabPage5.Location = new Point(4, 41);
             tabPage5.Margin = new Padding(2);
             tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(192, 17);
+            tabPage5.Size = new Size(708, 382);
             tabPage5.TabIndex = 5;
             tabPage5.Text = "MockUp";
             tabPage5.UseVisualStyleBackColor = true;

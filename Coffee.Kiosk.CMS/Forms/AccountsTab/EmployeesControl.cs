@@ -89,7 +89,7 @@ namespace Coffee.Kiosk.CMS
 
             int totalWidth = EmployeeListView.ClientSize.Width;
 
-             ayaw mag run sakin eh, uncomment mo nalang
+            //ayaw mag run sakin eh, uncomment mo nalang
             //EmployeeListView.Columns[0].Width = (int)(totalWidth * 0.15);
             //EmployeeListView.Columns[1].Width = (int)(totalWidth * 0.15);
             //EmployeeListView.Columns[2].Width = (int)(totalWidth * 0.15);
