@@ -1,0 +1,233 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class HomePageControl
+    Inherits System.Windows.Forms.UserControl
+
+    'UserControl overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.  
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(HomePageControl))
+        lblFullName = New Label()
+        PictureBox2 = New PictureBox()
+        txtSearch = New TextBox()
+        TextBox1 = New TextBox()
+        DataGridView1 = New DataGridView()
+        btnCash = New Button()
+        btnGcash = New Button()
+        btnMaya = New Button()
+        btnDrinks = New Button()
+        btnPastry = New Button()
+        btnSnacks = New Button()
+        btnMeals = New Button()
+        MenuPanel = New Panel()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
+        CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        SuspendLayout()
+        ' 
+        ' lblFullName
+        ' 
+        lblFullName.BackColor = Color.Transparent
+        lblFullName.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblFullName.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        lblFullName.Location = New Point(1334, 39)
+        lblFullName.Name = "lblFullName"
+        lblFullName.Size = New Size(221, 59)
+        lblFullName.TabIndex = 1
+        lblFullName.Text = "Staff Name " & vbCrLf & "Louie Jein Banting" & vbCrLf
+        ' 
+        ' PictureBox2
+        ' 
+        PictureBox2.BackgroundImage = CType(resources.GetObject("PictureBox2.BackgroundImage"), Image)
+        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox2.Location = New Point(1561, 20)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(84, 78)
+        PictureBox2.TabIndex = 2
+        PictureBox2.TabStop = False
+        ' 
+        ' txtSearch
+        ' 
+        txtSearch.BorderStyle = BorderStyle.FixedSingle
+        txtSearch.Font = New Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtSearch.Location = New Point(65, 50)
+        txtSearch.Name = "txtSearch"
+        txtSearch.Size = New Size(1087, 38)
+        txtSearch.TabIndex = 3
+        txtSearch.Text = " 🔍 Search Box"
+        ' 
+        ' TextBox1
+        ' 
+        TextBox1.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        TextBox1.Font = New Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        TextBox1.ForeColor = Color.White
+        TextBox1.Location = New Point(41, 1007)
+        TextBox1.Name = "TextBox1"
+        TextBox1.Size = New Size(395, 43)
+        TextBox1.TabIndex = 4
+        TextBox1.Text = "Enter Code: "
+        ' 
+        ' DataGridView1
+        ' 
+        DataGridView1.BackgroundColor = Color.White
+        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridView1.Location = New Point(1031, 147)
+        DataGridView1.Name = "DataGridView1"
+        DataGridView1.RowHeadersWidth = 51
+        DataGridView1.Size = New Size(594, 813)
+        DataGridView1.TabIndex = 5
+        ' 
+        ' btnCash
+        ' 
+        btnCash.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnCash.FlatStyle = FlatStyle.Popup
+        btnCash.ForeColor = Color.White
+        btnCash.Location = New Point(1031, 1007)
+        btnCash.Name = "btnCash"
+        btnCash.Size = New Size(187, 42)
+        btnCash.TabIndex = 6
+        btnCash.Text = "Pay with Cash"
+        btnCash.UseVisualStyleBackColor = False
+        ' 
+        ' btnGcash
+        ' 
+        btnGcash.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnGcash.FlatStyle = FlatStyle.Popup
+        btnGcash.ForeColor = Color.White
+        btnGcash.Location = New Point(1238, 1007)
+        btnGcash.Name = "btnGcash"
+        btnGcash.Size = New Size(187, 42)
+        btnGcash.TabIndex = 7
+        btnGcash.Text = "Gcash"
+        btnGcash.UseVisualStyleBackColor = False
+        ' 
+        ' btnMaya
+        ' 
+        btnMaya.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnMaya.FlatStyle = FlatStyle.Popup
+        btnMaya.ForeColor = Color.White
+        btnMaya.Location = New Point(1438, 1007)
+        btnMaya.Name = "btnMaya"
+        btnMaya.Size = New Size(187, 42)
+        btnMaya.TabIndex = 8
+        btnMaya.Text = "Maya"
+        btnMaya.UseVisualStyleBackColor = False
+        ' 
+        ' btnDrinks
+        ' 
+        btnDrinks.Anchor = AnchorStyles.None
+        btnDrinks.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnDrinks.FlatStyle = FlatStyle.Popup
+        btnDrinks.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnDrinks.ForeColor = Color.White
+        btnDrinks.Location = New Point(65, 147)
+        btnDrinks.Name = "btnDrinks"
+        btnDrinks.Size = New Size(160, 48)
+        btnDrinks.TabIndex = 9
+        btnDrinks.Text = "Drinks"
+        btnDrinks.UseVisualStyleBackColor = False
+        ' 
+        ' btnPastry
+        ' 
+        btnPastry.Anchor = AnchorStyles.None
+        btnPastry.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnPastry.FlatStyle = FlatStyle.Popup
+        btnPastry.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnPastry.ForeColor = Color.White
+        btnPastry.Location = New Point(312, 147)
+        btnPastry.Name = "btnPastry"
+        btnPastry.Size = New Size(160, 48)
+        btnPastry.TabIndex = 10
+        btnPastry.Text = "Pastry"
+        btnPastry.UseVisualStyleBackColor = False
+        ' 
+        ' btnSnacks
+        ' 
+        btnSnacks.Anchor = AnchorStyles.None
+        btnSnacks.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnSnacks.FlatStyle = FlatStyle.Popup
+        btnSnacks.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnSnacks.ForeColor = Color.White
+        btnSnacks.Location = New Point(560, 147)
+        btnSnacks.Name = "btnSnacks"
+        btnSnacks.Size = New Size(160, 48)
+        btnSnacks.TabIndex = 11
+        btnSnacks.Text = "Snacks"
+        btnSnacks.UseVisualStyleBackColor = False
+        ' 
+        ' btnMeals
+        ' 
+        btnMeals.Anchor = AnchorStyles.None
+        btnMeals.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnMeals.FlatStyle = FlatStyle.Popup
+        btnMeals.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnMeals.ForeColor = Color.White
+        btnMeals.Location = New Point(812, 147)
+        btnMeals.Name = "btnMeals"
+        btnMeals.Size = New Size(160, 48)
+        btnMeals.TabIndex = 12
+        btnMeals.Text = "Meals"
+        btnMeals.UseVisualStyleBackColor = False
+        ' 
+        ' MenuPanel
+        ' 
+        MenuPanel.Location = New Point(65, 236)
+        MenuPanel.Name = "MenuPanel"
+        MenuPanel.Size = New Size(907, 724)
+        MenuPanel.TabIndex = 13
+        ' 
+        ' HomePageControl
+        ' 
+        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.Beige
+        Controls.Add(MenuPanel)
+        Controls.Add(btnMeals)
+        Controls.Add(btnSnacks)
+        Controls.Add(btnPastry)
+        Controls.Add(btnDrinks)
+        Controls.Add(btnMaya)
+        Controls.Add(btnGcash)
+        Controls.Add(btnCash)
+        Controls.Add(DataGridView1)
+        Controls.Add(TextBox1)
+        Controls.Add(txtSearch)
+        Controls.Add(PictureBox2)
+        Controls.Add(lblFullName)
+        Name = "HomePageControl"
+        Size = New Size(1669, 1082)
+        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
+        CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        ResumeLayout(False)
+        PerformLayout()
+    End Sub
+    Friend WithEvents lblFullName As Label
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents txtSearch As TextBox
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents btnCash As Button
+    Friend WithEvents btnGcash As Button
+    Friend WithEvents btnMaya As Button
+    Friend WithEvents btnDrinks As Button
+    Friend WithEvents btnPastry As Button
+    Friend WithEvents btnSnacks As Button
+    Friend WithEvents btnMeals As Button
+    Friend WithEvents MenuPanel As Panel
+
+End Class
