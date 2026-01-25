@@ -51,6 +51,8 @@ namespace Coffee.Kiosk.OrderingSystem
 
             for (int i = 0; i < Models.Category.categoryData.Count; i++)
             {
+                if (Models.Category.categoryData[i].IsShown)
+                {
                 var categoryItem = new CategoryItem(
                     Models.Category.categoryData[i].Id,
                     Models.Category.categoryData[i].Name,
@@ -58,6 +60,7 @@ namespace Coffee.Kiosk.OrderingSystem
                     );
                 categoryItem.CategoryClicked += OnCategoryClicked;
                 flowCategories.Controls.Add(categoryItem);
+                }
             }
             flowCategories.ResumeLayout();
         }

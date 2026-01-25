@@ -21,18 +21,19 @@ namespace Coffee.Kiosk.OrderingSystem.Models
         internal record CategoryData(
             int Id,
             string Name,
-            string IconPath
+            string IconPath,
+            bool IsShown = true
             );
 
         internal static List<CategoryData> categoryData = new();
 
         internal static void LoadDummyData()
         {
-            categoryData.Add(new(1, "Coffee", "C:/Images/Kiosk/Main Menu/COFFEE.png"));
-            categoryData.Add(new(2, "Milktea", "C:/Images/Kiosk/Main Menu/MILKTEA.png"));
-            categoryData.Add(new(3, "Pastry", "C:/Images/Kiosk/Main Menu/PASTRY.png"));
-            categoryData.Add(new(4, "Snacks", "C:/Images/Kiosk/Main Menu/SNACKS.png"));
-            categoryData.Add(new(5, "Meals", "C:/Images/Kiosk/Main Menu/MEALS.png"));
+            categoryData.Add(new(1, "Coffee", "C:/Images/Kiosk/Main Menu/COFFEE.png", false));
+            categoryData.Add(new(2, "Milktea", "C:/Images/Kiosk/Main Menu/MILKTEA.png", false));
+            categoryData.Add(new(3, "Pastry", "C:/Images/Kiosk/Main Menu/PASTRY.png", false));
+            categoryData.Add(new(4, "Snacks", "C:/Images/Kiosk/Main Menu/SNACKS.png", false));
+            categoryData.Add(new(5, "Meals", "C:/Images/Kiosk/Main Menu/MEALS.png", true));
         }
         internal static void LoadFromDataBase()
         {
