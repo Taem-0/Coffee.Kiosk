@@ -29,7 +29,8 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
             @"CREATE TABLE IF NOT EXISTS category (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) NOT NULL,
-                IconPath VARCHAR(255)
+                IconPath VARCHAR(255),
+                IsShown BOOLEAN NOT NULL DEFAULT 1
             );",
 
             @"CREATE TABLE IF NOT EXISTS product (
@@ -103,14 +104,14 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                     result.Add(new Models.Category.CategoryData(
                         row.GetInt32(0),
                         row.GetString(1),
-                        row.IsDBNull(2) ? string.Empty : row.GetString(2)
+                        row.IsDBNull(2) ? string.Empty : row.GetString(2),
+                        row.GetBoolean(3)
                         ));
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"\033[1;31m{ex}\033[0m");
-                MessageBox.Show("Failed to retrieve categories.");
             }
             return result;
         }

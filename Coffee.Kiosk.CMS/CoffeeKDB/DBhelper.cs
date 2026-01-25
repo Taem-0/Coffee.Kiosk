@@ -10,6 +10,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
     internal class DBhelper
     {
 
+        internal static string? connectionStringDatabase;
 
         internal static MySqlConnection CreateConnection(string connectionString)
         {

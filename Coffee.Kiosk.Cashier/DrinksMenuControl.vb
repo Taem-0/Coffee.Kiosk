@@ -75,18 +75,11 @@
         AddDrink("Hot Dark Chocolate", 139)
         AddDrink("Hot White Chocolate", 139)
         AddDrink("Hot Matcha Latte", 149)
-
         AddDrink("Iced Dark Chocolate", 139)
         AddDrink("Iced White Chocolate", 139)
         AddDrink("Iced Matcha Latte", 149)
         AddDrink("Strawberry Matcha Latte", 159)
         AddDrink("Ube Latte", 159)
-    End Sub
-
-    Private Sub AddDrink(name As String, price As Decimal)
-        Dim item As New MenuItemControl()
-        item.SetData(name, price)
-        FlpMenu.Controls.Add(item)
     End Sub
 
 End Class

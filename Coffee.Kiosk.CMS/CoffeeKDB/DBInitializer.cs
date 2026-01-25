@@ -23,7 +23,8 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             @"CREATE TABLE IF NOT EXISTS category (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) NOT NULL,
-                IconPath VARCHAR(255)
+                IconPath VARCHAR(255),
+                IsShown BOOLEAN NOT NULL DEFAULT 1
             );",
 
             @"CREATE TABLE IF NOT EXISTS product (
@@ -43,12 +44,16 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
 
         public DBInitializer(IConfiguration configuration)
         {
+            // wtf?? json should only be read once unless json file changes at runtime
 
             _connectionString = configuration.GetConnectionString("Default")
                     ?? throw new InvalidOperationException("Connection string 'Default' is missing in appsettings.json.");
 
             _connectionStringDatabase = configuration.GetConnectionString("Database")
                     ?? throw new InvalidOperationException("Connection string 'Database' is missing in appsettings.json.");
+
+            // 
+            DBhelper.connectionStringDatabase = _connectionStringDatabase;
         }
 
         public void CreateDataBase()
