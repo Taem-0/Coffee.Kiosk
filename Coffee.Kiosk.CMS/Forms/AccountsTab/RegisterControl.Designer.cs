@@ -30,8 +30,6 @@
         {
             RegistrationTitleDivider = new MaterialSkin.Controls.MaterialDivider();
             RegTitleLabel = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            fullNameTextBox = new MaterialSkin.Controls.MaterialTextBox2();
             phoneNumTextBox = new MaterialSkin.Controls.MaterialTextBox2();
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             emailAddressTextBox = new MaterialSkin.Controls.MaterialTextBox2();
@@ -46,8 +44,16 @@
             jobTitleTextBox = new MaterialSkin.Controls.MaterialTextBox2();
             RegisterButton = new Button();
             CancelButton = new Button();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            middleNameLabel = new MaterialSkin.Controls.MaterialLabel();
+            lastNameLabel = new MaterialSkin.Controls.MaterialLabel();
+            LastNameTextBox = new MaterialSkin.Controls.MaterialTextBox2();
+            firstNameLabel = new MaterialSkin.Controls.MaterialLabel();
+            FirstNameTextBox = new MaterialSkin.Controls.MaterialTextBox2();
+            MiddleNameTextBox = new MaterialSkin.Controls.MaterialTextBox2();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
             SuspendLayout();
             // 
             // RegistrationTitleDivider
@@ -74,47 +80,6 @@
             RegTitleLabel.Size = new Size(153, 19);
             RegTitleLabel.TabIndex = 2;
             RegTitleLabel.Text = "Register an Employee";
-            // 
-            // materialLabel1
-            // 
-            materialLabel1.AutoSize = true;
-            materialLabel1.Depth = 0;
-            materialLabel1.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            materialLabel1.Location = new Point(14, 83);
-            materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel1.Name = "materialLabel1";
-            materialLabel1.Size = new Size(73, 19);
-            materialLabel1.TabIndex = 3;
-            materialLabel1.Text = "Full Name";
-            // 
-            // fullNameTextBox
-            // 
-            fullNameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            fullNameTextBox.AnimateReadOnly = false;
-            fullNameTextBox.BackgroundImageLayout = ImageLayout.None;
-            fullNameTextBox.CharacterCasing = CharacterCasing.Normal;
-            fullNameTextBox.Depth = 0;
-            fullNameTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            fullNameTextBox.HideSelection = true;
-            fullNameTextBox.LeadingIcon = null;
-            fullNameTextBox.Location = new Point(14, 105);
-            fullNameTextBox.MaxLength = 32767;
-            fullNameTextBox.MouseState = MaterialSkin.MouseState.OUT;
-            fullNameTextBox.Name = "fullNameTextBox";
-            fullNameTextBox.PasswordChar = '\0';
-            fullNameTextBox.PrefixSuffixText = null;
-            fullNameTextBox.ReadOnly = false;
-            fullNameTextBox.RightToLeft = RightToLeft.No;
-            fullNameTextBox.SelectedText = "";
-            fullNameTextBox.SelectionLength = 0;
-            fullNameTextBox.SelectionStart = 0;
-            fullNameTextBox.ShortcutsEnabled = true;
-            fullNameTextBox.Size = new Size(863, 48);
-            fullNameTextBox.TabIndex = 5;
-            fullNameTextBox.TabStop = false;
-            fullNameTextBox.TextAlign = HorizontalAlignment.Left;
-            fullNameTextBox.TrailingIcon = null;
-            fullNameTextBox.UseSystemPasswordChar = false;
             // 
             // phoneNumTextBox
             // 
@@ -208,7 +173,7 @@
             tableLayoutPanel1.Controls.Add(emailAddressTextBox, 1, 1);
             tableLayoutPanel1.Controls.Add(materialLabel3, 1, 0);
             tableLayoutPanel1.Controls.Add(phoneNumTextBox, 0, 1);
-            tableLayoutPanel1.Location = new Point(11, 168);
+            tableLayoutPanel1.Location = new Point(11, 183);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20.666666F));
@@ -227,7 +192,7 @@
             emergencyContactTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             emergencyContactTextBox.HideSelection = true;
             emergencyContactTextBox.LeadingIcon = null;
-            emergencyContactTextBox.Location = new Point(14, 279);
+            emergencyContactTextBox.Location = new Point(14, 294);
             emergencyContactTextBox.MaxLength = 32767;
             emergencyContactTextBox.MouseState = MaterialSkin.MouseState.OUT;
             emergencyContactTextBox.Name = "emergencyContactTextBox";
@@ -251,7 +216,7 @@
             materialLabel4.AutoSize = true;
             materialLabel4.Depth = 0;
             materialLabel4.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            materialLabel4.Location = new Point(14, 257);
+            materialLabel4.Location = new Point(14, 272);
             materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabel4.Name = "materialLabel4";
             materialLabel4.Size = new Size(138, 19);
@@ -268,7 +233,7 @@
             tableLayoutPanel2.Controls.Add(salaryTextBox, 1, 1);
             tableLayoutPanel2.Controls.Add(materialLabel6, 1, 0);
             tableLayoutPanel2.Controls.Add(jobTitleTextBox, 0, 1);
-            tableLayoutPanel2.Location = new Point(11, 349);
+            tableLayoutPanel2.Location = new Point(11, 364);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 20.666666F));
@@ -379,6 +344,150 @@
             CancelButton.UseVisualStyleBackColor = true;
             CancelButton.Click += CancelButton_Click;
             // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel3.ColumnCount = 3;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.Controls.Add(middleNameLabel, 1, 0);
+            tableLayoutPanel3.Controls.Add(lastNameLabel, 2, 0);
+            tableLayoutPanel3.Controls.Add(LastNameTextBox, 2, 1);
+            tableLayoutPanel3.Controls.Add(firstNameLabel, 0, 0);
+            tableLayoutPanel3.Controls.Add(FirstNameTextBox, 0, 1);
+            tableLayoutPanel3.Controls.Add(MiddleNameTextBox, 1, 1);
+            tableLayoutPanel3.Location = new Point(11, 94);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 2;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 71F));
+            tableLayoutPanel3.Size = new Size(869, 89);
+            tableLayoutPanel3.TabIndex = 16;
+            // 
+            // middleNameLabel
+            // 
+            middleNameLabel.AutoSize = true;
+            middleNameLabel.Depth = 0;
+            middleNameLabel.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            middleNameLabel.Location = new Point(292, 0);
+            middleNameLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            middleNameLabel.Name = "middleNameLabel";
+            middleNameLabel.Size = new Size(95, 18);
+            middleNameLabel.TabIndex = 14;
+            middleNameLabel.Text = "Middle Name";
+            // 
+            // lastNameLabel
+            // 
+            lastNameLabel.AutoSize = true;
+            lastNameLabel.Depth = 0;
+            lastNameLabel.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            lastNameLabel.Location = new Point(581, 0);
+            lastNameLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            lastNameLabel.Name = "lastNameLabel";
+            lastNameLabel.Size = new Size(78, 18);
+            lastNameLabel.TabIndex = 12;
+            lastNameLabel.Text = "Last Name";
+            // 
+            // LastNameTextBox
+            // 
+            LastNameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            LastNameTextBox.AnimateReadOnly = false;
+            LastNameTextBox.BackgroundImageLayout = ImageLayout.None;
+            LastNameTextBox.CharacterCasing = CharacterCasing.Normal;
+            LastNameTextBox.Depth = 0;
+            LastNameTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            LastNameTextBox.HideSelection = true;
+            LastNameTextBox.LeadingIcon = null;
+            LastNameTextBox.Location = new Point(581, 21);
+            LastNameTextBox.MaxLength = 32767;
+            LastNameTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            LastNameTextBox.Name = "LastNameTextBox";
+            LastNameTextBox.PasswordChar = '\0';
+            LastNameTextBox.PrefixSuffixText = null;
+            LastNameTextBox.ReadOnly = false;
+            LastNameTextBox.RightToLeft = RightToLeft.No;
+            LastNameTextBox.SelectedText = "";
+            LastNameTextBox.SelectionLength = 0;
+            LastNameTextBox.SelectionStart = 0;
+            LastNameTextBox.ShortcutsEnabled = true;
+            LastNameTextBox.Size = new Size(285, 48);
+            LastNameTextBox.TabIndex = 13;
+            LastNameTextBox.TabStop = false;
+            LastNameTextBox.TextAlign = HorizontalAlignment.Left;
+            LastNameTextBox.TrailingIcon = null;
+            LastNameTextBox.UseSystemPasswordChar = false;
+            // 
+            // firstNameLabel
+            // 
+            firstNameLabel.AutoSize = true;
+            firstNameLabel.Depth = 0;
+            firstNameLabel.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            firstNameLabel.Location = new Point(3, 0);
+            firstNameLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            firstNameLabel.Name = "firstNameLabel";
+            firstNameLabel.Size = new Size(78, 18);
+            firstNameLabel.TabIndex = 8;
+            firstNameLabel.Text = "First Name";
+            // 
+            // FirstNameTextBox
+            // 
+            FirstNameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            FirstNameTextBox.AnimateReadOnly = false;
+            FirstNameTextBox.BackgroundImageLayout = ImageLayout.None;
+            FirstNameTextBox.CharacterCasing = CharacterCasing.Normal;
+            FirstNameTextBox.Depth = 0;
+            FirstNameTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            FirstNameTextBox.HideSelection = true;
+            FirstNameTextBox.LeadingIcon = null;
+            FirstNameTextBox.Location = new Point(3, 21);
+            FirstNameTextBox.MaxLength = 32767;
+            FirstNameTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            FirstNameTextBox.Name = "FirstNameTextBox";
+            FirstNameTextBox.PasswordChar = '\0';
+            FirstNameTextBox.PrefixSuffixText = null;
+            FirstNameTextBox.ReadOnly = false;
+            FirstNameTextBox.RightToLeft = RightToLeft.No;
+            FirstNameTextBox.SelectedText = "";
+            FirstNameTextBox.SelectionLength = 0;
+            FirstNameTextBox.SelectionStart = 0;
+            FirstNameTextBox.ShortcutsEnabled = true;
+            FirstNameTextBox.Size = new Size(283, 48);
+            FirstNameTextBox.TabIndex = 9;
+            FirstNameTextBox.TabStop = false;
+            FirstNameTextBox.TextAlign = HorizontalAlignment.Left;
+            FirstNameTextBox.TrailingIcon = null;
+            FirstNameTextBox.UseSystemPasswordChar = false;
+            // 
+            // MiddleNameTextBox
+            // 
+            MiddleNameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            MiddleNameTextBox.AnimateReadOnly = false;
+            MiddleNameTextBox.BackgroundImageLayout = ImageLayout.None;
+            MiddleNameTextBox.CharacterCasing = CharacterCasing.Normal;
+            MiddleNameTextBox.Depth = 0;
+            MiddleNameTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            MiddleNameTextBox.HideSelection = true;
+            MiddleNameTextBox.LeadingIcon = null;
+            MiddleNameTextBox.Location = new Point(292, 21);
+            MiddleNameTextBox.MaxLength = 32767;
+            MiddleNameTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            MiddleNameTextBox.Name = "MiddleNameTextBox";
+            MiddleNameTextBox.PasswordChar = '\0';
+            MiddleNameTextBox.PrefixSuffixText = null;
+            MiddleNameTextBox.ReadOnly = false;
+            MiddleNameTextBox.RightToLeft = RightToLeft.No;
+            MiddleNameTextBox.SelectedText = "";
+            MiddleNameTextBox.SelectionLength = 0;
+            MiddleNameTextBox.SelectionStart = 0;
+            MiddleNameTextBox.ShortcutsEnabled = true;
+            MiddleNameTextBox.Size = new Size(283, 48);
+            MiddleNameTextBox.TabIndex = 11;
+            MiddleNameTextBox.TabStop = false;
+            MiddleNameTextBox.TextAlign = HorizontalAlignment.Left;
+            MiddleNameTextBox.TrailingIcon = null;
+            MiddleNameTextBox.UseSystemPasswordChar = false;
+            // 
             // RegisterControl
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -389,10 +498,9 @@
             Controls.Add(emergencyContactTextBox);
             Controls.Add(materialLabel4);
             Controls.Add(tableLayoutPanel1);
-            Controls.Add(fullNameTextBox);
-            Controls.Add(materialLabel1);
             Controls.Add(RegTitleLabel);
             Controls.Add(RegistrationTitleDivider);
+            Controls.Add(tableLayoutPanel3);
             Name = "RegisterControl";
             Size = new Size(894, 533);
             Load += RegisterControl_Load;
@@ -400,6 +508,8 @@
             tableLayoutPanel1.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -407,8 +517,7 @@
         #endregion
         private MaterialSkin.Controls.MaterialDivider RegistrationTitleDivider;
         private MaterialSkin.Controls.MaterialLabel RegTitleLabel;
-        private MaterialSkin.Controls.MaterialLabel materialLabel1;
-        private MaterialSkin.Controls.MaterialTextBox2 fullNameTextBox;
+        private MaterialSkin.Controls.MaterialLabel middleNameLabel;
         private MaterialSkin.Controls.MaterialTextBox2 phoneNumTextBox;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private MaterialSkin.Controls.MaterialTextBox2 emailAddressTextBox;
@@ -423,5 +532,12 @@
         private MaterialSkin.Controls.MaterialTextBox2 jobTitleTextBox;
         private Button RegisterButton;
         private Button CancelButton;
+        private TableLayoutPanel tableLayoutPanel3;
+        private MaterialSkin.Controls.MaterialLabel materialLabel8;
+        private MaterialSkin.Controls.MaterialLabel firstNameLabel;
+        private MaterialSkin.Controls.MaterialTextBox2 FirstNameTextBox;
+        private MaterialSkin.Controls.MaterialTextBox2 MiddleNameTextBox;
+        private MaterialSkin.Controls.MaterialLabel lastNameLabel;
+        private MaterialSkin.Controls.MaterialTextBox2 LastNameTextBox;
     }
 }

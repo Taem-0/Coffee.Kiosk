@@ -39,7 +39,9 @@ namespace Coffee.Kiosk.CMS
             var newRequest = new RegistrationDTO
             {
 
-                FullName = fullNameTextBox.Text,
+                FirstName = FirstNameTextBox.Text,
+                MiddleName = MiddleNameTextBox.Text,
+                LastName = LastNameTextBox.Text,
                 PhoneNumber = phoneNumTextBox.Text,
                 Email = emailAddressTextBox.Text,
                 EmergencyNumber = emergencyContactTextBox.Text,
@@ -73,6 +75,9 @@ namespace Coffee.Kiosk.CMS
 
         }
 
+        private void materialTextBox21_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

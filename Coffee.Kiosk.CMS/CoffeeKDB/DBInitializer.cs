@@ -9,7 +9,9 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
         {
             @"CREATE TABLE IF NOT EXISTS accounts (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
-                Full_Name VARCHAR(255) NOT NULL,
+                First_Name VARCHAR(255) NOT NULL,
+                Middle_Name VARCHAR(255) NOT NULL,
+                Last_Name VARCHAR(255) NOT NULL,
                 Phone_Number VARCHAR(255) NOT NULL,
                 Email_Address VARCHAR(255) NOT NULL,
                 Emergency_Contact VARCHAR(255) NOT NULL,
@@ -64,26 +66,14 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
 
                 using (var connection = DBhelper.CreateConnection(_connectionStringDatabase))
                 {
+
                     for (int i = 0; i < tableCommands.Length; i++)
                     {
                         using var createTableCmd = connection.CreateCommand();
                         createTableCmd.CommandText = tableCommands[i];
                         createTableCmd.ExecuteNonQuery();
                     }
-                    //using (var cmd = connection.CreateCommand())
-                    //{
-                    //    cmd.CommandText = @"CREATE TABLE IF NOT EXISTS accounts (
-                    //                        ID INT AUTO_INCREMENT PRIMARY KEY,
-                    //                        Full_Name VARCHAR(255) NOT NULL,
-                    //                        Phone_Number VARCHAR(255) NOT NULL,
-                    //                        Email_Address VARCHAR(255) NOT NULL,
-                    //                        Emergency_Contact VARCHAR(255) NOT NULL,    
-                    //                        Job_Title VARCHAR(255) NOT NULL,
-                    //                        Salary DECIMAL(10,2) NOT NULL,
-                    //                        Status ENUM ('ACTIVE', 'DEACTIVATED') NOT NULL
-                    //                        );";
-                    //    cmd.ExecuteNonQuery();
-                    //}
+
                 }
             }
             catch (Exception ex)
