@@ -23,8 +23,8 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             None = 0,
             Top = 1,
             Bottom = 2,
-            Left = 3,
-            Right = 4,
+            Left = 4,
+            Right = 8,
             All = Top | Bottom | Left | Right
         }
 

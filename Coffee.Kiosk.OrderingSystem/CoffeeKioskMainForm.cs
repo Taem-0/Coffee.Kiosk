@@ -37,10 +37,10 @@ namespace Coffee.Kiosk.OrderingSystem
                 .Build();
             DBInitializer.Init(config);
 
-            //Models.Category.LoadFromDataBase();
+            Models.Category.LoadFromDataBase();
 
             // remove after connecting to database
-            Models.Category.LoadDummyData();
+            //Models.Category.LoadDummyData();
             Models.Product.LoadDummyData();
         }
 
@@ -62,7 +62,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
                 dineInTakeOut.backButtonClicked += () =>
                 {
-                    UI_Handling.loadUserControl(mainPanel, getStartedScreen!);
+                    UI_Handling.loadUserControl(mainPanel, getStartedScreen);
                 };
 
                 dineInTakeOut.hasPickedAChoice += () =>
@@ -82,6 +82,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowGetStartedScreen()
         {
+            Models.Category.LoadFromDataBase();
             loadEverything();
             if (getStartedScreen == null)
             {
@@ -126,13 +127,13 @@ namespace Coffee.Kiosk.OrderingSystem
 
         internal void FinishOrder()
         {
-            //getStartedScreen?.Dispose();
-            //dineInTakeOut?.Dispose();
-            //kioskMenu?.Dispose();
+            getStartedScreen?.Dispose();
+            dineInTakeOut?.Dispose();
+            kioskMenu?.Dispose();
 
-            //getStartedScreen = null;
-            //dineInTakeOut = null;
-            //kioskMenu = null;
+            getStartedScreen = null;
+            dineInTakeOut = null;
+            kioskMenu = null;
 
             currentOrder = null;
             
