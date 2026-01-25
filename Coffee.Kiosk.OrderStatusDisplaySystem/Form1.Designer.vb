@@ -22,10 +22,75 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container()
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Text = "Form1"
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
+        Me.lvPreparing = New ListView()
+        lvReady = New ListView()
+        Label1 = New Label()
+        Label2 = New Label()
+        SuspendLayout()
+        ' 
+        ' lvPreparing
+        ' 
+        Me.lvPreparing.BackColor = Color.Beige
+        Me.lvPreparing.Location = New Point(784, 109)
+        Me.lvPreparing.Name = "lvPreparing"
+        Me.lvPreparing.Size = New Size(536, 860)
+        Me.lvPreparing.TabIndex = 0
+        Me.lvPreparing.UseCompatibleStateImageBehavior = False
+        ' 
+        ' lvReady
+        ' 
+        lvReady.BackColor = Color.Beige
+        lvReady.Location = New Point(1350, 109)
+        lvReady.Name = "lvReady"
+        lvReady.Size = New Size(536, 860)
+        lvReady.TabIndex = 1
+        lvReady.UseCompatibleStateImageBehavior = False
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.BackColor = Color.Transparent
+        Label1.Font = New Font("Arial Rounded MT Bold", 36.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(838, 34)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(435, 55)
+        Label1.TabIndex = 2
+        Label1.Text = "Preparing Orders"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.BackColor = Color.Transparent
+        Label2.Font = New Font("Arial Rounded MT Bold", 36.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(1405, 36)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(440, 55)
+        Label2.TabIndex = 3
+        Label2.Text = "Ready for Pick-up"
+        ' 
+        ' Form1
+        ' 
+        AutoScaleDimensions = New SizeF(7.0F, 17.0F)
+        AutoScaleMode = AutoScaleMode.Font
+        BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
+        ClientSize = New Size(1902, 1001)
+        ControlBox = False
+        Controls.Add(Label2)
+        Controls.Add(Label1)
+        Controls.Add(lvReady)
+        Controls.Add(Me.lvPreparing)
+        Name = "Form1"
+        StartPosition = FormStartPosition.CenterScreen
+        Text = "Form1"
+        ResumeLayout(False)
+        PerformLayout()
     End Sub
+
+    Friend WithEvents lvPreparing As ListView
+    Friend WithEvents lvReady As ListView
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+
 
 End Class
