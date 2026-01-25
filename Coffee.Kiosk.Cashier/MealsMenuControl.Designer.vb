@@ -22,16 +22,29 @@ Partial Class MealsMenuControl
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        FlpMenu = New FlowLayoutPanel()
         SuspendLayout()
+        ' 
+        ' FlpMenu
+        ' 
+        FlpMenu.AutoScroll = True
+        FlpMenu.Dock = DockStyle.Fill
+        FlpMenu.Location = New Point(0, 0)
+        FlpMenu.Name = "FlpMenu"
+        FlpMenu.Size = New Size(907, 724)
+        FlpMenu.TabIndex = 0
         ' 
         ' MealsMenuControl
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
+        Controls.Add(FlpMenu)
         Name = "MealsMenuControl"
         Size = New Size(907, 724)
         ResumeLayout(False)
     End Sub
+
+    Friend WithEvents FlpMenu As FlowLayoutPanel
 
 End Class
