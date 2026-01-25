@@ -78,7 +78,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
             {
                 Console.WriteLine($"Error creating database or tables: {ex.Message}");
                 MessageBox.Show("Failed to initialize database");
-                throw;
+                //throw;
             }
         }
     }
