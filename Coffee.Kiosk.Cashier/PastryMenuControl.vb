@@ -50,10 +50,4 @@
         AddPastry("Banana Nutella Waffle", 119)
     End Sub
 
-    Private Sub AddPastry(name As String, price As Decimal)
-        Dim item As New MenuItemControl()
-        item.SetData(name, price)
-        FlpMenu.Controls.Add(item)
-    End Sub
-
 End Class

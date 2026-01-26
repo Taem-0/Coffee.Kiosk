@@ -14,10 +14,4 @@
         AddSnack("Chicken Fingers (Snack)", 159)
     End Sub
 
-    Private Sub AddSnack(name As String, price As Decimal)
-        Dim item As New MenuItemControl()
-        item.SetData(name, price)
-        FlpMenu.Controls.Add(item)
-    End Sub
-
 End Class
