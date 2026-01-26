@@ -21,14 +21,9 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             InitializeComponent();
 
             CategoryId = categoryId;
-            label1.Text = name;
 
-            Task.Run(() =>
-            {
-                var img = UI_Images.loadImageFromFile(iconPath);
-                pictureBox1.Invoke( () =>  { pictureBox1.Image = img; });
-            });
-
+            LoadImageAsync(iconPath);
+            guna2Button1.Text = name;
         }
 
         public CategoryItem(int categoryId, string name, Image icon)
@@ -36,64 +31,27 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             InitializeComponent();
 
             CategoryId = categoryId;
-            label1.Text = name;
 
-            pictureBox1.Image = icon;
+            guna2Button1.Text = name;
+            guna2Button1.Image = icon;
         }
 
-        private void CategoryItem_Load(object sender, EventArgs e)
+
+        private void LoadImageAsync(string path)
         {
+            Task.Run(() =>
+            {
+                var img = UI_Images.loadImageFromFile(path);
+                guna2Button1.Invoke(() =>
+                {
+                    guna2Button1.Image = img;
+                });
+            });
         }
 
-        private void CategoryItem_Resize(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void guna2Button1_Click(object sender, EventArgs e)
         {
             CategoryClicked?.Invoke(CategoryId);
-
-        }
-        private void CategoryItem_Click(object sender, EventArgs e)
-        {
-            CategoryClicked?.Invoke(CategoryId);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        // --------------------------------------------------------------------------
-
-        bool isHovered = false;
-        private void pictureBox1_MouseEnter(object sender, EventArgs e)
-        {
-            isHovered = true;
-            pictureBox1.Invalidate();
-            label1.Invalidate();
-        }
-
-        private void pictureBox1_MouseLeave(object sender, EventArgs e)
-        {
-            isHovered = false;
-            pictureBox1.Invalidate();
-            label1.Invalidate();
-        }
-
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
-        {
-            if (!isHovered) return;
-            UI_Handling.darkenOnHover(e, pictureBox1.ClientRectangle, UI_Handling.boxOrCircle.box);
-        }
-
-        private void label1_Paint(object sender, PaintEventArgs e)
-        {
-            if (!isHovered) return;
-            UI_Handling.darkenOnHover(e, label1.ClientRectangle, UI_Handling.boxOrCircle.box);
         }
     }
 }

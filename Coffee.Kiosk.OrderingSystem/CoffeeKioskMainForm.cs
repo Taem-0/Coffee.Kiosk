@@ -11,7 +11,7 @@ using System.Drawing;
 
 namespace Coffee.Kiosk.OrderingSystem
 {
-    public partial class CoffeeKioskMainForm : MaterialForm
+    public partial class CoffeeKioskMainForm : Form 
     {
 
         public event EventHandler? bruh;
@@ -26,8 +26,8 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             InitializeComponent();
 
-            var materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
+            //var materialSkinManager = MaterialSkinManager.Instance;
+            //materialSkinManager.AddFormToManage(this);
             UI_ColorScheme.initializeMaterialSkinThemes();
             UI_Images.loadLogoImage();
 
