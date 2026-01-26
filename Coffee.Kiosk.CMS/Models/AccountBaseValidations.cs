@@ -10,18 +10,18 @@ namespace Coffee.Kiosk.CMS.Models
     public abstract class AccountBaseValidations
     {
 
-        public void ValidateFullName(string? fullName, ValidationResults result, bool required)
+        public void ValidateName(string? name, string fieldDisplayName, ValidationResults result, bool required)
         {
-            if (string.IsNullOrWhiteSpace(fullName))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 if (required)
-                    result.AddError("FullName", "Full Name is required.");
+                    result.AddError(fieldDisplayName, $"{fieldDisplayName} is required.");
                 return;
             }
 
-            if (fullName.Length < 3 || fullName.Length > 100)
+            if (name.Length < 3 || name.Length > 100)
             {
-                result.AddError("FullName", "Full Name must be 3–100 characters long.");
+                result.AddError(fieldDisplayName, $"{fieldDisplayName} must be 3–100 characters long.");
             }
         }
 

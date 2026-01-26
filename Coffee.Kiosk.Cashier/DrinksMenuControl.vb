@@ -82,4 +82,26 @@
         AddDrink("Ube Latte", 159)
     End Sub
 
+    Private Sub AddDrink(drinkName As String, price As Integer)
+        Dim btn As New Button()
+
+        btn.Width = 205
+        btn.Height = 66
+        btn.Text = drinkName & vbCrLf & "₱" & price
+        btn.Tag = price
+        btn.BackColor = Color.FromArgb(111, 77, 56)
+        btn.ForeColor = Color.White
+        btn.FlatStyle = FlatStyle.Flat
+        btn.FlatAppearance.BorderSize = 0
+        btn.Font = New Font("Segoe UI", 10, FontStyle.Bold)
+
+        AddHandler btn.Click, AddressOf Drink_Click
+        FlpMenu.Controls.Add(btn)
+    End Sub
+
+    Private Sub Drink_Click(sender As Object, e As EventArgs)
+        Dim btn As Button = CType(sender, Button)
+        MessageBox.Show(btn.Text)
+    End Sub
+
 End Class

@@ -20,7 +20,9 @@ namespace Coffee.Kiosk.CMS.Services
 
             var employee = new Employee
             {
-                FullName = request.FullName,
+                FirstName = request.FirstName,
+                MiddleName = request.MiddleName,
+                LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
                 Email = request.Email,
                 EmergencyNumber = request.EmergencyNumber,
@@ -44,7 +46,9 @@ namespace Coffee.Kiosk.CMS.Services
                 DisplayDTO display = new()
                 {
                     PrimaryID = account.Id.ToString(),
-                    FullName = account.FullName,
+                    FirstName = account.FirstName,
+                    MiddleName = account.MiddleName,
+                    LastName = account.LastName,
                     PhoneNumber = account.PhoneNumber,
                     Email = account.Email,  
                     EmergencyNumber = account.EmergencyNumber,
@@ -69,7 +73,9 @@ namespace Coffee.Kiosk.CMS.Services
             var employee = new Employee
             {
                 Id = int.Parse(request.PrimaryID),
-                FullName = request.FullName,
+                FirstName = request.FirstName,
+                MiddleName = request.MiddleName,
+                LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
                 Email = request.Email,
                 EmergencyNumber = request.EmergencyNumber,
