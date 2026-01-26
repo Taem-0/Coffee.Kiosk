@@ -16,13 +16,13 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         internal int CategoryId { get; private set; }
         internal event Action<int>? CategoryClicked;
 
-        public CategoryItem(int categoryId, string name, string iconPath = "C:/Images/default_icon.png")
+        public CategoryItem(int categoryId, string name, string iconPath)
         {
             InitializeComponent();
 
             CategoryId = categoryId;
 
-            LoadImageAsync(iconPath);
+            guna2Button1.Image = UI_Images.loadImageFromFile(iconPath);
             guna2Button1.Text = name;
         }
 
@@ -35,20 +35,6 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             guna2Button1.Text = name;
             guna2Button1.Image = icon;
         }
-
-
-        private void LoadImageAsync(string path)
-        {
-            Task.Run(() =>
-            {
-                var img = UI_Images.loadImageFromFile(path);
-                guna2Button1.Invoke(() =>
-                {
-                    guna2Button1.Image = img;
-                });
-            });
-        }
-
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             CategoryClicked?.Invoke(CategoryId);

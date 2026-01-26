@@ -14,8 +14,6 @@ namespace Coffee.Kiosk.OrderingSystem
     public partial class CoffeeKioskMainForm : Form 
     {
 
-        public event EventHandler? bruh;
-        
         private GetStartedScreen? getStartedScreen;
         private DineInTakeOut? dineInTakeOut;
         private KioskMenu? kioskMenu;
@@ -118,7 +116,7 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             if (kioskMenu == null)
             {
-                kioskMenu = new KioskMenu();//
+                kioskMenu = new KioskMenu();
 
                 kioskMenu.startOverClicked += FinishOrder;
             }

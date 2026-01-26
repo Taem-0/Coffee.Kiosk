@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Guna.UI2.WinForms;
 
 namespace Coffee.Kiosk.OrderingSystem.Helper
 {
@@ -34,6 +35,7 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
                 userControl.Dock = DockStyle.Fill;
                 mainScreen.Controls.Add(userControl);
         }
+
 
         internal static void fixVisualShifts(UserControl e)
         {

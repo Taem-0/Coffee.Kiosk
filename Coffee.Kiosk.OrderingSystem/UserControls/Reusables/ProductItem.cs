@@ -1,13 +1,6 @@
 ﻿using Coffee.Kiosk.OrderingSystem.Helper;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Guna.UI2.WinForms;
+
 
 namespace Coffee.Kiosk.OrderingSystem.UserControls
 {
@@ -18,6 +11,14 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 
         internal int ProductId { get; set; }
         internal int CategoryId { get; set; }
+
+
+
+        private Color normalColor = ColorTranslator.FromHtml("#FFFFFF");
+        private Color hoverColor = Color.FromArgb(220, 220, 220);
+        private Guna2Panel? surfacePanel;
+
+
         public ProductItem(int productId, int categoryId, string name, string imagePath, decimal price)
         {
             InitializeComponent();
@@ -27,41 +28,58 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 
             productName.Text = name;
             productPrice.Text = $"PHP {price:0,00}";
-            Task.Run(() =>
-            {
-                var img = UI_Images.loadImageFromFile(imagePath);
-                pictureBox1.Invoke( () => pictureBox1.Image = img );
-            });
+            pictureBox1.Image = UI_Images.loadImageFromFile(imagePath);
         }
+
+        private void ProductItem_Load(object sender, EventArgs e)
+        {
+            surfacePanel = guna2Panel1;
+            AttachHover(this);
+            Cursor = Cursors.Hand;
+        }
+
+        private void AttachHover(Control control)
+        {
+            control.MouseEnter += (_, _) =>
+            {
+                if (surfacePanel != null)
+                    surfacePanel.FillColor = hoverColor;
+            };
+
+            control.MouseLeave += (_, _) =>
+            {
+                if (surfacePanel != null)
+                    surfacePanel.FillColor = normalColor;
+            };
+            foreach (Control child in control.Controls)
+                AttachHover(child);
+        }
+
+
+
+        // ---------
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             productClicked?.Invoke(ProductId);
         }
 
-
-
-
-        // --------------------------------------------------------------------------
-
-        bool isHovered = false;
-
-        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        private void guna2Panel1_Click(object sender, EventArgs e)
         {
-            isHovered = true;
-            pictureBox1.Invalidate();
+            productClicked?.Invoke(ProductId);
+        }
+        private void productName_Click(object sender, EventArgs e)
+        {
+            productClicked?.Invoke(ProductId);
         }
 
-        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        private void productPrice_Click(object sender, EventArgs e)
         {
-            isHovered = false;
-            pictureBox1.Invalidate();
+            productClicked?.Invoke(ProductId);
         }
 
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        private void guna2ShadowPanel1_Click(object sender, EventArgs e)
         {
-            if (!isHovered) return;
-            UI_Handling.darkenOnHover(e, pictureBox1.ClientRectangle, UI_Handling.boxOrCircle.box);
-
+            productClicked?.Invoke(ProductId);
         }
     }
 }
