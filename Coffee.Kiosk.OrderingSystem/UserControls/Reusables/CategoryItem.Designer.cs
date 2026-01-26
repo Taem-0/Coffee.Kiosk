@@ -73,7 +73,7 @@
             guna2Button1.Name = "guna2Button1";
             guna2Button1.PressedDepth = 0;
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Button1.Size = new Size(109, 90);
+            guna2Button1.Size = new Size(109, 87);
             guna2Button1.TabIndex = 3;
             guna2Button1.Text = "Name";
             guna2Button1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;

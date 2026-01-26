@@ -112,37 +112,14 @@ namespace Coffee.Kiosk.OrderingSystem
 
         // --------------------------------------------------------------------------
 
-
-        bool isHoveredStartOver = false;
-
-
-        private void StartOver_Button_Paint(object sender, PaintEventArgs e)
-        {
-            if (!isHoveredStartOver) return;
-            UI_Handling.darkenOnHover(e, StartOver_Button.ClientRectangle, UI_Handling.boxOrCircle.box);
-        }
-
-        private void StartOver_Button_MouseEnter(object sender, EventArgs e)
-        {
-            isHoveredStartOver = true;
-            StartOver_Button.Invalidate();
-        }
-
-        private void StartOver_Button_MouseLeave(object sender, EventArgs e)
-        {
-            isHoveredStartOver = false;
-            StartOver_Button.Invalidate();
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void BottomPanel_Paint(object sender, PaintEventArgs e)
         {
             UI_Handling.drawBorderSides(e, BottomPanel.ClientRectangle, UI_Handling.borderSide.Top, Color.Black, 2);
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            UI_Handling.drawBorderSides(e, BottomPanel.ClientRectangle, UI_Handling.borderSide.Top, Color.Black, 2);
+        }
     }
 }

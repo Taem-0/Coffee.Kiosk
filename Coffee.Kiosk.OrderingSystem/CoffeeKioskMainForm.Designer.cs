@@ -33,11 +33,9 @@
             // 
             // mainPanel
             // 
-            mainPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            mainPanel.BackColor = Color.White;
+            mainPanel.BackColor = Color.PapayaWhip;
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(0, 0);
-            mainPanel.Margin = new Padding(0);
             mainPanel.Name = "mainPanel";
             mainPanel.Size = new Size(676, 675);
             mainPanel.TabIndex = 0;
@@ -46,7 +44,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(203, 183, 153);
+            BackColor = Color.Black;
             ClientSize = new Size(676, 675);
             Controls.Add(mainPanel);
             Margin = new Padding(3, 2, 3, 2);

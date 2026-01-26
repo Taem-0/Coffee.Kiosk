@@ -19,6 +19,12 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         {
             InitializeComponent();
             CategoryId = categoryId;
+            var category = Models.Category.categoryData.FirstOrDefault(c => c.Id == categoryId);
+
+            if (category != null)
+            {
+                label1.Text = category.Name;
+            }
 
             LoadProduct();
         }
