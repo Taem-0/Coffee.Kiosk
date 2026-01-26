@@ -25,14 +25,18 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             try
             {
                 command.CommandText = @"INSERT INTO accounts
-                                              (Full_Name, 
+                                              (First_Name,
+                                               Middle_Name,
+                                               Last_Name,
                                                Phone_Number, 
                                                Email_Address, 
                                                Emergency_Contact, 
                                                Job_Title, 
                                                Salary, 
                                                Status)
-                                        VALUES(@fullName, 
+                                        VALUES(@firstName,
+                                               @middleName,
+                                               @lastName,
                                                @phoneNumber, 
                                                @emailAddress, 
                                                @emergencyContact, 
@@ -40,7 +44,9 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                                                @salary, 
                                                @status)";
 
-                command.Parameters.AddWithValue("@fullName", employee.FullName);
+                command.Parameters.AddWithValue("@firstName", employee.FirstName);
+                command.Parameters.AddWithValue("@middleName", employee.MiddleName);
+                command.Parameters.AddWithValue("@lastName", employee.LastName);
                 command.Parameters.AddWithValue("@phoneNumber", employee.PhoneNumber);
                 command.Parameters.AddWithValue("@emailAddress", employee.Email);
                 command.Parameters.AddWithValue("@emergencyContact", employee.EmergencyNumber);
@@ -67,7 +73,9 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             try
             {
                 command.CommandText = @"UPDATE accounts
-                                              SET Full_Name = @fullName,
+                                              SET First_Name = @firstName,
+                                                  Middle_Name = @middleName,
+                                                  Last_Name = @lastName,
                                                   Phone_Number = @phoneNumber,
                                                   Email_Address = @emailAddress,
                                                   Emergency_Contact = @emergencyContact,
@@ -75,8 +83,10 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                                                   Salary = @salary
                                               WHERE 
                                                   ID = @id";
-           
-                command.Parameters.AddWithValue("@fullName", employee.FullName);
+
+                command.Parameters.AddWithValue("@firstName", employee.FirstName);
+                command.Parameters.AddWithValue("@middleName", employee.MiddleName);
+                command.Parameters.AddWithValue("@lastName", employee.LastName);
                 command.Parameters.AddWithValue("@phoneNumber", employee.PhoneNumber);
                 command.Parameters.AddWithValue("@emailAddress", employee.Email);
                 command.Parameters.AddWithValue("@emergencyContact", employee.EmergencyNumber);
@@ -156,12 +166,14 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 {
                     
                     Id = reader.GetInt32(0),
-                    FullName = reader.GetString(1),
-                    PhoneNumber = reader.GetString(2),
-                    Email = reader.GetString(3),
-                    EmergencyNumber = reader.GetString(4),
-                    JobTitle = reader.GetString(5),
-                    Salary = reader.GetDecimal(6),
+                    FirstName = reader.GetString(1),
+                    MiddleName = reader.GetString(2),
+                    LastName = reader.GetString(3),
+                    PhoneNumber = reader.GetString(4),
+                    Email = reader.GetString(5),
+                    EmergencyNumber = reader.GetString(6),
+                    JobTitle = reader.GetString(7),
+                    Salary = reader.GetDecimal(8),
                     Status = Enum.Parse<AccountStatus>(reader.GetString("Status"))
 
                 });

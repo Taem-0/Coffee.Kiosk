@@ -20,7 +20,9 @@ namespace Coffee.Kiosk.CMS
 
             UIhelp.buttonNaRound(addEmpButton, 20);
 
-            EmployeeListView.Columns.Add("Full Name", 200, HorizontalAlignment.Left);
+            EmployeeListView.Columns.Add("First Name", 200, HorizontalAlignment.Left);
+            EmployeeListView.Columns.Add("Middle Name", 200, HorizontalAlignment.Left);
+            EmployeeListView.Columns.Add("Last Name", 200, HorizontalAlignment.Left);
             EmployeeListView.Columns.Add("Phone", 200, HorizontalAlignment.Left);
             EmployeeListView.Columns.Add("Email", 200, HorizontalAlignment.Left);
             EmployeeListView.Columns.Add("Emergency Number", 200, HorizontalAlignment.Left);
@@ -53,7 +55,9 @@ namespace Coffee.Kiosk.CMS
 
             foreach (var data in tableData)
             {
-                ListViewItem item = new ListViewItem(data.FullName);
+                ListViewItem item = new ListViewItem(data.FirstName);
+                item.SubItems.Add(data.MiddleName);
+                item.SubItems.Add(data.LastName);
                 item.SubItems.Add(data.PhoneNumber);
                 item.SubItems.Add(data.Email);
                 item.SubItems.Add(data.EmergencyNumber);
@@ -89,14 +93,16 @@ namespace Coffee.Kiosk.CMS
 
             int totalWidth = EmployeeListView.ClientSize.Width;
 
-            //ayaw mag run sakin eh, uncomment mo nalang
-            //EmployeeListView.Columns[0].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[1].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[2].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[3].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[4].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[5].Width = (int)(totalWidth * 0.15);
-            //EmployeeListView.Columns[6].Width = (int)(totalWidth * 0.10);
+
+            EmployeeListView.Columns[0].Width = (int)(totalWidth * 0.10); 
+            EmployeeListView.Columns[1].Width = (int)(totalWidth * 0.10); 
+            EmployeeListView.Columns[2].Width = (int)(totalWidth * 0.10); 
+            EmployeeListView.Columns[3].Width = (int)(totalWidth * 0.12); 
+            EmployeeListView.Columns[4].Width = (int)(totalWidth * 0.18); 
+            EmployeeListView.Columns[5].Width = (int)(totalWidth * 0.12); 
+            EmployeeListView.Columns[6].Width = (int)(totalWidth * 0.12); 
+            EmployeeListView.Columns[7].Width = (int)(totalWidth * 0.08); 
+            EmployeeListView.Columns[8].Width = (int)(totalWidth * 0.08); 
 
         }
 

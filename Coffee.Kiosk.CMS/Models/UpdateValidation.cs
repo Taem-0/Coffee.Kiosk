@@ -1,4 +1,5 @@
 ﻿using Coffee.Kiosk.CMS.DTOs;
+using MySqlX.XDevAPI.Common;
 
 
 namespace Coffee.Kiosk.CMS.Models
@@ -10,7 +11,9 @@ namespace Coffee.Kiosk.CMS.Models
         {
             var result = new ValidationResults();
 
-            ValidateFullName(request.FullName, result, false);
+            ValidateName(request.FirstName, "First Name", result, false);
+            ValidateName(request.MiddleName, "Middle Name", result, false);
+            ValidateName(request.LastName, "Last Name", result, false);
             ValidatePhoneNumber(request.PhoneNumber, result, false);
             ValidateEmail(request.Email, result, false);
             ValidateEmergencyNumber(request.EmergencyNumber, result, false);

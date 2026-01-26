@@ -36,7 +36,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             _currentAccount = account;
 
-            fullNameTextBox.Text = account.FullName;
+            FirstNameTextBox.Text = account.FirstName;
+            MiddleNameTextBox.Text = account.MiddleName;
+            LastNameTextBox.Text = account.LastName;
             phoneNumTextBox.Text = account.PhoneNumber;
             emailAddressTextBox.Text = account.Email;
             emergencyContactTextBox.Text = account.EmergencyNumber;
@@ -47,7 +49,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void InputCollection()
         {
-            _currentAccount.FullName = fullNameTextBox.Text;
+            _currentAccount.FirstName = FirstNameTextBox.Text;
+            _currentAccount.MiddleName = MiddleNameTextBox.Text;
+            _currentAccount.LastName = LastNameTextBox.Text;
             _currentAccount.PhoneNumber = phoneNumTextBox.Text;
             _currentAccount.Email = emailAddressTextBox.Text;
             _currentAccount.EmergencyNumber = emergencyContactTextBox.Text;
@@ -75,7 +79,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         private void Deactivate()
         {
 
-            var confirmation = MessageBox.Show($"Are you sure you want to deactivate {_currentAccount.FullName}?","Confirm Deactivation",
+            var confirmation = MessageBox.Show($"Are you sure you want to deactivate {_currentAccount.Email}?", "Confirm Deactivation",
                                                 MessageBoxButtons.YesNo,
                                                 MessageBoxIcon.Warning
     );
@@ -106,5 +110,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         {
             Deactivate();
         }
+
+
+
+
     }
 }
