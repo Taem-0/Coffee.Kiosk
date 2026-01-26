@@ -36,7 +36,7 @@ namespace Coffee.Kiosk.OrderingSystem
             LoadCategories();
             ShowHome();
         }
-        private void StartOver_Button_Click(object sender, EventArgs e)
+        private void guna2Button1_Click(object sender, EventArgs e)
         {
             startOverClicked?.Invoke();
         }
@@ -53,13 +53,13 @@ namespace Coffee.Kiosk.OrderingSystem
             {
                 if (Models.Category.categoryData[i].IsShown)
                 {
-                var categoryItem = new CategoryItem(
-                    Models.Category.categoryData[i].Id,
-                    Models.Category.categoryData[i].Name,
-                    UI_Images.loadImageFromFile(Models.Category.categoryData[i].IconPath)
-                    );
-                categoryItem.CategoryClicked += OnCategoryClicked;
-                flowCategories.Controls.Add(categoryItem);
+                    var categoryItem = new CategoryItem(
+                        Models.Category.categoryData[i].Id,
+                        Models.Category.categoryData[i].Name,
+                        UI_Images.loadImageFromFile(Models.Category.categoryData[i].IconPath)
+                        );
+                    categoryItem.CategoryClicked += OnCategoryClicked;
+                    flowCategories.Controls.Add(categoryItem);
                 }
             }
             flowCategories.ResumeLayout();
@@ -143,5 +143,6 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             UI_Handling.drawBorderSides(e, BottomPanel.ClientRectangle, UI_Handling.borderSide.Top, Color.Black, 2);
         }
+
     }
 }

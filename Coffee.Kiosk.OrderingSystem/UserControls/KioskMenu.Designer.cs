@@ -28,14 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             flowCategories = new FlowLayoutPanel();
             BottomPanel = new Panel();
+            StartOverBtn = new Guna.UI2.WinForms.Guna2Button();
             pictureBox2 = new PictureBox();
-            StartOver_Button = new Label();
             AdPanel = new Panel();
-            label2 = new Label();
             pictureBox1 = new PictureBox();
-            ContentPanel = new Panel();
+            ContentPanel = new Guna.UI2.WinForms.Guna2Panel();
             BottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             AdPanel.SuspendLayout();
@@ -45,18 +48,20 @@
             // flowCategories
             // 
             flowCategories.AutoScroll = true;
+            flowCategories.BackColor = Color.SeaShell;
             flowCategories.Dock = DockStyle.Left;
             flowCategories.FlowDirection = FlowDirection.TopDown;
-            flowCategories.Location = new Point(0, 56);
+            flowCategories.Location = new Point(0, 95);
             flowCategories.Name = "flowCategories";
-            flowCategories.Size = new Size(125, 457);
+            flowCategories.Size = new Size(125, 418);
             flowCategories.TabIndex = 0;
             flowCategories.WrapContents = false;
             // 
             // BottomPanel
             // 
+            BottomPanel.BackColor = Color.SeaShell;
+            BottomPanel.Controls.Add(StartOverBtn);
             BottomPanel.Controls.Add(pictureBox2);
-            BottomPanel.Controls.Add(StartOver_Button);
             BottomPanel.Dock = DockStyle.Bottom;
             BottomPanel.Location = new Point(0, 513);
             BottomPanel.Name = "BottomPanel";
@@ -64,68 +69,72 @@
             BottomPanel.TabIndex = 1;
             BottomPanel.Paint += BottomPanel_Paint;
             // 
+            // StartOverBtn
+            // 
+            StartOverBtn.Animated = true;
+            StartOverBtn.BorderColor = Color.DimGray;
+            StartOverBtn.BorderRadius = 15;
+            StartOverBtn.BorderThickness = 1;
+            StartOverBtn.CustomizableEdges = customizableEdges1;
+            StartOverBtn.DisabledState.BorderColor = Color.DarkGray;
+            StartOverBtn.DisabledState.CustomBorderColor = Color.DarkGray;
+            StartOverBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            StartOverBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            StartOverBtn.FillColor = Color.DarkKhaki;
+            StartOverBtn.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            StartOverBtn.ForeColor = Color.Black;
+            StartOverBtn.HoverState.BorderColor = Color.Black;
+            StartOverBtn.HoverState.FillColor = Color.FromArgb(138, 133, 78);
+            StartOverBtn.Location = new Point(9, 80);
+            StartOverBtn.Name = "StartOverBtn";
+            StartOverBtn.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            StartOverBtn.Size = new Size(116, 29);
+            StartOverBtn.TabIndex = 2;
+            StartOverBtn.Text = "< Start over";
+            StartOverBtn.Click += guna2Button1_Click;
+            // 
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.CART__1__1_;
             pictureBox2.Location = new Point(36, 4);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(80, 80);
+            pictureBox2.Size = new Size(80, 70);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
             // 
-            // StartOver_Button
-            // 
-            StartOver_Button.AutoSize = true;
-            StartOver_Button.Font = new Font("Segoe UI", 14F);
-            StartOver_Button.Location = new Point(0, 87);
-            StartOver_Button.Name = "StartOver_Button";
-            StartOver_Button.Size = new Size(116, 25);
-            StartOver_Button.TabIndex = 0;
-            StartOver_Button.Text = "← Start Over";
-            StartOver_Button.Click += StartOver_Button_Click;
-            StartOver_Button.Paint += StartOver_Button_Paint;
-            StartOver_Button.MouseEnter += StartOver_Button_MouseEnter;
-            StartOver_Button.MouseLeave += StartOver_Button_MouseLeave;
-            // 
             // AdPanel
             // 
-            AdPanel.Controls.Add(label2);
             AdPanel.Controls.Add(pictureBox1);
             AdPanel.Dock = DockStyle.Top;
             AdPanel.Location = new Point(0, 0);
             AdPanel.Name = "AdPanel";
-            AdPanel.Size = new Size(673, 56);
+            AdPanel.Size = new Size(673, 95);
             AdPanel.TabIndex = 2;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(266, 41);
-            label2.Name = "label2";
-            label2.Size = new Size(127, 15);
-            label2.TabIndex = 0;
-            label2.Text = "Dynamic Ad here  later";
             // 
             // pictureBox1
             // 
+            pictureBox1.BackColor = Color.Sienna;
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.Cafe_Brand_Web_Banner_Design;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Margin = new Padding(0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(673, 56);
+            pictureBox1.Size = new Size(673, 95);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
             // ContentPanel
             // 
+            ContentPanel.BackColor = Color.SeaShell;
+            ContentPanel.CustomizableEdges = customizableEdges3;
             ContentPanel.Dock = DockStyle.Fill;
-            ContentPanel.Location = new Point(125, 56);
+            ContentPanel.Location = new Point(125, 95);
             ContentPanel.Name = "ContentPanel";
-            ContentPanel.Size = new Size(548, 457);
+            ContentPanel.Padding = new Padding(3);
+            ContentPanel.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            ContentPanel.Size = new Size(548, 418);
             ContentPanel.TabIndex = 3;
             // 
             // KioskMenu
@@ -136,13 +145,12 @@
             Controls.Add(flowCategories);
             Controls.Add(BottomPanel);
             Controls.Add(AdPanel);
+            Margin = new Padding(0);
             Name = "KioskMenu";
             Size = new Size(673, 625);
             BottomPanel.ResumeLayout(false);
-            BottomPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             AdPanel.ResumeLayout(false);
-            AdPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
@@ -153,9 +161,9 @@
         private Panel BottomPanel;
         private Label StartOver_Button;
         private Panel AdPanel;
-        private Label label2;
         private PictureBox pictureBox1;
-        private Panel ContentPanel;
         private PictureBox pictureBox2;
+        private Guna.UI2.WinForms.Guna2Panel ContentPanel;
+        private Guna.UI2.WinForms.Guna2Button StartOverBtn;
     }
 }

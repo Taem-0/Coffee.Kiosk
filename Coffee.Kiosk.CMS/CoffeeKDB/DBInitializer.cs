@@ -33,9 +33,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 Name VARCHAR(255) NOT NULL,
                 Price DECIMAL(10,2) NOT NULL,
                 ImagePath VARCHAR(255),
+                Ingredients JSON,
                 FOREIGN KEY (CategoryID) REFERENCES category(ID) ON DELETE CASCADE
             );"
         };
+
+        // ingredients json will look like this
+        // { "sugar": 50,
 
 
         private readonly string _connectionString;
