@@ -1,0 +1,144 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class FrmKitchenDisplay
+    Inherits System.Windows.Forms.Form
+
+    'Form overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()>
+    Protected Overrides Sub Dispose(disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.  
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()>
+    Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmKitchenDisplay))
+        flOrders = New FlowLayoutPanel()
+        lblTime = New Label()
+        ColorDialog1 = New ColorDialog()
+        TimerClock = New Timer(components)
+        Panel1 = New Panel()
+        lblActiveOrder = New Label()
+        Label1 = New Label()
+        PictureBox1 = New PictureBox()
+        Button1 = New Button()
+        Panel1.SuspendLayout()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
+        SuspendLayout()
+        ' 
+        ' flOrders
+        ' 
+        flOrders.AutoScroll = True
+        flOrders.Location = New Point(13, 97)
+        flOrders.Name = "flOrders"
+        flOrders.Size = New Size(1735, 1080)
+        flOrders.TabIndex = 1
+        ' 
+        ' lblTime
+        ' 
+        lblTime.AutoSize = True
+        lblTime.BackColor = Color.Tan
+        lblTime.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTime.Location = New Point(809, 22)
+        lblTime.Name = "lblTime"
+        lblTime.Size = New Size(145, 28)
+        lblTime.TabIndex = 2
+        lblTime.Text = "Date and Time"
+        ' 
+        ' TimerClock
+        ' 
+        ' 
+        ' Panel1
+        ' 
+        Panel1.BackColor = Color.Tan
+        Panel1.Controls.Add(lblActiveOrder)
+        Panel1.Controls.Add(Label1)
+        Panel1.Controls.Add(PictureBox1)
+        Panel1.Controls.Add(Button1)
+        Panel1.Location = New Point(-2, -3)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(1831, 77)
+        Panel1.TabIndex = 3
+        ' 
+        ' lblActiveOrder
+        ' 
+        lblActiveOrder.AutoSize = True
+        lblActiveOrder.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblActiveOrder.Location = New Point(1677, 28)
+        lblActiveOrder.Name = "lblActiveOrder"
+        lblActiveOrder.Size = New Size(0, 46)
+        lblActiveOrder.TabIndex = 5
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(1666, 9)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(51, 20)
+        Label1.TabIndex = 2
+        Label1.Text = "Active"
+        ' 
+        ' PictureBox1
+        ' 
+        PictureBox1.BackColor = Color.Tan
+        PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), Image)
+        PictureBox1.BackgroundImageLayout = ImageLayout.Stretch
+        PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
+        PictureBox1.Location = New Point(15, 9)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(63, 63)
+        PictureBox1.TabIndex = 1
+        PictureBox1.TabStop = False
+        ' 
+        ' Button1
+        ' 
+        Button1.Location = New Point(275, 15)
+        Button1.Name = "Button1"
+        Button1.Size = New Size(152, 50)
+        Button1.TabIndex = 0
+        Button1.Text = "Try"
+        Button1.UseVisualStyleBackColor = True
+        ' 
+        ' FrmKitchenDisplay
+        ' 
+        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleMode = AutoScaleMode.Font
+        BackColor = SystemColors.Info
+        ClientSize = New Size(1744, 1080)
+        Controls.Add(lblTime)
+        Controls.Add(flOrders)
+        Controls.Add(Panel1)
+        FormBorderStyle = FormBorderStyle.None
+        Name = "FrmKitchenDisplay"
+        StartPosition = FormStartPosition.CenterScreen
+        Text = "Form1"
+        WindowState = FormWindowState.Maximized
+        Panel1.ResumeLayout(False)
+        Panel1.PerformLayout()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
+        ResumeLayout(False)
+        PerformLayout()
+    End Sub
+    Friend WithEvents flOrders As FlowLayoutPanel
+    Friend WithEvents lblTime As Label
+    Friend WithEvents ColorDialog1 As ColorDialog
+    Friend WithEvents TimerClock As Timer
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Button1 As Button
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents lblActiveOrder As Label
+    Friend WithEvents Label1 As Label
+
+End Class
