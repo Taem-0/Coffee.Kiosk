@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminControlForm));
             AdminFormHamburger = new MaterialSkin.Controls.MaterialTabControl();
             DashBoard = new TabPage();
+            materialSwitch1 = new MaterialSkin.Controls.MaterialSwitch();
             tabAccounts = new TabPage();
             AccountsContentPanel = new Panel();
             Kiosk = new TabPage();
@@ -41,6 +42,7 @@
             tabPage5 = new TabPage();
             AdminHamburgerIcons = new ImageList(components);
             AdminFormHamburger.SuspendLayout();
+            DashBoard.SuspendLayout();
             tabAccounts.SuspendLayout();
             Kiosk.SuspendLayout();
             SuspendLayout();
@@ -67,6 +69,7 @@
             // 
             // DashBoard
             // 
+            DashBoard.Controls.Add(materialSwitch1);
             DashBoard.ImageKey = "Icon_Admin.png";
             DashBoard.Location = new Point(4, 41);
             DashBoard.Margin = new Padding(2);
@@ -76,6 +79,22 @@
             DashBoard.TabIndex = 0;
             DashBoard.Text = "Admin";
             DashBoard.UseVisualStyleBackColor = true;
+            // 
+            // materialSwitch1
+            // 
+            materialSwitch1.AutoSize = true;
+            materialSwitch1.Depth = 0;
+            materialSwitch1.Location = new Point(2, 2);
+            materialSwitch1.Margin = new Padding(0);
+            materialSwitch1.MouseLocation = new Point(-1, -1);
+            materialSwitch1.MouseState = MaterialSkin.MouseState.HOVER;
+            materialSwitch1.Name = "materialSwitch1";
+            materialSwitch1.Ripple = true;
+            materialSwitch1.Size = new Size(135, 37);
+            materialSwitch1.TabIndex = 0;
+            materialSwitch1.Text = "Dark Mode";
+            materialSwitch1.UseVisualStyleBackColor = true;
+            materialSwitch1.CheckedChanged += materialSwitch1_CheckedChanged;
             // 
             // tabAccounts
             // 
@@ -169,10 +188,12 @@
             Margin = new Padding(2);
             Name = "AdminControlForm";
             Padding = new Padding(2, 51, 2, 2);
-            Text = "Form1";
+            Text = "CMS";
             WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             AdminFormHamburger.ResumeLayout(false);
+            DashBoard.ResumeLayout(false);
+            DashBoard.PerformLayout();
             tabAccounts.ResumeLayout(false);
             Kiosk.ResumeLayout(false);
             ResumeLayout(false);
@@ -190,5 +211,6 @@
         private TabPage tabPage5;
         private Panel AccountsContentPanel;
         private CMS.Forms.OrderingSystemTab.OrderingSystemMainControl orderingSystem1;
+        private MaterialSkin.Controls.MaterialSwitch materialSwitch1;
     }
 }

@@ -25,14 +25,26 @@ namespace Coffee.Kiosk
         private readonly Stack<UserControl> _navigationStack = new();
 
 
+        private readonly MaterialSkinManager materialSkinManager = null!;
+
         public AdminControlForm()
         {
             InitializeComponent();
 
-            var materialSkinManager = MaterialSkinManager.Instance;
+            // change later
+            this.Text = $"Logged in as: ";
+
+            materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+            materialSkinManager.ColorScheme = new ColorScheme(
+                ColorTranslator.FromHtml("#6F4D38"),
+                ColorTranslator.FromHtml("#3D211A"),
+                ColorTranslator.FromHtml("#3D211A"),
+                ColorTranslator.FromHtml("#3D211A"),
+                TextShade.WHITE
+            );
+
 
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             var dbManager = new AccountDBManager(configuration);
@@ -46,7 +58,7 @@ namespace Coffee.Kiosk
             registerControl = new RegisterControl(controller);
             registerControl.ParentFormReference = this;
 
-            employeesControl = new EmployeesControl(controller); 
+            employeesControl = new EmployeesControl(controller);
             employeesControl.ParentFormReference = this;
 
             updateControl = new UpdateAccount(controller);
@@ -57,7 +69,6 @@ namespace Coffee.Kiosk
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             ShowInAccountsPanel(employeesControl);
         }
 
@@ -95,6 +106,12 @@ namespace Coffee.Kiosk
             UIhelp.CallControl(previous, AccountsContentPanel);
         }
 
-
+        private void materialSwitch1_CheckedChanged(object sender, EventArgs e)
+        {
+            materialSkinManager.Theme =
+                materialSwitch1.Checked
+                ? MaterialSkinManager.Themes.DARK
+                : MaterialSkinManager.Themes.LIGHT;
+        }
     }
 }
