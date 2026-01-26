@@ -52,6 +52,8 @@
             firstNameLabel = new MaterialSkin.Controls.MaterialLabel();
             FirstNameTextBox = new MaterialSkin.Controls.MaterialTextBox2();
             MiddleNameTextBox = new MaterialSkin.Controls.MaterialTextBox2();
+            PasswordTextBox = new MaterialSkin.Controls.MaterialTextBox2();
+            PasswordLabel = new MaterialSkin.Controls.MaterialLabel();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
@@ -59,7 +61,7 @@
             // 
             // DeactivateButton
             // 
-            DeactivateButton.Location = new Point(142, 465);
+            DeactivateButton.Location = new Point(142, 560);
             DeactivateButton.Name = "DeactivateButton";
             DeactivateButton.Size = new Size(112, 34);
             DeactivateButton.TabIndex = 25;
@@ -151,7 +153,7 @@
             // 
             // UpdateButton
             // 
-            UpdateButton.Location = new Point(14, 465);
+            UpdateButton.Location = new Point(14, 560);
             UpdateButton.Name = "UpdateButton";
             UpdateButton.Size = new Size(112, 34);
             UpdateButton.TabIndex = 24;
@@ -347,7 +349,7 @@
             // 
             // CancelButton
             // 
-            CancelButton.Location = new Point(765, 465);
+            CancelButton.Location = new Point(765, 560);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(112, 34);
             CancelButton.TabIndex = 26;
@@ -499,10 +501,53 @@
             MiddleNameTextBox.TrailingIcon = null;
             MiddleNameTextBox.UseSystemPasswordChar = false;
             // 
+            // PasswordTextBox
+            // 
+            PasswordTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            PasswordTextBox.AnimateReadOnly = false;
+            PasswordTextBox.BackgroundImageLayout = ImageLayout.None;
+            PasswordTextBox.CharacterCasing = CharacterCasing.Normal;
+            PasswordTextBox.Depth = 0;
+            PasswordTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            PasswordTextBox.HideSelection = true;
+            PasswordTextBox.LeadingIcon = null;
+            PasswordTextBox.Location = new Point(14, 475);
+            PasswordTextBox.MaxLength = 32767;
+            PasswordTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            PasswordTextBox.Name = "PasswordTextBox";
+            PasswordTextBox.PasswordChar = '\0';
+            PasswordTextBox.PrefixSuffixText = null;
+            PasswordTextBox.ReadOnly = false;
+            PasswordTextBox.RightToLeft = RightToLeft.No;
+            PasswordTextBox.SelectedText = "";
+            PasswordTextBox.SelectionLength = 0;
+            PasswordTextBox.SelectionStart = 0;
+            PasswordTextBox.ShortcutsEnabled = true;
+            PasswordTextBox.Size = new Size(863, 48);
+            PasswordTextBox.TabIndex = 29;
+            PasswordTextBox.TabStop = false;
+            PasswordTextBox.TextAlign = HorizontalAlignment.Left;
+            PasswordTextBox.TrailingIcon = null;
+            PasswordTextBox.UseSystemPasswordChar = false;
+            // 
+            // PasswordLabel
+            // 
+            PasswordLabel.AutoSize = true;
+            PasswordLabel.Depth = 0;
+            PasswordLabel.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            PasswordLabel.Location = new Point(14, 453);
+            PasswordLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            PasswordLabel.Name = "PasswordLabel";
+            PasswordLabel.Size = new Size(71, 19);
+            PasswordLabel.TabIndex = 28;
+            PasswordLabel.Text = "Password";
+            // 
             // UpdateAccount
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(PasswordTextBox);
+            Controls.Add(PasswordLabel);
             Controls.Add(tableLayoutPanel3);
             Controls.Add(CancelButton);
             Controls.Add(DeactivateButton);
@@ -514,7 +559,7 @@
             Controls.Add(UpdateEmpTitle);
             Controls.Add(RegistrationTitleDivider);
             Name = "UpdateAccount";
-            Size = new Size(894, 533);
+            Size = new Size(894, 643);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
@@ -551,5 +596,7 @@
         private MaterialSkin.Controls.MaterialLabel firstNameLabel;
         private MaterialSkin.Controls.MaterialTextBox2 FirstNameTextBox;
         private MaterialSkin.Controls.MaterialTextBox2 MiddleNameTextBox;
+        private MaterialSkin.Controls.MaterialTextBox2 PasswordTextBox;
+        private MaterialSkin.Controls.MaterialLabel PasswordLabel;
     }
 }
