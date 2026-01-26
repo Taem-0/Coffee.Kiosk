@@ -51,6 +51,8 @@
             firstNameLabel = new MaterialSkin.Controls.MaterialLabel();
             FirstNameTextBox = new MaterialSkin.Controls.MaterialTextBox2();
             MiddleNameTextBox = new MaterialSkin.Controls.MaterialTextBox2();
+            PasswordTextBox = new MaterialSkin.Controls.MaterialTextBox2();
+            passwordLabel = new MaterialSkin.Controls.MaterialLabel();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
@@ -326,7 +328,7 @@
             // 
             // RegisterButton
             // 
-            RegisterButton.Location = new Point(14, 465);
+            RegisterButton.Location = new Point(14, 560);
             RegisterButton.Name = "RegisterButton";
             RegisterButton.Size = new Size(112, 34);
             RegisterButton.TabIndex = 14;
@@ -336,7 +338,7 @@
             // 
             // CancelButton
             // 
-            CancelButton.Location = new Point(142, 465);
+            CancelButton.Location = new Point(142, 560);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(112, 34);
             CancelButton.TabIndex = 15;
@@ -488,10 +490,53 @@
             MiddleNameTextBox.TrailingIcon = null;
             MiddleNameTextBox.UseSystemPasswordChar = false;
             // 
+            // PasswordTextBox
+            // 
+            PasswordTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            PasswordTextBox.AnimateReadOnly = false;
+            PasswordTextBox.BackgroundImageLayout = ImageLayout.None;
+            PasswordTextBox.CharacterCasing = CharacterCasing.Normal;
+            PasswordTextBox.Depth = 0;
+            PasswordTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            PasswordTextBox.HideSelection = true;
+            PasswordTextBox.LeadingIcon = null;
+            PasswordTextBox.Location = new Point(14, 475);
+            PasswordTextBox.MaxLength = 32767;
+            PasswordTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            PasswordTextBox.Name = "PasswordTextBox";
+            PasswordTextBox.PasswordChar = '\0';
+            PasswordTextBox.PrefixSuffixText = null;
+            PasswordTextBox.ReadOnly = false;
+            PasswordTextBox.RightToLeft = RightToLeft.No;
+            PasswordTextBox.SelectedText = "";
+            PasswordTextBox.SelectionLength = 0;
+            PasswordTextBox.SelectionStart = 0;
+            PasswordTextBox.ShortcutsEnabled = true;
+            PasswordTextBox.Size = new Size(863, 48);
+            PasswordTextBox.TabIndex = 18;
+            PasswordTextBox.TabStop = false;
+            PasswordTextBox.TextAlign = HorizontalAlignment.Left;
+            PasswordTextBox.TrailingIcon = null;
+            PasswordTextBox.UseSystemPasswordChar = false;
+            // 
+            // passwordLabel
+            // 
+            passwordLabel.AutoSize = true;
+            passwordLabel.Depth = 0;
+            passwordLabel.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            passwordLabel.Location = new Point(14, 453);
+            passwordLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            passwordLabel.Name = "passwordLabel";
+            passwordLabel.Size = new Size(71, 19);
+            passwordLabel.TabIndex = 17;
+            passwordLabel.Text = "Password";
+            // 
             // RegisterControl
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(PasswordTextBox);
+            Controls.Add(passwordLabel);
             Controls.Add(CancelButton);
             Controls.Add(RegisterButton);
             Controls.Add(tableLayoutPanel2);
@@ -502,7 +547,7 @@
             Controls.Add(RegistrationTitleDivider);
             Controls.Add(tableLayoutPanel3);
             Name = "RegisterControl";
-            Size = new Size(894, 533);
+            Size = new Size(894, 643);
             Load += RegisterControl_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
@@ -539,5 +584,7 @@
         private MaterialSkin.Controls.MaterialTextBox2 MiddleNameTextBox;
         private MaterialSkin.Controls.MaterialLabel lastNameLabel;
         private MaterialSkin.Controls.MaterialTextBox2 LastNameTextBox;
+        private MaterialSkin.Controls.MaterialTextBox2 PasswordTextBox;
+        private MaterialSkin.Controls.MaterialLabel passwordLabel;
     }
 }
