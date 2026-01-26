@@ -112,6 +112,11 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
         }
 
+        internal static void centerPanelfix(UserControl outerPanel, Panel innerPanel)
+        {
+            innerPanel.Left = (outerPanel.ClientSize.Width - innerPanel.Width) / 2;
+        }
+
         internal static void centerPanel(Panel outerPanel, PictureBox innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
         {
             innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;

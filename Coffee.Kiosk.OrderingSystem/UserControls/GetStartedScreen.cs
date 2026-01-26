@@ -26,20 +26,35 @@ namespace Coffee.Kiosk.OrderingSystem
             UI_Handling.fixVisualShifts(this);
         }
 
-        private void GetStartedScreen_Load(object sender, EventArgs e)
+        private async void GetStartedScreen_Load(object sender, EventArgs e)
         {
-            UI_Handling.centerPanel(panel1, panelButtonGetStarted);
+            UI_Handling.centerPanelfix(this, panelButtonGetStarted);
             button1.BackColor = UI_ColorScheme.Primary;
+
+            await changeBackground(3000);
+
         }
 
         private void GetStartedScreen_Resize(object sender, EventArgs e)
         {
-            UI_Handling.centerPanel(panel1, panelButtonGetStarted, 3);
+            UI_Handling.centerPanelfix(this, panelButtonGetStarted);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             NextClicked?.Invoke();
+        }
+
+        private async Task changeBackground(int delayMs)
+        {
+            while(true)
+            {
+                await Task.Delay(delayMs);
+                this.BackgroundImage = UI_Images.loadImageFromFile("C:/Images/Kiosk/Ads/Cafe Brand Web Banner Design.jpg");
+
+                await Task.Delay(delayMs * 2);
+                this.BackgroundImage = UI_Images.loadImageFromFile("C:/Images/Kiosk/Ads/Café Gelado _ Lune Graphic.jpg");
+            }
         }
     }
 }
