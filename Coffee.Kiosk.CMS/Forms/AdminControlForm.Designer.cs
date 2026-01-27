@@ -32,15 +32,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminControlForm));
             AdminFormHamburger = new MaterialSkin.Controls.MaterialTabControl();
             DashBoard = new TabPage();
-            materialSwitch1 = new MaterialSkin.Controls.MaterialSwitch();
             tabAccounts = new TabPage();
-            AccountsContentPanel = new Panel();
             Kiosk = new TabPage();
             orderingSystem1 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.OrderingSystemMainControl();
             tabPage3 = new TabPage();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
             AdminHamburgerIcons = new ImageList(components);
+            AccountsContentPanel = new Panel();
+            AdminContentPanel = new Panel();
             AdminFormHamburger.SuspendLayout();
             DashBoard.SuspendLayout();
             tabAccounts.SuspendLayout();
@@ -58,43 +58,27 @@
             AdminFormHamburger.Depth = 0;
             AdminFormHamburger.Dock = DockStyle.Fill;
             AdminFormHamburger.ImageList = AdminHamburgerIcons;
-            AdminFormHamburger.Location = new Point(2, 51);
+            AdminFormHamburger.Location = new Point(2, 64);
             AdminFormHamburger.Margin = new Padding(2);
             AdminFormHamburger.MouseState = MaterialSkin.MouseState.HOVER;
             AdminFormHamburger.Multiline = true;
             AdminFormHamburger.Name = "AdminFormHamburger";
             AdminFormHamburger.SelectedIndex = 0;
-            AdminFormHamburger.Size = new Size(716, 427);
+            AdminFormHamburger.Size = new Size(896, 534);
             AdminFormHamburger.TabIndex = 0;
             // 
             // DashBoard
             // 
-            DashBoard.Controls.Add(materialSwitch1);
+            DashBoard.Controls.Add(AdminContentPanel);
             DashBoard.ImageKey = "Icon_Admin.png";
             DashBoard.Location = new Point(4, 41);
             DashBoard.Margin = new Padding(2);
             DashBoard.Name = "DashBoard";
             DashBoard.Padding = new Padding(2);
-            DashBoard.Size = new Size(708, 382);
+            DashBoard.Size = new Size(888, 489);
             DashBoard.TabIndex = 0;
             DashBoard.Text = "Admin";
             DashBoard.UseVisualStyleBackColor = true;
-            // 
-            // materialSwitch1
-            // 
-            materialSwitch1.AutoSize = true;
-            materialSwitch1.Depth = 0;
-            materialSwitch1.Location = new Point(2, 2);
-            materialSwitch1.Margin = new Padding(0);
-            materialSwitch1.MouseLocation = new Point(-1, -1);
-            materialSwitch1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialSwitch1.Name = "materialSwitch1";
-            materialSwitch1.Ripple = true;
-            materialSwitch1.Size = new Size(135, 37);
-            materialSwitch1.TabIndex = 0;
-            materialSwitch1.Text = "Dark Mode";
-            materialSwitch1.UseVisualStyleBackColor = true;
-            materialSwitch1.CheckedChanged += materialSwitch1_CheckedChanged;
             // 
             // tabAccounts
             // 
@@ -104,19 +88,10 @@
             tabAccounts.Margin = new Padding(2);
             tabAccounts.Name = "tabAccounts";
             tabAccounts.Padding = new Padding(2);
-            tabAccounts.Size = new Size(708, 382);
+            tabAccounts.Size = new Size(888, 489);
             tabAccounts.TabIndex = 1;
             tabAccounts.Text = "Accounts";
             tabAccounts.UseVisualStyleBackColor = true;
-            // 
-            // AccountsContentPanel
-            // 
-            AccountsContentPanel.Dock = DockStyle.Fill;
-            AccountsContentPanel.Location = new Point(2, 2);
-            AccountsContentPanel.Margin = new Padding(2);
-            AccountsContentPanel.Name = "AccountsContentPanel";
-            AccountsContentPanel.Size = new Size(704, 378);
-            AccountsContentPanel.TabIndex = 1;
             // 
             // Kiosk
             // 
@@ -125,7 +100,7 @@
             Kiosk.Location = new Point(4, 41);
             Kiosk.Margin = new Padding(2);
             Kiosk.Name = "Kiosk";
-            Kiosk.Size = new Size(708, 382);
+            Kiosk.Size = new Size(888, 489);
             Kiosk.TabIndex = 2;
             Kiosk.Text = "Kiosk";
             Kiosk.UseVisualStyleBackColor = true;
@@ -134,8 +109,9 @@
             // 
             orderingSystem1.Dock = DockStyle.Fill;
             orderingSystem1.Location = new Point(0, 0);
+            orderingSystem1.Margin = new Padding(5);
             orderingSystem1.Name = "orderingSystem1";
-            orderingSystem1.Size = new Size(708, 382);
+            orderingSystem1.Size = new Size(888, 489);
             orderingSystem1.TabIndex = 0;
             // 
             // tabPage3
@@ -143,7 +119,7 @@
             tabPage3.Location = new Point(4, 41);
             tabPage3.Margin = new Padding(2);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(708, 382);
+            tabPage3.Size = new Size(888, 489);
             tabPage3.TabIndex = 3;
             tabPage3.Text = "MockUp";
             tabPage3.UseVisualStyleBackColor = true;
@@ -153,7 +129,7 @@
             tabPage4.Location = new Point(4, 41);
             tabPage4.Margin = new Padding(2);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(708, 382);
+            tabPage4.Size = new Size(888, 489);
             tabPage4.TabIndex = 4;
             tabPage4.Text = "MockUp";
             tabPage4.UseVisualStyleBackColor = true;
@@ -163,7 +139,7 @@
             tabPage5.Location = new Point(4, 41);
             tabPage5.Margin = new Padding(2);
             tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(708, 382);
+            tabPage5.Size = new Size(888, 489);
             tabPage5.TabIndex = 5;
             tabPage5.Text = "MockUp";
             tabPage5.UseVisualStyleBackColor = true;
@@ -177,23 +153,39 @@
             AdminHamburgerIcons.Images.SetKeyName(1, "user-management-svgrepo-com.png");
             AdminHamburgerIcons.Images.SetKeyName(2, "CART (1)(1).png");
             // 
+            // AccountsContentPanel
+            // 
+            AccountsContentPanel.Dock = DockStyle.Fill;
+            AccountsContentPanel.Location = new Point(2, 2);
+            AccountsContentPanel.Margin = new Padding(2);
+            AccountsContentPanel.Name = "AccountsContentPanel";
+            AccountsContentPanel.Size = new Size(884, 485);
+            AccountsContentPanel.TabIndex = 1;
+            // 
+            // AdminContentPanel
+            // 
+            AdminContentPanel.Dock = DockStyle.Fill;
+            AdminContentPanel.Location = new Point(2, 2);
+            AdminContentPanel.Name = "AdminContentPanel";
+            AdminContentPanel.Size = new Size(884, 485);
+            AdminContentPanel.TabIndex = 0;
+            // 
             // AdminControlForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(720, 480);
+            ClientSize = new Size(900, 600);
             Controls.Add(AdminFormHamburger);
             DrawerShowIconsWhenHidden = true;
             DrawerTabControl = AdminFormHamburger;
             Margin = new Padding(2);
             Name = "AdminControlForm";
-            Padding = new Padding(2, 51, 2, 2);
+            Padding = new Padding(2, 64, 2, 2);
             Text = "CMS";
             WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             AdminFormHamburger.ResumeLayout(false);
             DashBoard.ResumeLayout(false);
-            DashBoard.PerformLayout();
             tabAccounts.ResumeLayout(false);
             Kiosk.ResumeLayout(false);
             ResumeLayout(false);
@@ -209,8 +201,8 @@
         private TabPage tabPage3;
         private TabPage tabPage4;
         private TabPage tabPage5;
-        private Panel AccountsContentPanel;
         private CMS.Forms.OrderingSystemTab.OrderingSystemMainControl orderingSystem1;
-        private MaterialSkin.Controls.MaterialSwitch materialSwitch1;
+        private Panel AdminContentPanel;
+        private Panel AccountsContentPanel;
     }
 }
