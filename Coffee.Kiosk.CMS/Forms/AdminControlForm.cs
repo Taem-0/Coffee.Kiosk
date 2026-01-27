@@ -3,6 +3,7 @@ using Coffee.Kiosk.CMS.CoffeeKDB;
 using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
 using Coffee.Kiosk.CMS.Forms.AccountsTab;
+using Coffee.Kiosk.CMS.Forms.DashBoardTab;
 using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
 using Coffee.Kiosk.CMS.Services;
@@ -21,6 +22,7 @@ namespace Coffee.Kiosk
         private UpdateValidation updateValidation;
         private AccountsService service;
         private AccountController controller;
+        private DashBoardControl dashBoardControl;
 
         private readonly Stack<UserControl> _navigationStack = new();
 
@@ -64,38 +66,42 @@ namespace Coffee.Kiosk
             updateControl = new UpdateAccount(controller);
             updateControl.ParentFormReference = this;
 
+            dashBoardControl = new DashBoardControl(controller);
+            dashBoardControl.ParentFormReference = this;
+
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ShowInAccountsPanel(employeesControl);
+            ShowInPanel(dashBoardControl, AdminContentPanel);
+            ShowInPanel(employeesControl, AccountsContentPanel);
         }
 
-        public void ShowInAccountsPanel(UserControl control)
+
+
+        public void ShowInPanel(UserControl control, Panel panel)
         {
-            if (AccountsContentPanel.Controls.Count > 0)
+            if (panel.Controls.Count > 0)
             {
-                var current = AccountsContentPanel.Controls[0] as UserControl;
+                var current = panel.Controls[0] as UserControl;
                 if (current != null)
                     _navigationStack.Push(current);
             }
 
-            UIhelp.CallControl(control, AccountsContentPanel);
+            UIhelp.CallControl(control, panel);
         }
 
         public void ShowRegister()
         {
-            ShowInAccountsPanel(registerControl);
+            ShowInPanel(registerControl, AccountsContentPanel);
         }
 
         public void ShowUpdate(DisplayDTO dto)
         {
             updateControl.DisplayAccount(dto);
-            ShowInAccountsPanel(updateControl);
+            ShowInPanel(updateControl, AccountsContentPanel);
         }
-
-
 
         public void GoBack()
         {
@@ -106,12 +112,6 @@ namespace Coffee.Kiosk
             UIhelp.CallControl(previous, AccountsContentPanel);
         }
 
-        private void materialSwitch1_CheckedChanged(object sender, EventArgs e)
-        {
-            materialSkinManager.Theme =
-                materialSwitch1.Checked
-                ? MaterialSkinManager.Themes.DARK
-                : MaterialSkinManager.Themes.LIGHT;
-        }
+        
     }
 }
