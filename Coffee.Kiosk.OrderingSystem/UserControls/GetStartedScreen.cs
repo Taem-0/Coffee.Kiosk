@@ -30,7 +30,7 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             UI_Handling.centerPanelfix(this, panelButtonGetStarted);
             //button1.BackColor = UI_ColorScheme.Primary;
-            guna2Button1.FillColor = UI_ColorScheme.Primary;
+            //guna2Button1.FillColor = UI_ColorScheme.Primary;
         }
 
         private void GetStartedScreen_Resize(object sender, EventArgs e)
@@ -39,6 +39,11 @@ namespace Coffee.Kiosk.OrderingSystem
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            NextClicked?.Invoke();
+        }
+
+        private void GetStartedScreen_Click(object sender, EventArgs e)
         {
             NextClicked?.Invoke();
         }

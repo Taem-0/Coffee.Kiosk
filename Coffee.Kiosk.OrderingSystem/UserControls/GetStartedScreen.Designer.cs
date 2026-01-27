@@ -39,16 +39,18 @@
             // 
             panelButtonGetStarted.BackColor = Color.Transparent;
             panelButtonGetStarted.Controls.Add(guna2Button1);
-            panelButtonGetStarted.Location = new Point(203, 433);
+            panelButtonGetStarted.Location = new Point(88, 440);
             panelButtonGetStarted.Margin = new Padding(3, 2, 3, 2);
             panelButtonGetStarted.Name = "panelButtonGetStarted";
-            panelButtonGetStarted.Size = new Size(262, 50);
+            panelButtonGetStarted.Size = new Size(493, 50);
             panelButtonGetStarted.TabIndex = 1;
             // 
             // guna2Button1
             // 
             guna2Button1.Animated = true;
             guna2Button1.AutoRoundedCorners = true;
+            guna2Button1.BackColor = Color.Transparent;
+            guna2Button1.BorderColor = Color.Transparent;
             guna2Button1.BorderRadius = 24;
             guna2Button1.BorderThickness = 2;
             guna2Button1.CustomizableEdges = customizableEdges1;
@@ -56,14 +58,19 @@
             guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button1.ForeColor = Color.Wheat;
+            guna2Button1.FillColor = Color.Transparent;
+            guna2Button1.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2Button1.ForeColor = Color.MistyRose;
             guna2Button1.Location = new Point(0, 0);
             guna2Button1.Name = "guna2Button1";
+            guna2Button1.PressedColor = Color.Transparent;
+            guna2Button1.ShadowDecoration.BorderRadius = 30;
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Button1.Size = new Size(259, 50);
+            guna2Button1.ShadowDecoration.Depth = 37;
+            guna2Button1.ShadowDecoration.Enabled = true;
+            guna2Button1.Size = new Size(493, 50);
             guna2Button1.TabIndex = 2;
-            guna2Button1.Text = "Get Started";
+            guna2Button1.Text = "Tap anywhere to get started";
             guna2Button1.Click += guna2Button1_Click;
             // 
             // GetStartedScreen
@@ -74,8 +81,9 @@
             Controls.Add(panelButtonGetStarted);
             Margin = new Padding(3, 2, 3, 2);
             Name = "GetStartedScreen";
-            Size = new Size(675, 559);
+            Size = new Size(675, 626);
             Load += GetStartedScreen_Load;
+            Click += GetStartedScreen_Click;
             Resize += GetStartedScreen_Resize;
             panelButtonGetStarted.ResumeLayout(false);
             ResumeLayout(false);
