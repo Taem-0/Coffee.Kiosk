@@ -17,6 +17,7 @@ namespace Coffee.Kiosk.OrderingSystem
     public partial class KioskMenu : UserControl
     {
         internal event Action? startOverClicked;
+        internal event Action<int>? ProductSelected;
 
         private readonly Dictionary<int, UserControl> categoryPage = new();
         private UserControl? currentPage;
@@ -89,10 +90,11 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowCategory(int categoryId)
         {
-            UserControl? page;
-            if (!categoryPage.TryGetValue(categoryId, out page))
+            if (!categoryPage.TryGetValue(categoryId, out var page))
             {
-                page = new CategoryPage(categoryId);
+                var categoryPageControl = new CategoryPage(categoryId);
+                categoryPageControl.ProductClicked += OnProductClicked;
+                page = categoryPageControl;
                 categoryPage[categoryId] = page;
             }
 
@@ -106,6 +108,12 @@ namespace Coffee.Kiosk.OrderingSystem
 
             UI_Handling.loadUserControl(ContentPanel, page);
             currentPage = page;
+        }
+
+
+        private void OnProductClicked(int prodcutId)
+        {
+            ProductSelected?.Invoke(prodcutId);
         }
 
 

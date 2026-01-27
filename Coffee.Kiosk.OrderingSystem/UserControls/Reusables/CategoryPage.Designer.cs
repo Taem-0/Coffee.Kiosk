@@ -38,10 +38,10 @@
             // 
             flowProducts.AutoScroll = true;
             flowProducts.Dock = DockStyle.Fill;
-            flowProducts.Location = new Point(0, 31);
+            flowProducts.Location = new Point(0, 39);
             flowProducts.Name = "flowProducts";
             flowProducts.Padding = new Padding(0, 25, 0, 0);
-            flowProducts.Size = new Size(495, 542);
+            flowProducts.Size = new Size(495, 534);
             flowProducts.TabIndex = 0;
             // 
             // panel1
@@ -50,7 +50,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(495, 31);
+            panel1.Size = new Size(495, 39);
             panel1.TabIndex = 0;
             // 
             // label1
@@ -59,10 +59,10 @@
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(495, 31);
+            label1.Size = new Size(495, 39);
             label1.TabIndex = 0;
             label1.Text = "Menu";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.TextAlign = ContentAlignment.BottomCenter;
             // 
             // CategoryPage
             // 

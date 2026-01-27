@@ -1,5 +1,6 @@
 using Coffee.Kiosk.OrderingSystem.Helper;
 using Coffee.Kiosk.OrderingSystem.Sql;
+using Coffee.Kiosk.OrderingSystem.UserControls;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.Extensions.Configuration;
@@ -11,12 +12,14 @@ using System.Drawing;
 
 namespace Coffee.Kiosk.OrderingSystem
 {
-    public partial class CoffeeKioskMainForm : Form 
+    public partial class CoffeeKioskMainForm : Form
     {
 
         private GetStartedScreen? getStartedScreen;
         private DineInTakeOut? dineInTakeOut;
         private KioskMenu? kioskMenu;
+
+        private ModalScreen? modalScreen;
 
         private Models.Orders? currentOrder;
 
@@ -45,6 +48,8 @@ namespace Coffee.Kiosk.OrderingSystem
         private void CoffeeKiosk_Load(object sender, EventArgs e)
         {
             ShowGetStartedScreen();
+            modalOverlayPanel.FillColor = Color.FromArgb(67, 0, 0, 0);
+            UI_Handling.centerPanel(modalOverlayPanel, modalMainScreen);
         }
 
         private void loadEverything()
@@ -74,6 +79,7 @@ namespace Coffee.Kiosk.OrderingSystem
             {
                 kioskMenu = new KioskMenu();
                 kioskMenu.startOverClicked += FinishOrder;
+                kioskMenu.ProductSelected += ShowModalScreen;
             }
         }
 
@@ -119,23 +125,48 @@ namespace Coffee.Kiosk.OrderingSystem
                 kioskMenu = new KioskMenu();
 
                 kioskMenu.startOverClicked += FinishOrder;
+                kioskMenu.ProductSelected += ShowModalScreen;
             }
             UI_Handling.loadUserControl(mainPanel, kioskMenu);
         }
 
+        private void ShowModalScreen(int productId = 0)
+        {
+            if (modalScreen == null)
+            {
+                modalScreen = new ModalScreen(productId);
+                modalScreen.BackButtonClicked += HideModalScreen;
+            }
+            modalScreen.productId = productId;
+            modalOverlayPanel.Visible = true;
+            UI_Handling.centerPanel(modalOverlayPanel, modalMainScreen);
+            UI_Handling.loadUserControl(modalMainScreen, modalScreen);
+        }
+
+        private void HideModalScreen()
+        {
+            modalOverlayPanel.Visible = false;
+            modalScreen?.Dispose();
+            modalScreen = null;
+        }
+
         internal void FinishOrder()
         {
-            getStartedScreen?.Dispose();
-            dineInTakeOut?.Dispose();
-            kioskMenu?.Dispose();
+            //getStartedScreen?.Dispose();
+            //dineInTakeOut?.Dispose();
+            //kioskMenu?.Dispose();
 
-            getStartedScreen = null;
-            dineInTakeOut = null;
-            kioskMenu = null;
+            //getStartedScreen = null;
+            //dineInTakeOut = null;
+            //kioskMenu = null;
 
             currentOrder = null;
-            
+
             ShowGetStartedScreen();
+        }
+        private void CoffeeKioskMainForm_Resize(object sender, EventArgs e)
+        {
+            UI_Handling.centerPanel(modalOverlayPanel, modalMainScreen);
         }
     }
 }

@@ -13,6 +13,8 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 {
     public partial class CategoryPage : UserControl
     {
+
+        internal event Action<int>? ProductClicked;
         internal int CategoryId { get; set; }
 
         public CategoryPage(int categoryId)
@@ -52,10 +54,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 
         internal void OnProductClicked(int productId)
         {
-            MessageBox.Show($"""
-                Product ID = {productId}
-                TODO later :)))
-                """);
+            ProductClicked?.Invoke(productId);
         } 
     }
 }
