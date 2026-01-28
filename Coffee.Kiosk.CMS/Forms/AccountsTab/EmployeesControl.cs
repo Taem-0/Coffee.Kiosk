@@ -18,8 +18,7 @@ namespace Coffee.Kiosk.CMS
 
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
 
-            UIhelp.buttonNaRound(addEmpButton, 20);
-
+            /*
             EmployeeListView.Columns.Add("First Name", 200, HorizontalAlignment.Left);
             EmployeeListView.Columns.Add("Middle Name", 200, HorizontalAlignment.Left);
             EmployeeListView.Columns.Add("Last Name", 200, HorizontalAlignment.Left);
@@ -29,8 +28,9 @@ namespace Coffee.Kiosk.CMS
             EmployeeListView.Columns.Add("Job Title", 200, HorizontalAlignment.Left);
             EmployeeListView.Columns.Add("Salary", 200, HorizontalAlignment.Left);
             EmployeeListView.Columns.Add("Status", 200, HorizontalAlignment.Left);
-
+            
             LoadTable();
+            */
         }
 
         protected override void OnVisibleChanged(EventArgs e)
@@ -39,11 +39,11 @@ namespace Coffee.Kiosk.CMS
 
             if (Visible)
             {
-                LoadTable();
+                //  LoadTable();
             }
         }
 
-
+        /*
         private void LoadTable()
         {
 
@@ -74,21 +74,22 @@ namespace Coffee.Kiosk.CMS
             EmployeeListView.EndUpdate();
 
         }
+        */
 
-        private void addEmpButton_Click(object sender, EventArgs e)
+
+        private void AddEmployeeButton_Click(object sender, EventArgs e)
         {
 
-            //From here
             if (ParentFormReference == null) return;
 
             ParentFormReference?.ShowRegister();
-            //To here is how we call a user control for navigationnnn
-
 
         }
 
 
-        private void EmployeeListView_Resize(object sender, EventArgs e)
+
+
+        /*private void EmployeeListView_Resize(object sender, EventArgs e)
         {
 
             int totalWidth = EmployeeListView.ClientSize.Width;
@@ -105,7 +106,9 @@ namespace Coffee.Kiosk.CMS
             EmployeeListView.Columns[8].Width = (int)(totalWidth * 0.08); 
 
         }
+        */
 
+        /*
         private void EmployeeListView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (EmployeeListView.SelectedItems.Count != 1)
@@ -117,7 +120,7 @@ namespace Coffee.Kiosk.CMS
 
             ParentFormReference?.ShowUpdate(selectedAccount);
         }
-
+        */
 
     }
 
