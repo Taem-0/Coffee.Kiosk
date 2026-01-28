@@ -44,22 +44,7 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
 
         }
 
-        private void DashBoardControl_Resize(object sender, EventArgs e)
-        {
 
-            // Get the size of the entire form (including borders/title bar, which are accounted for by Windows when maximized)
-            int formWidth = this.Size.Width;
-            int formHeight = this.Size.Height;
-
-            // Get the size of the client area (where controls are placed)
-            int clientWidth = this.ClientSize.Width;
-            int clientHeight = this.ClientSize.Height;
-
-            // You can use these values, for example, to log them or resize controls
-            System.Diagnostics.Debug.WriteLine($"Maximized Form Size: {formWidth}x{formHeight}");
-            System.Diagnostics.Debug.WriteLine($"Maximized Client Size: {clientWidth}x{clientHeight}");
-
-        }
 
         private void guna2Panel2_Paint(object sender, PaintEventArgs e)
         {
@@ -67,6 +52,26 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel3_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void guna2ContainerControl4_Click(object sender, EventArgs e)
         {
 
         }
