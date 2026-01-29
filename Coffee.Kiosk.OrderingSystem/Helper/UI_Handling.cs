@@ -89,7 +89,17 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             if (sides.HasFlag(borderSide.Left)) e.Graphics.DrawLine(pen, rect.Left, rect.Top, rect.Left, rect.Bottom);
             if (sides.HasFlag(borderSide.Right)) e.Graphics.DrawLine(pen, rect.Right, rect.Top, rect.Right, rect.Bottom);
         }
+        internal static void AddBottomSpacer(FlowLayoutPanel panel, int height = 40)
+        {
+            var spacer = new Panel
+            {
+                Height = height,
+                Width = panel.ClientSize.Width,
+                Margin = new Padding(0),
+            };
 
+            panel.Controls.Add(spacer);
+        }
         internal static void centerPanel(Panel outerPanel, Panel innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
         {
             innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;

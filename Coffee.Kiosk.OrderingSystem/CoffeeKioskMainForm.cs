@@ -39,10 +39,11 @@ namespace Coffee.Kiosk.OrderingSystem
             DBInitializer.Init(config);
 
             Models.Category.LoadFromDataBase();
+            Models.Product.LoadFromDataBase();
 
             // remove after connecting to database
             //Models.Category.LoadDummyData();
-            Models.Product.LoadDummyData();
+            //Models.Product.LoadDummyData();
         }
 
         private void CoffeeKiosk_Load(object sender, EventArgs e)

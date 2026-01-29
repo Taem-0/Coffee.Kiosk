@@ -26,6 +26,8 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 Status ENUM('ACTIVE','DEACTIVATED') NOT NULL
             );",
 
+
+            // Ordering System
             @"CREATE TABLE IF NOT EXISTS category (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) NOT NULL,
@@ -39,9 +41,41 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 Name VARCHAR(255) NOT NULL,
                 Price DECIMAL(10,2) NOT NULL,
                 ImagePath VARCHAR(255),
+                IsCustomizable BOOLEAN NOT NULL DEFAULT 0,
                 FOREIGN KEY (CategoryID) REFERENCES category(ID) ON DELETE CASCADE
-            );"
+            );",
+
+            @"CREATE TABLE IF NOT EXISTS inventory_item (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                Name VARCHAR(255) NOT NULL,
+                Unit VARCHAR(255) NOT NULL,
+                Stock Decimal(10, 2) NOT NULL
+            );",
+
+            @"CREATE TABLE IF NOT EXISTS modifier_group (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                ProductId INT NOT NULL,
+                ParentGroupId INT NULL,
+                Name VARCHAR(100),
+                SelectionType ENUM('Single','Multiple') NOT NULL,
+                Required BOOLEAN NOT NULL DEFAULT 0,
+                FOREIGN KEY (ProductId) REFERENCES product(ID) ON DELETE CASCADE,
+                FOREIGN KEY (ParentGroupId) REFERENCES modifier_group(ID) ON DELETE CASCADE
+                );",
+
+            @"CREATE TABLE IF NOT EXISTS modifier_option (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                GroupId INT,
+                Name VARCHAR(100),
+                PriceDelta DECIMAL (10, 2),
+                InventorySubtraction Decimal(10, 2) DEFAULT 0,
+                InventoryItemId INT,
+                FOREIGN KEY (GroupId) REFERENCES modifier_group(ID) ON DELETE CASCADE,
+                FOREIGN KEY (InventoryItemId) REFERENCES inventory_item(ID)
+                );"
         };
+
+                
 
         internal static void Init(IConfiguration configuration)
         {
@@ -78,7 +112,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating database or tables: {ex.Message}");
-                MessageBox.Show("Failed to initialize database");
+                MessageBox.Show("Failed to initialize database\n" + ex.Message);
                 //throw;
             }
         }
@@ -102,7 +136,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 while (row.Read())
                 {
                     result.Add(new Models.Category.CategoryData(
-                        row.GetInt32(0),
+                        row.GetInt32("ID"),
                         row.GetString(1),
                         row.IsDBNull(2) ? string.Empty : row.GetString(2),
                         row.GetBoolean(3)
@@ -115,6 +149,98 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
             }
             return result;
         }
+
+        internal static List<Models.Product.ProductData> GetAllProduct()
+        {
+            var result = new List<Models.Product.ProductData>();
+
+            try
+            {
+                using var conn = new MySqlConnection(Sql.DBInitializer.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM product;";
+
+                using var row = cmd.ExecuteReader();
+                while (row.Read())
+                {
+                    result.Add(new Models.Product.ProductData(
+                        row.GetInt32(0),
+                        row.GetInt32(1),
+                        row.GetString(2),
+                        row.GetDecimal(3),
+                        row.IsDBNull(4) ? string.Empty : row.GetString(4),
+                        row.GetBoolean(5)
+                        ));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\033[1;31m{ex}\033[0m");
+            }
+            return result;
+        }
+
+        internal static Models.Product.ProductData? GetProductData(int productId)
+        {
+            Models.Product.ProductData? result = null;
+            try
+            {
+                using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"SELECT * FROM product WHERE ID = @productId";
+                cmd.Parameters.AddWithValue("@productId", productId);
+                using var row = cmd.ExecuteReader();
+                row.Read();
+                result = new Models.Product.ProductData(
+                    row.GetInt32(0),
+                    row.GetInt32(1),
+                    row.GetString(2),
+                    row.GetDecimal(3),
+                    row.IsDBNull(4) ? string.Empty : row.GetString(4),
+                    row.GetBoolean(5)
+                    );
+            }
+            catch(Exception Ex)
+            {
+                MessageBox.Show($"Failed to GetProductData for productId: {productId}\n" + Ex);
+            }
+            return result;
+        }
+
+        internal static List<Models.Product.ProductData> GetProductModifiers()
+        {
+            var result = new List<Models.Product.ProductData>();
+
+            try
+            {
+                using var conn = new MySqlConnection(Sql.DBInitializer.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM product;";
+
+                using var row = cmd.ExecuteReader();
+                while (row.Read())
+                {
+                    result.Add(new Models.Product.ProductData(
+                        row.GetInt32(0),
+                        row.GetInt32(1),
+                        row.GetString(2),
+                        row.GetDecimal(3),
+                        row.IsDBNull(4) ? string.Empty : row.GetString(4),
+                        row.GetBoolean(5)
+                        ));
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to GetProductModifiers");
+            }
+            return result;
+        }
     }
 }
-

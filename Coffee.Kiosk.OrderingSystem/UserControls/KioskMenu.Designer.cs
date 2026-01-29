@@ -214,7 +214,7 @@
             ContentPanel.Dock = DockStyle.Fill;
             ContentPanel.Location = new Point(125, 95);
             ContentPanel.Name = "ContentPanel";
-            ContentPanel.Padding = new Padding(3);
+            ContentPanel.Padding = new Padding(3, 3, 3, 10);
             ContentPanel.ShadowDecoration.CustomizableEdges = customizableEdges7;
             ContentPanel.Size = new Size(548, 453);
             ContentPanel.TabIndex = 3;

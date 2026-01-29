@@ -35,14 +35,13 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            label1 = new Label();
             panel1 = new Panel();
             guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             BackButton = new Guna.UI2.WinForms.Guna2Button();
             mainModalScreen = new Panel();
-            label1 = new Label();
             guna2Panel1.SuspendLayout();
             panel1.SuspendLayout();
-            mainModalScreen.SuspendLayout();
             SuspendLayout();
             // 
             // guna2Panel1
@@ -50,6 +49,7 @@
             guna2Panel1.BackColor = Color.Transparent;
             guna2Panel1.BorderColor = Color.Gray;
             guna2Panel1.BorderRadius = 17;
+            guna2Panel1.Controls.Add(label1);
             guna2Panel1.Controls.Add(panel1);
             guna2Panel1.Controls.Add(BackButton);
             guna2Panel1.CustomBorderColor = Color.Gray;
@@ -64,6 +64,15 @@
             guna2Panel1.ShadowDecoration.Shadow = new Padding(0, 5, 0, 0);
             guna2Panel1.Size = new Size(598, 85);
             guna2Panel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(0, 67);
+            label1.Name = "label1";
+            label1.Size = new Size(38, 15);
+            label1.TabIndex = 0;
+            label1.Text = "label1";
             // 
             // panel1
             // 
@@ -92,7 +101,7 @@
             guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2Button2.Size = new Size(124, 41);
             guna2Button2.TabIndex = 1;
-            guna2Button2.Text = "Next";
+            guna2Button2.Text = "Add to cart";
             // 
             // BackButton
             // 
@@ -117,21 +126,11 @@
             // 
             // mainModalScreen
             // 
-            mainModalScreen.Controls.Add(label1);
             mainModalScreen.Dock = DockStyle.Fill;
             mainModalScreen.Location = new Point(0, 0);
             mainModalScreen.Name = "mainModalScreen";
             mainModalScreen.Size = new Size(598, 512);
             mainModalScreen.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(276, 135);
-            label1.Name = "label1";
-            label1.Size = new Size(38, 15);
-            label1.TabIndex = 0;
-            label1.Text = "label1";
             // 
             // ModalScreen
             // 
@@ -142,9 +141,8 @@
             Name = "ModalScreen";
             Size = new Size(598, 597);
             guna2Panel1.ResumeLayout(false);
+            guna2Panel1.PerformLayout();
             panel1.ResumeLayout(false);
-            mainModalScreen.ResumeLayout(false);
-            mainModalScreen.PerformLayout();
             ResumeLayout(false);
         }
 

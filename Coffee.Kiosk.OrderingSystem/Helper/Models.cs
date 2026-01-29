@@ -49,16 +49,22 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             int CategoryId,
             string Name,
             decimal Price,
-            string ImagePath
+            string ImagePath,
+            bool IsCustomizable
         );
 
         internal static List<ProductData> productData = new();
         internal static void LoadDummyData()
         {
-            productData.Add(new(1, 1, "Americano", 120m, "C:/Images/Kiosk/Coffee Product/Americano.png"));
-            productData.Add(new(2, 1, "Mocha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Mocha Latte.png"));
-            productData.Add(new(3, 1, "Cafe Latte", 120m, "C:/Images/Kiosk/Coffee Product/Cafe Latte.png"));
-            productData.Add(new(4, 1, "Matcha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Matcha Latte.png"));
+            productData.Add(new(1, 1, "Americano", 120m, "C:/Images/Kiosk/Coffee Product/Americano.png", false));
+            productData.Add(new(2, 1, "Mocha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Mocha Latte.png", false));
+            productData.Add(new(3, 1, "Cafe Latte", 120m, "C:/Images/Kiosk/Coffee Product/Cafe Latte.png", false));
+            productData.Add(new(4, 1, "Matcha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Matcha Latte.png", false));
+        }
+        internal static void LoadFromDataBase()
+        {
+            productData.Clear();
+            productData = Sql.Queries.GetAllProduct();
         }
     }
 }
