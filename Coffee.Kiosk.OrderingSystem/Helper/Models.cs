@@ -42,8 +42,15 @@ namespace Coffee.Kiosk.OrderingSystem.Models
         }
     }
 
-    internal class Product
+    public class Product
     {
+
+        public enum SelectionType
+        {
+            Single,
+            Multiple
+        }
+
         internal record ProductData(
             int Id,
             int CategoryId,
@@ -52,6 +59,24 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             string ImagePath,
             bool IsCustomizable
         );
+
+        public record ModifierGroup(
+            int Id,
+            int ProductId,
+            int? ParentGroupId,
+            string Name,
+            SelectionType SelectionType,
+            bool Required
+            );
+
+        public record ModifierOption(
+            int Id,
+            int GroupId,
+            string Name,
+            decimal PriceDelta,
+            decimal InventorySubtraction,
+            int? InventoryItemId
+            );
 
         internal static List<ProductData> productData = new();
         internal static void LoadDummyData()

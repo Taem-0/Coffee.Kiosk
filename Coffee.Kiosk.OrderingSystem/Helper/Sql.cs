@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Coffee.Kiosk.OrderingSystem.Models;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -48,8 +49,8 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
             @"CREATE TABLE IF NOT EXISTS inventory_item (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) NOT NULL,
-                Unit VARCHAR(255) NOT NULL,
-                Stock Decimal(10, 2) NOT NULL
+                Stock Decimal(10, 2) NOT NULL,
+                Unit VARCHAR(255) NOT NULL
             );",
 
             @"CREATE TABLE IF NOT EXISTS modifier_group (
@@ -211,9 +212,9 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
             return result;
         }
 
-        internal static List<Models.Product.ProductData> GetProductModifiers()
+        internal static List<Models.Product.ModifierGroup> GetProductModifiers(int productId)
         {
-            var result = new List<Models.Product.ProductData>();
+            var result = new List<Models.Product.ModifierGroup>();
 
             try
             {
@@ -221,24 +222,65 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 conn.Open();
 
                 using var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM product;";
+                cmd.CommandText = """
+                    SELECT ID, ProductId, ParentGroupId, Name, SelectionType, Required
+                    FROM modifier_group
+                    WHERE ProductId = @productId;
+                """;
+                cmd.Parameters.AddWithValue("@productId", productId);
 
                 using var row = cmd.ExecuteReader();
                 while (row.Read())
                 {
-                    result.Add(new Models.Product.ProductData(
-                        row.GetInt32(0),
-                        row.GetInt32(1),
-                        row.GetString(2),
-                        row.GetDecimal(3),
-                        row.IsDBNull(4) ? string.Empty : row.GetString(4),
-                        row.GetBoolean(5)
+                    result.Add(new Models.Product.ModifierGroup(
+                        row.GetInt32("ID"),
+                        row.GetInt32("ProductId"),
+                        row.IsDBNull(2) ? null : row.GetInt32("ParentGroupId"),
+                        row.GetString("Name"),
+                        Enum.Parse<Models.Product.SelectionType>(row.GetString("SelectionType")),
+                        row.GetBoolean("Required")
                         ));
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show("Failed to GetProductModifiers");
+            }
+            return result;
+        }
+
+        internal static List<Models.Product.ModifierOption> GetProductModifierOptions(int groupId)
+        {
+            var result = new List<Models.Product.ModifierOption>();
+
+            try
+            {
+                using var conn = new MySqlConnection(Sql.DBInitializer.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = """
+                    SELECT ID, GroupId, Name, PriceDelta, InventorySubtraction, InventoryItemId FROM modifier_option
+                    WHERE GroupId = @groupId;
+                """;
+                cmd.Parameters.AddWithValue("@groupId", groupId);
+
+                using var row = cmd.ExecuteReader();
+                while (row.Read())
+                {
+                    result.Add(new Models.Product.ModifierOption(
+                        row.GetInt32("ID"),
+                        row.GetInt32("GroupId"),
+                        row.GetString("Name"),
+                        row.GetDecimal("PriceDelta"),
+                        row.GetDecimal("InventorySubtraction"),
+                        row.IsDBNull(5) ? null : row.GetInt32("InventoryItemId")
+                        ));
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to GetProductModifiersOptions");
             }
             return result;
         }
