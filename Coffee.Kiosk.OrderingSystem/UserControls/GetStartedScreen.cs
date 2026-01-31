@@ -28,22 +28,19 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void GetStartedScreen_Load(object sender, EventArgs e)
         {
-            UI_Handling.centerPanelfix(this, panelButtonGetStarted);
             //button1.BackColor = UI_ColorScheme.Primary;
             //guna2Button1.FillColor = UI_ColorScheme.Primary;
+
+            pictureBox1.Image = UI_Images.logoImage;
+            this.BackgroundImage = UI_Images.loadImageFromFile("C:/Images/Kiosk/Ads/Café Gelado _ Lune Graphic.jpg");
         }
 
-        private void GetStartedScreen_Resize(object sender, EventArgs e)
-        {
-            UI_Handling.centerPanelfix(this, panelButtonGetStarted);
-        }
-
-        private void guna2Button1_Click(object sender, EventArgs e)
+        private void GetStartedScreen_Click(object sender, EventArgs e)
         {
             NextClicked?.Invoke();
         }
 
-        private void GetStartedScreen_Click(object sender, EventArgs e)
+        private void guna2ShadowPanel2_Click(object sender, EventArgs e)
         {
             NextClicked?.Invoke();
         }

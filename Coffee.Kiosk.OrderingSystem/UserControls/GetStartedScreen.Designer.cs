@@ -28,69 +28,75 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            panelButtonGetStarted = new Panel();
-            guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            panelButtonGetStarted.SuspendLayout();
+            guna2ShadowPanel2 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            label1 = new Label();
+            pictureBox1 = new PictureBox();
+            guna2ShadowPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // panelButtonGetStarted
+            // guna2ShadowPanel2
             // 
-            panelButtonGetStarted.BackColor = Color.Transparent;
-            panelButtonGetStarted.Controls.Add(guna2Button1);
-            panelButtonGetStarted.Location = new Point(88, 440);
-            panelButtonGetStarted.Margin = new Padding(3, 2, 3, 2);
-            panelButtonGetStarted.Name = "panelButtonGetStarted";
-            panelButtonGetStarted.Size = new Size(493, 50);
-            panelButtonGetStarted.TabIndex = 1;
+            guna2ShadowPanel2.BackColor = Color.Transparent;
+            guna2ShadowPanel2.Controls.Add(label1);
+            guna2ShadowPanel2.Controls.Add(pictureBox1);
+            guna2ShadowPanel2.Dock = DockStyle.Bottom;
+            guna2ShadowPanel2.EdgeWidth = 40;
+            guna2ShadowPanel2.FillColor = Color.FromArgb(58, 35, 29);
+            guna2ShadowPanel2.Location = new Point(0, 443);
+            guna2ShadowPanel2.Name = "guna2ShadowPanel2";
+            guna2ShadowPanel2.Radius = 20;
+            guna2ShadowPanel2.ShadowColor = Color.Black;
+            guna2ShadowPanel2.ShadowDepth = 50;
+            guna2ShadowPanel2.ShadowShift = 1;
+            guna2ShadowPanel2.Size = new Size(675, 183);
+            guna2ShadowPanel2.TabIndex = 1;
+            guna2ShadowPanel2.Click += guna2ShadowPanel2_Click;
             // 
-            // guna2Button1
+            // label1
             // 
-            guna2Button1.Animated = true;
-            guna2Button1.AutoRoundedCorners = true;
-            guna2Button1.BackColor = Color.Transparent;
-            guna2Button1.BorderColor = Color.Transparent;
-            guna2Button1.BorderRadius = 24;
-            guna2Button1.BorderThickness = 2;
-            guna2Button1.CustomizableEdges = customizableEdges1;
-            guna2Button1.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button1.FillColor = Color.Transparent;
-            guna2Button1.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button1.ForeColor = Color.MistyRose;
-            guna2Button1.Location = new Point(0, 0);
-            guna2Button1.Name = "guna2Button1";
-            guna2Button1.PressedColor = Color.Transparent;
-            guna2Button1.ShadowDecoration.BorderRadius = 30;
-            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Button1.ShadowDecoration.Depth = 37;
-            guna2Button1.ShadowDecoration.Enabled = true;
-            guna2Button1.Size = new Size(493, 50);
-            guna2Button1.TabIndex = 2;
-            guna2Button1.Text = "Tap anywhere to get started";
-            guna2Button1.Click += guna2Button1_Click;
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial Rounded MT Bold", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(265, 99);
+            label1.Name = "label1";
+            label1.Size = new Size(302, 37);
+            label1.TabIndex = 1;
+            label1.Text = "TOUCH TO START";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.default_icon;
+            pictureBox1.Location = new Point(32, 50);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(130, 130);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // GetStartedScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(174, 105, 50);
+            BackgroundImage = Properties.Resources.Café_Gelado___Lune_Graphic;
             BackgroundImageLayout = ImageLayout.Zoom;
-            Controls.Add(panelButtonGetStarted);
+            Controls.Add(guna2ShadowPanel2);
             Margin = new Padding(3, 2, 3, 2);
             Name = "GetStartedScreen";
             Size = new Size(675, 626);
             Load += GetStartedScreen_Load;
             Click += GetStartedScreen_Click;
-            Resize += GetStartedScreen_Resize;
-            panelButtonGetStarted.ResumeLayout(false);
+            guna2ShadowPanel2.ResumeLayout(false);
+            guna2ShadowPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-        private Panel panelButtonGetStarted;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
+
+        private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel2;
+        private PictureBox pictureBox1;
+        private Label label1;
     }
 }

@@ -75,7 +75,9 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             string Name,
             decimal PriceDelta,
             decimal InventorySubtraction,
-            int? InventoryItemId
+            int? InventoryItemId,
+            bool TriggersChild,
+            int SortBy
             );
 
         internal static List<ProductData> productData = new();

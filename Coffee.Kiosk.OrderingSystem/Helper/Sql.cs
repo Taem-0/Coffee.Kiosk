@@ -48,7 +48,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
             @"CREATE TABLE IF NOT EXISTS inventory_item (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
-                Name VARCHAR(255) NOT NULL,
+                Name VARCHAR(255) UNIQUE NOT NULL,
                 Stock Decimal(10, 2) NOT NULL,
                 Unit VARCHAR(255) NOT NULL
             );",
@@ -71,6 +71,8 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 PriceDelta DECIMAL (10, 2),
                 InventorySubtraction Decimal(10, 2) DEFAULT 0,
                 InventoryItemId INT,
+                TriggersChild BOOLEAN NOT NULL DEFAULT TRUE,
+                SortBy INT NOT NULL,
                 FOREIGN KEY (GroupId) REFERENCES modifier_group(ID) ON DELETE CASCADE,
                 FOREIGN KEY (InventoryItemId) REFERENCES inventory_item(ID)
                 );"
@@ -260,7 +262,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
                 using var cmd = conn.CreateCommand();
                 cmd.CommandText = """
-                    SELECT ID, GroupId, Name, PriceDelta, InventorySubtraction, InventoryItemId FROM modifier_option
+                    SELECT ID, GroupId, Name, PriceDelta, InventorySubtraction, InventoryItemId, TriggersChild, SortBy FROM modifier_option
                     WHERE GroupId = @groupId;
                 """;
                 cmd.Parameters.AddWithValue("@groupId", groupId);
@@ -274,7 +276,9 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                         row.GetString("Name"),
                         row.GetDecimal("PriceDelta"),
                         row.GetDecimal("InventorySubtraction"),
-                        row.IsDBNull(5) ? null : row.GetInt32("InventoryItemId")
+                        row.IsDBNull(5) ? null : row.GetInt32("InventoryItemId"),
+                        row.GetBoolean("TriggersChild"),
+                        row.GetInt32("SortBy")
                         ));
                 }
             }

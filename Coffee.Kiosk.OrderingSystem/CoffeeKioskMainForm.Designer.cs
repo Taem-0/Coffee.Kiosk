@@ -65,10 +65,11 @@
             // 
             modalMainScreen.BackColor = Color.White;
             modalMainScreen.CustomizableEdges = customizableEdges1;
-            modalMainScreen.Location = new Point(32, 32);
+            modalMainScreen.Location = new Point(0, 0);
+            modalMainScreen.Margin = new Padding(150);
             modalMainScreen.Name = "modalMainScreen";
             modalMainScreen.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            modalMainScreen.Size = new Size(602, 631);
+            modalMainScreen.Size = new Size(676, 675);
             modalMainScreen.TabIndex = 3;
             // 
             // CoffeeKioskMainForm

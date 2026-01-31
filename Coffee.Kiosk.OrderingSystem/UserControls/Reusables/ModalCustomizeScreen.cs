@@ -36,7 +36,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 
             foreach ( var group in rootGroups )
             {
-                var groupControl = new ModalModifierGroup(group);
+                var groupControl = new ModalModifierGroup(group, allGroups);
                 flowLayoutPanel1.Controls.Add(groupControl);
             }
         }

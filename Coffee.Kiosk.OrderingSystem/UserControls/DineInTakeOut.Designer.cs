@@ -47,7 +47,7 @@
             // 
             // DineInTakeOutLogo
             // 
-            DineInTakeOutLogo.Image = Properties.Resources.Tux;
+            DineInTakeOutLogo.Image = Properties.Resources.default_icon;
             DineInTakeOutLogo.Location = new Point(270, 47);
             DineInTakeOutLogo.Margin = new Padding(0);
             DineInTakeOutLogo.Name = "DineInTakeOutLogo";
@@ -152,6 +152,7 @@
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
+            BackColor = Color.Linen;
             Controls.Add(panel2);
             Controls.Add(panel1);
             Margin = new Padding(0);
