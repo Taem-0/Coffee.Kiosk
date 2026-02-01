@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coffee.Kiosk.OrderingSystem.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         public HomePage()
         {
             InitializeComponent();
+
         }
     }
 }

@@ -29,6 +29,8 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             }
 
             LoadProduct();
+
+            UI_Handling.AddBottomSpacer(flowProducts);
         }
 
         internal void LoadProduct()

@@ -25,7 +25,10 @@ namespace Coffee.Kiosk.OrderingSystem
         private const int HOME_CATEGORY_ID = 0;
         private HomePage? homePage;
 
-        public KioskMenu()
+        int currentCartCount = 0;
+        string OrderType = String.Empty;
+
+        public KioskMenu(string orderType)
         {
             InitializeComponent();
 
@@ -34,6 +37,17 @@ namespace Coffee.Kiosk.OrderingSystem
             flowCategories.WrapContents = false;
             flowCategories.AutoScroll = true;
 
+            OrderType = orderType;
+
+            guna2HtmlLabel1.Text = $"""
+            <b><font size='12'>Order summary</font></b>
+            <br>
+            <b>Items:</b> {currentCartCount}
+            <br>
+            <b>{orderType}</b>
+            <br>
+            <b>Total:</b> ₱
+            """;
             LoadCategories();
             ShowHome();
         }
@@ -116,6 +130,29 @@ namespace Coffee.Kiosk.OrderingSystem
             ProductSelected?.Invoke(prodcutId);
         }
 
+        public void OnCartUpdated(int count)
+        {
+            currentCartCount = count;
+            if (currentCartCount < 1)
+            {
+                checkOutBtn.Enabled = false;
+                cartCounterButton.Visible = false;
+            }else
+            {
+                checkOutBtn.Enabled = true;
+                cartCounterButton.Visible = true;
+            }
+            cartCounterButton.Text = currentCartCount.ToString();
+            guna2HtmlLabel1.Text = $"""
+            <b><font size='12'>Order summary</font></b>
+            <br>
+            <b>Items:</b> {currentCartCount}
+            <br>
+            <b>{OrderType}</b>
+            <br>
+            <b>Total:</b> ₱
+            """;
+        }
 
 
         // --------------------------------------------------------------------------

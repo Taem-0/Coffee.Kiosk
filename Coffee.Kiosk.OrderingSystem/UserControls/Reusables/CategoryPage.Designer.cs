@@ -41,7 +41,7 @@
             flowProducts.Location = new Point(0, 39);
             flowProducts.Name = "flowProducts";
             flowProducts.Padding = new Padding(0, 25, 0, 0);
-            flowProducts.Size = new Size(495, 534);
+            flowProducts.Size = new Size(495, 458);
             flowProducts.TabIndex = 0;
             // 
             // panel1
@@ -71,7 +71,7 @@
             Controls.Add(flowProducts);
             Controls.Add(panel1);
             Name = "CategoryPage";
-            Size = new Size(495, 573);
+            Size = new Size(495, 497);
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
