@@ -6,6 +6,7 @@ Public Class FrmKitchenDisplay
     Private Sub FrmKitchenDisplay_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         TimerClock.Start()
+        lblTime.BackColor = Color.FromArgb(201, 185, 159)
 
     End Sub
 
@@ -36,5 +37,10 @@ Public Class FrmKitchenDisplay
 
         lblActiveOrder.Text = count.ToString()
     End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+        Panel1.BackColor = Color.FromArgb(201, 185, 159)
+    End Sub
+
 
 End Class

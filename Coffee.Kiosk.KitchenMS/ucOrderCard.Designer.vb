@@ -32,6 +32,7 @@ Partial Class ucOrderCard
         lblWaitTime = New Label()
         lblTimeOrder = New Label()
         lblOrderNumber = New Label()
+        lstBxOrder = New ListBox()
         tmrWait = New Timer(components)
         Panel1.SuspendLayout()
         Panel3.SuspendLayout()
@@ -44,9 +45,10 @@ Partial Class ucOrderCard
         Panel1.BorderStyle = BorderStyle.FixedSingle
         Panel1.Controls.Add(Panel3)
         Panel1.Controls.Add(Panel2)
+        Panel1.Controls.Add(lstBxOrder)
         Panel1.Location = New Point(0, 0)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(327, 784)
+        Panel1.Size = New Size(345, 530)
         Panel1.TabIndex = 5
         ' 
         ' Panel3
@@ -55,31 +57,29 @@ Partial Class ucOrderCard
         Panel3.BorderStyle = BorderStyle.FixedSingle
         Panel3.Controls.Add(btnFinish)
         Panel3.Controls.Add(btnStart)
-        Panel3.Location = New Point(0, 697)
+        Panel3.Location = New Point(-1, 459)
         Panel3.Name = "Panel3"
-        Panel3.Size = New Size(327, 87)
+        Panel3.Size = New Size(345, 69)
         Panel3.TabIndex = 1
         ' 
         ' btnFinish
         ' 
         btnFinish.BackColor = Color.White
-        btnFinish.FlatStyle = FlatStyle.Popup
         btnFinish.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnFinish.Location = New Point(178, 21)
+        btnFinish.Location = New Point(191, 14)
         btnFinish.Name = "btnFinish"
-        btnFinish.Size = New Size(123, 49)
+        btnFinish.Size = New Size(123, 39)
         btnFinish.TabIndex = 1
-        btnFinish.Text = "FINISH"
+        btnFinish.Text = "COMPLETE"
         btnFinish.UseVisualStyleBackColor = False
         ' 
         ' btnStart
         ' 
         btnStart.BackColor = Color.White
-        btnStart.FlatStyle = FlatStyle.Popup
         btnStart.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnStart.Location = New Point(19, 21)
+        btnStart.Location = New Point(32, 14)
         btnStart.Name = "btnStart"
-        btnStart.Size = New Size(123, 49)
+        btnStart.Size = New Size(123, 39)
         btnStart.TabIndex = 0
         btnStart.Text = "START"
         btnStart.UseVisualStyleBackColor = False
@@ -92,50 +92,59 @@ Partial Class ucOrderCard
         Panel2.Controls.Add(lblWaitTime)
         Panel2.Controls.Add(lblTimeOrder)
         Panel2.Controls.Add(lblOrderNumber)
-        Panel2.Location = New Point(0, 0)
+        Panel2.Location = New Point(-1, -1)
         Panel2.Name = "Panel2"
-        Panel2.Size = New Size(327, 99)
+        Panel2.Size = New Size(345, 69)
         Panel2.TabIndex = 0
         ' 
         ' lblPlaceEat
         ' 
         lblPlaceEat.AutoSize = True
-        lblPlaceEat.Font = New Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblPlaceEat.Location = New Point(226, 8)
+        lblPlaceEat.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblPlaceEat.Location = New Point(258, 8)
         lblPlaceEat.Name = "lblPlaceEat"
-        lblPlaceEat.Size = New Size(88, 31)
+        lblPlaceEat.Size = New Size(67, 23)
         lblPlaceEat.TabIndex = 3
         lblPlaceEat.Text = "Dine In"
         ' 
         ' lblWaitTime
         ' 
         lblWaitTime.AutoSize = True
-        lblWaitTime.Font = New Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblWaitTime.Location = New Point(245, 47)
+        lblWaitTime.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblWaitTime.Location = New Point(269, 35)
         lblWaitTime.Name = "lblWaitTime"
-        lblWaitTime.Size = New Size(65, 31)
+        lblWaitTime.Size = New Size(50, 23)
         lblWaitTime.TabIndex = 2
         lblWaitTime.Text = "Time"
         ' 
         ' lblTimeOrder
         ' 
         lblTimeOrder.AutoSize = True
-        lblTimeOrder.Font = New Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblTimeOrder.Location = New Point(12, 47)
+        lblTimeOrder.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTimeOrder.Location = New Point(13, 35)
         lblTimeOrder.Name = "lblTimeOrder"
-        lblTimeOrder.Size = New Size(65, 31)
+        lblTimeOrder.Size = New Size(50, 23)
         lblTimeOrder.TabIndex = 1
         lblTimeOrder.Text = "Time"
         ' 
         ' lblOrderNumber
         ' 
         lblOrderNumber.AutoSize = True
-        lblOrderNumber.Font = New Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblOrderNumber.Location = New Point(12, 8)
+        lblOrderNumber.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblOrderNumber.Location = New Point(11, 8)
         lblOrderNumber.Name = "lblOrderNumber"
-        lblOrderNumber.Size = New Size(95, 31)
+        lblOrderNumber.Size = New Size(72, 23)
         lblOrderNumber.TabIndex = 0
         lblOrderNumber.Text = "Order #"
+        ' 
+        ' lstBxOrder
+        ' 
+        lstBxOrder.BorderStyle = BorderStyle.None
+        lstBxOrder.FormattingEnabled = True
+        lstBxOrder.Location = New Point(0, 74)
+        lstBxOrder.Name = "lstBxOrder"
+        lstBxOrder.Size = New Size(341, 380)
+        lstBxOrder.TabIndex = 2
         ' 
         ' tmrWait
         ' 
@@ -147,7 +156,7 @@ Partial Class ucOrderCard
         AutoScaleMode = AutoScaleMode.Font
         Controls.Add(Panel1)
         Name = "ucOrderCard"
-        Size = New Size(327, 784)
+        Size = New Size(345, 530)
         Panel1.ResumeLayout(False)
         Panel3.ResumeLayout(False)
         Panel2.ResumeLayout(False)
@@ -165,5 +174,6 @@ Partial Class ucOrderCard
     Friend WithEvents lblPlaceEat As Label
     Friend WithEvents lblWaitTime As Label
     Friend WithEvents tmrWait As Timer
+    Friend WithEvents lstBxOrder As ListBox
 
 End Class

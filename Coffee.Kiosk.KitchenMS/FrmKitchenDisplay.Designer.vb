@@ -29,20 +29,20 @@ Partial Class FrmKitchenDisplay
         ColorDialog1 = New ColorDialog()
         TimerClock = New Timer(components)
         Panel1 = New Panel()
-        lblActiveOrder = New Label()
         Label1 = New Label()
+        lblActiveOrder = New Label()
         PictureBox1 = New PictureBox()
         Button1 = New Button()
+        Panel2 = New Panel()
         Panel1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' flOrders
         ' 
-        flOrders.AutoScroll = True
-        flOrders.Location = New Point(13, 97)
+        flOrders.Location = New Point(-2, 80)
         flOrders.Name = "flOrders"
-        flOrders.Size = New Size(1735, 1080)
+        flOrders.Size = New Size(1831, 1080)
         flOrders.TabIndex = 1
         ' 
         ' lblTime
@@ -62,43 +62,45 @@ Partial Class FrmKitchenDisplay
         ' Panel1
         ' 
         Panel1.BackColor = Color.Tan
-        Panel1.Controls.Add(lblActiveOrder)
         Panel1.Controls.Add(Label1)
+        Panel1.Controls.Add(lblActiveOrder)
         Panel1.Controls.Add(PictureBox1)
         Panel1.Controls.Add(Button1)
+        Panel1.Controls.Add(Panel2)
         Panel1.Location = New Point(-2, -3)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1831, 77)
         Panel1.TabIndex = 3
         ' 
-        ' lblActiveOrder
-        ' 
-        lblActiveOrder.AutoSize = True
-        lblActiveOrder.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblActiveOrder.Location = New Point(1677, 28)
-        lblActiveOrder.Name = "lblActiveOrder"
-        lblActiveOrder.Size = New Size(0, 46)
-        lblActiveOrder.TabIndex = 5
-        ' 
         ' Label1
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(1666, 9)
+        Label1.Location = New Point(1664, 11)
         Label1.Name = "Label1"
         Label1.Size = New Size(51, 20)
         Label1.TabIndex = 2
         Label1.Text = "Active"
         ' 
+        ' lblActiveOrder
+        ' 
+        lblActiveOrder.AutoSize = True
+        lblActiveOrder.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblActiveOrder.Location = New Point(1677, 20)
+        lblActiveOrder.Name = "lblActiveOrder"
+        lblActiveOrder.Size = New Size(40, 46)
+        lblActiveOrder.TabIndex = 5
+        lblActiveOrder.Text = "0"
+        ' 
         ' PictureBox1
         ' 
-        PictureBox1.BackColor = Color.Tan
+        PictureBox1.BackColor = Color.Transparent
         PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), Image)
         PictureBox1.BackgroundImageLayout = ImageLayout.Stretch
         PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
-        PictureBox1.Location = New Point(15, 9)
+        PictureBox1.Location = New Point(14, 7)
         PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(63, 63)
+        PictureBox1.Size = New Size(63, 65)
         PictureBox1.TabIndex = 1
         PictureBox1.TabStop = False
         ' 
@@ -111,12 +113,20 @@ Partial Class FrmKitchenDisplay
         Button1.Text = "Try"
         Button1.UseVisualStyleBackColor = True
         ' 
+        ' Panel2
+        ' 
+        Panel2.BorderStyle = BorderStyle.FixedSingle
+        Panel2.Location = New Point(1655, 9)
+        Panel2.Name = "Panel2"
+        Panel2.Size = New Size(95, 61)
+        Panel2.TabIndex = 6
+        ' 
         ' FrmKitchenDisplay
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = SystemColors.Info
-        ClientSize = New Size(1744, 1080)
+        BackColor = Color.Black
+        ClientSize = New Size(1760, 1102)
         Controls.Add(lblTime)
         Controls.Add(flOrders)
         Controls.Add(Panel1)
@@ -140,5 +150,6 @@ Partial Class FrmKitchenDisplay
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents lblActiveOrder As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents Panel2 As Panel
 
 End Class
