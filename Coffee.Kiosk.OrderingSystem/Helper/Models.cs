@@ -107,20 +107,20 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             modifierGroups.Add(new(4, 1, null, "Temperature", SelectionType.Single, true));
 
             modifierOption.Add(new ModifierOption(1, 1, "Small", 0.00m, 250.00m, 4, true, 1));
-            modifierOption.Add(new ModifierOption(3, 1, "Large", 30.00m, 450.00m, 4, true, 3));
+            modifierOption.Add(new ModifierOption(2, 1, "Large", 30.00m, 450.00m, 4, true, 2));
 
-            modifierOption.Add(new ModifierOption(5, 2, "Cane", 0.00m, 0.00m, 10, true, 5));
-            modifierOption.Add(new ModifierOption(6, 2, "Muscovado", 0.00m, 0.00m, 9, true, 6));
-            modifierOption.Add(new ModifierOption(14, 2, "No Sugar", 0.00m, 0.00m, null, false, 4));
-            modifierOption.Add(new ModifierOption(4, 2, "White", 0.00m, 0.00m, 8, true, 14));
+            modifierOption.Add(new ModifierOption(3, 2, "No Sugar", 0.00m, 0.00m, null, false, 3));
+            modifierOption.Add(new ModifierOption(4, 2, "Cane", 0.00m, 0.00m, 10, true, 4));
+            modifierOption.Add(new ModifierOption(5, 2, "Muscovado", 0.00m, 0.00m, 9, true, 5));
+            modifierOption.Add(new ModifierOption(6, 2, "White", 0.00m, 0.00m, 8, true, 6));
 
-            modifierOption.Add(new ModifierOption(8, 3, "25%", 0.00m, 2.00m, null, true, 8));
-            modifierOption.Add(new ModifierOption(9, 3, "50%", 0.00m, 4.00m, null, true, 9));
-            modifierOption.Add(new ModifierOption(10, 3, "75%", 0.00m, 6.00m, null, true, 10));
-            modifierOption.Add(new ModifierOption(11, 3, "100%", 0.00m, 8.00m, null, true, 11));
+            modifierOption.Add(new ModifierOption(7, 3, "25%", 0.00m, 2.00m, null, true, 7));
+            modifierOption.Add(new ModifierOption(8, 3, "50%", 0.00m, 4.00m, null, true, 8));
+            modifierOption.Add(new ModifierOption(9, 3, "75%", 0.00m, 6.00m, null, true, 9));
+            modifierOption.Add(new ModifierOption(10, 3, "100%", 0.00m, 8.00m, null, true, 10));
 
-            modifierOption.Add(new ModifierOption(15, 4, "Hot", 0.00m, 0.00m, null, true, 15));
-            modifierOption.Add(new ModifierOption(16, 4, "Iced", 0.00m, 0.00m, null, true, 16));
+            modifierOption.Add(new ModifierOption(11, 4, "Hot", 0.00m, 0.00m, null, true, 11));
+            modifierOption.Add(new ModifierOption(12, 4, "Iced", 0.00m, 0.00m, null, true, 12));
         }
         internal static void LoadFromDataBase()
         {
