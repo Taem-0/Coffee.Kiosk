@@ -247,34 +247,34 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
         }
 
 
-        internal static Models.Product.ProductData? GetProductData(int productId)
-        {
-            Models.Product.ProductData? result = null;
-            try
-            {
-                using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
-                conn.Open();
+        //internal static Models.Product.ProductData? GetProductData(int productId)
+        //{
+        //    Models.Product.ProductData? result = null;
+        //    try
+        //    {
+        //        using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+        //        conn.Open();
 
-                using var cmd = conn.CreateCommand();
-                cmd.CommandText = @"SELECT * FROM product WHERE ID = @productId";
-                cmd.Parameters.AddWithValue("@productId", productId);
-                using var row = cmd.ExecuteReader();
-                row.Read();
-                result = new Models.Product.ProductData(
-                    row.GetInt32(0),
-                    row.GetInt32(1),
-                    row.GetString(2),
-                    row.GetDecimal(3),
-                    row.IsDBNull(4) ? string.Empty : row.GetString(4),
-                    row.GetBoolean(5)
-                    );
-            }
-            catch(Exception Ex)
-            {
-                MessageBox.Show($"Failed to GetProductData for productId: {productId}\n" + Ex);
-            }
-            return result;
-        }
+        //        using var cmd = conn.CreateCommand();
+        //        cmd.CommandText = @"SELECT * FROM product WHERE ID = @productId";
+        //        cmd.Parameters.AddWithValue("@productId", productId);
+        //        using var row = cmd.ExecuteReader();
+        //        row.Read();
+        //        result = new Models.Product.ProductData(
+        //            row.GetInt32(0),
+        //            row.GetInt32(1),
+        //            row.GetString(2),
+        //            row.GetDecimal(3),
+        //            row.IsDBNull(4) ? string.Empty : row.GetString(4),
+        //            row.GetBoolean(5)
+        //            );
+        //    }
+        //    catch(Exception Ex)
+        //    {
+        //        MessageBox.Show($"Failed to GetProductData for productId: {productId}\n" + Ex);
+        //    }
+        //    return result;
+        //}
 
     }
 }

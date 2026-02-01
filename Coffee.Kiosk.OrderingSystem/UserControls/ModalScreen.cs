@@ -14,7 +14,8 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 {
     public partial class ModalScreen : UserControl
     {
-        internal event Action? BackButtonClicked;
+        public event Action? BackButtonClicked;
+        public event Action<Models.Orders.OrderItem>? AddToCartClicked;
 
         internal int productId;
 
@@ -25,9 +26,8 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         public ModalScreen(int productId)
         {
             InitializeComponent();
-            label1.Text = "Product ID:" + productId.ToString();
 
-            productData = Sql.Queries.GetProductData(productId);
+            productData = Models.Product.productData.FirstOrDefault(p => p.Id == productId);
 
             if (productData != null)
             {
@@ -38,7 +38,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             }
         }
 
-        private void BackButton_Click(object sender, EventArgs e)
+        private void BackBtnClicked()
         {
             BackButtonClicked?.Invoke();
         }
@@ -48,9 +48,14 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             if (modalCustomizeScreen == null)
             {
                 modalCustomizeScreen = new ModalCustomizeScreen(productId, name, imagePath);
+                modalCustomizeScreen.backBtnClicked += BackBtnClicked;
+                modalCustomizeScreen.AddToCartClicked += item =>
+                {
+                    AddToCartClicked?.Invoke(item);
+                };
+
             }
             UI_Handling.loadUserControl(mainModalScreen, modalCustomizeScreen);
         }
-
     }
 }

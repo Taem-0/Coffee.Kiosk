@@ -101,6 +101,7 @@
             checkOutBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             checkOutBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             checkOutBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            checkOutBtn.Enabled = false;
             checkOutBtn.FillColor = Color.Red;
             checkOutBtn.Font = new Font("Segoe UI Semibold", 13.5F, FontStyle.Bold);
             checkOutBtn.ForeColor = Color.White;
@@ -148,9 +149,10 @@
             cartCounterButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             cartCounterButton.Size = new Size(32, 30);
             cartCounterButton.TabIndex = 3;
-            cartCounterButton.Text = "3";
+            cartCounterButton.Text = "0";
             cartCounterButton.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
             cartCounterButton.UseTransparentBackground = true;
+            cartCounterButton.Visible = false;
             // 
             // pictureBox2
             // 
@@ -164,8 +166,8 @@
             // 
             // StartOverBtn
             // 
-            StartOverBtn.Animated = true;
-            StartOverBtn.BorderColor = Color.DimGray;
+            StartOverBtn.BackColor = Color.Transparent;
+            StartOverBtn.BorderColor = Color.Transparent;
             StartOverBtn.BorderRadius = 15;
             StartOverBtn.BorderThickness = 1;
             StartOverBtn.CustomizableEdges = customizableEdges4;
@@ -173,14 +175,17 @@
             StartOverBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             StartOverBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             StartOverBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            StartOverBtn.FillColor = Color.DarkKhaki;
+            StartOverBtn.FillColor = Color.WhiteSmoke;
             StartOverBtn.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             StartOverBtn.ForeColor = Color.Black;
             StartOverBtn.HoverState.BorderColor = Color.Black;
-            StartOverBtn.HoverState.FillColor = Color.FromArgb(138, 133, 78);
+            StartOverBtn.HoverState.FillColor = Color.Transparent;
             StartOverBtn.Location = new Point(3, 104);
             StartOverBtn.Name = "StartOverBtn";
+            StartOverBtn.ShadowDecoration.BorderRadius = 17;
             StartOverBtn.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            StartOverBtn.ShadowDecoration.Depth = 7;
+            StartOverBtn.ShadowDecoration.Enabled = true;
             StartOverBtn.Size = new Size(116, 29);
             StartOverBtn.TabIndex = 2;
             StartOverBtn.Text = "< Start over";

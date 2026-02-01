@@ -49,6 +49,7 @@
             guna2Button1.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2Button1.ForeColor = Color.Black;
             guna2Button1.Location = new Point(1, 3);
+            guna2Button1.MinimumSize = new Size(90, 40);
             guna2Button1.Name = "guna2Button1";
             guna2Button1.Padding = new Padding(0, 5, 0, 5);
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;

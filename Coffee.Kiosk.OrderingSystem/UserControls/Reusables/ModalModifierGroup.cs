@@ -14,6 +14,8 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
     public partial class ModalModifierGroup : UserControl
     {
         public List<ModalModifierOptions> SelectedOptions { get; private set; } = new();
+        public event Action? SelectionChanged;
+
         private readonly Models.Product.ModifierGroup _group;
         private readonly List<Models.Product.ModifierGroup> _allGroups;
         private readonly bool _isSingle;
@@ -27,7 +29,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
             _allGroups = allGroups;
             _isSingle = group.SelectionType == Models.Product.SelectionType.Single;
 
-            ModifierGroupName.Text = $"{group.Name} { (group.Required ? "Required" : "") }";
+            ModifierGroupName.Text = $"{group.Name} { (group.Required ? "(Required)" : "") }";
 
 
 
@@ -64,6 +66,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
                 {
                     Padding = Padding.Empty
                 };
+                childCtrl.ModifierGroupName.Font = new Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular);
 
                 flowLayoutPanel2.Controls.Add(childCtrl);
             }
@@ -94,28 +97,49 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
             }
 
             UpdateChildVisibility();
+            SelectionChanged?.Invoke();
+        }
+        public void CollectSelections(
+            Dictionary<int, List<int>> ids,
+            Dictionary<string, List<string>> names
+            )
+        {
+            var selected = flowLayoutPanel1.Controls
+                .OfType<ModalModifierOptions>()
+                .Where(o => o.IsSelected)
+                .ToList();
+
+            if (selected.Count > 0)
+            {
+                ids[_group.Id] = selected.Select(o => o.Option.Id).ToList();
+                names[_group.Name] = selected.Select(o => o.Option.Name).ToList();
+            }
+
+            foreach (var child in flowLayoutPanel2.Controls.OfType<ModalModifierGroup>())
+                child.CollectSelections(ids, names);
         }
 
+        public bool IsValid()
+        {
+            if (_group.Required)
+            {
+                bool hasSelection = flowLayoutPanel1.Controls
+                    .OfType<ModalModifierOptions>()
+                    .Any(o => o.IsSelected);
 
-        //public List<int> GetAllSelectedOptionIds()
-        //{
-        //    var ids = SelectedOptions.Select(o => o.OptionId).ToList();
+                if (!hasSelection)
+                    return false;
+            }
 
-        //    foreach (var child in flowLayoutPanel2.Controls.OfType<ModalModifierGroup>())
-        //        ids.AddRange(child.GetAllSelectedOptionIds());
+                foreach (var child in flowLayoutPanel2.Controls.OfType<ModalModifierGroup>())
+                {
+                    if (child.IsValid())
+                        return false;
+                }
 
-        //    return ids;
-        //}
+            return true;
+        }
 
-        //public List<string> GetAllSelectedOptionNames()
-        //{
-        //    var names = SelectedOptions.Select(o => o.OptionName).ToList();
-
-        //    foreach (var child in flowLayoutPanel2.Controls.OfType<ModalModifierGroup>())
-        //        names.AddRange(child.GetAllSelectedOptionNames());
-
-        //    return names;
-        //}
 
 
         private void flowLayoutPanel1_ControlAdded(object sender, ControlEventArgs e)

@@ -23,10 +23,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
             Option = option;
 
             guna2Button1.Text = option.Name;
-            if (!option.TriggersChild)
-            {
-                IsSelected = true;
-            }
+            IsSelected = false;
+            //if (!option.TriggersChild)
+            //{
+            //    IsSelected = true;
+            //}
 
             UpdateVisual();
         }

@@ -6,29 +6,25 @@ using System.Threading.Tasks;
 
 namespace Coffee.Kiosk.OrderingSystem.Models
 {
-    internal class Orders
+    public class Orders
     {
-        internal enum TypeOfOrder 
+        public class OrderItem
+        {
+            public int ProductId;
+            public string ProductName = String.Empty;
+            public decimal ProductPrice;
+            public int Quantity;
+
+            public Dictionary<int, List<int>> SelectedModifierOptions = new();
+            public Dictionary<string, List<string>> SelectedModifiersName = new();
+        }
+        public enum TypeOfOrder 
         {
             DineIn,
             TakeOut
         }
-        internal TypeOfOrder Type { get; set; }
-        public class OrderItemModifierSelection
-        {
-            public int ModifierGroupId { get; init; }
-            public int ModifierOptionId { get; init; }
-            public string ModifierGroupName { get; init; } = "";
-            public string ModifierOptionName { get; init; } = "";
-            public decimal PriceDelta { get; init; }
-        }
-        public class OrderItem
-        {
-            public int ProductId { get; init; }
-            public int Quantity { get; set; }
-
-            public List<OrderItemModifierSelection> Modifiers { get; } = new();
-        }
+        public TypeOfOrder Type;
+        public List<OrderItem> Items = new();
     }
 
     internal class Category
@@ -100,13 +96,31 @@ namespace Coffee.Kiosk.OrderingSystem.Models
         internal static List<ModifierOption> modifierOption = new();
         internal static void LoadDummyData()
         {
-            productData.Add(new(1, 1, "Americano", 120m, "C:/Images/Kiosk/Coffee Product/Americano.png", false));
-            productData.Add(new(2, 1, "Mocha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Mocha Latte.png", false));
-            productData.Add(new(3, 1, "Cafe Latte", 120m, "C:/Images/Kiosk/Coffee Product/Cafe Latte.png", false));
-            productData.Add(new(4, 1, "Matcha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Matcha Latte.png", false));
+            productData.Add(new(1, 1, "Americano", 120m, "C:/Images/Kiosk/Coffee Product/Americano.png", true));
+            productData.Add(new(2, 1, "Mocha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Mocha Latte.png", true));
+            productData.Add(new(3, 1, "Cafe Latte", 120m, "C:/Images/Kiosk/Coffee Product/Cafe Latte.png", true));
+            productData.Add(new(4, 1, "Matcha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Matcha Latte.png", true));
 
-            //modifierGroups.Add(new(1, 1, null, "Size", SelectionType.Single, true));
+            modifierGroups.Add(new(1, 1, null, "Size", SelectionType.Single, true));
+            modifierGroups.Add(new(2, 1, null, "Sugar Type", SelectionType.Single, true));
+            modifierGroups.Add(new(3, 1, 2, "Sugar Level", SelectionType.Single, true));
+            modifierGroups.Add(new(4, 1, null, "Temperature", SelectionType.Single, true));
 
+            modifierOption.Add(new ModifierOption(1, 1, "Small", 0.00m, 250.00m, 4, true, 1));
+            modifierOption.Add(new ModifierOption(3, 1, "Large", 30.00m, 450.00m, 4, true, 3));
+
+            modifierOption.Add(new ModifierOption(5, 2, "Cane", 0.00m, 0.00m, 10, true, 5));
+            modifierOption.Add(new ModifierOption(6, 2, "Muscovado", 0.00m, 0.00m, 9, true, 6));
+            modifierOption.Add(new ModifierOption(14, 2, "No Sugar", 0.00m, 0.00m, null, false, 4));
+            modifierOption.Add(new ModifierOption(4, 2, "White", 0.00m, 0.00m, 8, true, 14));
+
+            modifierOption.Add(new ModifierOption(8, 3, "25%", 0.00m, 2.00m, null, true, 8));
+            modifierOption.Add(new ModifierOption(9, 3, "50%", 0.00m, 4.00m, null, true, 9));
+            modifierOption.Add(new ModifierOption(10, 3, "75%", 0.00m, 6.00m, null, true, 10));
+            modifierOption.Add(new ModifierOption(11, 3, "100%", 0.00m, 8.00m, null, true, 11));
+
+            modifierOption.Add(new ModifierOption(15, 4, "Hot", 0.00m, 0.00m, null, true, 15));
+            modifierOption.Add(new ModifierOption(16, 4, "Iced", 0.00m, 0.00m, null, true, 16));
         }
         internal static void LoadFromDataBase()
         {
