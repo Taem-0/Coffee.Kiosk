@@ -23,11 +23,11 @@ Partial Class HomePageControl
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(HomePageControl))
-        lblFullName = New Label()
+        lblUsername = New Label()
         ProfileBox = New PictureBox()
         txtSearch = New TextBox()
         TextBox1 = New TextBox()
-        DataGridView1 = New DataGridView()
+        dgvOrders = New DataGridView()
         btnCash = New Button()
         btnGcash = New Button()
         btnMaya = New Button()
@@ -37,19 +37,19 @@ Partial Class HomePageControl
         btnMeals = New Button()
         MenuPanel = New Panel()
         CType(ProfileBox, ComponentModel.ISupportInitialize).BeginInit()
-        CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        CType(dgvOrders, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
-        ' lblFullName
+        ' lblUsername
         ' 
-        lblFullName.BackColor = Color.Transparent
-        lblFullName.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblFullName.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        lblFullName.Location = New Point(1334, 39)
-        lblFullName.Name = "lblFullName"
-        lblFullName.Size = New Size(221, 59)
-        lblFullName.TabIndex = 1
-        lblFullName.Text = "Staff Name " & vbCrLf & "Louie Jein Banting" & vbCrLf
+        lblUsername.BackColor = Color.Transparent
+        lblUsername.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblUsername.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        lblUsername.Location = New Point(1334, 39)
+        lblUsername.Name = "lblUsername"
+        lblUsername.Size = New Size(221, 59)
+        lblUsername.TabIndex = 1
+        lblUsername.Text = "Staff Name " & vbCrLf & "Louie Jein Banting" & vbCrLf
         ' 
         ' ProfileBox
         ' 
@@ -67,9 +67,9 @@ Partial Class HomePageControl
         txtSearch.Font = New Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         txtSearch.Location = New Point(65, 50)
         txtSearch.Name = "txtSearch"
+        txtSearch.PlaceholderText = " 🔍 Search"
         txtSearch.Size = New Size(1087, 38)
         txtSearch.TabIndex = 3
-        txtSearch.Text = " 🔍 Search Box"
         ' 
         ' TextBox1
         ' 
@@ -82,15 +82,15 @@ Partial Class HomePageControl
         TextBox1.TabIndex = 4
         TextBox1.Text = " Enter Code: "
         ' 
-        ' DataGridView1
+        ' dgvOrders
         ' 
-        DataGridView1.BackgroundColor = Color.White
-        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Location = New Point(1031, 147)
-        DataGridView1.Name = "DataGridView1"
-        DataGridView1.RowHeadersWidth = 51
-        DataGridView1.Size = New Size(594, 813)
-        DataGridView1.TabIndex = 5
+        dgvOrders.BackgroundColor = Color.White
+        dgvOrders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvOrders.Location = New Point(1031, 147)
+        dgvOrders.Name = "dgvOrders"
+        dgvOrders.RowHeadersWidth = 51
+        dgvOrders.Size = New Size(594, 813)
+        dgvOrders.TabIndex = 5
         ' 
         ' btnCash
         ' 
@@ -204,23 +204,23 @@ Partial Class HomePageControl
         Controls.Add(btnMaya)
         Controls.Add(btnGcash)
         Controls.Add(btnCash)
-        Controls.Add(DataGridView1)
+        Controls.Add(dgvOrders)
         Controls.Add(TextBox1)
         Controls.Add(txtSearch)
         Controls.Add(ProfileBox)
-        Controls.Add(lblFullName)
+        Controls.Add(lblUsername)
         Name = "HomePageControl"
         Size = New Size(1669, 1082)
         CType(ProfileBox, ComponentModel.ISupportInitialize).EndInit()
-        CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        CType(dgvOrders, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
-    Friend WithEvents lblFullName As Label
+    Friend WithEvents lblUsername As Label
     Friend WithEvents ProfileBox As PictureBox
     Friend WithEvents txtSearch As TextBox
     Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvOrders As DataGridView
     Friend WithEvents btnCash As Button
     Friend WithEvents btnGcash As Button
     Friend WithEvents btnMaya As Button

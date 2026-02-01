@@ -2,8 +2,7 @@
 
     Private Sub DrinksMenuControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FlpMenu.Controls.Clear()
-        LoadHotCoffee()
-        LoadIcedCoffee()
+        LoadCoffee()
         LoadMilkTea()
         LoadFruitTea()
         LoadFrappuccino()
@@ -11,17 +10,17 @@
     End Sub
 
     Private Sub LoadCoffee()
-        AddDrink("Americano", 109, DrinkCategory.Coffee)
-        AddDrink("Latte", 129, DrinkCategory.Coffee)
-        AddDrink("Vanilla Cream", 139, DrinkCategory.Coffee)
-        AddDrink("Cappuccino", 149, DrinkCategory.Coffee)
-        AddDrink("Spanish Latte", 149, DrinkCategory.Coffee)
-        AddDrink("Dark Mocha", 149, DrinkCategory.Coffee)
-        AddDrink("Caramel Macchiato", 149, DrinkCategory.Coffee)
-        AddDrink("Salted Caramel", 149, DrinkCategory.Coffee)
-        AddDrink("White Chocolate Mocha", 149, DrinkCategory.Coffee)
-        AddDrink("Dirty Matcha Latte", 159, DrinkCategory.Coffee)
-        AddDrink("Biscoff Latte", 149, DrinkCategory.Coffee)
+        AddDrink("Americano", 109)
+        AddDrink("Latte", 129)
+        AddDrink("Vanilla Cream", 139)
+        AddDrink("Cappuccino", 149)
+        AddDrink("Spanish Latte", 149)
+        AddDrink("Dark Mocha", 149)
+        AddDrink("Caramel Macchiato", 149)
+        AddDrink("Salted Caramel", 149)
+        AddDrink("White Chocolate Mocha", 149)
+        AddDrink("Dirty Matcha Latte", 159)
+        AddDrink("Biscoff Latte", 149)
     End Sub
 
     Private Sub LoadMilkTea()
@@ -59,12 +58,9 @@
     End Sub
 
     Private Sub LoadNonCoffee()
-        AddDrink("Hot Dark Chocolate", 139)
-        AddDrink("Hot White Chocolate", 139)
-        AddDrink("Hot Matcha Latte", 149)
-        AddDrink("Iced Dark Chocolate", 139)
-        AddDrink("Iced White Chocolate", 139)
-        AddDrink("Iced Matcha Latte", 149)
+        AddDrink("Dark Chocolate", 139)
+        AddDrink("White Chocolate", 139)
+        AddDrink("Matcha Latte", 149)
         AddDrink("Strawberry Matcha Latte", 159)
         AddDrink("Ube Latte", 159)
     End Sub
@@ -83,6 +79,38 @@
         AddHandler btn.Click, AddressOf Drink_Click
         FlpMenu.Controls.Add(btn)
     End Sub
+
+    Private Sub Drink_Click(sender As Object, e As EventArgs)
+        Dim btn As Button = DirectCast(sender, Button)
+        Dim drinkName As String = btn.Text.Split(vbCrLf)(0)
+        Dim price As Decimal = CDec(btn.Tag)
+        Dim drink As New DrinkItem With {
+            .Name = drinkName,
+            .BasePrice = price,
+            .Category = GetDrinkCategory(drinkName)
+        }
+        Dim customizeForm As New DrinksCustomize()
+        customizeForm.LoadDrink(drink)
+        AddHandler customizeForm.OrderAdded, AddressOf HandleOrderAdded
+        customizeForm.ShowDialog()
+    End Sub
+
+    Private Function GetDrinkCategory(drinkName As String) As DrinkCategory
+        If drinkName.Contains("Latte") Or drinkName.Contains("Mocha") Or drinkName.Contains("Americano") Or drinkName.Contains("Cappuccino") Or drinkName.Contains("Macchiato") Then
+            Return DrinkCategory.Coffee
+        ElseIf drinkName.Contains("Milk Tea") Then
+            Return DrinkCategory.MilkTea
+        ElseIf drinkName.Contains("Fruit Tea") Then
+            Return DrinkCategory.FruitTea
+        ElseIf drinkName.Contains("Frappuccino") Then
+            Return DrinkCategory.Frappuccino
+        Else
+            Return DrinkCategory.NonCoffee
+        End If
+    End Function
+
+    Private Sub HandleOrderAdded(order As OrderItem)
+        MessageBox.Show($"Added {order.Quantity}x {order.Drink.Name} ({order.Temperature}, {order.Size}) to the order!")
     End Sub
 
 End Class

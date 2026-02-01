@@ -1,7 +1,12 @@
 ﻿Public Class CashierHome
 
+    Public Username As String
+
     Private Sub CashierHome_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ShowHomePage()
+        Dim home As New HomePageControl()
+        home.SetUsername(Username)
+        ShowPage(home)
     End Sub
 
     Private Sub ShowPage(ctrl As UserControl)

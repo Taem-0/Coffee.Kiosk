@@ -112,6 +112,7 @@ Partial Class LogInControl
         txtPassword.ForeColor = Color.White
         txtPassword.Location = New Point(244, 711)
         txtPassword.Name = "txtPassword"
+        txtPassword.PasswordChar = "*"c
         txtPassword.Size = New Size(655, 38)
         txtPassword.TabIndex = 6
         ' 
