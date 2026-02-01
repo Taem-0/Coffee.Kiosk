@@ -1,6 +1,7 @@
 using Coffee.Kiosk.OrderingSystem.Helper;
 using Coffee.Kiosk.OrderingSystem.Sql;
 using Coffee.Kiosk.OrderingSystem.UserControls;
+using Coffee.Kiosk.OrderingSystem.UserControls.Reusables;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,9 @@ namespace Coffee.Kiosk.OrderingSystem
         private ModalScreen? modalScreen;
 
         private Models.Orders? currentOrder;
+
+        int screenHeight;
+        Size modalScreenOriginalSize = new Size(676, 800);
 
         public CoffeeKioskMainForm()
         {
@@ -48,9 +52,21 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void CoffeeKiosk_Load(object sender, EventArgs e)
         {
+            screenHeight = this.ClientSize.Height;
+
             ShowGetStartedScreen();
             modalOverlayPanel.FillColor = Color.FromArgb(67, 0, 0, 0);
             UI_Handling.centerPanel(modalOverlayPanel, modalMainScreen);
+
+            screenHeight = this.ClientSize.Height;
+            if (screenHeight > 1000)
+            {
+                modalMainScreen.Height = 1000;
+
+            } else
+            {
+                modalMainScreen.Size = modalScreenOriginalSize;
+            }
         }
 
         private void loadEverything()
@@ -88,6 +104,7 @@ namespace Coffee.Kiosk.OrderingSystem
         private void ShowGetStartedScreen()
         {
             Models.Category.LoadFromDataBase();
+            Models.Product.LoadFromDataBase();
             loadEverything();
             if (getStartedScreen == null)
             {
@@ -151,23 +168,53 @@ namespace Coffee.Kiosk.OrderingSystem
             modalScreen = null;
         }
 
+
+        internal void AddProductToOrder(int productId, int quantity, List<ModalModifierOptions> selectedOptions)
+        {
+            if (currentOrder == null )
+            {
+                currentOrder = new Models.Orders();
+            }
+
+            var orderItem = new Models.Orders.OrderItem()
+            {
+                ProductId = productId,
+                Quantity = quantity
+            };
+
+        }
+
         internal void FinishOrder()
         {
-            //getStartedScreen?.Dispose();
-            //dineInTakeOut?.Dispose();
-            //kioskMenu?.Dispose();
+            getStartedScreen?.Dispose();
+            dineInTakeOut?.Dispose();
+            kioskMenu?.Dispose();
+            modalScreen?.Dispose();
 
-            //getStartedScreen = null;
-            //dineInTakeOut = null;
-            //kioskMenu = null;
+            getStartedScreen = null;
+            dineInTakeOut = null;
+            kioskMenu = null;
+            modalScreen = null;
 
             currentOrder = null;
 
             ShowGetStartedScreen();
         }
+
+
         private void CoffeeKioskMainForm_Resize(object sender, EventArgs e)
         {
-            UI_Handling.centerPanel(modalOverlayPanel, modalMainScreen);
+            screenHeight = this.ClientSize.Height;
+            if (screenHeight > 1000)
+            {
+                modalMainScreen.Height = 1000;
+
+            } else
+            {
+                modalMainScreen.Size = modalScreenOriginalSize;
+            }
+
+                UI_Handling.centerPanel(modalOverlayPanel, modalMainScreen);
         }
     }
 }

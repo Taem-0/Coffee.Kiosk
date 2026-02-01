@@ -14,100 +14,88 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
     public partial class ModalModifierGroup : UserControl
     {
         public List<ModalModifierOptions> SelectedOptions { get; private set; } = new();
-        private Models.Product.ModifierGroup ModifierGroup;
-        private List<Models.Product.ModifierGroup> AllGroups;
-        private bool IsSingle = false;
-        public ModalModifierGroup(Models.Product.ModifierGroup modifierGroup, List<Models.Product.ModifierGroup> allGroups)
+        private readonly Models.Product.ModifierGroup _group;
+        private readonly List<Models.Product.ModifierGroup> _allGroups;
+        private readonly bool _isSingle;
+        public ModalModifierGroup(
+            Models.Product.ModifierGroup group,
+            List<Models.Product.ModifierGroup> allGroups)
         {
             InitializeComponent();
-            ModifierGroup = modifierGroup;
-            AllGroups = allGroups;
-            IsSingle = modifierGroup.SelectionType == Models.Product.SelectionType.Single ? true : false; 
 
-            ModifierGroupName.Text = modifierGroup.Name + (modifierGroup.Required ? " (Required)" : "");
+            _group = group;
+            _allGroups = allGroups;
+            _isSingle = group.SelectionType == Models.Product.SelectionType.Single;
 
-            LoadModifierOptions(modifierGroup.Id);
+            ModifierGroupName.Text = $"{group.Name} { (group.Required ? "Required" : "") }";
+
+
+
+            LoadOptions();
+            LoadChildGroups();
         }
 
-        private void LoadModifierOptions(int groupId)
+        private void LoadOptions()
         {
             flowLayoutPanel1.Controls.Clear();
 
-            var options = Sql.Queries.GetProductModifierOptions(groupId).OrderBy(s => s.SortBy);
-
-            ModalModifierOptions? lastOption = null;
+            var options = Models.Product.modifierOption
+                .Where(o => o.GroupId == _group.Id)
+                .OrderBy(o => o.SortBy);
 
             foreach (var option in options)
             {
-                var optionControl = new ModalModifierOptions(option);
-                optionControl.SelectChanged += OnSelectChange;
-                flowLayoutPanel1.Controls.Add(optionControl);
-                lastOption = optionControl;
+                var ctrl = new ModalModifierOptions(option);
+                ctrl.SelectionChanged += OnOptionSelectionChanged;
+                flowLayoutPanel1.Controls.Add(ctrl);
             }
-
-            if (lastOption != null)
-            {
-                flowLayoutPanel1.SetFlowBreak(lastOption, true);
-            }
-
-            LoadChildGroups();
         }
         private void LoadChildGroups()
         {
             flowLayoutPanel2.Controls.Clear();
 
-            var children = AllGroups
-                .Where(g => g.ParentGroupId == ModifierGroup.Id)
+            var children = _allGroups
+                .Where(g => g.ParentGroupId == _group.Id)
                 .OrderBy(g => g.Id);
 
             foreach (var child in children)
             {
-                var childControl = new ModalModifierGroup(child, AllGroups);
-                childControl.Padding = new Padding(0);
-                childControl.ModifierGroupName.Font = new Font("Segoe UI", 13F, FontStyle.Regular);
-
-                flowLayoutPanel2.Controls.Add(childControl);
-            }
-
-            flowLayoutPanel2.Visible = SelectedOptions.Count > 0;
-        }
-
-        private void OnSelectChange(ModalModifierOptions selectedOption)
-        {
-            if (IsSingle)
-            {
-                foreach (ModalModifierOptions ctrl in flowLayoutPanel1.Controls.OfType<ModalModifierOptions>())
+                var childCtrl = new ModalModifierGroup(child, _allGroups)
                 {
-                    if (ctrl != selectedOption)
-                        ctrl.Deselect();
-                }
+                    Padding = Padding.Empty
+                };
 
-                SelectedOptions.Clear();
-                SelectedOptions.Add(selectedOption);
-            }
-            else
-            {
-                if (!SelectedOptions.Contains(selectedOption))
-                    SelectedOptions.Add(selectedOption);
-                else
-                    SelectedOptions.Remove(selectedOption);
+                flowLayoutPanel2.Controls.Add(childCtrl);
             }
 
-            UpdateChildGroupsVisibility();
+            UpdateChildVisibility();
         }
 
-        private void UpdateChildGroupsVisibility()
+        private void UpdateChildVisibility()
         {
-            bool showChildren = SelectedOptions.Any(o => o.TriggersChild);
+            bool show = flowLayoutPanel1
+                .Controls
+                .OfType<ModalModifierOptions>()
+                .Any(o => o.IsSelected && o.Option.TriggersChild);
 
-            flowLayoutPanel2.Visible = showChildren;
+            flowLayoutPanel2.Visible = show;
+        }
 
-            foreach (ModalModifierGroup child in flowLayoutPanel2.Controls.OfType<ModalModifierGroup>())
+        private void OnOptionSelectionChanged(ModalModifierOptions selected)
+        {
+            if (_isSingle && selected.IsSelected)
             {
-                child.Enabled = showChildren;
+                foreach (var other in flowLayoutPanel1
+                             .Controls.OfType<ModalModifierOptions>())
+                {
+                    if (other != selected)
+                        other.Deselect();
+                }
             }
 
+            UpdateChildVisibility();
         }
+
 
         //public List<int> GetAllSelectedOptionIds()
         //{
@@ -130,12 +118,15 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
         //}
 
 
-
-
         private void flowLayoutPanel1_ControlAdded(object sender, ControlEventArgs e)
         {
             if (flowLayoutPanel1.Controls.Count % 6 == 0)
                 flowLayoutPanel1.SetFlowBreak(e!.Control! as Control, true);
+        }
+
+        private void ModifierGroupName_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(_group.ToString());
         }
     }
 }

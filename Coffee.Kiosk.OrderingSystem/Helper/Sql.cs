@@ -185,6 +185,68 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
             return result;
         }
 
+        internal static List<Models.Product.ModifierGroup> GetAllModifierGroups()
+        {
+            var result = new List<Models.Product.ModifierGroup>();
+
+            using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+            conn.Open();
+
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = """
+                SELECT ID, ProductId, ParentGroupId, Name, SelectionType, Required
+                 FROM modifier_group;
+            """;
+
+            using var row = cmd.ExecuteReader();
+            while (row.Read())
+            {
+                result.Add(new Models.Product.ModifierGroup(
+                    row.GetInt32("ID"),
+                    row.GetInt32("ProductId"),
+                    row.IsDBNull(2) ? null : row.GetInt32("ParentGroupId"),
+                    row.GetString("Name"),
+                    Enum.Parse<Models.Product.SelectionType>(row.GetString("SelectionType")),
+                    row.GetBoolean("Required")
+                ));
+            }
+
+            return result;
+        }
+
+        internal static List<Models.Product.ModifierOption> GetAllModifierOptions()
+        {
+            var result = new List<Models.Product.ModifierOption>();
+
+            using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+            conn.Open();
+
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = """
+                SELECT ID, GroupId, Name, PriceDelta, InventorySubtraction,
+                InventoryItemId, TriggersChild, SortBy
+                FROM modifier_option;
+            """;
+
+            using var row = cmd.ExecuteReader();
+            while (row.Read())
+            {
+                result.Add(new Models.Product.ModifierOption(
+                    row.GetInt32("ID"),
+                    row.GetInt32("GroupId"),
+                    row.GetString("Name"),
+                    row.GetDecimal("PriceDelta"),
+                    row.GetDecimal("InventorySubtraction"),
+                    row.IsDBNull(5) ? null : row.GetInt32("InventoryItemId"),
+                    row.GetBoolean("TriggersChild"),
+                    row.GetInt32("SortBy")
+                ));
+            }
+
+            return result;
+        }
+
+
         internal static Models.Product.ProductData? GetProductData(int productId)
         {
             Models.Product.ProductData? result = null;
@@ -214,79 +276,5 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
             return result;
         }
 
-        internal static List<Models.Product.ModifierGroup> GetProductModifiers(int productId)
-        {
-            var result = new List<Models.Product.ModifierGroup>();
-
-            try
-            {
-                using var conn = new MySqlConnection(Sql.DBInitializer.connectionStringDatabase);
-                conn.Open();
-
-                using var cmd = conn.CreateCommand();
-                cmd.CommandText = """
-                    SELECT ID, ProductId, ParentGroupId, Name, SelectionType, Required
-                    FROM modifier_group
-                    WHERE ProductId = @productId;
-                """;
-                cmd.Parameters.AddWithValue("@productId", productId);
-
-                using var row = cmd.ExecuteReader();
-                while (row.Read())
-                {
-                    result.Add(new Models.Product.ModifierGroup(
-                        row.GetInt32("ID"),
-                        row.GetInt32("ProductId"),
-                        row.IsDBNull(2) ? null : row.GetInt32("ParentGroupId"),
-                        row.GetString("Name"),
-                        Enum.Parse<Models.Product.SelectionType>(row.GetString("SelectionType")),
-                        row.GetBoolean("Required")
-                        ));
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Failed to GetProductModifiers");
-            }
-            return result;
-        }
-
-        internal static List<Models.Product.ModifierOption> GetProductModifierOptions(int groupId)
-        {
-            var result = new List<Models.Product.ModifierOption>();
-
-            try
-            {
-                using var conn = new MySqlConnection(Sql.DBInitializer.connectionStringDatabase);
-                conn.Open();
-
-                using var cmd = conn.CreateCommand();
-                cmd.CommandText = """
-                    SELECT ID, GroupId, Name, PriceDelta, InventorySubtraction, InventoryItemId, TriggersChild, SortBy FROM modifier_option
-                    WHERE GroupId = @groupId;
-                """;
-                cmd.Parameters.AddWithValue("@groupId", groupId);
-
-                using var row = cmd.ExecuteReader();
-                while (row.Read())
-                {
-                    result.Add(new Models.Product.ModifierOption(
-                        row.GetInt32("ID"),
-                        row.GetInt32("GroupId"),
-                        row.GetString("Name"),
-                        row.GetDecimal("PriceDelta"),
-                        row.GetDecimal("InventorySubtraction"),
-                        row.IsDBNull(5) ? null : row.GetInt32("InventoryItemId"),
-                        row.GetBoolean("TriggersChild"),
-                        row.GetInt32("SortBy")
-                        ));
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Failed to GetProductModifiersOptions");
-            }
-            return result;
-        }
     }
 }

@@ -12,47 +12,41 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 {
     public partial class ModalModifierOptions : UserControl
     {
-        bool isSelected = false;
-        public int OptionId;
-        public event Action<ModalModifierOptions>? SelectChanged;
-        public string OptionName = String.Empty;
-        public bool TriggersChild;
-        public ModalModifierOptions(Models.Product.ModifierOption modifierOption)
+        public Models.Product.ModifierOption Option { get; }
+        public bool IsSelected { get; private set; }
+
+        public event Action<ModalModifierOptions>? SelectionChanged;
+
+        public ModalModifierOptions(Models.Product.ModifierOption option)
         {
             InitializeComponent();
+            Option = option;
 
-            OptionId = modifierOption.Id; 
-            OptionName = modifierOption.Name;
-            TriggersChild = modifierOption.TriggersChild;
-
-            guna2Button1.Text = OptionName;
-
-            if (!TriggersChild)
+            guna2Button1.Text = option.Name;
+            if (!option.TriggersChild)
             {
-                isSelected = true;
-                guna2Button1.FillColor = Color.Gray;
+                IsSelected = true;
             }
+
+            UpdateVisual();
         }
-
-
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            if (isSelected)
-            {
-                Deselect();
-            }else
-            {
-                isSelected = true;
-                guna2Button1.FillColor = Color.Gray;
-            }
-            SelectChanged?.Invoke(this);
+            IsSelected = !IsSelected;
+            UpdateVisual();
+            SelectionChanged?.Invoke(this);
         }
 
         public void Deselect()
         {
-            isSelected = false;
-            guna2Button1.FillColor = Color.White;
+            IsSelected = false;
+            UpdateVisual();
+        }
+
+        private void UpdateVisual()
+        {
+            guna2Button1.FillColor = IsSelected ? Color.Gray : Color.White;
         }
     }
 }

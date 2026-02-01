@@ -66,7 +66,7 @@
             modalMainScreen.BackColor = Color.White;
             modalMainScreen.CustomizableEdges = customizableEdges1;
             modalMainScreen.Location = new Point(0, 0);
-            modalMainScreen.Margin = new Padding(150);
+            modalMainScreen.Margin = new Padding(0);
             modalMainScreen.Name = "modalMainScreen";
             modalMainScreen.ShadowDecoration.CustomizableEdges = customizableEdges2;
             modalMainScreen.Size = new Size(676, 675);
@@ -81,7 +81,7 @@
             Controls.Add(modalOverlayPanel);
             Controls.Add(mainPanel);
             Margin = new Padding(3, 2, 3, 2);
-            MinimumSize = new Size(0, 675);
+            MinimumSize = new Size(676, 675);
             Name = "CoffeeKioskMainForm";
             RightToLeft = RightToLeft.No;
             StartPosition = FormStartPosition.CenterScreen;

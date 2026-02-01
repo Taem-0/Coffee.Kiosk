@@ -14,6 +14,21 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             TakeOut
         }
         internal TypeOfOrder Type { get; set; }
+        public class OrderItemModifierSelection
+        {
+            public int ModifierGroupId { get; init; }
+            public int ModifierOptionId { get; init; }
+            public string ModifierGroupName { get; init; } = "";
+            public string ModifierOptionName { get; init; } = "";
+            public decimal PriceDelta { get; init; }
+        }
+        public class OrderItem
+        {
+            public int ProductId { get; init; }
+            public int Quantity { get; set; }
+
+            public List<OrderItemModifierSelection> Modifiers { get; } = new();
+        }
     }
 
     internal class Category
@@ -81,17 +96,27 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             );
 
         internal static List<ProductData> productData = new();
+        internal static List<ModifierGroup> modifierGroups = new();
+        internal static List<ModifierOption> modifierOption = new();
         internal static void LoadDummyData()
         {
             productData.Add(new(1, 1, "Americano", 120m, "C:/Images/Kiosk/Coffee Product/Americano.png", false));
             productData.Add(new(2, 1, "Mocha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Mocha Latte.png", false));
             productData.Add(new(3, 1, "Cafe Latte", 120m, "C:/Images/Kiosk/Coffee Product/Cafe Latte.png", false));
             productData.Add(new(4, 1, "Matcha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Matcha Latte.png", false));
+
+            //modifierGroups.Add(new(1, 1, null, "Size", SelectionType.Single, true));
+
         }
         internal static void LoadFromDataBase()
         {
             productData.Clear();
+            modifierGroups.Clear();
+            modifierOption.Clear();
+
             productData = Sql.Queries.GetAllProduct();
+            modifierGroups = Sql.Queries.GetAllModifierGroups();
+            modifierOption = Sql.Queries.GetAllModifierOptions();
         }
     }
 }

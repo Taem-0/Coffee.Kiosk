@@ -30,7 +30,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
         {
             flowLayoutPanel1.Controls.Clear();
 
-            var allGroups = Sql.Queries.GetProductModifiers(productId);
+            var allGroups = Models.Product.modifierGroups;
 
             var rootGroups = allGroups.Where(g => g.ParentGroupId == null).OrderBy(g => g.Id);
 
@@ -53,17 +53,10 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
             UI_Handling.centerPanel(topPanel, guna2ShadowPanel1);
         }
 
-        private async void AddAmountBtn_Click(object sender, EventArgs e)
+        private void AddAmountBtn_Click(object sender, EventArgs e)
         {
-            AddAmountBtn.Enabled = false;
-
-            await Task.Run(() =>
-            {
-                Amount++;
-                AmountLbl.Text = Amount.ToString();
-            });
-
-            AddAmountBtn.Enabled = true;
+            Amount++;
+            AmountLbl.Text = Amount.ToString();
         }
 
         private void SubtractAmountButton_Click(object sender, EventArgs e)

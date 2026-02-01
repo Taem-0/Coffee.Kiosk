@@ -29,50 +29,63 @@
         private void InitializeComponent()
         {
             flowLayoutPanel1 = new FlowLayoutPanel();
-            ModifierGroupName = new Label();
             flowLayoutPanel2 = new FlowLayoutPanel();
+            ModifierGroupName = new Label();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.AutoSize = true;
             flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(20, 25);
+            flowLayoutPanel1.Location = new Point(20, 24);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(530, 58);
+            flowLayoutPanel1.Size = new Size(540, 112);
             flowLayoutPanel1.TabIndex = 0;
             flowLayoutPanel1.ControlAdded += flowLayoutPanel1_ControlAdded;
-            // 
-            // ModifierGroupName
-            // 
-            ModifierGroupName.Dock = DockStyle.Top;
-            ModifierGroupName.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ModifierGroupName.Location = new Point(20, 0);
-            ModifierGroupName.Name = "ModifierGroupName";
-            ModifierGroupName.Size = new Size(530, 25);
-            ModifierGroupName.TabIndex = 0;
-            ModifierGroupName.Text = "Modifier_Group_Name";
             // 
             // flowLayoutPanel2
             // 
             flowLayoutPanel2.AutoSize = true;
             flowLayoutPanel2.Dock = DockStyle.Bottom;
-            flowLayoutPanel2.Location = new Point(20, 83);
+            flowLayoutPanel2.Location = new Point(20, 136);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(530, 0);
+            flowLayoutPanel2.Size = new Size(540, 0);
             flowLayoutPanel2.TabIndex = 1;
+            // 
+            // ModifierGroupName
+            // 
+            ModifierGroupName.BackColor = SystemColors.AppWorkspace;
+            ModifierGroupName.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ModifierGroupName.Location = new Point(3, -1);
+            ModifierGroupName.Name = "ModifierGroupName";
+            ModifierGroupName.Size = new Size(593, 25);
+            ModifierGroupName.TabIndex = 0;
+            ModifierGroupName.Text = "Modifier_Group_Name";
+            ModifierGroupName.Click += ModifierGroupName_Click;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(ModifierGroupName);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(20, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(540, 24);
+            panel1.TabIndex = 0;
             // 
             // ModalModifierGroup
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoSize = true;
             Controls.Add(flowLayoutPanel1);
             Controls.Add(flowLayoutPanel2);
-            Controls.Add(ModifierGroupName);
+            Controls.Add(panel1);
+            Margin = new Padding(3, 3, 3, 10);
             Name = "ModalModifierGroup";
             Padding = new Padding(20, 0, 0, 0);
-            Size = new Size(550, 83);
+            Size = new Size(560, 136);
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -82,5 +95,6 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Label ModifierGroupName;
         private FlowLayoutPanel flowLayoutPanel2;
+        private Panel panel1;
     }
 }

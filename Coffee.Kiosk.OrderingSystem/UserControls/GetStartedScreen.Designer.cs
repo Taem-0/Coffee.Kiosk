@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GetStartedScreen));
             guna2ShadowPanel2 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             label1 = new Label();
             pictureBox1 = new PictureBox();
@@ -51,6 +52,7 @@
             guna2ShadowPanel2.ShadowShift = 1;
             guna2ShadowPanel2.Size = new Size(675, 183);
             guna2ShadowPanel2.TabIndex = 1;
+            guna2ShadowPanel2.Visible = false;
             guna2ShadowPanel2.Click += guna2ShadowPanel2_Click;
             // 
             // label1
@@ -78,8 +80,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(174, 105, 50);
-            BackgroundImage = Properties.Resources.Café_Gelado___Lune_Graphic;
+            BackColor = Color.FromArgb(20, 12, 5);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Zoom;
             Controls.Add(guna2ShadowPanel2);
             Margin = new Padding(3, 2, 3, 2);

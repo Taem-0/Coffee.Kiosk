@@ -32,7 +32,7 @@ namespace Coffee.Kiosk.OrderingSystem
             //guna2Button1.FillColor = UI_ColorScheme.Primary;
 
             pictureBox1.Image = UI_Images.logoImage;
-            this.BackgroundImage = UI_Images.loadImageFromFile("C:/Images/Kiosk/Ads/Café Gelado _ Lune Graphic.jpg");
+            this.BackgroundImage = UI_Images.loadImageFromFile("C:/Images/Kiosk/Ads/ADS1.jpg");
         }
 
         private void GetStartedScreen_Click(object sender, EventArgs e)
