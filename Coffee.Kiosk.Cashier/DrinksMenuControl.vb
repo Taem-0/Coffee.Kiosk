@@ -2,7 +2,6 @@
 
     Private Sub DrinksMenuControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FlpMenu.Controls.Clear()
-
         LoadHotCoffee()
         LoadIcedCoffee()
         LoadMilkTea()
@@ -11,30 +10,18 @@
         LoadNonCoffee()
     End Sub
 
-    Private Sub LoadHotCoffee()
-        AddDrink("Hot Americano", 109)
-        AddDrink("Hot Latte", 129)
-        AddDrink("Hot Vanilla Cream", 139)
-        AddDrink("Hot Cappuccino", 149)
-        AddDrink("Hot Spanish Latte", 149)
-        AddDrink("Hot Dark Mocha", 149)
-        AddDrink("Hot Caramel Macchiato", 149)
-        AddDrink("Hot Salted Caramel", 149)
-        AddDrink("Hot White Chocolate Mocha", 149)
-        AddDrink("Hot Dirty Matcha Latte", 159)
-    End Sub
-
-    Private Sub LoadIcedCoffee()
-        AddDrink("Iced Americano", 109)
-        AddDrink("Iced Latte", 119)
-        AddDrink("Iced Vanilla Cream", 119)
-        AddDrink("Iced Cappuccino", 129)
-        AddDrink("Iced Spanish Latte", 129)
-        AddDrink("Iced Dark Mocha", 139)
-        AddDrink("Iced Caramel Macchiato", 139)
-        AddDrink("Iced Salted Caramel", 139)
-        AddDrink("Iced White Chocolate Mocha", 139)
-        AddDrink("Iced Biscoff Latte", 149)
+    Private Sub LoadCoffee()
+        AddDrink("Americano", 109, DrinkCategory.Coffee)
+        AddDrink("Latte", 129, DrinkCategory.Coffee)
+        AddDrink("Vanilla Cream", 139, DrinkCategory.Coffee)
+        AddDrink("Cappuccino", 149, DrinkCategory.Coffee)
+        AddDrink("Spanish Latte", 149, DrinkCategory.Coffee)
+        AddDrink("Dark Mocha", 149, DrinkCategory.Coffee)
+        AddDrink("Caramel Macchiato", 149, DrinkCategory.Coffee)
+        AddDrink("Salted Caramel", 149, DrinkCategory.Coffee)
+        AddDrink("White Chocolate Mocha", 149, DrinkCategory.Coffee)
+        AddDrink("Dirty Matcha Latte", 159, DrinkCategory.Coffee)
+        AddDrink("Biscoff Latte", 149, DrinkCategory.Coffee)
     End Sub
 
     Private Sub LoadMilkTea()
@@ -84,7 +71,6 @@
 
     Private Sub AddDrink(drinkName As String, price As Integer)
         Dim btn As New Button()
-
         btn.Width = 205
         btn.Height = 66
         btn.Text = drinkName & vbCrLf & "₱" & price
@@ -94,14 +80,9 @@
         btn.FlatStyle = FlatStyle.Flat
         btn.FlatAppearance.BorderSize = 0
         btn.Font = New Font("Segoe UI", 10, FontStyle.Bold)
-
         AddHandler btn.Click, AddressOf Drink_Click
         FlpMenu.Controls.Add(btn)
     End Sub
-
-    Private Sub Drink_Click(sender As Object, e As EventArgs)
-        Dim btn As Button = CType(sender, Button)
-        MessageBox.Show(btn.Text)
     End Sub
 
 End Class
