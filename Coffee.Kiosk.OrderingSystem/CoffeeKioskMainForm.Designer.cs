@@ -86,6 +86,7 @@
             RightToLeft = RightToLeft.No;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "KIOSK";
+            WindowState = FormWindowState.Maximized;
             Load += CoffeeKiosk_Load;
             Resize += CoffeeKioskMainForm_Resize;
             modalOverlayPanel.ResumeLayout(false);

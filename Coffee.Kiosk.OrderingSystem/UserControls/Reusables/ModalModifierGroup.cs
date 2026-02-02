@@ -92,7 +92,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
                 return false;
 
             foreach (var child in _childGroups)
-                if (!child.IsValid()) return false;
+            {
+                if (flowLayoutPanel2.Visible && !child.IsValid()) 
+                    return false;
+            }
+                
 
             return true;
         }

@@ -33,6 +33,7 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KioskMenu));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             flowCategories = new FlowLayoutPanel();
@@ -61,9 +62,9 @@
             flowCategories.BackColor = Color.SeaShell;
             flowCategories.Dock = DockStyle.Left;
             flowCategories.FlowDirection = FlowDirection.TopDown;
-            flowCategories.Location = new Point(0, 95);
+            flowCategories.Location = new Point(0, 159);
             flowCategories.Name = "flowCategories";
-            flowCategories.Size = new Size(125, 453);
+            flowCategories.Size = new Size(220, 389);
             flowCategories.TabIndex = 0;
             flowCategories.WrapContents = false;
             // 
@@ -197,31 +198,33 @@
             AdPanel.Dock = DockStyle.Top;
             AdPanel.Location = new Point(0, 0);
             AdPanel.Name = "AdPanel";
-            AdPanel.Size = new Size(673, 95);
+            AdPanel.Size = new Size(673, 159);
             AdPanel.TabIndex = 2;
             // 
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.Sienna;
             pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Margin = new Padding(0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(673, 95);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.Size = new Size(673, 159);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
             // ContentPanel
             // 
+            ContentPanel.AutoScroll = true;
             ContentPanel.BackColor = Color.SeaShell;
             ContentPanel.CustomizableEdges = customizableEdges6;
             ContentPanel.Dock = DockStyle.Fill;
-            ContentPanel.Location = new Point(125, 95);
+            ContentPanel.Location = new Point(220, 159);
             ContentPanel.Name = "ContentPanel";
             ContentPanel.Padding = new Padding(3, 3, 3, 10);
             ContentPanel.ShadowDecoration.CustomizableEdges = customizableEdges7;
-            ContentPanel.Size = new Size(548, 453);
+            ContentPanel.Size = new Size(453, 389);
             ContentPanel.TabIndex = 3;
             // 
             // KioskMenu
