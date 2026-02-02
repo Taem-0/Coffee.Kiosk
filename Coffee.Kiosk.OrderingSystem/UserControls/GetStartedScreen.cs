@@ -28,16 +28,19 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void GetStartedScreen_Load(object sender, EventArgs e)
         {
-            UI_Handling.centerPanel(panel1, panelButtonGetStarted);
-            button1.BackColor = UI_ColorScheme.Primary;
+            //button1.BackColor = UI_ColorScheme.Primary;
+            //guna2Button1.FillColor = UI_ColorScheme.Primary;
+
+            pictureBox1.Image = UI_Images.logoImage;
+            this.BackgroundImage = UI_Images.loadImageFromFile("C:/Images/Kiosk/Ads/ADS1.jpg");
         }
 
-        private void GetStartedScreen_Resize(object sender, EventArgs e)
+        private void GetStartedScreen_Click(object sender, EventArgs e)
         {
-            UI_Handling.centerPanel(panel1, panelButtonGetStarted, 3);
+            NextClicked?.Invoke();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void guna2ShadowPanel2_Click(object sender, EventArgs e)
         {
             NextClicked?.Invoke();
         }

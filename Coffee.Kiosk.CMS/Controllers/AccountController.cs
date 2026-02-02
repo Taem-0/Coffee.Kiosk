@@ -56,17 +56,12 @@ namespace Coffee.Kiosk.CMS.Controllers
 
         }
 
-
-
-
         public List<DisplayDTO> GetDisplayDTOs()
         {
 
             return _service.DisplayAccounts();
 
         }
-
-        
 
         public void DeactivateAccount(DisplayDTO currentAccount)
         {

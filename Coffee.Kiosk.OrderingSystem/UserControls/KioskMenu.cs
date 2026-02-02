@@ -17,6 +17,7 @@ namespace Coffee.Kiosk.OrderingSystem
     public partial class KioskMenu : UserControl
     {
         internal event Action? startOverClicked;
+        internal event Action<int>? ProductSelected;
 
         private readonly Dictionary<int, UserControl> categoryPage = new();
         private UserControl? currentPage;
@@ -24,7 +25,10 @@ namespace Coffee.Kiosk.OrderingSystem
         private const int HOME_CATEGORY_ID = 0;
         private HomePage? homePage;
 
-        public KioskMenu()
+        int currentCartCount = 0;
+        string OrderType = String.Empty;
+
+        public KioskMenu(string orderType)
         {
             InitializeComponent();
 
@@ -33,10 +37,21 @@ namespace Coffee.Kiosk.OrderingSystem
             flowCategories.WrapContents = false;
             flowCategories.AutoScroll = true;
 
+            OrderType = orderType;
+
+            guna2HtmlLabel1.Text = $"""
+            <b><font size='12'>Order summary</font></b>
+            <br>
+            <b>Items:</b> {currentCartCount}
+            <br>
+            <b>{orderType}</b>
+            <br>
+            <b>Total:</b> ₱
+            """;
             LoadCategories();
             ShowHome();
         }
-        private void StartOver_Button_Click(object sender, EventArgs e)
+        private void guna2Button1_Click(object sender, EventArgs e)
         {
             startOverClicked?.Invoke();
         }
@@ -51,13 +66,16 @@ namespace Coffee.Kiosk.OrderingSystem
 
             for (int i = 0; i < Models.Category.categoryData.Count; i++)
             {
-                var categoryItem = new CategoryItem(
-                    Models.Category.categoryData[i].Id,
-                    Models.Category.categoryData[i].Name,
-                    UI_Images.loadImageFromFile(Models.Category.categoryData[i].IconPath)
-                    );
-                categoryItem.CategoryClicked += OnCategoryClicked;
-                flowCategories.Controls.Add(categoryItem);
+                if (Models.Category.categoryData[i].IsShown)
+                {
+                    var categoryItem = new CategoryItem(
+                        Models.Category.categoryData[i].Id,
+                        Models.Category.categoryData[i].Name,
+                        UI_Images.loadImageFromFile(Models.Category.categoryData[i].IconPath)
+                        );
+                    categoryItem.CategoryClicked += OnCategoryClicked;
+                    flowCategories.Controls.Add(categoryItem);
+                }
             }
             flowCategories.ResumeLayout();
         }
@@ -86,10 +104,11 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowCategory(int categoryId)
         {
-            UserControl? page;
-            if (!categoryPage.TryGetValue(categoryId, out page))
+            if (!categoryPage.TryGetValue(categoryId, out var page))
             {
-                page = new CategoryPage(categoryId);
+                var categoryPageControl = new CategoryPage(categoryId);
+                categoryPageControl.ProductClicked += OnProductClicked;
+                page = categoryPageControl;
                 categoryPage[categoryId] = page;
             }
 
@@ -106,37 +125,44 @@ namespace Coffee.Kiosk.OrderingSystem
         }
 
 
+        private void OnProductClicked(int prodcutId)
+        {
+            ProductSelected?.Invoke(prodcutId);
+        }
+
+        public void OnCartUpdated(int count)
+        {
+            currentCartCount = count;
+            if (currentCartCount < 1)
+            {
+                checkOutBtn.Enabled = false;
+                cartCounterButton.Visible = false;
+            }else
+            {
+                checkOutBtn.Enabled = true;
+                cartCounterButton.Visible = true;
+            }
+            cartCounterButton.Text = currentCartCount.ToString();
+            guna2HtmlLabel1.Text = $"""
+            <b><font size='12'>Order summary</font></b>
+            <br>
+            <b>Items:</b> {currentCartCount}
+            <br>
+            <b>{OrderType}</b>
+            <br>
+            <b>Total:</b> ₱
+            """;
+        }
+
 
         // --------------------------------------------------------------------------
 
-
-        bool isHoveredStartOver = false;
-
-
-        private void StartOver_Button_Paint(object sender, PaintEventArgs e)
-        {
-            if (!isHoveredStartOver) return;
-            UI_Handling.darkenOnHover(e, StartOver_Button.ClientRectangle, UI_Handling.boxOrCircle.box);
-        }
-
-        private void StartOver_Button_MouseEnter(object sender, EventArgs e)
-        {
-            isHoveredStartOver = true;
-            StartOver_Button.Invalidate();
-        }
-
-        private void StartOver_Button_MouseLeave(object sender, EventArgs e)
-        {
-            isHoveredStartOver = false;
-            StartOver_Button.Invalidate();
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void BottomPanel_Paint(object sender, PaintEventArgs e)
+        {
+            UI_Handling.drawBorderSides(e, BottomPanel.ClientRectangle, UI_Handling.borderSide.Top, Color.Black, 2);
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
             UI_Handling.drawBorderSides(e, BottomPanel.ClientRectangle, UI_Handling.borderSide.Top, Color.Black, 2);
         }

@@ -16,7 +16,13 @@ namespace Coffee.Kiosk
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
 
-            Console.WriteLine("Starting application...");   
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+
+            Console.WriteLine("Starting application...");
+            ApplicationConfiguration.Initialize();
+
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -39,6 +45,7 @@ namespace Coffee.Kiosk
 
             ApplicationConfiguration.Initialize();
             Application.Run(new AdminControlForm());
+
         }
     }
 }

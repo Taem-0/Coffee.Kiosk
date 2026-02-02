@@ -13,14 +13,24 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 {
     public partial class CategoryPage : UserControl
     {
+
+        internal event Action<int>? ProductClicked;
         internal int CategoryId { get; set; }
 
         public CategoryPage(int categoryId)
         {
             InitializeComponent();
             CategoryId = categoryId;
+            var category = Models.Category.categoryData.FirstOrDefault(c => c.Id == categoryId);
+
+            if (category != null)
+            {
+                label1.Text = category.Name;
+            }
 
             LoadProduct();
+
+            UI_Handling.AddBottomSpacer(flowProducts);
         }
 
         internal void LoadProduct()
@@ -46,10 +56,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 
         internal void OnProductClicked(int productId)
         {
-            MessageBox.Show($"""
-                Product ID = {productId}
-                TODO later :)))
-                """);
+            ProductClicked?.Invoke(productId);
         } 
     }
 }

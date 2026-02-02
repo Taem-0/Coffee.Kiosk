@@ -17,21 +17,26 @@ namespace Coffee.Kiosk.CMS.Services
 
         public void RegisterUser(RegistrationDTO request)
         {
-
             var employee = new Employee
             {
-                FullName = request.FullName,
+                FirstName = request.FirstName,
+                MiddleName = request.MiddleName,
+                LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
                 Email = request.Email,
                 EmergencyNumber = request.EmergencyNumber,
                 JobTitle = request.JobTitle,
-                Salary = decimal.Parse(request.Salary),
+                Department = request.Department,          // add
+                EmploymentType = request.EmploymentType,  // add
+                Role = request.Role,                      // add
+                EmployeeID = request.EmployeeID,          // add
+                Salary = decimal.TryParse(request.Salary, out var sal) ? sal : 0m,
                 Status = AccountStatus.ACTIVE
             };
 
             _dBManager.PostEmployee(employee);
-
         }
+
 
         public List<DisplayDTO> DisplayAccounts()
         {
@@ -44,7 +49,9 @@ namespace Coffee.Kiosk.CMS.Services
                 DisplayDTO display = new()
                 {
                     PrimaryID = account.Id.ToString(),
-                    FullName = account.FullName,
+                    FirstName = account.FirstName,
+                    MiddleName = account.MiddleName,
+                    LastName = account.LastName,
                     PhoneNumber = account.PhoneNumber,
                     Email = account.Email,  
                     EmergencyNumber = account.EmergencyNumber,
@@ -69,7 +76,9 @@ namespace Coffee.Kiosk.CMS.Services
             var employee = new Employee
             {
                 Id = int.Parse(request.PrimaryID),
-                FullName = request.FullName,
+                FirstName = request.FirstName,
+                MiddleName = request.MiddleName,
+                LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
                 Email = request.Email,
                 EmergencyNumber = request.EmergencyNumber,

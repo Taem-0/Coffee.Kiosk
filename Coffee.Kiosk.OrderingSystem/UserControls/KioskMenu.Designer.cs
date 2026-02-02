@@ -28,15 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             flowCategories = new FlowLayoutPanel();
             BottomPanel = new Panel();
+            panel1 = new Panel();
+            checkOutBtn = new Guna.UI2.WinForms.Guna2Button();
+            panel2 = new Panel();
+            guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            cartCounterButton = new Guna.UI2.WinForms.Guna2CircleButton();
             pictureBox2 = new PictureBox();
-            StartOver_Button = new Label();
+            StartOverBtn = new Guna.UI2.WinForms.Guna2Button();
             AdPanel = new Panel();
-            label2 = new Label();
             pictureBox1 = new PictureBox();
-            ContentPanel = new Panel();
+            ContentPanel = new Guna.UI2.WinForms.Guna2Panel();
             BottomPanel.SuspendLayout();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             AdPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -45,87 +58,170 @@
             // flowCategories
             // 
             flowCategories.AutoScroll = true;
+            flowCategories.BackColor = Color.SeaShell;
             flowCategories.Dock = DockStyle.Left;
             flowCategories.FlowDirection = FlowDirection.TopDown;
-            flowCategories.Location = new Point(0, 56);
+            flowCategories.Location = new Point(0, 95);
             flowCategories.Name = "flowCategories";
-            flowCategories.Size = new Size(125, 457);
+            flowCategories.Size = new Size(125, 453);
             flowCategories.TabIndex = 0;
             flowCategories.WrapContents = false;
             // 
             // BottomPanel
             // 
+            BottomPanel.BackColor = Color.SeaShell;
+            BottomPanel.Controls.Add(panel1);
+            BottomPanel.Controls.Add(panel2);
+            BottomPanel.Controls.Add(cartCounterButton);
             BottomPanel.Controls.Add(pictureBox2);
-            BottomPanel.Controls.Add(StartOver_Button);
+            BottomPanel.Controls.Add(StartOverBtn);
             BottomPanel.Dock = DockStyle.Bottom;
-            BottomPanel.Location = new Point(0, 513);
+            BottomPanel.Location = new Point(0, 548);
             BottomPanel.Name = "BottomPanel";
-            BottomPanel.Size = new Size(673, 112);
+            BottomPanel.Size = new Size(673, 136);
             BottomPanel.TabIndex = 1;
             BottomPanel.Paint += BottomPanel_Paint;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(checkOutBtn);
+            panel1.Dock = DockStyle.Right;
+            panel1.Location = new Point(397, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(276, 136);
+            panel1.TabIndex = 5;
+            panel1.Paint += panel1_Paint;
+            // 
+            // checkOutBtn
+            // 
+            checkOutBtn.Animated = true;
+            checkOutBtn.BorderRadius = 17;
+            checkOutBtn.CustomizableEdges = customizableEdges1;
+            checkOutBtn.DisabledState.BorderColor = Color.DarkGray;
+            checkOutBtn.DisabledState.CustomBorderColor = Color.DarkGray;
+            checkOutBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            checkOutBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            checkOutBtn.Enabled = false;
+            checkOutBtn.FillColor = Color.Red;
+            checkOutBtn.Font = new Font("Segoe UI Semibold", 13.5F, FontStyle.Bold);
+            checkOutBtn.ForeColor = Color.White;
+            checkOutBtn.Location = new Point(9, 30);
+            checkOutBtn.Margin = new Padding(50);
+            checkOutBtn.Name = "checkOutBtn";
+            checkOutBtn.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            checkOutBtn.Size = new Size(250, 56);
+            checkOutBtn.TabIndex = 4;
+            checkOutBtn.Text = "Proceed to Checkout";
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(guna2HtmlLabel1);
+            panel2.Location = new Point(125, 6);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(228, 130);
+            panel2.TabIndex = 6;
+            // 
+            // guna2HtmlLabel1
+            // 
+            guna2HtmlLabel1.AutoSize = false;
+            guna2HtmlLabel1.BackColor = Color.Transparent;
+            guna2HtmlLabel1.Dock = DockStyle.Fill;
+            guna2HtmlLabel1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guna2HtmlLabel1.Location = new Point(0, 0);
+            guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            guna2HtmlLabel1.Size = new Size(228, 130);
+            guna2HtmlLabel1.TabIndex = 0;
+            guna2HtmlLabel1.Text = "<b><font size='12'>Order summary</font></b>\r\n<br>\r\n<b>Items:</b> 3\r\n<br>\r\n<b>Dine in</b>\r\n<br>\r\n<b>Total:</b> ₱450.00";
+            // 
+            // cartCounterButton
+            // 
+            cartCounterButton.BackColor = Color.Transparent;
+            cartCounterButton.DisabledState.BorderColor = Color.DarkGray;
+            cartCounterButton.DisabledState.CustomBorderColor = Color.DarkGray;
+            cartCounterButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            cartCounterButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            cartCounterButton.FillColor = Color.Red;
+            cartCounterButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cartCounterButton.ForeColor = Color.White;
+            cartCounterButton.Location = new Point(87, 6);
+            cartCounterButton.Name = "cartCounterButton";
+            cartCounterButton.ShadowDecoration.CustomizableEdges = customizableEdges3;
+            cartCounterButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            cartCounterButton.Size = new Size(32, 30);
+            cartCounterButton.TabIndex = 3;
+            cartCounterButton.Text = "0";
+            cartCounterButton.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
+            cartCounterButton.UseTransparentBackground = true;
+            cartCounterButton.Visible = false;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.CART__1__1_;
-            pictureBox2.Location = new Point(36, 4);
+            pictureBox2.Location = new Point(37, 6);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(80, 80);
+            pictureBox2.Size = new Size(82, 85);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
             // 
-            // StartOver_Button
+            // StartOverBtn
             // 
-            StartOver_Button.AutoSize = true;
-            StartOver_Button.Font = new Font("Segoe UI", 14F);
-            StartOver_Button.Location = new Point(0, 87);
-            StartOver_Button.Name = "StartOver_Button";
-            StartOver_Button.Size = new Size(116, 25);
-            StartOver_Button.TabIndex = 0;
-            StartOver_Button.Text = "← Start Over";
-            StartOver_Button.Click += StartOver_Button_Click;
-            StartOver_Button.Paint += StartOver_Button_Paint;
-            StartOver_Button.MouseEnter += StartOver_Button_MouseEnter;
-            StartOver_Button.MouseLeave += StartOver_Button_MouseLeave;
+            StartOverBtn.BackColor = Color.Transparent;
+            StartOverBtn.BorderColor = Color.Transparent;
+            StartOverBtn.BorderRadius = 15;
+            StartOverBtn.BorderThickness = 1;
+            StartOverBtn.CustomizableEdges = customizableEdges4;
+            StartOverBtn.DisabledState.BorderColor = Color.DarkGray;
+            StartOverBtn.DisabledState.CustomBorderColor = Color.DarkGray;
+            StartOverBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            StartOverBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            StartOverBtn.FillColor = Color.WhiteSmoke;
+            StartOverBtn.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            StartOverBtn.ForeColor = Color.Black;
+            StartOverBtn.HoverState.BorderColor = Color.Black;
+            StartOverBtn.HoverState.FillColor = Color.Transparent;
+            StartOverBtn.Location = new Point(3, 104);
+            StartOverBtn.Name = "StartOverBtn";
+            StartOverBtn.ShadowDecoration.BorderRadius = 17;
+            StartOverBtn.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            StartOverBtn.ShadowDecoration.Depth = 7;
+            StartOverBtn.ShadowDecoration.Enabled = true;
+            StartOverBtn.Size = new Size(116, 29);
+            StartOverBtn.TabIndex = 2;
+            StartOverBtn.Text = "< Start over";
+            StartOverBtn.Click += guna2Button1_Click;
             // 
             // AdPanel
             // 
-            AdPanel.Controls.Add(label2);
             AdPanel.Controls.Add(pictureBox1);
             AdPanel.Dock = DockStyle.Top;
             AdPanel.Location = new Point(0, 0);
             AdPanel.Name = "AdPanel";
-            AdPanel.Size = new Size(673, 56);
+            AdPanel.Size = new Size(673, 95);
             AdPanel.TabIndex = 2;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(266, 41);
-            label2.Name = "label2";
-            label2.Size = new Size(127, 15);
-            label2.TabIndex = 0;
-            label2.Text = "Dynamic Ad here  later";
             // 
             // pictureBox1
             // 
+            pictureBox1.BackColor = Color.Sienna;
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.Cafe_Brand_Web_Banner_Design;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Margin = new Padding(0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(673, 56);
+            pictureBox1.Size = new Size(673, 95);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
             // ContentPanel
             // 
+            ContentPanel.BackColor = Color.SeaShell;
+            ContentPanel.CustomizableEdges = customizableEdges6;
             ContentPanel.Dock = DockStyle.Fill;
-            ContentPanel.Location = new Point(125, 56);
+            ContentPanel.Location = new Point(125, 95);
             ContentPanel.Name = "ContentPanel";
-            ContentPanel.Size = new Size(548, 457);
+            ContentPanel.Padding = new Padding(3, 3, 3, 10);
+            ContentPanel.ShadowDecoration.CustomizableEdges = customizableEdges7;
+            ContentPanel.Size = new Size(548, 453);
             ContentPanel.TabIndex = 3;
             // 
             // KioskMenu
@@ -136,13 +232,14 @@
             Controls.Add(flowCategories);
             Controls.Add(BottomPanel);
             Controls.Add(AdPanel);
+            Margin = new Padding(0);
             Name = "KioskMenu";
-            Size = new Size(673, 625);
+            Size = new Size(673, 684);
             BottomPanel.ResumeLayout(false);
-            BottomPanel.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             AdPanel.ResumeLayout(false);
-            AdPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
@@ -151,11 +248,16 @@
 
         private FlowLayoutPanel flowCategories;
         private Panel BottomPanel;
-        private Label StartOver_Button;
+        //private Label StartOver_Button;
         private Panel AdPanel;
-        private Label label2;
         private PictureBox pictureBox1;
-        private Panel ContentPanel;
         private PictureBox pictureBox2;
+        private Guna.UI2.WinForms.Guna2Panel ContentPanel;
+        private Guna.UI2.WinForms.Guna2Button StartOverBtn;
+        private Guna.UI2.WinForms.Guna2CircleButton cartCounterButton;
+        private Guna.UI2.WinForms.Guna2Button checkOutBtn;
+        private Panel panel1;
+        private Panel panel2;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
     }
 }
