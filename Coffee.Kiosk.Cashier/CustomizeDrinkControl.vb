@@ -35,7 +35,11 @@
         If rbButterCreme.Checked Then toppingsPrice += 25
         If rbSeasaltCreme.Checked Then toppingsPrice += 25
 
-        _currentPrice = _drink.BasePrice + sizePrice + toppingsPrice
+        Dim syrupPrice As Decimal = 0
+        If rbSaltedCaramel.Checked Then syrupPrice += 20
+        If rbFrenchVanilla.Checked Then syrupPrice += 20
+
+        _currentPrice = _drink.BasePrice + sizePrice + toppingsPrice + syrupPrice
         lblTotal.Text = "₱" & (_currentPrice * nudQty.Value).ToString("0.00")
     End Sub
 
@@ -58,7 +62,9 @@
                 rbHot.CheckedChanged, rbIce.CheckedChanged,
                 rbVelvet.CheckedChanged, rbCoffeeJelly.CheckedChanged,
                 rbJellyStrips.CheckedChanged, rbButterCreme.CheckedChanged,
-                rbSeasaltCreme.CheckedChanged, nudQty.ValueChanged
+                rbSeasaltCreme.CheckedChanged,
+                rbSaltedCaramel.CheckedChanged, rbFrenchVanilla.CheckedChanged,
+                nudQty.ValueChanged
 
         If _drink Is Nothing Then Exit Sub
 
@@ -80,6 +86,8 @@
         If rbJellyStrips.Checked Then toppings.Add("Jelly Strips")
         If rbButterCreme.Checked Then toppings.Add("Butter Creme")
         If rbSeasaltCreme.Checked Then toppings.Add("Seasalt Creme")
+        If rbSaltedCaramel.Checked Then toppings.Add("Salted Caramel")
+        If rbFrenchVanilla.Checked Then toppings.Add("French Vanilla")
         Return toppings
     End Function
 
