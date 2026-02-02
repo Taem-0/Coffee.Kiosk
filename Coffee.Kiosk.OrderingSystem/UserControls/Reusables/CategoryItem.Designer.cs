@@ -47,7 +47,7 @@
             guna2ShadowPanel1.Radius = 5;
             guna2ShadowPanel1.ShadowColor = Color.Black;
             guna2ShadowPanel1.ShadowDepth = 48;
-            guna2ShadowPanel1.Size = new Size(115, 93);
+            guna2ShadowPanel1.Size = new Size(170, 145);
             guna2ShadowPanel1.TabIndex = 2;
             // 
             // guna2Button1
@@ -62,18 +62,18 @@
             guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             guna2Button1.FillColor = Color.SeaShell;
             guna2Button1.FocusedColor = Color.Tan;
-            guna2Button1.Font = new Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guna2Button1.Font = new Font("Arial Rounded MT Bold", 14.8F);
             guna2Button1.ForeColor = Color.Black;
             guna2Button1.HoverState.BorderColor = Color.Black;
             guna2Button1.HoverState.FillColor = Color.BurlyWood;
             guna2Button1.Image = Properties.Resources.default_icon;
             guna2Button1.ImageOffset = new Point(0, 13);
-            guna2Button1.ImageSize = new Size(67, 67);
+            guna2Button1.ImageSize = new Size(107, 107);
             guna2Button1.Location = new Point(3, 3);
             guna2Button1.Name = "guna2Button1";
             guna2Button1.PressedDepth = 0;
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Button1.Size = new Size(109, 87);
+            guna2Button1.Size = new Size(164, 139);
             guna2Button1.TabIndex = 3;
             guna2Button1.Text = "Name";
             guna2Button1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
@@ -88,7 +88,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(guna2ShadowPanel1);
             Name = "CategoryItem";
-            Size = new Size(115, 93);
+            Size = new Size(170, 145);
             guna2ShadowPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }

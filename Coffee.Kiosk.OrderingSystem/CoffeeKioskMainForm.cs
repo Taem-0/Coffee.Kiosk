@@ -44,11 +44,11 @@ namespace Coffee.Kiosk.OrderingSystem
                 .Build();
             DBInitializer.Init(config);
 
-            Models.Category.LoadFromDataBase();
+            //Models.Category.LoadFromDataBase();
             //Models.Product.LoadFromDataBase();
 
             // remove after connecting to database
-            //Models.Category.LoadDummyData();
+            Models.Category.LoadDummyData();
             Models.Product.LoadDummyData();
         }
 
@@ -110,7 +110,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowGetStartedScreen()
         {
-            Models.Category.LoadFromDataBase();
+            //Models.Category.LoadFromDataBase();
             //Models.Product.LoadFromDataBase();
             if (getStartedScreen == null)
             {
