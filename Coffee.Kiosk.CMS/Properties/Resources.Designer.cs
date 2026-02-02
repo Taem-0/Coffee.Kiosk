@@ -73,6 +73,16 @@ namespace Coffee.Kiosk.CMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap blue_add_button_12025 {
+            get {
+                object obj = ResourceManager.GetObject("blue-add-button-12025", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap default_icon {
             get {
                 object obj = ResourceManager.GetObject("default_icon", resourceCulture);

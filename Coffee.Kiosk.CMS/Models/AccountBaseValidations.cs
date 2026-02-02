@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Coffee.Kiosk.CMS.Models
 {
@@ -19,98 +14,95 @@ namespace Coffee.Kiosk.CMS.Models
                 return;
             }
 
-            if (name.Length < 3 || name.Length > 100)
-            {
-                result.AddError(fieldDisplayName, $"{fieldDisplayName} must be 3–100 characters long.");
-            }
+            if (name.Length < 2 || name.Length > 100)
+                result.AddError(fieldDisplayName, $"{fieldDisplayName} must be 2–100 characters long.");
         }
 
-        public void ValidatePhoneNumber(string? phoneNumber, ValidationResults result, bool required)
-        {
 
+        public void ValidatePhoneNumber(string? phoneNumber, ValidationResults result, bool required, string fieldName)
+        {
             if (string.IsNullOrWhiteSpace(phoneNumber))
             {
                 if (required)
-                    result.AddError("PhoneNumber", "Phone Number is required.");
+                    result.AddError(fieldName, $"{fieldName} is required.");
                 return;
             }
 
             if (!Regex.IsMatch(phoneNumber, @"^(09|\+639)\d{9}$"))
-            {
-                result.AddError("PhoneNumber", "Phone Number is Invalid.");
-            }
-
+                result.AddError(fieldName, $"{fieldName} is invalid.");
         }
+
 
         public void ValidateEmail(string? email, ValidationResults result, bool required)
         {
-
             if (string.IsNullOrWhiteSpace(email))
             {
                 if (required)
-                    result.AddError("Email", "Email is required");
+                    result.AddError("Email", "Email is required.");
                 return;
             }
 
-            if (!Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
+            if (!Regex.IsMatch(email,
+                @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
+                RegexOptions.IgnoreCase))
             {
-                result.AddError("Email", "Email is Invalid");
+                result.AddError("Email", "Email is invalid.");
             }
-
         }
 
-        public void ValidateEmergencyNumber(string? emergencyNumber, ValidationResults result, bool required)
+
+        public void ValidateEmergencyContact(
+            string? firstName,
+            string? lastName,
+            string? phoneNumber,
+            ValidationResults result,
+            bool required)
         {
-            if (string.IsNullOrWhiteSpace(emergencyNumber))
-            {
-                if (required)
-                    result.AddError("EmergencyNumber", "Emergency Number is required");
-                return;
-            }
-
-            if (!Regex.IsMatch(emergencyNumber, @"^(09|\+639)\d{9}$"))
-            {
-                result.AddError("EmergencyNumber", "Emergency Number is Invalid");
-            }
+            ValidateName(firstName, "Emergency First Name", result, required);
+            ValidateName(lastName, "Emergency Last Name", result, required);
+            ValidatePhoneNumber(phoneNumber, result, required, "Emergency Phone Number");
         }
+
 
         public void ValidateJobTitle(string? jobTitle, ValidationResults result, bool required)
         {
-
             if (string.IsNullOrWhiteSpace(jobTitle))
             {
                 if (required)
-                    result.AddError("JobTitle", "Job Title is required");
+                    result.AddError("JobTitle", "Job title is required.");
                 return;
             }
 
             if (jobTitle.Length > 50)
-            {
-                result.AddError("JobTitle", "Job Title cannot exceed 50 characters");
-            }
-
+                result.AddError("JobTitle", "Job title cannot exceed 50 characters.");
         }
 
-        public void ValidateSalary(string salaryString, ValidationResults result, bool required)
+        public void ValidateSalary(string? salaryString, ValidationResults result, bool required)
         {
-
             if (string.IsNullOrWhiteSpace(salaryString))
             {
                 if (required)
-                    result.AddError("Salary", "Salary is required");
+                    result.AddError("Salary", "Salary is required.");
+                return;
             }
 
             if (!decimal.TryParse(salaryString, out decimal salary))
             {
-                result.AddError("Salary", "Salary must be a valid number");
+                result.AddError("Salary", "Salary must be a valid number.");
                 return;
             }
 
             if (salary < 0)
-            {
-                result.AddError("Salary", "Salary cannot be a negative number");
-            }
+                result.AddError("Salary", "Salary cannot be negative.");
         }
 
+
+
+        public void ValidateEnum<T>(T value, string fieldName, ValidationResults result)
+            where T : struct, Enum
+        {
+            if (!Enum.IsDefined(typeof(T), value))
+                result.AddError(fieldName, $"{fieldName} selection is invalid.");
+        }
     }
 }

@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             label1 = new Label();
@@ -66,10 +66,10 @@
             // 
             guna2Panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             guna2Panel1.Controls.Add(guna2TextBox1);
-            guna2Panel1.CustomizableEdges = customizableEdges19;
+            guna2Panel1.CustomizableEdges = customizableEdges3;
             guna2Panel1.Location = new Point(0, 0);
             guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges4;
             guna2Panel1.Size = new Size(1909, 74);
             guna2Panel1.TabIndex = 0;
             guna2Panel1.Paint += guna2Panel1_Paint;
@@ -78,7 +78,7 @@
             // 
             guna2TextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             guna2TextBox1.AutoRoundedCorners = true;
-            guna2TextBox1.CustomizableEdges = customizableEdges17;
+            guna2TextBox1.CustomizableEdges = customizableEdges1;
             guna2TextBox1.DefaultText = "";
             guna2TextBox1.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             guna2TextBox1.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -92,7 +92,7 @@
             guna2TextBox1.Name = "guna2TextBox1";
             guna2TextBox1.PlaceholderText = "Search";
             guna2TextBox1.SelectedText = "";
-            guna2TextBox1.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            guna2TextBox1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2TextBox1.Size = new Size(289, 51);
             guna2TextBox1.TabIndex = 1;
             // 
@@ -114,7 +114,7 @@
             TimeLineDropDown.BorderColor = Color.Brown;
             TimeLineDropDown.BorderRadius = 17;
             TimeLineDropDown.BorderThickness = 0;
-            TimeLineDropDown.CustomizableEdges = customizableEdges21;
+            TimeLineDropDown.CustomizableEdges = customizableEdges5;
             TimeLineDropDown.DrawMode = DrawMode.OwnerDrawFixed;
             TimeLineDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
             TimeLineDropDown.FillColor = Color.Brown;
@@ -130,7 +130,7 @@
             TimeLineDropDown.ItemsAppearance.SelectedFont = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             TimeLineDropDown.Location = new Point(79, 5);
             TimeLineDropDown.Name = "TimeLineDropDown";
-            TimeLineDropDown.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            TimeLineDropDown.ShadowDecoration.CustomizableEdges = customizableEdges6;
             TimeLineDropDown.Size = new Size(154, 36);
             TimeLineDropDown.StartIndex = 0;
             TimeLineDropDown.TabIndex = 2;
@@ -140,7 +140,7 @@
             TimeLineLabel.BackColor = Color.Brown;
             TimeLineLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             TimeLineLabel.ForeColor = Color.White;
-            TimeLineLabel.Location = new Point(269, 90);
+            TimeLineLabel.Location = new Point(19, 9);
             TimeLineLabel.Name = "TimeLineLabel";
             TimeLineLabel.Size = new Size(54, 27);
             TimeLineLabel.TabIndex = 3;
@@ -151,12 +151,13 @@
             DropDownContainer.AutoRoundedCorners = true;
             DropDownContainer.BackColor = SystemColors.Control;
             DropDownContainer.Controls.Add(TimeLineDropDown);
-            DropDownContainer.CustomizableEdges = customizableEdges23;
+            DropDownContainer.Controls.Add(TimeLineLabel);
+            DropDownContainer.CustomizableEdges = customizableEdges7;
             DropDownContainer.FillColor = Color.Brown;
             DropDownContainer.ForeColor = Color.Cornsilk;
             DropDownContainer.Location = new Point(250, 81);
             DropDownContainer.Name = "DropDownContainer";
-            DropDownContainer.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            DropDownContainer.ShadowDecoration.CustomizableEdges = customizableEdges8;
             DropDownContainer.Size = new Size(251, 45);
             DropDownContainer.TabIndex = 4;
             DropDownContainer.Text = "DropDownContainer";
@@ -165,11 +166,11 @@
             // 
             guna2ContainerControl1.BackColor = SystemColors.Control;
             guna2ContainerControl1.BorderRadius = 25;
-            guna2ContainerControl1.CustomizableEdges = customizableEdges25;
+            guna2ContainerControl1.CustomizableEdges = customizableEdges9;
             guna2ContainerControl1.Dock = DockStyle.Fill;
             guna2ContainerControl1.Location = new Point(480, 3);
             guna2ContainerControl1.Name = "guna2ContainerControl1";
-            guna2ContainerControl1.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            guna2ContainerControl1.ShadowDecoration.CustomizableEdges = customizableEdges10;
             guna2ContainerControl1.Size = new Size(434, 206);
             guna2ContainerControl1.TabIndex = 5;
             guna2ContainerControl1.Text = "DataContainer01";
@@ -218,11 +219,11 @@
             // 
             guna2ContainerControl2.BackColor = SystemColors.Control;
             guna2ContainerControl2.BorderRadius = 25;
-            guna2ContainerControl2.CustomizableEdges = customizableEdges27;
+            guna2ContainerControl2.CustomizableEdges = customizableEdges11;
             guna2ContainerControl2.Dock = DockStyle.Fill;
             guna2ContainerControl2.Location = new Point(3, 3);
             guna2ContainerControl2.Name = "guna2ContainerControl2";
-            guna2ContainerControl2.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            guna2ContainerControl2.ShadowDecoration.CustomizableEdges = customizableEdges12;
             guna2ContainerControl2.Size = new Size(434, 206);
             guna2ContainerControl2.TabIndex = 6;
             guna2ContainerControl2.Text = "DataContainer01";
@@ -231,11 +232,11 @@
             // 
             guna2ContainerControl4.BackColor = SystemColors.Control;
             guna2ContainerControl4.BorderRadius = 25;
-            guna2ContainerControl4.CustomizableEdges = customizableEdges29;
+            guna2ContainerControl4.CustomizableEdges = customizableEdges13;
             guna2ContainerControl4.Dock = DockStyle.Fill;
             guna2ContainerControl4.Location = new Point(1434, 3);
             guna2ContainerControl4.Name = "guna2ContainerControl4";
-            guna2ContainerControl4.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            guna2ContainerControl4.ShadowDecoration.CustomizableEdges = customizableEdges14;
             guna2ContainerControl4.Size = new Size(439, 206);
             guna2ContainerControl4.TabIndex = 8;
             guna2ContainerControl4.Text = "DataContainer01";
@@ -245,11 +246,11 @@
             // 
             guna2ContainerControl3.BackColor = SystemColors.Control;
             guna2ContainerControl3.BorderRadius = 25;
-            guna2ContainerControl3.CustomizableEdges = customizableEdges31;
+            guna2ContainerControl3.CustomizableEdges = customizableEdges15;
             guna2ContainerControl3.Dock = DockStyle.Fill;
             guna2ContainerControl3.Location = new Point(957, 3);
             guna2ContainerControl3.Name = "guna2ContainerControl3";
-            guna2ContainerControl3.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            guna2ContainerControl3.ShadowDecoration.CustomizableEdges = customizableEdges16;
             guna2ContainerControl3.Size = new Size(434, 206);
             guna2ContainerControl3.TabIndex = 7;
             guna2ContainerControl3.Text = "DataContainer01";
@@ -277,7 +278,6 @@
             Controls.Add(tableLayoutPanel2);
             Controls.Add(tableLayoutPanel3);
             Controls.Add(tableLayoutPanel1);
-            Controls.Add(TimeLineLabel);
             Controls.Add(label1);
             Controls.Add(DropDownContainer);
             Controls.Add(guna2Panel1);
@@ -286,6 +286,7 @@
             Load += DashBoardControl_Load;
             guna2Panel1.ResumeLayout(false);
             DropDownContainer.ResumeLayout(false);
+            DropDownContainer.PerformLayout();
             tableLayoutPanel3.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

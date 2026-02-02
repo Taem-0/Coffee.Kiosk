@@ -17,7 +17,6 @@ namespace Coffee.Kiosk.CMS.Services
 
         public void RegisterUser(RegistrationDTO request)
         {
-
             var employee = new Employee
             {
                 FirstName = request.FirstName,
@@ -27,13 +26,17 @@ namespace Coffee.Kiosk.CMS.Services
                 Email = request.Email,
                 EmergencyNumber = request.EmergencyNumber,
                 JobTitle = request.JobTitle,
-                Salary = decimal.Parse(request.Salary),
+                Department = request.Department,          // add
+                EmploymentType = request.EmploymentType,  // add
+                Role = request.Role,                      // add
+                EmployeeID = request.EmployeeID,          // add
+                Salary = decimal.TryParse(request.Salary, out var sal) ? sal : 0m,
                 Status = AccountStatus.ACTIVE
             };
 
             _dBManager.PostEmployee(employee);
-
         }
+
 
         public List<DisplayDTO> DisplayAccounts()
         {
