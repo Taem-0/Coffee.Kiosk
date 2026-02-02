@@ -14,11 +14,35 @@ namespace Coffee.Kiosk.CMS.Helpers
 
         public static void CallControl(UserControl control, Panel panel)
         {
+            panel.SuspendLayout(); 
             panel.Controls.Clear();
+
             control.Dock = DockStyle.Fill;
             panel.Controls.Add(control);
+
             control.BringToFront();
-        }   
+
+            panel.ResumeLayout(true); 
+            panel.PerformLayout();    
+        }
+
+        public static void SyncChildWidths(Control parentContainer)
+        {
+            parentContainer.SuspendLayout();
+
+            int targetWidth = parentContainer.ClientSize.Width - 4;
+
+            foreach (Control child in parentContainer.Controls)
+            {
+
+                if (child is TableLayoutPanel || child is Panel)
+                {
+                    child.Width = targetWidth;
+                }
+            }
+
+            parentContainer.ResumeLayout();
+        }
 
         public static void buttonNaRound(Button button, int radius)
         {

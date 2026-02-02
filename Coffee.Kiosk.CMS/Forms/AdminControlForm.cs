@@ -16,7 +16,9 @@ namespace Coffee.Kiosk
     {
 
         private RegisterControl registerControl;
-        private EmployeesControl employeesControl;
+        private NewestRegisterView registerView;
+        private SecondNewestRegisterView secondNewestRegisterView;
+        private NewEmployeeView newEmployeeView;
         private UpdateAccount updateControl;
         private RegistrationValidation validator;
         private UpdateValidation updateValidation;
@@ -60,8 +62,12 @@ namespace Coffee.Kiosk
             registerControl = new RegisterControl(controller);
             registerControl.ParentFormReference = this;
 
-            employeesControl = new EmployeesControl(controller);
-            employeesControl.ParentFormReference = this;
+            var draft = new DisplayDTO();
+            registerView = new NewestRegisterView(controller, draft);
+            secondNewestRegisterView = new SecondNewestRegisterView(controller, draft);
+
+            newEmployeeView = new NewEmployeeView(controller);
+            newEmployeeView.ParentFormReference = this;
 
             updateControl = new UpdateAccount(controller);
             updateControl.ParentFormReference = this;
@@ -75,7 +81,8 @@ namespace Coffee.Kiosk
         private void Form1_Load(object sender, EventArgs e)
         {
             ShowInPanel(dashBoardControl, AdminContentPanel);
-            ShowInPanel(employeesControl, AccountsContentPanel);
+            //ShowInPanel(employeesControl, AccountsContentPanel);
+            ShowInPanel(newEmployeeView, AccountsContentPanel);
         }
 
 
@@ -85,11 +92,19 @@ namespace Coffee.Kiosk
             if (panel.Controls.Count > 0)
             {
                 var current = panel.Controls[0] as UserControl;
-                if (current != null)
+
+                if (current != null && current != control)
+                {
                     _navigationStack.Push(current);
+                }
             }
 
-            UIhelp.CallControl(control, panel);
+            panel.Controls.Clear();
+            control.Dock = DockStyle.Fill; 
+            panel.Controls.Add(control);
+
+            panel.ResumeLayout(true);
+            panel.PerformLayout();
         }
 
         public void ShowRegister()

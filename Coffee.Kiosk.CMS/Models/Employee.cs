@@ -8,7 +8,6 @@ namespace Coffee.Kiosk.CMS.Models
 {
     public class Employee
     {
-
         public int Id { get; set; }
 
         public string FirstName { get; set; } = string.Empty;
@@ -21,15 +20,50 @@ namespace Coffee.Kiosk.CMS.Models
 
         public string Email { get; set; } = string.Empty;
 
+        public string EmergencyFirstName { get; set; } = string.Empty;
+
+        public string EmergencyLastName { get; set; } = string.Empty;
+
         public string EmergencyNumber { get; set; } = string.Empty;
 
         public string JobTitle { get; set; } = string.Empty;
 
+        public string EmployeeID { get; set; } = string.Empty;
+
+
         public decimal Salary { get; set; } = decimal.Zero;
 
-        public AccountStatus Status { get; set; } = AccountStatus.ACTIVE;
+        public AccountRole Role { get; set; } = AccountRole.EMPLOYEE;
 
+        public Department Department { get; set; } = Department.OPERATIONS;
+
+        public EmploymentType EmploymentType { get; set; } = EmploymentType.FULL_TIME;
+
+
+        public AccountStatus Status { get; set; } = AccountStatus.ACTIVE;
     }
+
+    public enum AccountRole
+    {
+        EMPLOYEE,   
+        MANAGER,
+        OWNER
+    }
+
+    public enum Department
+    {
+        OPERATIONS,
+        MANAGEMENT,
+        ADMINISTRATION
+    }
+
+    public enum EmploymentType
+    {
+        FULL_TIME,
+        PART_TIME,
+        CONTRACT
+    }
+
 
     public enum AccountStatus
     {
@@ -37,3 +71,4 @@ namespace Coffee.Kiosk.CMS.Models
         DEACTIVATED
     }
 }
+

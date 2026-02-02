@@ -1,4 +1,6 @@
-﻿namespace Coffee.Kiosk
+﻿using Coffee.Kiosk.CMS.Controllers;
+
+namespace Coffee.Kiosk
 {
     partial class AdminControlForm
     {
@@ -32,18 +34,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminControlForm));
             AdminFormHamburger = new MaterialSkin.Controls.MaterialTabControl();
             DashBoard = new TabPage();
+            AdminContentPanel = new Panel();
             tabAccounts = new TabPage();
+            AccountsContentPanel = new Panel();
             Kiosk = new TabPage();
             orderingSystem1 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.OrderingSystemMainControl();
             tabPage3 = new TabPage();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
             AdminHamburgerIcons = new ImageList(components);
-            AccountsContentPanel = new Panel();
-            AdminContentPanel = new Panel();
             AdminFormHamburger.SuspendLayout();
             DashBoard.SuspendLayout();
             tabAccounts.SuspendLayout();
+            AccountsContentPanel.SuspendLayout();
             Kiosk.SuspendLayout();
             SuspendLayout();
             // 
@@ -80,6 +83,14 @@
             DashBoard.Text = "Admin";
             DashBoard.UseVisualStyleBackColor = true;
             // 
+            // AdminContentPanel
+            // 
+            AdminContentPanel.Dock = DockStyle.Fill;
+            AdminContentPanel.Location = new Point(2, 2);
+            AdminContentPanel.Name = "AdminContentPanel";
+            AdminContentPanel.Size = new Size(884, 485);
+            AdminContentPanel.TabIndex = 0;
+            // 
             // tabAccounts
             // 
             tabAccounts.Controls.Add(AccountsContentPanel);
@@ -92,6 +103,16 @@
             tabAccounts.TabIndex = 1;
             tabAccounts.Text = "Accounts";
             tabAccounts.UseVisualStyleBackColor = true;
+            // 
+            // AccountsContentPanel
+            // 
+            AccountsContentPanel.Controls.Add(newEmployeeView1);
+            AccountsContentPanel.Dock = DockStyle.Fill;
+            AccountsContentPanel.Location = new Point(2, 2);
+            AccountsContentPanel.Margin = new Padding(2);
+            AccountsContentPanel.Name = "AccountsContentPanel";
+            AccountsContentPanel.Size = new Size(884, 485);
+            AccountsContentPanel.TabIndex = 1;
             // 
             // Kiosk
             // 
@@ -153,23 +174,6 @@
             AdminHamburgerIcons.Images.SetKeyName(1, "user-management-svgrepo-com.png");
             AdminHamburgerIcons.Images.SetKeyName(2, "CART (1)(1).png");
             // 
-            // AccountsContentPanel
-            // 
-            AccountsContentPanel.Dock = DockStyle.Fill;
-            AccountsContentPanel.Location = new Point(2, 2);
-            AccountsContentPanel.Margin = new Padding(2);
-            AccountsContentPanel.Name = "AccountsContentPanel";
-            AccountsContentPanel.Size = new Size(884, 485);
-            AccountsContentPanel.TabIndex = 1;
-            // 
-            // AdminContentPanel
-            // 
-            AdminContentPanel.Dock = DockStyle.Fill;
-            AdminContentPanel.Location = new Point(2, 2);
-            AdminContentPanel.Name = "AdminContentPanel";
-            AdminContentPanel.Size = new Size(884, 485);
-            AdminContentPanel.TabIndex = 0;
-            // 
             // AdminControlForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -187,6 +191,7 @@
             AdminFormHamburger.ResumeLayout(false);
             DashBoard.ResumeLayout(false);
             tabAccounts.ResumeLayout(false);
+            AccountsContentPanel.ResumeLayout(false);
             Kiosk.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -204,5 +209,6 @@
         private CMS.Forms.OrderingSystemTab.OrderingSystemMainControl orderingSystem1;
         private Panel AdminContentPanel;
         private Panel AccountsContentPanel;
+        private CMS.Forms.AccountsTab.NewEmployeeView newEmployeeView1;
     }
 }
