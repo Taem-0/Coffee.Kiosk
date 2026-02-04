@@ -26,11 +26,11 @@ namespace Coffee.Kiosk.CMS.DTOs
 
         public string EmergencyNumber { get; set; } = string.Empty;
 
-        public string EmployeeID { get; set; } = string.Empty;
-
         public string JobTitle { get; set; } = string.Empty;
 
         public string Salary { get; set; } = string.Empty;
+
+        public string? ProfilePicturePath { get; set; }
 
         public AccountRole Role { get; set; } 
         public Department Department { get; set; } 

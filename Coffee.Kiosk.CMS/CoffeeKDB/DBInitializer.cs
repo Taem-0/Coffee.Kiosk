@@ -9,7 +9,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
         {
             @"CREATE TABLE IF NOT EXISTS accounts (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
-                EmployeeID VARCHAR(20) NOT NULL UNIQUE,  
                 First_Name VARCHAR(100) NOT NULL,
                 Middle_Name VARCHAR(100) NOT NULL,
                 Last_Name VARCHAR(100) NOT NULL,
@@ -21,10 +20,15 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 Job_Title VARCHAR(50) NOT NULL,
                 Salary DECIMAL(10,2) NOT NULL,
                 Role ENUM('EMPLOYEE', 'MANAGER', 'OWNER') NOT NULL,
-                Department ENUM('OPERATIONS', 'MANAGEMENT', 'ADMINISTRATION') NOT NULL DEFAULT 'OPERATIONS',
-                EmploymentType ENUM('FULL_TIME', 'PART_TIME', 'CONTRACT') NOT NULL DEFAULT 'FULL_TIME',
-                Status ENUM('ACTIVE','DEACTIVATED') NOT NULL DEFAULT 'ACTIVE'
+                Department ENUM('OPERATIONS', 'MANAGEMENT', 'ADMINISTRATION') 
+                    NOT NULL DEFAULT 'OPERATIONS',
+                EmploymentType ENUM('FULL_TIME', 'PART_TIME', 'CONTRACT') 
+                    NOT NULL DEFAULT 'FULL_TIME',
+                Status ENUM('ACTIVE','DEACTIVATED') 
+                    NOT NULL DEFAULT 'ACTIVE',
+                Profile_Picture_Path VARCHAR(255) NULL
             );",
+
 
             @"CREATE TABLE IF NOT EXISTS category (
                 ID INT AUTO_INCREMENT PRIMARY KEY,

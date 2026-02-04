@@ -28,43 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             label1 = new Label();
             label17 = new Label();
             label2 = new Label();
             JobTitleTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             label5 = new Label();
             label6 = new Label();
-            EmployeeIDTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             SubmitButton = new Guna.UI2.WinForms.Guna2Button();
             BackButton = new Guna.UI2.WinForms.Guna2Button();
-            guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
-            guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            AddPictureButton = new Guna.UI2.WinForms.Guna2CircleButton();
+            PictureBox2 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             tableLayoutPanel1 = new TableLayoutPanel();
-            DepartmentComboBox = new ComboBox();
             SalaryTextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
-            label8 = new Label();
             label3 = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
             AdminRadioButton = new RadioButton();
             ManagerRadioButton = new RadioButton();
             employeeRadioButton = new RadioButton();
-            guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            DepartmentComboBox = new ComboBox();
             EmployeeTypecomboBox = new ComboBox();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).BeginInit();
+            guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            ((System.ComponentModel.ISupportInitialize)PictureBox2).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             guna2Panel1.SuspendLayout();
@@ -74,7 +70,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label1.Location = new Point(3, 56);
+            label1.Location = new Point(3, 51);
             label1.Name = "label1";
             label1.Size = new Size(99, 28);
             label1.TabIndex = 3;
@@ -94,7 +90,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(373, 56);
+            label2.Location = new Point(422, 51);
             label2.Name = "label2";
             label2.Size = new Size(121, 28);
             label2.TabIndex = 15;
@@ -102,7 +98,7 @@
             // 
             // JobTitleTextBox
             // 
-            JobTitleTextBox.CustomizableEdges = customizableEdges15;
+            JobTitleTextBox.CustomizableEdges = customizableEdges1;
             JobTitleTextBox.DefaultText = "";
             JobTitleTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             JobTitleTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -111,12 +107,12 @@
             JobTitleTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             JobTitleTextBox.Font = new Font("Segoe UI", 11F);
             JobTitleTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            JobTitleTextBox.Location = new Point(5, 96);
+            JobTitleTextBox.Location = new Point(5, 88);
             JobTitleTextBox.Margin = new Padding(5, 6, 5, 6);
             JobTitleTextBox.Name = "JobTitleTextBox";
             JobTitleTextBox.PlaceholderText = "";
             JobTitleTextBox.SelectedText = "";
-            JobTitleTextBox.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            JobTitleTextBox.ShadowDecoration.CustomizableEdges = customizableEdges2;
             JobTitleTextBox.Size = new Size(304, 42);
             JobTitleTextBox.TabIndex = 20;
             // 
@@ -124,7 +120,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label5.Location = new Point(3, 166);
+            label5.Location = new Point(3, 152);
             label5.Name = "label5";
             label5.Size = new Size(76, 28);
             label5.TabIndex = 23;
@@ -134,47 +130,27 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(373, 166);
+            label6.Location = new Point(422, 152);
             label6.Name = "label6";
             label6.Size = new Size(148, 28);
             label6.TabIndex = 25;
             label6.Text = "Employee Type:";
             // 
-            // EmployeeIDTextBox
-            // 
-            EmployeeIDTextBox.CustomizableEdges = customizableEdges17;
-            EmployeeIDTextBox.DefaultText = "";
-            EmployeeIDTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            EmployeeIDTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            EmployeeIDTextBox.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            EmployeeIDTextBox.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            EmployeeIDTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            EmployeeIDTextBox.Font = new Font("Segoe UI", 11F);
-            EmployeeIDTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            EmployeeIDTextBox.Location = new Point(5, 315);
-            EmployeeIDTextBox.Margin = new Padding(5, 6, 5, 6);
-            EmployeeIDTextBox.Name = "EmployeeIDTextBox";
-            EmployeeIDTextBox.PlaceholderText = "";
-            EmployeeIDTextBox.SelectedText = "";
-            EmployeeIDTextBox.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            EmployeeIDTextBox.Size = new Size(304, 42);
-            EmployeeIDTextBox.TabIndex = 31;
-            // 
             // SubmitButton
             // 
             SubmitButton.Anchor = AnchorStyles.Right;
             SubmitButton.BorderRadius = 15;
-            SubmitButton.CustomizableEdges = customizableEdges19;
+            SubmitButton.CustomizableEdges = customizableEdges3;
             SubmitButton.DisabledState.BorderColor = Color.DarkGray;
             SubmitButton.DisabledState.CustomBorderColor = Color.DarkGray;
             SubmitButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             SubmitButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             SubmitButton.Font = new Font("Segoe UI", 9F);
             SubmitButton.ForeColor = Color.White;
-            SubmitButton.Location = new Point(689, 396);
+            SubmitButton.Location = new Point(651, 359);
             SubmitButton.Name = "SubmitButton";
-            SubmitButton.ShadowDecoration.CustomizableEdges = customizableEdges20;
-            SubmitButton.Size = new Size(148, 61);
+            SubmitButton.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            SubmitButton.Size = new Size(146, 61);
             SubmitButton.TabIndex = 34;
             SubmitButton.Text = "Submit";
             SubmitButton.Click += SubmitButton_Click;
@@ -183,75 +159,74 @@
             // 
             BackButton.Anchor = AnchorStyles.Left;
             BackButton.BorderRadius = 15;
-            BackButton.CustomizableEdges = customizableEdges21;
+            BackButton.CustomizableEdges = customizableEdges5;
             BackButton.DisabledState.BorderColor = Color.DarkGray;
             BackButton.DisabledState.CustomBorderColor = Color.DarkGray;
             BackButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             BackButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             BackButton.Font = new Font("Segoe UI", 9F);
             BackButton.ForeColor = Color.White;
-            BackButton.Location = new Point(3, 396);
+            BackButton.Location = new Point(3, 359);
             BackButton.Name = "BackButton";
-            BackButton.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            BackButton.ShadowDecoration.CustomizableEdges = customizableEdges6;
             BackButton.Size = new Size(148, 61);
             BackButton.TabIndex = 35;
             BackButton.Text = "Back";
             BackButton.Click += BackButton_Click;
             // 
-            // guna2CircleButton1
+            // AddPictureButton
             // 
-            guna2CircleButton1.BackColor = Color.Transparent;
-            guna2CircleButton1.DisabledState.BorderColor = Color.DarkGray;
-            guna2CircleButton1.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2CircleButton1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2CircleButton1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2CircleButton1.Font = new Font("Segoe UI", 15F);
-            guna2CircleButton1.ForeColor = Color.Transparent;
-            guna2CircleButton1.Image = Properties.Resources.blue_add_button_12025;
-            guna2CircleButton1.ImageSize = new Size(50, 50);
-            guna2CircleButton1.Location = new Point(479, 147);
-            guna2CircleButton1.Name = "guna2CircleButton1";
-            guna2CircleButton1.ShadowDecoration.CustomizableEdges = customizableEdges23;
-            guna2CircleButton1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CircleButton1.Size = new Size(50, 50);
-            guna2CircleButton1.TabIndex = 2;
-            guna2CircleButton1.TextAlign = HorizontalAlignment.Left;
+            AddPictureButton.BackColor = Color.Transparent;
+            AddPictureButton.DisabledState.BorderColor = Color.DarkGray;
+            AddPictureButton.DisabledState.CustomBorderColor = Color.DarkGray;
+            AddPictureButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            AddPictureButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            AddPictureButton.Font = new Font("Segoe UI", 15F);
+            AddPictureButton.ForeColor = Color.Transparent;
+            AddPictureButton.Image = Properties.Resources.blue_add_button_12025;
+            AddPictureButton.ImageSize = new Size(50, 50);
+            AddPictureButton.Location = new Point(442, 147);
+            AddPictureButton.Name = "AddPictureButton";
+            AddPictureButton.ShadowDecoration.CustomizableEdges = customizableEdges7;
+            AddPictureButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            AddPictureButton.Size = new Size(50, 50);
+            AddPictureButton.TabIndex = 2;
+            AddPictureButton.TextAlign = HorizontalAlignment.Left;
+            AddPictureButton.Click += AddPictureButton_Click;
             // 
-            // guna2CirclePictureBox1
+            // PictureBox2
             // 
-            guna2CirclePictureBox1.ImageRotate = 0F;
-            guna2CirclePictureBox1.Location = new Point(333, 14);
-            guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
-            guna2CirclePictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges24;
-            guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CirclePictureBox1.Size = new Size(200, 200);
-            guna2CirclePictureBox1.TabIndex = 1;
-            guna2CirclePictureBox1.TabStop = false;
+            PictureBox2.ImageRotate = 0F;
+            PictureBox2.Location = new Point(300, 14);
+            PictureBox2.Name = "PictureBox2";
+            PictureBox2.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            PictureBox2.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            PictureBox2.Size = new Size(200, 200);
+            PictureBox2.TabIndex = 1;
+            PictureBox2.TabStop = false;
             // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 3;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 44.10995F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 37.02381F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.9285717F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.5F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 47.5F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Controls.Add(DepartmentComboBox, 1, 2);
             tableLayoutPanel1.Controls.Add(label1, 0, 1);
             tableLayoutPanel1.Controls.Add(label17, 0, 0);
-            tableLayoutPanel1.Controls.Add(label2, 1, 1);
             tableLayoutPanel1.Controls.Add(JobTitleTextBox, 0, 2);
             tableLayoutPanel1.Controls.Add(BackButton, 0, 7);
             tableLayoutPanel1.Controls.Add(label5, 0, 3);
             tableLayoutPanel1.Controls.Add(SalaryTextBox1, 0, 4);
-            tableLayoutPanel1.Controls.Add(label6, 1, 3);
-            tableLayoutPanel1.Controls.Add(label8, 0, 5);
-            tableLayoutPanel1.Controls.Add(EmployeeIDTextBox, 0, 6);
             tableLayoutPanel1.Controls.Add(SubmitButton, 2, 7);
-            tableLayoutPanel1.Controls.Add(label3, 1, 5);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 6);
-            tableLayoutPanel1.Controls.Add(EmployeeTypecomboBox, 1, 4);
+            tableLayoutPanel1.Controls.Add(label3, 0, 5);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 6);
+            tableLayoutPanel1.Controls.Add(label2, 2, 1);
+            tableLayoutPanel1.Controls.Add(DepartmentComboBox, 2, 2);
+            tableLayoutPanel1.Controls.Add(label6, 2, 3);
+            tableLayoutPanel1.Controls.Add(EmployeeTypecomboBox, 2, 4);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 223);
+            tableLayoutPanel1.Location = new Point(20, 243);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 8;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 11.8517179F));
@@ -262,22 +237,12 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.822131F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 14.6961241F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 19.6453819F));
-            tableLayoutPanel1.Size = new Size(840, 475);
+            tableLayoutPanel1.Size = new Size(800, 435);
             tableLayoutPanel1.TabIndex = 5;
-            // 
-            // DepartmentComboBox
-            // 
-            DepartmentComboBox.FormattingEnabled = true;
-            DepartmentComboBox.Items.AddRange(new object[] { "Operations", "Management", "Administration" });
-            DepartmentComboBox.Location = new Point(373, 93);
-            DepartmentComboBox.Name = "DepartmentComboBox";
-            DepartmentComboBox.Size = new Size(248, 33);
-            DepartmentComboBox.TabIndex = 3;
-            DepartmentComboBox.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // SalaryTextBox1
             // 
-            SalaryTextBox1.CustomizableEdges = customizableEdges25;
+            SalaryTextBox1.CustomizableEdges = customizableEdges9;
             SalaryTextBox1.DefaultText = "";
             SalaryTextBox1.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             SalaryTextBox1.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -286,30 +251,20 @@
             SalaryTextBox1.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             SalaryTextBox1.Font = new Font("Segoe UI", 11F);
             SalaryTextBox1.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            SalaryTextBox1.Location = new Point(5, 208);
+            SalaryTextBox1.Location = new Point(5, 190);
             SalaryTextBox1.Margin = new Padding(5, 6, 5, 6);
             SalaryTextBox1.Name = "SalaryTextBox1";
             SalaryTextBox1.PlaceholderText = "";
             SalaryTextBox1.SelectedText = "";
-            SalaryTextBox1.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            SalaryTextBox1.ShadowDecoration.CustomizableEdges = customizableEdges10;
             SalaryTextBox1.Size = new Size(304, 42);
             SalaryTextBox1.TabIndex = 36;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.Location = new Point(3, 272);
-            label8.Name = "label8";
-            label8.Size = new Size(126, 28);
-            label8.TabIndex = 28;
-            label8.Text = "Employee ID:";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label3.Location = new Point(373, 272);
+            label3.Location = new Point(3, 248);
             label3.Name = "label3";
             label3.Size = new Size(68, 28);
             label3.TabIndex = 38;
@@ -325,11 +280,11 @@
             tableLayoutPanel2.Controls.Add(ManagerRadioButton, 1, 0);
             tableLayoutPanel2.Controls.Add(employeeRadioButton, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(373, 312);
+            tableLayoutPanel2.Location = new Point(3, 285);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(304, 63);
+            tableLayoutPanel2.Size = new Size(346, 57);
             tableLayoutPanel2.TabIndex = 39;
             // 
             // AdminRadioButton
@@ -337,7 +292,7 @@
             AdminRadioButton.Anchor = AnchorStyles.Left;
             AdminRadioButton.AutoSize = true;
             AdminRadioButton.Font = new Font("Segoe UI", 7F);
-            AdminRadioButton.Location = new Point(205, 20);
+            AdminRadioButton.Location = new Point(233, 17);
             AdminRadioButton.Name = "AdminRadioButton";
             AdminRadioButton.Size = new Size(74, 23);
             AdminRadioButton.TabIndex = 42;
@@ -350,7 +305,7 @@
             ManagerRadioButton.Anchor = AnchorStyles.Left;
             ManagerRadioButton.AutoSize = true;
             ManagerRadioButton.Font = new Font("Segoe UI", 7F);
-            ManagerRadioButton.Location = new Point(104, 20);
+            ManagerRadioButton.Location = new Point(118, 17);
             ManagerRadioButton.Name = "ManagerRadioButton";
             ManagerRadioButton.Size = new Size(89, 23);
             ManagerRadioButton.TabIndex = 41;
@@ -363,35 +318,43 @@
             employeeRadioButton.Anchor = AnchorStyles.Left;
             employeeRadioButton.AutoSize = true;
             employeeRadioButton.Font = new Font("Segoe UI", 7F);
-            employeeRadioButton.Location = new Point(3, 20);
+            employeeRadioButton.Location = new Point(3, 17);
             employeeRadioButton.Name = "employeeRadioButton";
             employeeRadioButton.Size = new Size(93, 23);
             employeeRadioButton.TabIndex = 40;
             employeeRadioButton.TabStop = true;
             employeeRadioButton.Text = "Employee";
             employeeRadioButton.UseVisualStyleBackColor = true;
-            employeeRadioButton.CheckedChanged += employeeRadioButton_CheckedChanged;
             // 
-            // guna2Panel1
+            // DepartmentComboBox
             // 
-            guna2Panel1.Controls.Add(guna2CircleButton1);
-            guna2Panel1.Controls.Add(guna2CirclePictureBox1);
-            guna2Panel1.CustomizableEdges = customizableEdges27;
-            guna2Panel1.Dock = DockStyle.Top;
-            guna2Panel1.Location = new Point(0, 0);
-            guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges28;
-            guna2Panel1.Size = new Size(840, 223);
-            guna2Panel1.TabIndex = 4;
+            DepartmentComboBox.FormattingEnabled = true;
+            DepartmentComboBox.Items.AddRange(new object[] { "Operations", "Management", "Administration" });
+            DepartmentComboBox.Location = new Point(422, 85);
+            DepartmentComboBox.Name = "DepartmentComboBox";
+            DepartmentComboBox.Size = new Size(248, 33);
+            DepartmentComboBox.TabIndex = 3;
             // 
             // EmployeeTypecomboBox
             // 
             EmployeeTypecomboBox.FormattingEnabled = true;
             EmployeeTypecomboBox.Items.AddRange(new object[] { "Full Time", "Part Time", "Contract" });
-            EmployeeTypecomboBox.Location = new Point(373, 205);
+            EmployeeTypecomboBox.Location = new Point(422, 187);
             EmployeeTypecomboBox.Name = "EmployeeTypecomboBox";
             EmployeeTypecomboBox.Size = new Size(248, 33);
             EmployeeTypecomboBox.TabIndex = 40;
+            // 
+            // guna2Panel1
+            // 
+            guna2Panel1.Controls.Add(AddPictureButton);
+            guna2Panel1.Controls.Add(PictureBox2);
+            guna2Panel1.CustomizableEdges = customizableEdges11;
+            guna2Panel1.Dock = DockStyle.Top;
+            guna2Panel1.Location = new Point(20, 20);
+            guna2Panel1.Name = "guna2Panel1";
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            guna2Panel1.Size = new Size(800, 223);
+            guna2Panel1.TabIndex = 4;
             // 
             // SecondNewestRegisterView
             // 
@@ -402,9 +365,10 @@
             Controls.Add(guna2Panel1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "SecondNewestRegisterView";
+            Padding = new Padding(20);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Register Employee";
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PictureBox2).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
@@ -420,13 +384,11 @@
         private Guna.UI2.WinForms.Guna2TextBox JobTitleTextBox;
         private Label label5;
         private Label label6;
-        private Guna.UI2.WinForms.Guna2TextBox EmployeeIDTextBox;
         private Guna.UI2.WinForms.Guna2Button SubmitButton;
         private Guna.UI2.WinForms.Guna2Button BackButton;
-        private Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
-        private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox1;
+        private Guna.UI2.WinForms.Guna2CircleButton AddPictureButton;
+        private Guna.UI2.WinForms.Guna2CirclePictureBox PictureBox2;
         private TableLayoutPanel tableLayoutPanel1;
-        private Label label8;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Guna.UI2.WinForms.Guna2TextBox SalaryTextBox1;
         private Label label3;

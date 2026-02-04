@@ -28,8 +28,7 @@ namespace Coffee.Kiosk.CMS.Models
 
         public string JobTitle { get; set; } = string.Empty;
 
-        public string EmployeeID { get; set; } = string.Empty;
-
+        public string? ProfilePicturePath { get; set; }
 
         public decimal Salary { get; set; } = decimal.Zero;
 

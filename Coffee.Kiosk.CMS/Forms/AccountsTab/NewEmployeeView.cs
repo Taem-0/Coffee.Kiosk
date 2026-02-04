@@ -52,18 +52,29 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             foreach (var data in tableData)
             {
+                Image? pfp = null;
+
+                if (!string.IsNullOrEmpty(data.ProfilePicturePath) && File.Exists(data.ProfilePicturePath))
+                {
+                    using (var tempImg = Image.FromFile(data.ProfilePicturePath))
+                    {
+                        pfp = new Bitmap(tempImg);
+                    }
+                }
+
                 employeeDataGrid.Rows.Add(
-                    null,
-                    null,
+                    null,                   //Spacerrrrrr
+                    pfp,                   // PFP 
                     data.FullName,
                     data.JobTitle,
                     data.Department,
-                    "",                   //Next timeee
+                    "",                     // next time
                     data.Status
                 );
 
                 employeeDataGrid.Rows[employeeDataGrid.Rows.Count - 1].Tag = data;
             }
+
         }
 
         private void StabilizeGridRows(DataGridView grid, int height)
@@ -71,16 +82,13 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             //Surrendered and used AI :< fuck winforms man wtf, give me console apps instead
             grid.SuspendLayout();
 
-            // Kill all autosizing paths
             grid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
             grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             grid.EnableHeadersVisualStyles = false;
             grid.AllowUserToResizeRows = false;
 
-            // Lock the template
             grid.RowTemplate.Height = height;
 
-            // Enforce on existing rows
             foreach (DataGridViewRow row in grid.Rows)
                 row.Height = height;
 
@@ -111,6 +119,24 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 step1.ShowDialog(this);
             }
 
+        }
+
+        private void employeeDataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            var row = employeeDataGrid.Rows[e.RowIndex];
+
+            if (row.Tag is not DisplayDTO selectedEmployee)
+                return;
+
+            using (var updateForm = new NewUpdateEmployee(selectedEmployee, _controller))
+            {
+                updateForm.ShowDialog(this);
+            }
+
+            LoadTable();
         }
     }
 }

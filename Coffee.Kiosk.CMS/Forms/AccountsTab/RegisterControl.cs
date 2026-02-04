@@ -65,7 +65,6 @@ namespace Coffee.Kiosk.CMS
                 Salary = salaryTextBox.Text.Trim(),
                 EmploymentType = employmentType,
                 Role = role,
-                EmployeeID = employeeIDTextBox.Text.Trim()
             };
 
             var result = _controller.Register(newRequest);
