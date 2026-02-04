@@ -17,13 +17,14 @@
         public string EmergencyNumber { get; set; } = string.Empty;
 
         public string JobTitle { get; set; } = string.Empty;
-        public string EmployeeID { get; set; } = string.Empty;
         public string Salary { get; set; } = string.Empty;
 
         public string Role { get; set; } = string.Empty;          
         public string Department { get; set; } = string.Empty;    
         public string EmploymentType { get; set; } = string.Empty; 
-        public string Status { get; set; } = string.Empty;        
+        public string Status { get; set; } = string.Empty;
+
+        public string? ProfilePicturePath { get; set; }
 
     }
 }

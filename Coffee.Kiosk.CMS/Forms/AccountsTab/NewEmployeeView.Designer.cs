@@ -107,6 +107,8 @@
             // 
             // employeeDataGrid
             // 
+            employeeDataGrid.AllowUserToAddRows = false;
+            employeeDataGrid.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.White;
             employeeDataGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             employeeDataGrid.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -132,6 +134,7 @@
             employeeDataGrid.GridColor = Color.FromArgb(231, 229, 255);
             employeeDataGrid.Location = new Point(16, 261);
             employeeDataGrid.Name = "employeeDataGrid";
+            employeeDataGrid.ReadOnly = true;
             employeeDataGrid.RowHeadersVisible = false;
             employeeDataGrid.RowHeadersWidth = 62;
             employeeDataGrid.RowTemplate.Height = 50;
@@ -150,7 +153,7 @@
             employeeDataGrid.ThemeStyle.HeaderStyle.ForeColor = Color.White;
             employeeDataGrid.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             employeeDataGrid.ThemeStyle.HeaderStyle.Height = 60;
-            employeeDataGrid.ThemeStyle.ReadOnly = false;
+            employeeDataGrid.ThemeStyle.ReadOnly = true;
             employeeDataGrid.ThemeStyle.RowsStyle.BackColor = Color.White;
             employeeDataGrid.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             employeeDataGrid.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
@@ -158,6 +161,7 @@
             employeeDataGrid.ThemeStyle.RowsStyle.Height = 50;
             employeeDataGrid.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
             employeeDataGrid.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            employeeDataGrid.CellDoubleClick += employeeDataGrid_CellDoubleClick;
             employeeDataGrid.VisibleChanged += employeeDataGrid_VisibleChanged;
             // 
             // CarbonSpacer
@@ -166,6 +170,7 @@
             CarbonSpacer.HeaderText = "";
             CarbonSpacer.MinimumWidth = 8;
             CarbonSpacer.Name = "CarbonSpacer";
+            CarbonSpacer.ReadOnly = true;
             CarbonSpacer.Width = 10;
             // 
             // Profile
@@ -176,6 +181,7 @@
             Profile.ImageLayout = DataGridViewImageCellLayout.Zoom;
             Profile.MinimumWidth = 8;
             Profile.Name = "Profile";
+            Profile.ReadOnly = true;
             Profile.Width = 40;
             // 
             // NameColumn
@@ -184,6 +190,7 @@
             NameColumn.HeaderText = "Name";
             NameColumn.MinimumWidth = 8;
             NameColumn.Name = "NameColumn";
+            NameColumn.ReadOnly = true;
             // 
             // JobTitleColumn
             // 
@@ -191,6 +198,7 @@
             JobTitleColumn.HeaderText = "Job Title";
             JobTitleColumn.MinimumWidth = 8;
             JobTitleColumn.Name = "JobTitleColumn";
+            JobTitleColumn.ReadOnly = true;
             // 
             // DepartmentColumn
             // 
@@ -198,6 +206,7 @@
             DepartmentColumn.HeaderText = "Department";
             DepartmentColumn.MinimumWidth = 8;
             DepartmentColumn.Name = "DepartmentColumn";
+            DepartmentColumn.ReadOnly = true;
             // 
             // HistoryColumn
             // 
@@ -205,6 +214,7 @@
             HistoryColumn.HeaderText = "History";
             HistoryColumn.MinimumWidth = 8;
             HistoryColumn.Name = "HistoryColumn";
+            HistoryColumn.ReadOnly = true;
             // 
             // StatusColumn
             // 
@@ -212,6 +222,7 @@
             StatusColumn.HeaderText = "Status";
             StatusColumn.MinimumWidth = 8;
             StatusColumn.Name = "StatusColumn";
+            StatusColumn.ReadOnly = true;
             // 
             // tableLayoutPanel3
             // 
@@ -338,10 +349,10 @@
             // 
             countLabel.Anchor = AnchorStyles.None;
             countLabel.AutoSize = true;
-            countLabel.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            countLabel.Location = new Point(878, 20);
+            countLabel.Font = new Font("Segoe UI", 17F, FontStyle.Bold);
+            countLabel.Location = new Point(862, 15);
             countLabel.Name = "countLabel";
-            countLabel.Size = new Size(106, 36);
+            countLabel.Size = new Size(139, 46);
             countLabel.TabIndex = 0;
             countLabel.Text = "COUNT";
             // 

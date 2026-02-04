@@ -24,14 +24,16 @@ namespace Coffee.Kiosk.CMS.Services
                 LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
                 Email = request.Email,
+                EmergencyFirstName = request.EmergencyFirstName,
+                EmergencyLastName = request.EmergencyLastName,
                 EmergencyNumber = request.EmergencyNumber,
                 JobTitle = request.JobTitle,
                 Department = request.Department,          // add
                 EmploymentType = request.EmploymentType,  // add
                 Role = request.Role,                      // add
-                EmployeeID = request.EmployeeID,          // add
                 Salary = decimal.TryParse(request.Salary, out var sal) ? sal : 0m,
-                Status = AccountStatus.ACTIVE
+                Status = AccountStatus.ACTIVE,
+                ProfilePicturePath = request.ProfilePicturePath // added
             };
 
             _dBManager.PostEmployee(employee);
@@ -57,8 +59,8 @@ namespace Coffee.Kiosk.CMS.Services
                     EmergencyNumber = account.EmergencyNumber,
                     JobTitle = account.JobTitle,
                     Salary = account.Salary.ToString("F2"),
-                    Status = account.Status.ToString()
-
+                    Status = account.Status.ToString(),
+                    ProfilePicturePath = account.ProfilePicturePath 
                 };
 
                 tableDisplay.Add(display);
@@ -81,10 +83,13 @@ namespace Coffee.Kiosk.CMS.Services
                 LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
                 Email = request.Email,
+                EmergencyFirstName = request.EmergencyFirstName,
+                EmergencyLastName = request.EmergencyLastName,
                 EmergencyNumber = request.EmergencyNumber,
                 JobTitle = request.JobTitle,
                 Salary = decimal.Parse(request.Salary),
-                Status = AccountStatus.ACTIVE
+                Status = AccountStatus.ACTIVE,
+                ProfilePicturePath = request.ProfilePicturePath // added
             };
 
             _dBManager.UpdateEmployee(employee);

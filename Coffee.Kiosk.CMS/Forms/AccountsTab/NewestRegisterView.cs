@@ -72,5 +72,29 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             this.Close();
         }
+
+        private void AddPfpButton_Click(object sender, EventArgs e)
+        {
+            using (var ofd = new OpenFileDialog())
+            {
+                ofd.Title = "Select Profile Picture";
+                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+                ofd.Multiselect = false;
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    _draft.ProfilePicturePath = ofd.FileName;
+
+                    PictureBox.Image = Image.FromFile(ofd.FileName);
+                }
+            }
+
+            PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+
+        private void PictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
