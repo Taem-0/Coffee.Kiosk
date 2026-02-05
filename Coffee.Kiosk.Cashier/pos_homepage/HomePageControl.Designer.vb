@@ -26,8 +26,7 @@ Partial Class HomePageControl
         lblUsername = New Label()
         ProfileBox = New PictureBox()
         txtSearch = New TextBox()
-        TextBox1 = New TextBox()
-        dgvOrders = New DataGridView()
+        txtKioskOrder = New TextBox()
         btnCash = New Button()
         btnGcash = New Button()
         btnMaya = New Button()
@@ -36,8 +35,9 @@ Partial Class HomePageControl
         btnSnacks = New Button()
         btnMeals = New Button()
         MenuPanel = New Panel()
+        lblTotal = New Label()
+        OrderList = New ListBox()
         CType(ProfileBox, ComponentModel.ISupportInitialize).BeginInit()
-        CType(dgvOrders, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' lblUsername
@@ -71,26 +71,16 @@ Partial Class HomePageControl
         txtSearch.Size = New Size(1087, 38)
         txtSearch.TabIndex = 3
         ' 
-        ' TextBox1
+        ' txtKioskOrder
         ' 
-        TextBox1.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        TextBox1.Font = New Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        TextBox1.ForeColor = Color.White
-        TextBox1.Location = New Point(41, 1007)
-        TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(395, 43)
-        TextBox1.TabIndex = 4
-        TextBox1.Text = " Enter Code: "
-        ' 
-        ' dgvOrders
-        ' 
-        dgvOrders.BackgroundColor = Color.White
-        dgvOrders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvOrders.Location = New Point(1031, 147)
-        dgvOrders.Name = "dgvOrders"
-        dgvOrders.RowHeadersWidth = 51
-        dgvOrders.Size = New Size(594, 813)
-        dgvOrders.TabIndex = 5
+        txtKioskOrder.BackColor = Color.White
+        txtKioskOrder.Font = New Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtKioskOrder.ForeColor = Color.Black
+        txtKioskOrder.Location = New Point(41, 1007)
+        txtKioskOrder.Name = "txtKioskOrder"
+        txtKioskOrder.PlaceholderText = " Enter Code:"
+        txtKioskOrder.Size = New Size(395, 43)
+        txtKioskOrder.TabIndex = 4
         ' 
         ' btnCash
         ' 
@@ -191,11 +181,30 @@ Partial Class HomePageControl
         MenuPanel.Size = New Size(921, 724)
         MenuPanel.TabIndex = 13
         ' 
+        ' lblTotal
+        ' 
+        lblTotal.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTotal.Location = New Point(1436, 144)
+        lblTotal.Name = "lblTotal"
+        lblTotal.Size = New Size(187, 33)
+        lblTotal.TabIndex = 14
+        lblTotal.Text = "Total:"
+        ' 
+        ' OrderList
+        ' 
+        OrderList.FormattingEnabled = True
+        OrderList.Location = New Point(1039, 193)
+        OrderList.Name = "OrderList"
+        OrderList.Size = New Size(596, 764)
+        OrderList.TabIndex = 15
+        ' 
         ' HomePageControl
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
+        Controls.Add(OrderList)
+        Controls.Add(lblTotal)
         Controls.Add(MenuPanel)
         Controls.Add(btnMeals)
         Controls.Add(btnSnacks)
@@ -204,23 +213,20 @@ Partial Class HomePageControl
         Controls.Add(btnMaya)
         Controls.Add(btnGcash)
         Controls.Add(btnCash)
-        Controls.Add(dgvOrders)
-        Controls.Add(TextBox1)
+        Controls.Add(txtKioskOrder)
         Controls.Add(txtSearch)
         Controls.Add(ProfileBox)
         Controls.Add(lblUsername)
         Name = "HomePageControl"
         Size = New Size(1669, 1082)
         CType(ProfileBox, ComponentModel.ISupportInitialize).EndInit()
-        CType(dgvOrders, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
     Friend WithEvents lblUsername As Label
     Friend WithEvents ProfileBox As PictureBox
     Friend WithEvents txtSearch As TextBox
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents dgvOrders As DataGridView
+    Friend WithEvents txtKioskOrder As TextBox
     Friend WithEvents btnCash As Button
     Friend WithEvents btnGcash As Button
     Friend WithEvents btnMaya As Button
@@ -229,5 +235,7 @@ Partial Class HomePageControl
     Friend WithEvents btnSnacks As Button
     Friend WithEvents btnMeals As Button
     Friend WithEvents MenuPanel As Panel
+    Friend WithEvents lblTotal As Label
+    Friend WithEvents OrderList As ListBox
 
 End Class
