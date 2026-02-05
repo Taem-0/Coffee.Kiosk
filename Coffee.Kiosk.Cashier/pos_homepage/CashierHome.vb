@@ -1,12 +1,10 @@
 ﻿Public Class CashierHome
 
-    Public Username As String
+    Public Property Username As String
+    Private currentHomePage As HomePageControl
 
     Private Sub CashierHome_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ShowHomePage()
-        Dim home As New HomePageControl()
-        home.SetUsername(Username)
-        ShowPage(home)
     End Sub
 
     Private Sub ShowPage(ctrl As UserControl)
@@ -16,7 +14,11 @@
     End Sub
 
     Public Sub ShowHomePage()
-        ShowPage(New HomePageControl())
+        If currentHomePage Is Nothing Then
+            currentHomePage = New HomePageControl()
+            currentHomePage.SetUsername(Username)
+        End If
+        ShowPage(currentHomePage)
     End Sub
 
     Public Sub ShowHistoryPage()
@@ -40,7 +42,7 @@
     End Sub
 
     Private Sub btnSignOut_Click(sender As Object, e As EventArgs) Handles btnSignOut.Click
-        Dim frm As New LogInForm()
+        Dim frm As New LoginForm()
         frm.Show()
         Me.Close()
     End Sub
