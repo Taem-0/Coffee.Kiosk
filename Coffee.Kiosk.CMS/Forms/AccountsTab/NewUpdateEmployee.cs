@@ -58,6 +58,10 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 );
             };
 
+
+            DeactivateButton.Enabled = _employee.Status != "DEACTIVATED";
+            DeactivateButton.Text = _employee.Status == "DEACTIVATED" ? "Deactivated" : "Deactivate";
+
         }
 
         private void LoadEmployeeIntoForm()
@@ -152,7 +156,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );
-                return; 
+                return;
             }
 
             MessageBox.Show(
@@ -162,29 +166,61 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 MessageBoxIcon.Information
             );
 
-            this.Close(); 
-        }
-
-
-        private void BackButton_Click(object sender, EventArgs e)
-        {
             this.Close();
         }
-        
 
-        private void SubmitButton_Click(object sender, EventArgs e)
+
+
+
+
+
+        private void SubmitButton_Click_1(object sender, EventArgs e)
         {
             InputCollection();
             this.Close();
         }
 
-        //id rather gain migraine from Windows API's
-        /*TODO:
-         * 
-         * Fix department and employment type
-         * Visual clarity in this form
-         * 
-         * 
-         */
+        private void DeactivateButton_Click(object sender, EventArgs e)
+        {
+
+            var result = MessageBox.Show(
+                $"Are you sure you want to deactivate {_employee.FirstName} {_employee.LastName}?",
+                "Confirm Deactivation",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result != DialogResult.Yes)
+                return;
+
+            try
+            {
+                _controller.DeactivateAccount(_employee);
+
+                _employee.Status = "DEACTIVATED";
+
+
+                MessageBox.Show(
+                    "Employee deactivated successfully!",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error deactivating employee: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+
+        }
+
+        
     }
 }
