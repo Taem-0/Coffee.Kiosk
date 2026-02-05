@@ -1,5 +1,4 @@
 ﻿Public Class CustomizeDrinkControl
-
     Private _drink As DrinkItem
     Private _currentPrice As Decimal
 
@@ -8,22 +7,17 @@
     Public Sub LoadDrink(drink As DrinkItem)
         _drink = drink
         _currentPrice = drink.BasePrice
-
         lblDrinkName.Text = drink.Name
         lblBasePrice.Text = "₱" & _currentPrice.ToString("0.00")
-
         grpTemp.Enabled = (drink.Category = DrinkCategory.Coffee)
-
         rbIce.Checked = True
         rbHot.Checked = False
-
         grpIceLevel.Enabled = True
         CalculateTotal()
     End Sub
 
     Private Sub CalculateTotal()
         If _drink Is Nothing Then Exit Sub
-
         Dim sizePrice As Decimal = 0
         If rbMedium.Checked Then sizePrice = 10D
         If rbLarge.Checked Then sizePrice = 20D
@@ -52,7 +46,6 @@
             .Quantity = nudQty.Value,
             .TotalPrice = _currentPrice * nudQty.Value
         }
-
         RaiseEvent OrderAdded(order)
         CloseControl()
     End Sub
@@ -86,8 +79,6 @@
         If rbJellyStrips.Checked Then toppings.Add("Jelly Strips")
         If rbButterCreme.Checked Then toppings.Add("Butter Creme")
         If rbSeasaltCreme.Checked Then toppings.Add("Seasalt Creme")
-        If rbSaltedCaramel.Checked Then toppings.Add("Salted Caramel")
-        If rbFrenchVanilla.Checked Then toppings.Add("French Vanilla")
         Return toppings
     End Function
 
@@ -103,5 +94,4 @@
         Me.Parent.Controls.Remove(Me)
         Me.Dispose()
     End Sub
-
 End Class
