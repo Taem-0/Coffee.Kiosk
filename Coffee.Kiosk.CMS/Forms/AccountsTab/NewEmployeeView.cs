@@ -16,7 +16,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
     public partial class NewEmployeeView : UserControl
     {
 
-        private AccountController _controller;
+        private readonly AccountController _controller;
 
         public AdminControlForm? ParentFormReference { get; set; }
 
@@ -56,10 +56,8 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
                 if (!string.IsNullOrEmpty(data.ProfilePicturePath) && File.Exists(data.ProfilePicturePath))
                 {
-                    using (var tempImg = Image.FromFile(data.ProfilePicturePath))
-                    {
-                        pfp = new Bitmap(tempImg);
-                    }
+                    using var tempImg = Image.FromFile(data.ProfilePicturePath);
+                    pfp = new Bitmap(tempImg);
                 }
 
                 employeeDataGrid.Rows.Add(
@@ -72,7 +70,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                     data.Status
                 );
 
-                employeeDataGrid.Rows[employeeDataGrid.Rows.Count - 1].Tag = data;
+                employeeDataGrid.Rows[^1].Tag = data;
             }
 
         }
@@ -114,10 +112,8 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         {
 
             var draft = new DisplayDTO();
-            using (var step1 = new NewestRegisterView(_controller, draft))
-            {
-                step1.ShowDialog(this);
-            }
+            using var step1 = new NewestRegisterView(_controller, draft);
+            step1.ShowDialog(this);
 
         }
 

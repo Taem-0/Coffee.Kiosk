@@ -1,5 +1,6 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
+using Coffee.Kiosk.CMS.Models;
 using Guna.UI2.AnimatorNS;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Coffee.Kiosk.CMS.Helpers.UIhelp;
 
 
 namespace Coffee.Kiosk.CMS.Forms.AccountsTab
@@ -26,6 +28,16 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             _employee = employee ?? throw new ArgumentNullException(nameof(employee));
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
+
+            DepartmentComboBox.DataSource =
+             Enum.GetNames(typeof(Department))
+                 .Select(EnumDisplayHelper.FormatEnum)
+                 .ToList();
+
+            EmployeeTypecomboBox.DataSource =
+                Enum.GetNames(typeof(EmploymentType))
+                    .Select(EnumDisplayHelper.FormatEnum)
+                    .ToList();
 
             LoadEmployeeIntoForm();
 
@@ -73,10 +85,11 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             EmergencyPhoneTextBox.Text = _employee.EmergencyNumber;
 
             JobTitleTextBox.Text = _employee.JobTitle;
-            SalaryTextBox1.Text = _employee.Salary?.ToString();
+            SalaryTextBox1.Text = _employee.Salary;
 
             DepartmentComboBox.SelectedItem = _employee.Department;
             EmployeeTypecomboBox.SelectedItem = _employee.EmploymentType;
+
 
             switch (_employee.Role)
             {
@@ -109,8 +122,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             _employee.EmergencyLastName = EmergencyLastNameTextBox.Text.Trim();
             _employee.EmergencyNumber = EmergencyPhoneTextBox.Text.Trim();
 
-            _employee.JobTitle = JobTitleTextBox.Text.Trim();
-            DepartmentComboBox.Text = _employee.Department;
+            _employee.Department = DepartmentComboBox.SelectedItem?.ToString() ?? "";
+            _employee.EmploymentType = EmployeeTypecomboBox.SelectedItem?.ToString() ?? "";
+
             EmployeeTypecomboBox.Text = _employee.EmploymentType;
 
 
@@ -121,11 +135,12 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
 
             if (AdminRadioButton.Checked)
-                _employee.Role = "Admin";
+                _employee.Role = "OWNER";
             else if (ManagerRadioButton.Checked)
-                _employee.Role = "Manager";
+                _employee.Role = "MANAGER";
             else
-                _employee.Role = "Employee";
+                _employee.Role = "EMPLOYEE";
+
 
             var result = _controller.Update(_employee);
 
