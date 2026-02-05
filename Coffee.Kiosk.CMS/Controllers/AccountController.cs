@@ -10,21 +10,12 @@ using System.Threading.Tasks;
 
 namespace Coffee.Kiosk.CMS.Controllers
 {
-    public class AccountController
+    public class AccountController(RegistrationValidation validation, UpdateValidation updateValidation, AccountsService service)
     {
 
-        private readonly RegistrationValidation _validation;
-        private readonly UpdateValidation _updateValidation;
-        private readonly AccountsService _service;
-
-        public AccountController(RegistrationValidation validation, UpdateValidation updateValidation, AccountsService service)
-        {
-            _validation = validation ?? throw new ArgumentNullException(nameof(validation));    
-
-            _updateValidation = updateValidation ?? throw new ArgumentNullException(nameof(updateValidation));
-
-            _service = service ??throw new ArgumentNullException(nameof(service));
-        }
+        private readonly RegistrationValidation _validation = validation ?? throw new ArgumentNullException(nameof(validation));
+        private readonly UpdateValidation _updateValidation = updateValidation ?? throw new ArgumentNullException(nameof(updateValidation));
+        private readonly AccountsService _service = service ?? throw new ArgumentNullException(nameof(service));
 
         public ValidationResults Register(RegistrationDTO request)
         {

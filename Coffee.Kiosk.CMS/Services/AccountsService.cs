@@ -2,18 +2,14 @@
 using Coffee.Kiosk.CMS.DTOs;
 using Coffee.Kiosk.CMS.Models;
 using Org.BouncyCastle.Asn1.Ocsp;
+using static Coffee.Kiosk.CMS.Helpers.UIhelp;
 
 namespace Coffee.Kiosk.CMS.Services
 {
-    public class AccountsService
+    public class AccountsService(AccountDBManager dBManager)
     {
 
-        public readonly AccountDBManager _dBManager;
-
-        public AccountsService(AccountDBManager dBManager)
-        {
-            _dBManager = dBManager ?? throw new ArgumentNullException(nameof(dBManager));
-        }
+        public readonly AccountDBManager _dBManager = dBManager ?? throw new ArgumentNullException(nameof(dBManager));
 
         public void RegisterUser(RegistrationDTO request)
         {
@@ -51,51 +47,69 @@ namespace Coffee.Kiosk.CMS.Services
                 DisplayDTO display = new()
                 {
                     PrimaryID = account.Id.ToString(),
+
                     FirstName = account.FirstName,
                     MiddleName = account.MiddleName,
                     LastName = account.LastName,
+
                     PhoneNumber = account.PhoneNumber,
-                    Email = account.Email,  
+                    Email = account.Email,
+
+                    EmergencyFirstName = account.EmergencyFirstName,
+                    EmergencyLastName = account.EmergencyLastName,
                     EmergencyNumber = account.EmergencyNumber,
+
                     JobTitle = account.JobTitle,
                     Salary = account.Salary.ToString("F2"),
+
+                    Role = EnumDisplayHelper.FormatEnum(account.Role.ToString()),
+                    Department = EnumDisplayHelper.FormatEnum(account.Department.ToString()),
+                    EmploymentType = EnumDisplayHelper.FormatEnum(account.EmploymentType.ToString()),
+
                     Status = account.Status.ToString(),
-                    ProfilePicturePath = account.ProfilePicturePath 
+
+                    ProfilePicturePath = account.ProfilePicturePath
                 };
 
                 tableDisplay.Add(display);
             }
 
             return tableDisplay;
-
         }
+
 
         public void UpdateUser(DisplayDTO request)
         {
-
-
-
             var employee = new Employee
             {
                 Id = int.Parse(request.PrimaryID),
+
                 FirstName = request.FirstName,
                 MiddleName = request.MiddleName,
                 LastName = request.LastName,
+
                 PhoneNumber = request.PhoneNumber,
                 Email = request.Email,
+
                 EmergencyFirstName = request.EmergencyFirstName,
                 EmergencyLastName = request.EmergencyLastName,
                 EmergencyNumber = request.EmergencyNumber,
+
                 JobTitle = request.JobTitle,
                 Salary = decimal.Parse(request.Salary),
-                Status = AccountStatus.ACTIVE,
-                ProfilePicturePath = request.ProfilePicturePath // added
+
+                Role = Enum.Parse<AccountRole>(request.Role.Replace(" ", "_").ToUpper()),
+                Department = Enum.Parse<Department>(request.Department.Replace(" ", "_").ToUpper()),
+                EmploymentType = Enum.Parse<EmploymentType>(request.EmploymentType.Replace(" ", "_").ToUpper()),
+
+                Status = Enum.Parse<AccountStatus>(request.Status),
+
+                ProfilePicturePath = request.ProfilePicturePath
             };
 
             _dBManager.UpdateEmployee(employee);
-
-
         }
+
 
         public void Deactivate(DisplayDTO request)
         {

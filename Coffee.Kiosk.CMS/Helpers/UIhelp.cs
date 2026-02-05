@@ -26,36 +26,14 @@ namespace Coffee.Kiosk.CMS.Helpers
             panel.PerformLayout();    
         }
 
-        public static void SyncChildWidths(Control parentContainer)
+
+        public static class EnumDisplayHelper
         {
-            parentContainer.SuspendLayout();
-
-            int targetWidth = parentContainer.ClientSize.Width - 4;
-
-            foreach (Control child in parentContainer.Controls)
+            public static string FormatEnum(string value)
             {
-
-                if (child is TableLayoutPanel || child is Panel)
-                {
-                    child.Width = targetWidth;
-                }
+                return System.Globalization.CultureInfo.CurrentCulture.TextInfo
+                    .ToTitleCase(value.Replace("_", " ").ToLower());
             }
-
-            parentContainer.ResumeLayout();
-        }
-
-        public static void buttonNaRound(Button button, int radius)
-        {
-            GraphicsPath path = new GraphicsPath();
-
-            path.AddArc(0, 0, radius, radius, 180, 90);
-            path.AddArc(button.Width - radius, 0, radius, radius, 270, 90);
-            path.AddArc(button.Width - radius, button.Height - radius, radius, radius, 0, 90);
-            path.AddArc(0, button.Height - radius, radius, radius, 90, 90);
-
-            path.CloseFigure();
-
-            button.Region = new Region(path);
         }
 
         internal enum boxOrCircle
