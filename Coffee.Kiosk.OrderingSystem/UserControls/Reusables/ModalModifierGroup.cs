@@ -86,6 +86,23 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
             UpdateChildVisibility();
         }
 
+        public decimal GetTotalPriceDelta()
+        {
+            decimal total = flowLayoutPanel1.Controls
+                .OfType<ModalModifierOptions>()
+                .Where(o => o.IsSelected)
+                .Sum(o => o.Option.PriceDelta);
+
+            foreach (var child in _childGroups)
+            {
+                if (flowLayoutPanel2.Visible)
+                    total += child.GetTotalPriceDelta();
+            }
+
+            return total;
+        }
+
+
         public bool IsValid()
         {
             if (_group.Required && !flowLayoutPanel1.Controls.OfType<ModalModifierOptions>().Any(o => o.IsSelected))

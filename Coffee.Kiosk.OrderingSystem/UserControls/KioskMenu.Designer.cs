@@ -43,7 +43,7 @@
             panel2 = new Panel();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             cartCounterButton = new Guna.UI2.WinForms.Guna2CircleButton();
-            pictureBox2 = new PictureBox();
+            CartPicture = new PictureBox();
             StartOverBtn = new Guna.UI2.WinForms.Guna2Button();
             AdPanel = new Panel();
             pictureBox1 = new PictureBox();
@@ -51,7 +51,7 @@
             BottomPanel.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)CartPicture).BeginInit();
             AdPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -64,7 +64,7 @@
             flowCategories.FlowDirection = FlowDirection.TopDown;
             flowCategories.Location = new Point(0, 159);
             flowCategories.Name = "flowCategories";
-            flowCategories.Size = new Size(220, 389);
+            flowCategories.Size = new Size(220, 358);
             flowCategories.TabIndex = 0;
             flowCategories.WrapContents = false;
             // 
@@ -74,12 +74,12 @@
             BottomPanel.Controls.Add(panel1);
             BottomPanel.Controls.Add(panel2);
             BottomPanel.Controls.Add(cartCounterButton);
-            BottomPanel.Controls.Add(pictureBox2);
+            BottomPanel.Controls.Add(CartPicture);
             BottomPanel.Controls.Add(StartOverBtn);
             BottomPanel.Dock = DockStyle.Bottom;
-            BottomPanel.Location = new Point(0, 548);
+            BottomPanel.Location = new Point(0, 517);
             BottomPanel.Name = "BottomPanel";
-            BottomPanel.Size = new Size(673, 136);
+            BottomPanel.Size = new Size(673, 167);
             BottomPanel.TabIndex = 1;
             BottomPanel.Paint += BottomPanel_Paint;
             // 
@@ -89,7 +89,7 @@
             panel1.Dock = DockStyle.Right;
             panel1.Location = new Point(397, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(276, 136);
+            panel1.Size = new Size(276, 167);
             panel1.TabIndex = 5;
             panel1.Paint += panel1_Paint;
             // 
@@ -106,7 +106,7 @@
             checkOutBtn.FillColor = Color.Red;
             checkOutBtn.Font = new Font("Segoe UI Semibold", 13.5F, FontStyle.Bold);
             checkOutBtn.ForeColor = Color.White;
-            checkOutBtn.Location = new Point(9, 30);
+            checkOutBtn.Location = new Point(9, 61);
             checkOutBtn.Margin = new Padding(50);
             checkOutBtn.Name = "checkOutBtn";
             checkOutBtn.ShadowDecoration.CustomizableEdges = customizableEdges2;
@@ -155,15 +155,16 @@
             cartCounterButton.UseTransparentBackground = true;
             cartCounterButton.Visible = false;
             // 
-            // pictureBox2
+            // CartPicture
             // 
-            pictureBox2.Image = Properties.Resources.CART__1__1_;
-            pictureBox2.Location = new Point(37, 6);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(82, 85);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 1;
-            pictureBox2.TabStop = false;
+            CartPicture.Image = Properties.Resources.CART__1__1_;
+            CartPicture.Location = new Point(37, 6);
+            CartPicture.Name = "CartPicture";
+            CartPicture.Size = new Size(82, 85);
+            CartPicture.SizeMode = PictureBoxSizeMode.Zoom;
+            CartPicture.TabIndex = 1;
+            CartPicture.TabStop = false;
+            CartPicture.Click += CartPicture_Click;
             // 
             // StartOverBtn
             // 
@@ -181,7 +182,7 @@
             StartOverBtn.ForeColor = Color.Black;
             StartOverBtn.HoverState.BorderColor = Color.Black;
             StartOverBtn.HoverState.FillColor = Color.Transparent;
-            StartOverBtn.Location = new Point(3, 104);
+            StartOverBtn.Location = new Point(0, 135);
             StartOverBtn.Name = "StartOverBtn";
             StartOverBtn.ShadowDecoration.BorderRadius = 17;
             StartOverBtn.ShadowDecoration.CustomizableEdges = customizableEdges5;
@@ -224,7 +225,7 @@
             ContentPanel.Name = "ContentPanel";
             ContentPanel.Padding = new Padding(3, 3, 3, 10);
             ContentPanel.ShadowDecoration.CustomizableEdges = customizableEdges7;
-            ContentPanel.Size = new Size(453, 389);
+            ContentPanel.Size = new Size(453, 358);
             ContentPanel.TabIndex = 3;
             // 
             // KioskMenu
@@ -241,7 +242,7 @@
             BottomPanel.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)CartPicture).EndInit();
             AdPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -254,7 +255,7 @@
         //private Label StartOver_Button;
         private Panel AdPanel;
         private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
+        private PictureBox CartPicture;
         private Guna.UI2.WinForms.Guna2Panel ContentPanel;
         private Guna.UI2.WinForms.Guna2Button StartOverBtn;
         private Guna.UI2.WinForms.Guna2CircleButton cartCounterButton;

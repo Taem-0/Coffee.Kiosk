@@ -16,8 +16,9 @@ namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class KioskMenu : UserControl
     {
-        internal event Action? startOverClicked;
+        internal event Action? StartOverClicked;
         internal event Action<int>? ProductSelected;
+        internal event Action? ViewOrderClicked;
 
         private readonly Dictionary<int, UserControl> categoryPage = new();
         private UserControl? currentPage;
@@ -53,7 +54,7 @@ namespace Coffee.Kiosk.OrderingSystem
         }
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            startOverClicked?.Invoke();
+            StartOverClicked?.Invoke();
         }
         private void LoadCategories()
         {
@@ -130,19 +131,16 @@ namespace Coffee.Kiosk.OrderingSystem
             ProductSelected?.Invoke(prodcutId);
         }
 
-        public void OnCartUpdated(int count)
+        public void OnCartUpdated(Models.Orders order)
         {
-            currentCartCount = count;
-            if (currentCartCount < 1)
-            {
-                checkOutBtn.Enabled = false;
-                cartCounterButton.Visible = false;
-            }else
-            {
-                checkOutBtn.Enabled = true;
-                cartCounterButton.Visible = true;
-            }
+            currentCartCount = order.Items.Sum(i => i.Quantity);
+
+            checkOutBtn.Enabled = currentCartCount > 0;
+            cartCounterButton.Visible = currentCartCount > 0;
             cartCounterButton.Text = currentCartCount.ToString();
+
+            decimal total = order.Items.Sum(item => item.ProductPrice * item.Quantity);
+
             guna2HtmlLabel1.Text = $"""
             <b><font size='12'>Order summary</font></b>
             <br>
@@ -150,8 +148,15 @@ namespace Coffee.Kiosk.OrderingSystem
             <br>
             <b>{OrderType}</b>
             <br>
-            <b>Total:</b> ₱
+            <b>Total:</b> ₱{total:0.00}
             """;
+        }
+
+
+
+        private void CartPicture_Click(object sender, EventArgs e)
+        {
+            ViewOrderClicked?.Invoke();
         }
 
 
@@ -166,5 +171,6 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             UI_Handling.drawBorderSides(e, BottomPanel.ClientRectangle, UI_Handling.borderSide.Top, Color.Black, 2);
         }
+
     }
 }

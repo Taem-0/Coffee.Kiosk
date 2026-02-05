@@ -16,15 +16,16 @@ namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class CoffeeKioskMainForm : Form
     {
-        public event Action<int>? CartUpdated;
+        public event Action<Models.Orders>? CartUpdated;
 
         private GetStartedScreen? getStartedScreen;
         private DineInTakeOut? dineInTakeOut;
         private KioskMenu? kioskMenu;
+        private ViewOrder? viewOrder;
 
         private ModalScreen? modalScreen;
 
-        public Models.Orders? currentOrder;
+        private Models.Orders? currentOrder;
 
         int screenHeight;
         Size modalScreenOriginalSize = new Size(676, 800);
@@ -50,6 +51,7 @@ namespace Coffee.Kiosk.OrderingSystem
             // remove after connecting to database
             Models.Category.LoadDummyData();
             Models.Product.LoadDummyData();
+
         }
 
         private void CoffeeKiosk_Load(object sender, EventArgs e)
@@ -71,41 +73,6 @@ namespace Coffee.Kiosk.OrderingSystem
             }
         }
 
-        //private void loadEverything()
-        //{
-        //    if (getStartedScreen == null)
-        //    {
-        //        getStartedScreen = new GetStartedScreen();
-        //        getStartedScreen.NextClicked += ShowDineInTakeOutScreen;
-        //    }
-        //    if (dineInTakeOut == null)
-        //    {
-        //        dineInTakeOut = new DineInTakeOut();
-
-        //        dineInTakeOut.backButtonClicked += () =>
-        //        {
-        //            UI_Handling.loadUserControl(mainPanel, getStartedScreen);
-        //        };
-
-        //        dineInTakeOut.hasPickedAChoice += () =>
-        //        {
-        //            if (currentOrder == null)
-        //            {
-        //                currentOrder = new Models.Orders();
-        //            }
-        //            currentOrder.Type = dineInTakeOut.lastChoice;
-        //            ShowKioskMenuScreen();
-        //        };
-        //    }
-        //    if (kioskMenu == null)
-        //    {
-        //        kioskMenu = new KioskMenu();
-        //        kioskMenu.startOverClicked += FinishOrder;
-        //        kioskMenu.ProductSelected += ShowModalScreen;
-
-        //        this.CartUpdated += kioskMenu.OnCartUpdated;
-        //    }
-        //}
 
 
         private void ShowGetStartedScreen()
@@ -151,13 +118,35 @@ namespace Coffee.Kiosk.OrderingSystem
             {
                 kioskMenu = new KioskMenu(currentOrder?.Type == Models.Orders.TypeOfOrder.DineIn ? "Dine In" : "Take Out");
 
-                kioskMenu.startOverClicked += FinishOrder;
+                kioskMenu.StartOverClicked += FinishOrder;
                 kioskMenu.ProductSelected += ShowModalScreen;
+                kioskMenu.ViewOrderClicked += ShowViewOrder;
 
                 this.CartUpdated += kioskMenu.OnCartUpdated;
             }
             UI_Handling.loadUserControl(mainPanel, kioskMenu);
         }
+
+        private void ShowViewOrder()
+        {
+            if (viewOrder == null)
+            {
+                if (currentOrder == null)
+                {
+                    currentOrder = new Models.Orders();
+                }
+                viewOrder = new ViewOrder(currentOrder);
+                viewOrder.StartOverClicked += FinishOrder;
+                viewOrder.OrderMoreClicked += () =>
+                {
+                    ShowKioskMenuScreen();
+                    CartUpdated?.Invoke(currentOrder);
+                };
+            }
+            viewOrder.LoadCurrentOrders();
+            UI_Handling.loadUserControl(mainPanel, viewOrder);
+        }
+
 
         private void ShowModalScreen(int productId = 0)
         {
@@ -170,9 +159,8 @@ namespace Coffee.Kiosk.OrderingSystem
                     if (currentOrder == null)
                         return;
 
-                    currentOrder.Items.Add(item);
-
-                    CartUpdated?.Invoke(currentOrder.Items.Count());
+                    currentOrder.AddOrMergeItem(item);
+                    CartUpdated?.Invoke(currentOrder);
 
                     var modifiers = new StringBuilder();
                     foreach (var modifier in item.SelectedModifiersName)
@@ -180,11 +168,11 @@ namespace Coffee.Kiosk.OrderingSystem
                         modifiers.AppendLine($"{modifier.Key}: {string.Join(",", modifier.Value)}");
                     }
 
-                    MessageBox.Show($"""
-                        {item.ProductId.ToString()}: {item.ProductName.ToString()}
-                        Quantity: {item.Quantity.ToString()}
-                        {modifiers}
-                        """);
+                    //MessageBox.Show($"""
+                    //    {item.ProductId.ToString()}: {item.ProductName.ToString()}
+                    //    Quantity: {item.Quantity.ToString()}
+                    //    {modifiers}
+                    //    """);
                     HideModalScreen();
                 };
 
@@ -208,12 +196,16 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             getStartedScreen?.Dispose();
             dineInTakeOut?.Dispose();
-            kioskMenu?.Dispose();
+            if (kioskMenu != null)
+            {
+                this.CartUpdated -= kioskMenu.OnCartUpdated;
+                kioskMenu?.Dispose();
+                kioskMenu = null;
+            }
             modalScreen?.Dispose();
 
             getStartedScreen = null;
             dineInTakeOut = null;
-            kioskMenu = null;
             modalScreen = null;
 
             currentOrder = null;

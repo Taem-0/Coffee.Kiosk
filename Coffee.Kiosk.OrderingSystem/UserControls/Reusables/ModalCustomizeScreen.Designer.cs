@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             topPanel = new Panel();
             guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             pictureBox1 = new PictureBox();
@@ -53,6 +53,8 @@
             AddToCartBtn = new Guna.UI2.WinForms.Guna2Button();
             BackButton = new Guna.UI2.WinForms.Guna2Button();
             invalidLabel = new Label();
+            label1 = new Label();
+            TotalAmountLbl = new Label();
             topPanel.SuspendLayout();
             guna2ShadowPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -131,10 +133,10 @@
             // SubtractAmountButton
             // 
             SubtractAmountButton.BorderRadius = 10;
-            customizableEdges11.BottomRight = false;
-            customizableEdges11.TopLeft = false;
-            customizableEdges11.TopRight = false;
-            SubtractAmountButton.CustomizableEdges = customizableEdges11;
+            customizableEdges1.BottomRight = false;
+            customizableEdges1.TopLeft = false;
+            customizableEdges1.TopRight = false;
+            SubtractAmountButton.CustomizableEdges = customizableEdges1;
             SubtractAmountButton.DisabledState.BorderColor = Color.DarkGray;
             SubtractAmountButton.DisabledState.CustomBorderColor = Color.DarkGray;
             SubtractAmountButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -144,7 +146,7 @@
             SubtractAmountButton.ForeColor = Color.White;
             SubtractAmountButton.Location = new Point(3, 0);
             SubtractAmountButton.Name = "SubtractAmountButton";
-            SubtractAmountButton.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            SubtractAmountButton.ShadowDecoration.CustomizableEdges = customizableEdges2;
             SubtractAmountButton.Size = new Size(45, 25);
             SubtractAmountButton.TabIndex = 3;
             SubtractAmountButton.Text = "+";
@@ -153,10 +155,10 @@
             // AddAmountBtn
             // 
             AddAmountBtn.BorderRadius = 10;
-            customizableEdges13.BottomLeft = false;
-            customizableEdges13.TopLeft = false;
-            customizableEdges13.TopRight = false;
-            AddAmountBtn.CustomizableEdges = customizableEdges13;
+            customizableEdges3.BottomLeft = false;
+            customizableEdges3.TopLeft = false;
+            customizableEdges3.TopRight = false;
+            AddAmountBtn.CustomizableEdges = customizableEdges3;
             AddAmountBtn.DisabledState.BorderColor = Color.DarkGray;
             AddAmountBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             AddAmountBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -166,7 +168,7 @@
             AddAmountBtn.Location = new Point(90, 0);
             AddAmountBtn.Name = "AddAmountBtn";
             AddAmountBtn.PressedDepth = 0;
-            AddAmountBtn.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            AddAmountBtn.ShadowDecoration.CustomizableEdges = customizableEdges4;
             AddAmountBtn.Size = new Size(45, 25);
             AddAmountBtn.TabIndex = 2;
             AddAmountBtn.Text = "+";
@@ -198,16 +200,18 @@
             guna2Panel1.BackColor = Color.Transparent;
             guna2Panel1.BorderColor = Color.Gray;
             guna2Panel1.BorderRadius = 17;
+            guna2Panel1.Controls.Add(TotalAmountLbl);
+            guna2Panel1.Controls.Add(label1);
             guna2Panel1.Controls.Add(panel1);
             guna2Panel1.Controls.Add(BackButton);
             guna2Panel1.CustomBorderColor = Color.Gray;
             guna2Panel1.CustomBorderThickness = new Padding(0, 1, 0, 0);
-            guna2Panel1.CustomizableEdges = customizableEdges17;
+            guna2Panel1.CustomizableEdges = customizableEdges9;
             guna2Panel1.Dock = DockStyle.Bottom;
             guna2Panel1.FillColor = Color.White;
             guna2Panel1.Location = new Point(0, 532);
             guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges10;
             guna2Panel1.ShadowDecoration.Enabled = true;
             guna2Panel1.ShadowDecoration.Shadow = new Padding(0, 5, 0, 0);
             guna2Panel1.Size = new Size(574, 85);
@@ -227,7 +231,7 @@
             AddToCartBtn.BorderColor = Color.DimGray;
             AddToCartBtn.BorderRadius = 7;
             AddToCartBtn.BorderThickness = 1;
-            AddToCartBtn.CustomizableEdges = customizableEdges19;
+            AddToCartBtn.CustomizableEdges = customizableEdges5;
             AddToCartBtn.DisabledState.BorderColor = Color.DarkGray;
             AddToCartBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             AddToCartBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -237,7 +241,7 @@
             AddToCartBtn.ForeColor = Color.White;
             AddToCartBtn.Location = new Point(0, 23);
             AddToCartBtn.Name = "AddToCartBtn";
-            AddToCartBtn.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            AddToCartBtn.ShadowDecoration.CustomizableEdges = customizableEdges6;
             AddToCartBtn.Size = new Size(124, 41);
             AddToCartBtn.TabIndex = 1;
             AddToCartBtn.Text = "Add to cart";
@@ -248,7 +252,7 @@
             BackButton.BorderColor = Color.DimGray;
             BackButton.BorderRadius = 7;
             BackButton.BorderThickness = 1;
-            BackButton.CustomizableEdges = customizableEdges15;
+            BackButton.CustomizableEdges = customizableEdges7;
             BackButton.DisabledState.BorderColor = Color.DarkGray;
             BackButton.DisabledState.CustomBorderColor = Color.DarkGray;
             BackButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -258,7 +262,7 @@
             BackButton.ForeColor = Color.White;
             BackButton.Location = new Point(26, 23);
             BackButton.Name = "BackButton";
-            BackButton.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            BackButton.ShadowDecoration.CustomizableEdges = customizableEdges8;
             BackButton.Size = new Size(124, 41);
             BackButton.TabIndex = 0;
             BackButton.Text = "Back";
@@ -278,6 +282,26 @@
             invalidLabel.TextAlign = ContentAlignment.TopCenter;
             invalidLabel.Visible = false;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(212, 23);
+            label1.Name = "label1";
+            label1.Size = new Size(45, 20);
+            label1.TabIndex = 2;
+            label1.Text = "Total:";
+            // 
+            // TotalAmountLbl
+            // 
+            TotalAmountLbl.AutoSize = true;
+            TotalAmountLbl.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TotalAmountLbl.Location = new Point(265, 32);
+            TotalAmountLbl.Name = "TotalAmountLbl";
+            TotalAmountLbl.Size = new Size(67, 25);
+            TotalAmountLbl.TabIndex = 3;
+            TotalAmountLbl.Text = "PHP 0";
+            // 
             // ModalCustomizeScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -295,6 +319,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
             guna2Panel1.ResumeLayout(false);
+            guna2Panel1.PerformLayout();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -316,5 +341,7 @@
         private Guna.UI2.WinForms.Guna2Button AddToCartBtn;
         private Guna.UI2.WinForms.Guna2Button BackButton;
         private Label invalidLabel;
+        private Label TotalAmountLbl;
+        private Label label1;
     }
 }

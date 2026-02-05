@@ -76,7 +76,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Black;
+            BackColor = Color.FromArgb(228, 227, 210);
             ClientSize = new Size(676, 675);
             Controls.Add(modalOverlayPanel);
             Controls.Add(mainPanel);

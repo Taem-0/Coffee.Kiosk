@@ -14,9 +14,37 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             public string ProductName = String.Empty;
             public decimal ProductPrice;
             public int Quantity;
+            public String ImagePath = String.Empty;
+
 
             public Dictionary<int, List<int>> SelectedModifierOptions = new();
             public Dictionary<string, List<string>> SelectedModifiersName = new();
+
+            public bool IsSameAs(OrderItem other)
+            {
+                if (other == null) return false;
+
+                if (ProductId != other.ProductId)
+                    return false;
+
+                if (SelectedModifierOptions.Count != other.SelectedModifierOptions.Count)
+                    return false;
+
+                foreach (var GroupIdValue in SelectedModifierOptions)
+                {
+                    if (!other.SelectedModifierOptions.TryGetValue(GroupIdValue.Key, out var otherList))
+                        return false;
+
+                    var thisSorted = GroupIdValue.Value.OrderBy(x => x).ToList();
+                    var otherSorted = otherList.OrderBy(x => x).ToList();
+
+                    if (!thisSorted.SequenceEqual(otherSorted))
+                        return false;
+                }
+
+                return true;
+            }
+
         }
         public enum TypeOfOrder 
         {
@@ -25,6 +53,21 @@ namespace Coffee.Kiosk.OrderingSystem.Models
         }
         public TypeOfOrder Type;
         public List<OrderItem> Items = new();
+
+        public void AddOrMergeItem(OrderItem newItem)
+        {
+            var existing = Items.FirstOrDefault(i => i.IsSameAs(newItem));
+
+            if (existing != null)
+            {
+                existing.Quantity += newItem.Quantity;
+            }
+            else
+            {
+                Items.Add(newItem);
+            }
+        }
+
     }
 
     internal class Category
@@ -55,7 +98,6 @@ namespace Coffee.Kiosk.OrderingSystem.Models
 
     public class Product
     {
-
         public enum SelectionType
         {
             Single,
@@ -111,13 +153,13 @@ namespace Coffee.Kiosk.OrderingSystem.Models
 
             modifierOption.Add(new ModifierOption(3, 2, "No Sugar", 0.00m, 0.00m, null, false, 3));
             modifierOption.Add(new ModifierOption(4, 2, "Cane", 0.00m, 0.00m, 10, true, 4));
-            modifierOption.Add(new ModifierOption(5, 2, "Muscovado", 0.00m, 0.00m, 9, true, 5));
+            modifierOption.Add(new ModifierOption(5, 2, "Muscovado", 0.00m, 0.00m, null, true, 5));
             modifierOption.Add(new ModifierOption(6, 2, "White", 0.00m, 0.00m, 8, true, 6));
 
             modifierOption.Add(new ModifierOption(7, 3, "25%", 0.00m, 2.00m, null, true, 7));
-            modifierOption.Add(new ModifierOption(8, 3, "50%", 0.00m, 4.00m, null, true, 8));
-            modifierOption.Add(new ModifierOption(9, 3, "75%", 0.00m, 6.00m, null, true, 9));
-            modifierOption.Add(new ModifierOption(10, 3, "100%", 0.00m, 8.00m, null, true, 10));
+            modifierOption.Add(new ModifierOption(8, 3, "50%", 5.00m, 4.00m, null, true, 8));
+            modifierOption.Add(new ModifierOption(9, 3, "75%", 10.00m, 6.00m, null, true, 9));
+            modifierOption.Add(new ModifierOption(10, 3, "100%", 15.00m, 8.00m, null, true, 10));
 
             modifierOption.Add(new ModifierOption(11, 4, "Hot", 0.00m, 0.00m, null, true, 11));
             modifierOption.Add(new ModifierOption(12, 4, "Iced", 0.00m, 0.00m, null, true, 12));

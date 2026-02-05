@@ -20,15 +20,19 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
         int Amount = 1;
         int ProductId;
         string _ProductName = String.Empty;
+        decimal TotalAmountPrice = 0;
         public ModalCustomizeScreen(int productId, string name, string ImagePath)
         {
             InitializeComponent();
             ProductId = productId;
-            name = _ProductName;
+            _ProductName = name;
 
             pictureBox1.Image = UI_Images.loadImageFromFile(ImagePath);
             ProductNameLbl.Text = name;
             AmountLbl.Text = Amount.ToString();
+
+            TotalAmountLbl.Text = $"{TotalAmountPrice.ToString()}";
+
         }
 
         private void LoadModifierGroups(int productId)
@@ -64,12 +68,17 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
         {
             Amount++;
             AmountLbl.Text = Amount.ToString();
+            UpdateAddToCartState();
         }
 
         private void SubtractAmountButton_Click(object sender, EventArgs e)
         {
-            Amount--;
-            AmountLbl.Text = Amount.ToString();
+            if (Amount > 1)
+            {
+                Amount--;
+                AmountLbl.Text = Amount.ToString();
+                UpdateAddToCartState();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -96,8 +105,26 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
             bool valid = AreAllRequiredGroupsValid();
             AddToCartBtn.FillColor = valid ? Color.Green : Color.Gray;
             invalidLabel.Visible = false;
+
+            var product = Models.Product.productData
+                .FirstOrDefault(p => p.Id == ProductId);
+
+            if (product == null) return;
+
+            decimal modifiersTotal = CalculateModifiersTotal();
+
+            TotalAmountPrice =
+                (product.Price + modifiersTotal) * Amount;
+
+            TotalAmountLbl.Text = TotalAmountPrice.ToString("₱0.00");
         }
 
+        private decimal CalculateModifiersTotal()
+        {
+            return flowLayoutPanel1.Controls
+                .OfType<ModalModifierGroup>()
+                .Sum(g => g.GetTotalPriceDelta());
+        }
 
         private async void InvalidLabelAutoHide()
         {
@@ -122,8 +149,9 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
             {
                 ProductId = ProductId,
                 ProductName = product.Name,
-                ProductPrice = product.Price,
-                Quantity = Amount
+                ProductPrice = product.Price + CalculateModifiersTotal(),
+                Quantity = Amount,
+                ImagePath = product.ImagePath
             };
 
             foreach (var group in flowLayoutPanel1.Controls.OfType<ModalModifierGroup>())

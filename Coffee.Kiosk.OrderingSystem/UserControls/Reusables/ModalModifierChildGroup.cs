@@ -10,8 +10,11 @@ using System.Windows.Forms;
 
 namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 {
+
     public partial class ModalModifierChildGroup : UserControl
     {
+        private readonly bool _isSingle;
+
         public event Action? SelectionChanged;
 
         private readonly Models.Product.ModifierGroup _group;
@@ -20,6 +23,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
         {
             InitializeComponent();
             _group = group;
+            _isSingle = group.SelectionType == Models.Product.SelectionType.Single;
             ModifierGroupName.Text = $"{group.Name} {(group.Required ? "(Required)" : "")}";
             LoadOptions();
         }
@@ -34,9 +38,31 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
             foreach (var option in options)
             {
                 var ctrl = new ModalModifierOptions(option);
-                ctrl.SelectionChanged += (s) => SelectionChanged?.Invoke();
+                ctrl.SelectionChanged += selected =>
+                {
+                    if (_isSingle && selected.IsSelected)
+                    {
+                        foreach (var other in flowLayoutPanel1.Controls
+                                     .OfType<ModalModifierOptions>())
+                        {
+                            if (other != selected)
+                                other.Deselect();
+                        }
+                    }
+
+                    SelectionChanged?.Invoke();
+                };
                 flowLayoutPanel1.Controls.Add(ctrl);
             }
+        }
+        public decimal GetTotalPriceDelta()
+        {
+            decimal total = flowLayoutPanel1.Controls
+                .OfType<ModalModifierOptions>()
+                .Where(o => o.IsSelected)
+                .Sum(o => o.Option.PriceDelta);
+
+            return total;
         }
 
         public bool IsValid()
