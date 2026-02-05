@@ -32,8 +32,10 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -42,8 +44,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -58,10 +60,13 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             AddPfpButton = new Guna.UI2.WinForms.Guna2CircleButton();
             PictureBox = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             mainPanel = new Guna.UI2.WinForms.Guna2Panel();
+            guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             tableLayoutPanel3 = new TableLayoutPanel();
             label12 = new Label();
             label13 = new Label();
@@ -78,7 +83,8 @@
             label16 = new Label();
             EmployeeTypecomboBox = new ComboBox();
             SubmitButton = new Guna.UI2.WinForms.Guna2Button();
-            BackButton = new Guna.UI2.WinForms.Guna2Button();
+            DeactivateButton = new Guna.UI2.WinForms.Guna2Button();
+            guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             LastNameTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             label1 = new Label();
@@ -103,8 +109,10 @@
             guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBox).BeginInit();
             mainPanel.SuspendLayout();
+            guna2Panel3.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
+            guna2Panel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -155,14 +163,28 @@
             // 
             mainPanel.AutoScroll = true;
             mainPanel.AutoScrollMargin = new Size(0, 10);
-            mainPanel.Controls.Add(tableLayoutPanel3);
-            mainPanel.Controls.Add(tableLayoutPanel1);
-            mainPanel.CustomizableEdges = customizableEdges29;
+            mainPanel.Controls.Add(guna2Panel3);
+            mainPanel.Controls.Add(guna2Panel2);
+            mainPanel.CustomizableEdges = customizableEdges33;
             mainPanel.Location = new Point(243, 20);
             mainPanel.Name = "mainPanel";
-            mainPanel.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            mainPanel.ShadowDecoration.CustomizableEdges = customizableEdges34;
             mainPanel.Size = new Size(1064, 658);
             mainPanel.TabIndex = 1;
+            // 
+            // guna2Panel3
+            // 
+            guna2Panel3.BorderColor = Color.Black;
+            guna2Panel3.BorderRadius = 15;
+            guna2Panel3.BorderThickness = 2;
+            guna2Panel3.Controls.Add(tableLayoutPanel3);
+            guna2Panel3.CustomizableEdges = customizableEdges13;
+            guna2Panel3.Location = new Point(6, 399);
+            guna2Panel3.Name = "guna2Panel3";
+            guna2Panel3.Padding = new Padding(10);
+            guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            guna2Panel3.Size = new Size(1026, 390);
+            guna2Panel3.TabIndex = 3;
             // 
             // tableLayoutPanel3
             // 
@@ -184,9 +206,9 @@
             tableLayoutPanel3.Controls.Add(label16, 2, 3);
             tableLayoutPanel3.Controls.Add(EmployeeTypecomboBox, 2, 4);
             tableLayoutPanel3.Controls.Add(SubmitButton, 3, 7);
-            tableLayoutPanel3.Controls.Add(BackButton, 2, 7);
-            tableLayoutPanel3.Dock = DockStyle.Top;
-            tableLayoutPanel3.Location = new Point(0, 388);
+            tableLayoutPanel3.Controls.Add(DeactivateButton, 2, 7);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(10, 10);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 8;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 11.8517179F));
@@ -197,16 +219,16 @@
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 7.822131F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 14.6961241F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 19.6453819F));
-            tableLayoutPanel3.Size = new Size(1038, 400);
-            tableLayoutPanel3.TabIndex = 1;
+            tableLayoutPanel3.Size = new Size(1006, 370);
+            tableLayoutPanel3.TabIndex = 2;
             // 
             // label12
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label12.Location = new Point(3, 47);
+            label12.Location = new Point(3, 43);
             label12.Name = "label12";
-            label12.Size = new Size(99, 28);
+            label12.Size = new Size(99, 27);
             label12.TabIndex = 3;
             label12.Text = "Job Title:";
             // 
@@ -231,7 +253,7 @@
             JobTitleTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             JobTitleTextBox.Font = new Font("Segoe UI", 11F);
             JobTitleTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            JobTitleTextBox.Location = new Point(5, 82);
+            JobTitleTextBox.Location = new Point(5, 76);
             JobTitleTextBox.Margin = new Padding(5, 6, 5, 6);
             JobTitleTextBox.Name = "JobTitleTextBox";
             JobTitleTextBox.PlaceholderText = "";
@@ -244,7 +266,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label14.Location = new Point(3, 140);
+            label14.Location = new Point(3, 129);
             label14.Name = "label14";
             label14.Size = new Size(76, 28);
             label14.TabIndex = 23;
@@ -261,7 +283,7 @@
             SalaryTextBox1.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             SalaryTextBox1.Font = new Font("Segoe UI", 11F);
             SalaryTextBox1.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            SalaryTextBox1.Location = new Point(5, 176);
+            SalaryTextBox1.Location = new Point(5, 163);
             SalaryTextBox1.Margin = new Padding(5, 6, 5, 6);
             SalaryTextBox1.Name = "SalaryTextBox1";
             SalaryTextBox1.PlaceholderText = "";
@@ -274,7 +296,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label11.Location = new Point(3, 229);
+            label11.Location = new Point(3, 212);
             label11.Name = "label11";
             label11.Size = new Size(68, 28);
             label11.TabIndex = 38;
@@ -290,11 +312,11 @@
             tableLayoutPanel2.Controls.Add(ManagerRadioButton, 1, 0);
             tableLayoutPanel2.Controls.Add(employeeRadioButton, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(3, 263);
+            tableLayoutPanel2.Location = new Point(3, 243);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(473, 52);
+            tableLayoutPanel2.Size = new Size(455, 48);
             tableLayoutPanel2.TabIndex = 39;
             // 
             // AdminRadioButton
@@ -302,7 +324,7 @@
             AdminRadioButton.Anchor = AnchorStyles.Left;
             AdminRadioButton.AutoSize = true;
             AdminRadioButton.Font = new Font("Segoe UI", 7F);
-            AdminRadioButton.Location = new Point(317, 14);
+            AdminRadioButton.Location = new Point(305, 12);
             AdminRadioButton.Name = "AdminRadioButton";
             AdminRadioButton.Size = new Size(74, 23);
             AdminRadioButton.TabIndex = 42;
@@ -315,7 +337,7 @@
             ManagerRadioButton.Anchor = AnchorStyles.Left;
             ManagerRadioButton.AutoSize = true;
             ManagerRadioButton.Font = new Font("Segoe UI", 7F);
-            ManagerRadioButton.Location = new Point(160, 14);
+            ManagerRadioButton.Location = new Point(154, 12);
             ManagerRadioButton.Name = "ManagerRadioButton";
             ManagerRadioButton.Size = new Size(89, 23);
             ManagerRadioButton.TabIndex = 41;
@@ -328,7 +350,7 @@
             employeeRadioButton.Anchor = AnchorStyles.Left;
             employeeRadioButton.AutoSize = true;
             employeeRadioButton.Font = new Font("Segoe UI", 7F);
-            employeeRadioButton.Location = new Point(3, 14);
+            employeeRadioButton.Location = new Point(3, 12);
             employeeRadioButton.Name = "employeeRadioButton";
             employeeRadioButton.Size = new Size(93, 23);
             employeeRadioButton.TabIndex = 40;
@@ -340,9 +362,9 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label15.Location = new Point(600, 47);
+            label15.Location = new Point(577, 43);
             label15.Name = "label15";
-            label15.Size = new Size(121, 28);
+            label15.Size = new Size(121, 27);
             label15.TabIndex = 15;
             label15.Text = "Department:";
             // 
@@ -350,7 +372,7 @@
             // 
             DepartmentComboBox.FormattingEnabled = true;
             DepartmentComboBox.Items.AddRange(new object[] { "Operations", "Management", "Administration" });
-            DepartmentComboBox.Location = new Point(600, 79);
+            DepartmentComboBox.Location = new Point(577, 73);
             DepartmentComboBox.Name = "DepartmentComboBox";
             DepartmentComboBox.Size = new Size(248, 33);
             DepartmentComboBox.TabIndex = 3;
@@ -359,7 +381,7 @@
             // 
             label16.AutoSize = true;
             label16.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label16.Location = new Point(600, 140);
+            label16.Location = new Point(577, 129);
             label16.Name = "label16";
             label16.Size = new Size(148, 28);
             label16.TabIndex = 25;
@@ -369,7 +391,7 @@
             // 
             EmployeeTypecomboBox.FormattingEnabled = true;
             EmployeeTypecomboBox.Items.AddRange(new object[] { "Full Time", "Part Time", "Contract" });
-            EmployeeTypecomboBox.Location = new Point(600, 173);
+            EmployeeTypecomboBox.Location = new Point(577, 160);
             EmployeeTypecomboBox.Name = "EmployeeTypecomboBox";
             EmployeeTypecomboBox.Size = new Size(248, 33);
             EmployeeTypecomboBox.TabIndex = 40;
@@ -385,32 +407,47 @@
             SubmitButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             SubmitButton.Font = new Font("Segoe UI", 9F);
             SubmitButton.ForeColor = Color.White;
-            SubmitButton.Location = new Point(889, 328);
+            SubmitButton.Location = new Point(857, 301);
             SubmitButton.Name = "SubmitButton";
             SubmitButton.ShadowDecoration.CustomizableEdges = customizableEdges10;
             SubmitButton.Size = new Size(146, 61);
             SubmitButton.TabIndex = 34;
-            SubmitButton.Text = "Submit";
-            SubmitButton.Click += SubmitButton_Click;
+            SubmitButton.Text = "Update";
+            SubmitButton.Click += SubmitButton_Click_1;
             // 
-            // BackButton
+            // DeactivateButton
             // 
-            BackButton.Anchor = AnchorStyles.Right;
-            BackButton.BorderRadius = 15;
-            BackButton.CustomizableEdges = customizableEdges11;
-            BackButton.DisabledState.BorderColor = Color.DarkGray;
-            BackButton.DisabledState.CustomBorderColor = Color.DarkGray;
-            BackButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            BackButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            BackButton.Font = new Font("Segoe UI", 9F);
-            BackButton.ForeColor = Color.White;
-            BackButton.Location = new Point(721, 328);
-            BackButton.Name = "BackButton";
-            BackButton.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            BackButton.Size = new Size(148, 61);
-            BackButton.TabIndex = 35;
-            BackButton.Text = "Back";
-            BackButton.Click += BackButton_Click;
+            DeactivateButton.Anchor = AnchorStyles.Right;
+            DeactivateButton.BorderRadius = 15;
+            DeactivateButton.CustomizableEdges = customizableEdges11;
+            DeactivateButton.DisabledState.BorderColor = Color.DarkGray;
+            DeactivateButton.DisabledState.CustomBorderColor = Color.DarkGray;
+            DeactivateButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            DeactivateButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            DeactivateButton.FillColor = Color.Red;
+            DeactivateButton.Font = new Font("Segoe UI", 9F);
+            DeactivateButton.ForeColor = Color.White;
+            DeactivateButton.Location = new Point(688, 301);
+            DeactivateButton.Name = "DeactivateButton";
+            DeactivateButton.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            DeactivateButton.Size = new Size(148, 61);
+            DeactivateButton.TabIndex = 35;
+            DeactivateButton.Text = "Deactivate";
+            DeactivateButton.Click += DeactivateButton_Click;
+            // 
+            // guna2Panel2
+            // 
+            guna2Panel2.BorderColor = Color.Black;
+            guna2Panel2.BorderRadius = 15;
+            guna2Panel2.BorderThickness = 2;
+            guna2Panel2.Controls.Add(tableLayoutPanel1);
+            guna2Panel2.CustomizableEdges = customizableEdges31;
+            guna2Panel2.Location = new Point(6, 3);
+            guna2Panel2.Name = "guna2Panel2";
+            guna2Panel2.Padding = new Padding(10);
+            guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            guna2Panel2.Size = new Size(1026, 390);
+            guna2Panel2.TabIndex = 2;
             // 
             // tableLayoutPanel1
             // 
@@ -437,8 +474,8 @@
             tableLayoutPanel1.Controls.Add(EmergencyFirstNameTextBox, 0, 8);
             tableLayoutPanel1.Controls.Add(EmergencyLastNameTextBox, 1, 8);
             tableLayoutPanel1.Controls.Add(EmergencyPhoneTextBox, 2, 8);
-            tableLayoutPanel1.Dock = DockStyle.Top;
-            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(10, 10);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 9;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 9.380863F));
@@ -450,12 +487,12 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.69230747F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 6.566604F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5703564F));
-            tableLayoutPanel1.Size = new Size(1038, 388);
-            tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.Size = new Size(1006, 370);
+            tableLayoutPanel1.TabIndex = 1;
             // 
             // LastNameTextBox
             // 
-            LastNameTextBox.CustomizableEdges = customizableEdges13;
+            LastNameTextBox.CustomizableEdges = customizableEdges15;
             LastNameTextBox.DefaultText = "";
             LastNameTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             LastNameTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -464,12 +501,12 @@
             LastNameTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             LastNameTextBox.Font = new Font("Segoe UI", 11F);
             LastNameTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            LastNameTextBox.Location = new Point(651, 80);
+            LastNameTextBox.Location = new Point(630, 76);
             LastNameTextBox.Margin = new Padding(5, 6, 5, 6);
             LastNameTextBox.Name = "LastNameTextBox";
             LastNameTextBox.PlaceholderText = "";
             LastNameTextBox.SelectedText = "";
-            LastNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            LastNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges16;
             LastNameTextBox.Size = new Size(293, 41);
             LastNameTextBox.TabIndex = 21;
             // 
@@ -477,7 +514,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label1.Location = new Point(3, 43);
+            label1.Location = new Point(3, 41);
             label1.Name = "label1";
             label1.Size = new Size(129, 28);
             label1.TabIndex = 3;
@@ -497,7 +534,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(397, 43);
+            label2.Location = new Point(384, 41);
             label2.Name = "label2";
             label2.Size = new Size(78, 28);
             label2.TabIndex = 15;
@@ -507,7 +544,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label3.Location = new Point(649, 43);
+            label3.Location = new Point(628, 41);
             label3.Name = "label3";
             label3.Size = new Size(126, 28);
             label3.TabIndex = 16;
@@ -515,7 +552,7 @@
             // 
             // MiddleNameTextBox
             // 
-            MiddleNameTextBox.CustomizableEdges = customizableEdges15;
+            MiddleNameTextBox.CustomizableEdges = customizableEdges17;
             MiddleNameTextBox.DefaultText = "";
             MiddleNameTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             MiddleNameTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -524,18 +561,18 @@
             MiddleNameTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             MiddleNameTextBox.Font = new Font("Segoe UI", 11F);
             MiddleNameTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            MiddleNameTextBox.Location = new Point(399, 80);
+            MiddleNameTextBox.Location = new Point(386, 76);
             MiddleNameTextBox.Margin = new Padding(5, 6, 5, 6);
             MiddleNameTextBox.Name = "MiddleNameTextBox";
             MiddleNameTextBox.PlaceholderText = "";
             MiddleNameTextBox.SelectedText = "";
-            MiddleNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            MiddleNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges18;
             MiddleNameTextBox.Size = new Size(184, 41);
             MiddleNameTextBox.TabIndex = 18;
             // 
             // FirstNameTextBox
             // 
-            FirstNameTextBox.CustomizableEdges = customizableEdges17;
+            FirstNameTextBox.CustomizableEdges = customizableEdges19;
             FirstNameTextBox.DefaultText = "";
             FirstNameTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             FirstNameTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -544,12 +581,12 @@
             FirstNameTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             FirstNameTextBox.Font = new Font("Segoe UI", 11F);
             FirstNameTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            FirstNameTextBox.Location = new Point(5, 80);
+            FirstNameTextBox.Location = new Point(5, 76);
             FirstNameTextBox.Margin = new Padding(5, 6, 5, 6);
             FirstNameTextBox.Name = "FirstNameTextBox";
             FirstNameTextBox.PlaceholderText = "";
             FirstNameTextBox.SelectedText = "";
-            FirstNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            FirstNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges20;
             FirstNameTextBox.Size = new Size(293, 41);
             FirstNameTextBox.TabIndex = 20;
             // 
@@ -557,7 +594,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 15F, FontStyle.Bold | FontStyle.Italic);
-            label4.Location = new Point(3, 131);
+            label4.Location = new Point(3, 124);
             label4.Name = "label4";
             label4.Size = new Size(262, 41);
             label4.TabIndex = 22;
@@ -567,7 +604,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label5.Location = new Point(3, 174);
+            label5.Location = new Point(3, 165);
             label5.Name = "label5";
             label5.Size = new Size(78, 28);
             label5.TabIndex = 23;
@@ -575,7 +612,7 @@
             // 
             // EmailTextBox
             // 
-            EmailTextBox.CustomizableEdges = customizableEdges19;
+            EmailTextBox.CustomizableEdges = customizableEdges21;
             EmailTextBox.DefaultText = "";
             EmailTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             EmailTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -584,12 +621,12 @@
             EmailTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             EmailTextBox.Font = new Font("Segoe UI", 11F);
             EmailTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            EmailTextBox.Location = new Point(5, 211);
+            EmailTextBox.Location = new Point(5, 200);
             EmailTextBox.Margin = new Padding(5, 6, 5, 6);
             EmailTextBox.Name = "EmailTextBox";
             EmailTextBox.PlaceholderText = "";
             EmailTextBox.SelectedText = "";
-            EmailTextBox.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            EmailTextBox.ShadowDecoration.CustomizableEdges = customizableEdges22;
             EmailTextBox.Size = new Size(293, 41);
             EmailTextBox.TabIndex = 24;
             // 
@@ -597,7 +634,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(397, 174);
+            label6.Location = new Point(384, 165);
             label6.Name = "label6";
             label6.Size = new Size(71, 28);
             label6.TabIndex = 25;
@@ -605,7 +642,7 @@
             // 
             // PhoneTextBox
             // 
-            PhoneTextBox.CustomizableEdges = customizableEdges21;
+            PhoneTextBox.CustomizableEdges = customizableEdges23;
             PhoneTextBox.DefaultText = "";
             PhoneTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             PhoneTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -614,12 +651,12 @@
             PhoneTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             PhoneTextBox.Font = new Font("Segoe UI", 11F);
             PhoneTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            PhoneTextBox.Location = new Point(399, 211);
+            PhoneTextBox.Location = new Point(386, 200);
             PhoneTextBox.Margin = new Padding(5, 6, 5, 6);
             PhoneTextBox.Name = "PhoneTextBox";
             PhoneTextBox.PlaceholderText = "";
             PhoneTextBox.SelectedText = "";
-            PhoneTextBox.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            PhoneTextBox.ShadowDecoration.CustomizableEdges = customizableEdges24;
             PhoneTextBox.Size = new Size(184, 41);
             PhoneTextBox.TabIndex = 26;
             // 
@@ -627,7 +664,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 11F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label7.Location = new Point(3, 263);
+            label7.Location = new Point(3, 249);
             label7.Name = "label7";
             label7.Size = new Size(215, 30);
             label7.TabIndex = 27;
@@ -637,7 +674,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.Location = new Point(3, 298);
+            label8.Location = new Point(3, 282);
             label8.Name = "label8";
             label8.Size = new Size(110, 28);
             label8.TabIndex = 28;
@@ -647,7 +684,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label9.Location = new Point(397, 298);
+            label9.Location = new Point(384, 282);
             label9.Name = "label9";
             label9.Size = new Size(107, 28);
             label9.TabIndex = 29;
@@ -657,7 +694,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label10.Location = new Point(649, 298);
+            label10.Location = new Point(628, 282);
             label10.Name = "label10";
             label10.Size = new Size(71, 28);
             label10.TabIndex = 30;
@@ -665,7 +702,7 @@
             // 
             // EmergencyFirstNameTextBox
             // 
-            EmergencyFirstNameTextBox.CustomizableEdges = customizableEdges23;
+            EmergencyFirstNameTextBox.CustomizableEdges = customizableEdges25;
             EmergencyFirstNameTextBox.DefaultText = "";
             EmergencyFirstNameTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             EmergencyFirstNameTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -674,18 +711,18 @@
             EmergencyFirstNameTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             EmergencyFirstNameTextBox.Font = new Font("Segoe UI", 11F);
             EmergencyFirstNameTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            EmergencyFirstNameTextBox.Location = new Point(5, 334);
+            EmergencyFirstNameTextBox.Location = new Point(5, 316);
             EmergencyFirstNameTextBox.Margin = new Padding(5, 6, 5, 6);
             EmergencyFirstNameTextBox.Name = "EmergencyFirstNameTextBox";
             EmergencyFirstNameTextBox.PlaceholderText = "";
             EmergencyFirstNameTextBox.SelectedText = "";
-            EmergencyFirstNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            EmergencyFirstNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges26;
             EmergencyFirstNameTextBox.Size = new Size(293, 41);
             EmergencyFirstNameTextBox.TabIndex = 31;
             // 
             // EmergencyLastNameTextBox
             // 
-            EmergencyLastNameTextBox.CustomizableEdges = customizableEdges25;
+            EmergencyLastNameTextBox.CustomizableEdges = customizableEdges27;
             EmergencyLastNameTextBox.DefaultText = "";
             EmergencyLastNameTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             EmergencyLastNameTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -694,18 +731,18 @@
             EmergencyLastNameTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             EmergencyLastNameTextBox.Font = new Font("Segoe UI", 11F);
             EmergencyLastNameTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            EmergencyLastNameTextBox.Location = new Point(399, 334);
+            EmergencyLastNameTextBox.Location = new Point(386, 316);
             EmergencyLastNameTextBox.Margin = new Padding(5, 6, 5, 6);
             EmergencyLastNameTextBox.Name = "EmergencyLastNameTextBox";
             EmergencyLastNameTextBox.PlaceholderText = "";
             EmergencyLastNameTextBox.SelectedText = "";
-            EmergencyLastNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            EmergencyLastNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges28;
             EmergencyLastNameTextBox.Size = new Size(184, 41);
             EmergencyLastNameTextBox.TabIndex = 32;
             // 
             // EmergencyPhoneTextBox
             // 
-            EmergencyPhoneTextBox.CustomizableEdges = customizableEdges27;
+            EmergencyPhoneTextBox.CustomizableEdges = customizableEdges29;
             EmergencyPhoneTextBox.DefaultText = "";
             EmergencyPhoneTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             EmergencyPhoneTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -714,12 +751,12 @@
             EmergencyPhoneTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             EmergencyPhoneTextBox.Font = new Font("Segoe UI", 11F);
             EmergencyPhoneTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            EmergencyPhoneTextBox.Location = new Point(651, 334);
+            EmergencyPhoneTextBox.Location = new Point(630, 316);
             EmergencyPhoneTextBox.Margin = new Padding(5, 6, 5, 6);
             EmergencyPhoneTextBox.Name = "EmergencyPhoneTextBox";
             EmergencyPhoneTextBox.PlaceholderText = "";
             EmergencyPhoneTextBox.SelectedText = "";
-            EmergencyPhoneTextBox.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            EmergencyPhoneTextBox.ShadowDecoration.CustomizableEdges = customizableEdges30;
             EmergencyPhoneTextBox.Size = new Size(293, 41);
             EmergencyPhoneTextBox.TabIndex = 33;
             // 
@@ -754,10 +791,12 @@
             guna2Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PictureBox).EndInit();
             mainPanel.ResumeLayout(false);
+            guna2Panel3.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
+            guna2Panel2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
@@ -769,6 +808,8 @@
         private Guna.UI2.WinForms.Guna2CircleButton AddPfpButton;
         private Guna.UI2.WinForms.Guna2CirclePictureBox PictureBox;
         private Guna.UI2.WinForms.Guna2Panel mainPanel;
+        private Guna.UI2.WinForms.Guna2VScrollBar guna2vScrollBar1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
         private TableLayoutPanel tableLayoutPanel1;
         private Guna.UI2.WinForms.Guna2TextBox LastNameTextBox;
         private Label label1;
@@ -789,23 +830,23 @@
         private Guna.UI2.WinForms.Guna2TextBox EmergencyFirstNameTextBox;
         private Guna.UI2.WinForms.Guna2TextBox EmergencyLastNameTextBox;
         private Guna.UI2.WinForms.Guna2TextBox EmergencyPhoneTextBox;
-        private Guna.UI2.WinForms.Guna2VScrollBar guna2vScrollBar1;
-        private ComboBox EmployeeTypecomboBox;
-        private RadioButton AdminRadioButton;
-        private RadioButton ManagerRadioButton;
-        private RadioButton employeeRadioButton;
-        private Guna.UI2.WinForms.Guna2TextBox SalaryTextBox1;
-        private Label label11;
-        private TableLayoutPanel tableLayoutPanel2;
-        private ComboBox DepartmentComboBox;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
         private TableLayoutPanel tableLayoutPanel3;
         private Label label12;
         private Label label13;
         private Guna.UI2.WinForms.Guna2TextBox JobTitleTextBox;
         private Label label14;
-        private Guna.UI2.WinForms.Guna2Button SubmitButton;
+        private Guna.UI2.WinForms.Guna2TextBox SalaryTextBox1;
+        private Label label11;
+        private TableLayoutPanel tableLayoutPanel2;
+        private RadioButton AdminRadioButton;
+        private RadioButton ManagerRadioButton;
+        private RadioButton employeeRadioButton;
         private Label label15;
+        private ComboBox DepartmentComboBox;
         private Label label16;
-        private Guna.UI2.WinForms.Guna2Button BackButton;
+        private ComboBox EmployeeTypecomboBox;
+        private Guna.UI2.WinForms.Guna2Button SubmitButton;
+        private Guna.UI2.WinForms.Guna2Button DeactivateButton;
     }
 }
