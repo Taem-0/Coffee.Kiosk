@@ -15,10 +15,18 @@
         rbHot.Checked = False
         rbIce.Checked = True
 
+        rbSaltedCaramel.Checked = True
+        rbFrenchVanilla.Checked = False
+
         grpIceLevel.Enabled = rbIce.Checked
         CalculateTotal()
     End Sub
 
+    Private Function GetSelectedSyrups() As String
+        If rbSaltedCaramel.Checked Then Return "Salted Caramel"
+        If rbFrenchVanilla.Checked Then Return "French Vanilla"
+        Return "No Syrup"
+    End Function
 
     Private Sub CalculateTotal()
         If _drink Is Nothing Then
@@ -37,7 +45,12 @@
         If rbButterCreme.Checked Then toppingsPrice += 25
         If rbSeasaltCreme.Checked Then toppingsPrice += 25
 
-        _currentPrice = _drink.BasePrice + sizePrice + toppingsPrice
+        Dim syrupPrice As Decimal = 0
+        If rbSaltedCaramel.Checked Or rbFrenchVanilla.Checked Then
+            syrupPrice = 20D
+        End If
+
+        _currentPrice = _drink.BasePrice + sizePrice + toppingsPrice + syrupPrice
         lblTotal.Text = "₱" & (_currentPrice * nudQty.Value).ToString("0.00")
     End Sub
 
@@ -56,9 +69,10 @@
 
     Private Sub OptionChanged(sender As Object, e As EventArgs) _
     Handles rbSmall.CheckedChanged, rbMedium.CheckedChanged, rbLarge.CheckedChanged,
-            rbVelvet.CheckedChanged, rbCoffeeJelly.CheckedChanged, rbJellyStrips.CheckedChanged,
-            rbButterCreme.CheckedChanged, rbSeasaltCreme.CheckedChanged,
-            nudQty.ValueChanged, rbHot.CheckedChanged, rbIce.CheckedChanged
+        rbVelvet.CheckedChanged, rbCoffeeJelly.CheckedChanged, rbJellyStrips.CheckedChanged,
+        rbButterCreme.CheckedChanged, rbSeasaltCreme.CheckedChanged,
+        rbSaltedCaramel.CheckedChanged, rbFrenchVanilla.CheckedChanged,
+        nudQty.ValueChanged, rbHot.CheckedChanged, rbIce.CheckedChanged
 
         If _drink Is Nothing Then Exit Sub
 
