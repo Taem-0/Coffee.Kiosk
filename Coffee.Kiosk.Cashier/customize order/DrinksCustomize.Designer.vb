@@ -699,6 +699,7 @@ Partial Class DrinksCustomize
         Controls.Add(btnClose)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "DrinksCustomize"
+        StartPosition = FormStartPosition.CenterScreen
         grpTemp.ResumeLayout(False)
         grpTemp.PerformLayout()
         grpBeans.ResumeLayout(False)
