@@ -1,5 +1,4 @@
 ﻿Public Class CashierHome
-
     Public Property Username As String
     Private currentHomePage As HomePageControl
 
@@ -21,14 +20,6 @@
         ShowPage(currentHomePage)
     End Sub
 
-    Public Sub ShowHistoryPage()
-        ShowPage(New HistoryPageControl())
-    End Sub
-
-    Public Sub ShowSettingsPage()
-        ShowPage(New SettingsPageControl())
-    End Sub
-
     Private Sub btnMenu_Click(sender As Object, e As EventArgs) Handles btnMenu.Click
         ShowHomePage()
     End Sub
@@ -46,5 +37,4 @@
         frm.Show()
         Me.Close()
     End Sub
-
 End Class

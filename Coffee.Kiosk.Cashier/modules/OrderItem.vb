@@ -1,12 +1,7 @@
 ﻿Public Class OrderItem
     Public Property Drink As DrinkItem
     Public Property Temperature As String
-    Public Property Beans As String
     Public Property Size As String
-    Public Property SugarLevel As String
-    Public Property SugarType As String
-    Public Property IceLevel As String
-    Public Property Milk As String
     Public Property Toppings As List(Of String)
     Public Property Syrups As List(Of String)
     Public Property WhippedCream As String

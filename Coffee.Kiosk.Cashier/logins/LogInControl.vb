@@ -1,6 +1,5 @@
 ﻿Public Class LogInControl
 
-    Private Const DEFAULT_USERNAME As String = "Louie_Jein"
     Private Const DEFAULT_PASSWORD As String = "CafeFilipino1234"
 
     Private Sub btnLogIn_Click(sender As Object, e As EventArgs) Handles btnLogIn.Click

@@ -1,6 +1,5 @@
 ﻿Public Class OrderCustomize
 
-    Public Sub ShowCustomizeDrink(drink As DrinkItem)
 
         CustomizePanel.Controls.Clear()
 
@@ -12,5 +11,4 @@
         CustomizePanel.Controls.Add(ctrl)
 
     End Sub
-
 End Class

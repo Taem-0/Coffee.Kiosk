@@ -2,7 +2,6 @@
 
     Private _drink As DrinkItem
     Private _currentPrice As Decimal
-
     Public Event OrderAdded(order As OrderItem)
 
     Public Sub LoadDrink(drink As DrinkItem)
@@ -75,7 +74,6 @@
         nudQty.ValueChanged, rbHot.CheckedChanged, rbIce.CheckedChanged
 
         If _drink Is Nothing Then Exit Sub
-
         If _drink.Category = DrinkCategory.Coffee Then
             grpIceLevel.Enabled = rbIce.Checked
         Else
@@ -83,26 +81,7 @@
             rbIce.Checked = True
             grpIceLevel.Enabled = True
         End If
-
         CalculateTotal()
-    End Sub
-
-    Private Function GetSelectedToppings() As List(Of String)
-        Dim toppings As New List(Of String)
-        If rbVelvet.Checked Then toppings.Add("Velvet")
-        If rbCoffeeJelly.Checked Then toppings.Add("Coffee Jelly")
-        If rbJellyStrips.Checked Then toppings.Add("Jelly Strips")
-        If rbButterCreme.Checked Then toppings.Add("Butter Creme")
-        If rbSeasaltCreme.Checked Then toppings.Add("Seasalt Creme")
-        Return toppings
-    End Function
-
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        Me.Close()
-    End Sub
-
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
-        Me.Close()
     End Sub
 
 End Class

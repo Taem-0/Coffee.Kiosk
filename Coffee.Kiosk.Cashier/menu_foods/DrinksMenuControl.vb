@@ -109,8 +109,4 @@
         End If
     End Function
 
-    Private Sub HandleOrderAdded(order As OrderItem)
-        MessageBox.Show($"Added {order.Quantity}x {order.Drink.Name} ({order.Temperature}, {order.Size}) to the order!")
-    End Sub
-
 End Class
