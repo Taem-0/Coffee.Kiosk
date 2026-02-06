@@ -26,10 +26,11 @@ Partial Class LogInControl
         btnLogIn = New Button()
         lblUsername = New Label()
         LogoBox = New PictureBox()
-        LinkLabel1 = New LinkLabel()
         lblPassword = New Label()
         txtUsername = New TextBox()
         txtPassword = New TextBox()
+        lnkForgot = New LinkLabel()
+        btnSee = New Button()
         CType(LogoBox, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -68,19 +69,6 @@ Partial Class LogInControl
         LogoBox.TabIndex = 2
         LogoBox.TabStop = False
         ' 
-        ' LinkLabel1
-        ' 
-        LinkLabel1.ActiveLinkColor = Color.SaddleBrown
-        LinkLabel1.AutoSize = True
-        LinkLabel1.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-        LinkLabel1.LinkColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        LinkLabel1.Location = New Point(496, 817)
-        LinkLabel1.Name = "LinkLabel1"
-        LinkLabel1.Size = New Size(168, 28)
-        LinkLabel1.TabIndex = 3
-        LinkLabel1.TabStop = True
-        LinkLabel1.Text = "Forgot Password?"
-        ' 
         ' lblPassword
         ' 
         lblPassword.AutoSize = True
@@ -112,19 +100,44 @@ Partial Class LogInControl
         txtPassword.ForeColor = Color.White
         txtPassword.Location = New Point(244, 711)
         txtPassword.Name = "txtPassword"
-        txtPassword.PasswordChar = "*"c
         txtPassword.Size = New Size(655, 38)
         txtPassword.TabIndex = 6
+        ' 
+        ' lnkForgot
+        ' 
+        lnkForgot.ActiveLinkColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        lnkForgot.AutoSize = True
+        lnkForgot.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold Or FontStyle.Italic)
+        lnkForgot.LinkColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        lnkForgot.Location = New Point(492, 827)
+        lnkForgot.Name = "lnkForgot"
+        lnkForgot.Size = New Size(159, 28)
+        lnkForgot.TabIndex = 7
+        lnkForgot.TabStop = True
+        lnkForgot.Text = "Forgot Password"
+        ' 
+        ' btnSee
+        ' 
+        btnSee.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnSee.FlatStyle = FlatStyle.Flat
+        btnSee.ForeColor = Color.White
+        btnSee.Location = New Point(867, 711)
+        btnSee.Name = "btnSee"
+        btnSee.Size = New Size(32, 38)
+        btnSee.TabIndex = 8
+        btnSee.Text = "👁️"
+        btnSee.UseVisualStyleBackColor = False
         ' 
         ' LogInControl
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
+        Controls.Add(btnSee)
+        Controls.Add(lnkForgot)
         Controls.Add(txtPassword)
         Controls.Add(txtUsername)
         Controls.Add(lblPassword)
-        Controls.Add(LinkLabel1)
         Controls.Add(LogoBox)
         Controls.Add(lblUsername)
         Controls.Add(btnLogIn)
@@ -138,9 +151,10 @@ Partial Class LogInControl
     Friend WithEvents btnLogIn As Button
     Friend WithEvents lblUsername As Label
     Friend WithEvents LogoBox As PictureBox
-    Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents lblPassword As Label
     Friend WithEvents txtUsername As TextBox
     Friend WithEvents txtPassword As TextBox
+    Friend WithEvents lnkForgot As LinkLabel
+    Friend WithEvents btnSee As Button
 
 End Class

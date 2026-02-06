@@ -1,4 +1,5 @@
 ﻿Public Class DrinksMenuControl
+    Public Event DrinkSelected(drink As DrinkItem)
 
     Private Sub DrinksMenuControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FlpMenu.Controls.Clear()
@@ -89,10 +90,7 @@
             .BasePrice = price,
             .Category = GetDrinkCategory(drinkName)
         }
-        Dim customizeForm As New DrinksCustomize()
-        customizeForm.LoadDrink(drink)
-        AddHandler customizeForm.OrderAdded, AddressOf HandleOrderAdded
-        customizeForm.ShowDialog()
+        RaiseEvent DrinkSelected(drink)
     End Sub
 
     Private Function GetDrinkCategory(drinkName As String) As DrinkCategory
