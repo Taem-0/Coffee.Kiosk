@@ -37,6 +37,9 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                      Department,
                      EmploymentType,
                      Profile_Picture_Path,
+                     Password_Hash,
+                     Password_Salt,
+                     Is_First_Login,
                      Status)
                 VALUES
                     (@firstName,
@@ -53,6 +56,9 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                      @department,
                      @employmentType,
                      @profilePicturePath,
+                     @passwordHash,
+                     @passwordSalt,
+                     @isFirstLogin,
                      @status)";
 
                 command.Parameters.AddWithValue("@firstName", employee.FirstName);
@@ -71,6 +77,9 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 command.Parameters.AddWithValue(
                     "@profilePicturePath",
                     (object?)employee.ProfilePicturePath ?? DBNull.Value);
+                command.Parameters.AddWithValue("@passwordHash", employee.PasswordHash);
+                command.Parameters.AddWithValue("@passwordSalt", employee.PasswordSalt);
+                command.Parameters.AddWithValue("@isFirstLogin", employee.IsFirstLogin);
                 command.Parameters.AddWithValue("@status", employee.Status.ToString());
 
                 command.ExecuteNonQuery();
@@ -78,6 +87,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             catch (MySqlException ex)
             {
                 Console.WriteLine($"ERROR (PostEmployee): {ex.Message}");
+                throw;
             }
         }
 
@@ -102,7 +112,8 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                         Role = @role,
                         Department = @department,
                         EmploymentType = @employmentType,
-                        Profile_Picture_Path = @profilePicturePath
+                        Profile_Picture_Path = @profilePicturePath,
+                        Is_First_Login = @isFirstLogin
                     WHERE ID = @id";
 
                 command.Parameters.AddWithValue("@id", employee.Id);
@@ -122,12 +133,14 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 command.Parameters.AddWithValue(
                     "@profilePicturePath",
                     (object?)employee.ProfilePicturePath ?? DBNull.Value);
+                command.Parameters.AddWithValue("@isFirstLogin", employee.IsFirstLogin);
 
                 command.ExecuteNonQuery();
             }
             catch (MySqlException ex)
             {
                 Console.WriteLine($"ERROR (UpdateEmployee): {ex.Message}");
+                throw;
             }
         }
 
@@ -180,6 +193,33 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             return tableData;
         }
 
+        public void UpdatePassword(int employeeId, string newPasswordHash, string newPasswordSalt, bool resetFirstLogin = false)
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = @"UPDATE accounts
+                    SET Password_Hash = @passwordHash,
+                        Password_Salt = @passwordSalt,
+                        Is_First_Login = @isFirstLogin
+                    WHERE ID = @id";
+
+                command.Parameters.AddWithValue("@id", employeeId);
+                command.Parameters.AddWithValue("@passwordHash", newPasswordHash);
+                command.Parameters.AddWithValue("@passwordSalt", newPasswordSalt);
+                command.Parameters.AddWithValue("@isFirstLogin", resetFirstLogin);
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (UpdatePassword): {ex.Message}");
+                throw;
+            }
+        }
+
         private void ReadData(MySqlDataReader reader, List<Employee> tableData)
         {
             while (reader.Read())
@@ -204,6 +244,9 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                         reader.GetOrdinal("Profile_Picture_Path"))
                         ? null
                         : reader.GetString("Profile_Picture_Path"),
+                    PasswordHash = reader.GetString("Password_Hash"),
+                    PasswordSalt = reader.GetString("Password_Salt"),
+                    IsFirstLogin = reader.GetBoolean("Is_First_Login"),
                     Status = Enum.Parse<AccountStatus>(reader.GetString("Status"))
                 });
             }

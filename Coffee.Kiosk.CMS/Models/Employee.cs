@@ -40,6 +40,10 @@ namespace Coffee.Kiosk.CMS.Models
 
 
         public AccountStatus Status { get; set; } = AccountStatus.ACTIVE;
+
+        public string PasswordHash { get; set; } = string.Empty;
+        public string PasswordSalt { get; set; } = string.Empty;
+        public bool IsFirstLogin { get; set; } = true;
     }
 
     public enum AccountRole
