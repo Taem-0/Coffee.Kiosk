@@ -36,7 +36,8 @@ Partial Class HomePageControl
         btnMeals = New Button()
         MenuPanel = New Panel()
         lblTotal = New Label()
-        OrderList = New ListBox()
+        btnRemoveOrder = New Button()
+        OrderList = New RichTextBox()
         CType(ProfileBox, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -45,11 +46,12 @@ Partial Class HomePageControl
         lblUsername.BackColor = Color.Transparent
         lblUsername.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblUsername.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        lblUsername.Location = New Point(1334, 39)
+        lblUsername.Location = New Point(1238, 50)
         lblUsername.Name = "lblUsername"
-        lblUsername.Size = New Size(221, 59)
+        lblUsername.Size = New Size(317, 36)
         lblUsername.TabIndex = 1
-        lblUsername.Text = "Staff Name " & vbCrLf & "Louie Jein Banting" & vbCrLf
+        lblUsername.Text = "Staff Name " & vbCrLf
+        lblUsername.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' ProfileBox
         ' 
@@ -190,13 +192,26 @@ Partial Class HomePageControl
         lblTotal.TabIndex = 14
         lblTotal.Text = "Total:"
         ' 
+        ' btnRemoveOrder
+        ' 
+        btnRemoveOrder.BackColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
+        btnRemoveOrder.FlatStyle = FlatStyle.Flat
+        btnRemoveOrder.ForeColor = Color.White
+        btnRemoveOrder.Location = New Point(1020, 155)
+        btnRemoveOrder.Name = "btnRemoveOrder"
+        btnRemoveOrder.Size = New Size(197, 29)
+        btnRemoveOrder.TabIndex = 16
+        btnRemoveOrder.Text = "Remove Selected"
+        btnRemoveOrder.UseVisualStyleBackColor = False
+        ' 
         ' OrderList
         ' 
-        OrderList.FormattingEnabled = True
-        OrderList.Location = New Point(1039, 193)
+        OrderList.BorderStyle = BorderStyle.None
+        OrderList.Location = New Point(1020, 216)
         OrderList.Name = "OrderList"
-        OrderList.Size = New Size(596, 764)
-        OrderList.TabIndex = 15
+        OrderList.Size = New Size(625, 744)
+        OrderList.TabIndex = 17
+        OrderList.Text = ""
         ' 
         ' HomePageControl
         ' 
@@ -204,6 +219,7 @@ Partial Class HomePageControl
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Beige
         Controls.Add(OrderList)
+        Controls.Add(btnRemoveOrder)
         Controls.Add(lblTotal)
         Controls.Add(MenuPanel)
         Controls.Add(btnMeals)
@@ -236,6 +252,7 @@ Partial Class HomePageControl
     Friend WithEvents btnMeals As Button
     Friend WithEvents MenuPanel As Panel
     Friend WithEvents lblTotal As Label
-    Friend WithEvents OrderList As ListBox
+    Friend WithEvents btnRemoveOrder As Button
+    Friend WithEvents OrderList As RichTextBox
 
 End Class
