@@ -26,7 +26,10 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                     NOT NULL DEFAULT 'FULL_TIME',
                 Status ENUM('ACTIVE','DEACTIVATED') 
                     NOT NULL DEFAULT 'ACTIVE',
-                Profile_Picture_Path VARCHAR(255) NULL
+                Profile_Picture_Path VARCHAR(255) NULL,
+                Password_Hash VARCHAR(255) NOT NULL,
+                Password_Salt VARCHAR(255) NOT NULL,
+                Is_First_Login BOOLEAN NOT NULL DEFAULT 1
             );",
 
 

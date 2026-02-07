@@ -1,8 +1,8 @@
 ﻿using Coffee.Kiosk.CMS.CoffeeKDB;
 using Coffee.Kiosk.CMS.DTOs;
+using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
 using Org.BouncyCastle.Asn1.Ocsp;
-using static Coffee.Kiosk.CMS.Helpers.UIhelp;
 
 namespace Coffee.Kiosk.CMS.Services
 {
@@ -13,6 +13,9 @@ namespace Coffee.Kiosk.CMS.Services
 
         public void RegisterUser(RegistrationDTO request)
         {
+
+            var (passwordHash, passwordSalt) = LogicHelpers.GenerateDefaultPassword();
+
             var employee = new Employee
             {
                 FirstName = request.FirstName,
@@ -24,15 +27,21 @@ namespace Coffee.Kiosk.CMS.Services
                 EmergencyLastName = request.EmergencyLastName,
                 EmergencyNumber = request.EmergencyNumber,
                 JobTitle = request.JobTitle,
-                Department = request.Department,          // add
-                EmploymentType = request.EmploymentType,  // add
-                Role = request.Role,                      // add
+                Department = request.Department,
+                EmploymentType = request.EmploymentType,
+                Role = request.Role,
                 Salary = decimal.TryParse(request.Salary, out var sal) ? sal : 0m,
                 Status = AccountStatus.ACTIVE,
-                ProfilePicturePath = request.ProfilePicturePath // added
+                ProfilePicturePath = request.ProfilePicturePath,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                IsFirstLogin = true
             };
 
             _dBManager.PostEmployee(employee);
+
+            var tempPassword = LogicHelpers.GetTemporaryPasswordDisplay();
+            System.Diagnostics.Debug.WriteLine($"New employee created. Temporary password: {tempPassword}");
         }
 
 
@@ -62,9 +71,9 @@ namespace Coffee.Kiosk.CMS.Services
                     JobTitle = account.JobTitle,
                     Salary = account.Salary.ToString("F2"),
 
-                    Role = EnumDisplayHelper.FormatEnum(account.Role.ToString()),
-                    Department = EnumDisplayHelper.FormatEnum(account.Department.ToString()),
-                    EmploymentType = EnumDisplayHelper.FormatEnum(account.EmploymentType.ToString()),
+                    Role = Helpers.UIhelp.EnumDisplayHelper.FormatEnum(account.Role.ToString()),
+                    Department = Helpers.UIhelp.EnumDisplayHelper.FormatEnum(account.Department.ToString()),
+                    EmploymentType = Helpers.UIhelp.EnumDisplayHelper.FormatEnum(account.EmploymentType.ToString()),
 
                     Status = account.Status.ToString(),
 

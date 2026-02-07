@@ -34,7 +34,11 @@ namespace Coffee.Kiosk.CMS.DTOs
 
         public AccountRole Role { get; set; } 
         public Department Department { get; set; } 
-        public EmploymentType EmploymentType { get; set; } 
+        public EmploymentType EmploymentType { get; set; }
+
+        public string PasswordHash { get; set; } = string.Empty;
+        public string PasswordSalt { get; set; } = string.Empty;
+        public bool IsFirstLogin { get; set; } = true;
 
     }
 }
