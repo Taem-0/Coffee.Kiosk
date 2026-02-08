@@ -110,6 +110,7 @@
 
         Dim order As New OrderItem With {
         .ItemType = "Drink",
+        .ItemName = _drink.Name,
         .Drink = _drink,
         .Temperature = If(rbHot.Checked, "Hot", "Iced"),
         .Size = If(rbSmall.Checked, "Small", If(rbMedium.Checked, "Medium", "Large")),

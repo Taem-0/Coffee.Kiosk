@@ -1,5 +1,4 @@
-﻿
-Public Class DrinkItem
+﻿Public Class DrinkItem
     Public Property Name As String
     Public Property BasePrice As Decimal
     Public Property Category As DrinkCategory
@@ -10,5 +9,3 @@ Public Enum DrinkTemperature
     Hot
     Iced
 End Enum
-
-

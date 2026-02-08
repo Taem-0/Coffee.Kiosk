@@ -167,4 +167,50 @@ Public Class HomePageControl
         FilterMenu(txtSearch.Text)
     End Sub
 
+    Private Sub btnCash_Click(sender As Object, e As EventArgs) Handles btnCash.Click
+        ProcessPayment("Cash")
+    End Sub
+
+    Private Sub btnGcash_Click(sender As Object, e As EventArgs) Handles btnGcash.Click
+        ProcessPayment("Gcash")
+    End Sub
+
+    Private Sub btnMaya_Click(sender As Object, e As EventArgs) Handles btnMaya.Click
+        ProcessPayment("Maya")
+    End Sub
+
+    Private Sub ProcessPayment(paymentMethod As String)
+        If cart.Count = 0 Then
+            MessageBox.Show("No items in the cart. Please add items before processing payment.",
+                       "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Dim total As Decimal = cart.Sum(Function(o) o.TotalPrice)
+
+        Dim paymentDialog As New PaymentDialog()
+        paymentDialog.OrderCart = New List(Of OrderItem)(cart)
+        paymentDialog.Total = total
+
+        Dim staff As String = ""
+        If lblUsername IsNot Nothing AndAlso Not String.IsNullOrEmpty(lblUsername.Text) Then
+            staff = lblUsername.Text.Replace("Staff Name: ", "").Trim()
+        Else
+            staff = "Cashier"
+        End If
+        paymentDialog.Username = staff
+
+        paymentDialog.SelectedPaymentMethod = paymentMethod
+
+        If paymentDialog.ShowDialog() = DialogResult.OK Then
+            cart.Clear()
+            orderCounter = 0
+            RefreshOrderList()
+            UpdateTotal()
+
+            MessageBox.Show("Order completed successfully!", "Success",
+                       MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
+    End Sub
+
 End Class
