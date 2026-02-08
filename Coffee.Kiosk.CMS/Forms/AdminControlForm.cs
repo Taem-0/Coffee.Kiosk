@@ -34,19 +34,25 @@ namespace Coffee.Kiosk
         public AdminControlForm(Employee employee)
         {
             InitializeComponent();
+
+
             _currentEmployee = employee;
 
             this.Text = $"Logged in as: {employee.FirstName} {employee.LastName}";
 
+
+            // THEN, modify MaterialSkin to use YOUR colors instead of its defaults
             materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+
+            // Use YOUR theme colors in MaterialSkin
             materialSkinManager.ColorScheme = new ColorScheme(
-                ColorTranslator.FromHtml("#6F4D38"),
-                ColorTranslator.FromHtml("#3D211A"),
-                ColorTranslator.FromHtml("#3D211A"),
-                ColorTranslator.FromHtml("#3D211A"),
-                TextShade.WHITE
+                primary: UIhelp.ThemeColors.MediumBrown,      // #6f4d38
+                darkPrimary: UIhelp.ThemeColors.DarkBrown,    // #3d211a
+                lightPrimary: UIhelp.ThemeColors.LightBrown,  // #a07856
+                accent: UIhelp.ThemeColors.Beige,             // #cbb799
+                textShade: TextShade.WHITE
             );
 
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -77,6 +83,25 @@ namespace Coffee.Kiosk
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            AdminFormHamburger.BackColor = UIhelp.ThemeColors.Background;
+            AdminFormHamburger.ForeColor = UIhelp.ThemeColors.TextColor;
+
+            // Force each tab page
+            foreach (TabPage tabPage in AdminFormHamburger.TabPages)
+            {
+                tabPage.BackColor = UIhelp.ThemeColors.Background;
+                tabPage.ForeColor = UIhelp.ThemeColors.TextColor;
+            }
+
+            // Set panel backgrounds
+            AdminContentPanel.BackColor = UIhelp.ThemeColors.Background;
+            AccountsContentPanel.BackColor = UIhelp.ThemeColors.Background;
+            customizationsContentPanel.BackColor = UIhelp.ThemeColors.Background;
+
+            // Set the form background
+            this.BackColor = UIhelp.ThemeColors.Background;
+
             ShowInPanel(dashBoardControl, AdminContentPanel);
             ShowInPanel(newEmployeeView, AccountsContentPanel);
         }

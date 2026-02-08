@@ -66,6 +66,7 @@
             label8 = new Label();
             nextButton = new Guna.UI2.WinForms.Guna2Button();
             cancelButton = new Guna.UI2.WinForms.Guna2Button();
+            guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
             guna2Panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -227,7 +228,7 @@
             passwordTextBox.PlaceholderText = "";
             passwordTextBox.SelectedText = "";
             passwordTextBox.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            passwordTextBox.Size = new Size(195, 41);
+            passwordTextBox.Size = new Size(333, 41);
             passwordTextBox.TabIndex = 12;
             // 
             // label6
@@ -281,20 +282,20 @@
             confirmPasswordTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             confirmPasswordTextBox.Font = new Font("Segoe UI", 9F);
             confirmPasswordTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            confirmPasswordTextBox.Location = new Point(271, 604);
+            confirmPasswordTextBox.Location = new Point(398, 604);
             confirmPasswordTextBox.Margin = new Padding(4, 5, 4, 5);
             confirmPasswordTextBox.Name = "confirmPasswordTextBox";
             confirmPasswordTextBox.PlaceholderText = "";
             confirmPasswordTextBox.SelectedText = "";
             confirmPasswordTextBox.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            confirmPasswordTextBox.Size = new Size(195, 41);
+            confirmPasswordTextBox.Size = new Size(333, 41);
             confirmPasswordTextBox.TabIndex = 14;
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(271, 574);
+            label8.Location = new Point(398, 574);
             label8.Name = "label8";
             label8.Size = new Size(178, 25);
             label8.TabIndex = 13;
@@ -310,7 +311,7 @@
             nextButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             nextButton.Font = new Font("Segoe UI", 9F);
             nextButton.ForeColor = Color.White;
-            nextButton.Location = new Point(525, 671);
+            nextButton.Location = new Point(525, 689);
             nextButton.Name = "nextButton";
             nextButton.ShadowDecoration.CustomizableEdges = customizableEdges18;
             nextButton.Size = new Size(131, 48);
@@ -328,7 +329,7 @@
             cancelButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             cancelButton.Font = new Font("Segoe UI", 9F);
             cancelButton.ForeColor = Color.White;
-            cancelButton.Location = new Point(673, 671);
+            cancelButton.Location = new Point(673, 689);
             cancelButton.Name = "cancelButton";
             cancelButton.ShadowDecoration.CustomizableEdges = customizableEdges20;
             cancelButton.Size = new Size(131, 48);
@@ -336,11 +337,22 @@
             cancelButton.Text = "Cancel";
             cancelButton.Click += cancelButton_Click;
             // 
+            // guna2Separator1
+            // 
+            guna2Separator1.BackColor = Color.Transparent;
+            guna2Separator1.FillColor = Color.Black;
+            guna2Separator1.FillThickness = 2;
+            guna2Separator1.Location = new Point(0, 659);
+            guna2Separator1.Name = "guna2Separator1";
+            guna2Separator1.Size = new Size(840, 20);
+            guna2Separator1.TabIndex = 17;
+            // 
             // OwnerRegistration
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(840, 737);
+            ClientSize = new Size(840, 757);
+            Controls.Add(guna2Separator1);
             Controls.Add(cancelButton);
             Controls.Add(nextButton);
             Controls.Add(confirmPasswordTextBox);
@@ -358,7 +370,8 @@
             Controls.Add(shopNameTextBox);
             Controls.Add(label2);
             Controls.Add(guna2Panel1);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            MaximizeBox = false;
             Name = "OwnerRegistration";
             StartPosition = FormStartPosition.CenterScreen;
             guna2Panel1.ResumeLayout(false);
@@ -387,5 +400,6 @@
         private Label label8;
         private Guna.UI2.WinForms.Guna2Button nextButton;
         private Guna.UI2.WinForms.Guna2Button cancelButton;
+        private Guna.UI2.WinForms.Guna2Separator guna2Separator1;
     }
 }

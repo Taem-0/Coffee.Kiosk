@@ -50,5 +50,10 @@ namespace Coffee.Kiosk.CMS.Forms
             adminForm.ShowDialog();
             this.Close();
         }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

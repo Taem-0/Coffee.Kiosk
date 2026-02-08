@@ -75,16 +75,9 @@ Namespace My.Resources
         '''</summary>
         Friend ReadOnly Property orderingdisplay_bg1() As System.Drawing.Bitmap
             Get
+                Dim obj As Object = ResourceManager.GetObject("orderingdisplay_bg1", resourceCulture)
                 Return CType(obj, System.Drawing.Bitmap)
             End Get
-        End Property
-
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Get
-        Return CType(obj, System.Drawing.Bitmap)
-        End Get
         End Property
     End Module
 End Namespace

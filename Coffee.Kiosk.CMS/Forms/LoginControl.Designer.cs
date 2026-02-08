@@ -158,10 +158,10 @@
             logoPictureBox.CustomizableEdges = customizableEdges9;
             logoPictureBox.FillColor = Color.Transparent;
             logoPictureBox.ImageRotate = 0F;
-            logoPictureBox.Location = new Point(450, 75);
+            logoPictureBox.Location = new Point(460, 85);
             logoPictureBox.Name = "logoPictureBox";
             logoPictureBox.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            logoPictureBox.Size = new Size(450, 450);
+            logoPictureBox.Size = new Size(430, 430);
             logoPictureBox.TabIndex = 1;
             logoPictureBox.TabStop = false;
             // 
@@ -169,6 +169,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ButtonHighlight;
             Controls.Add(logoPictureBox);
             Controls.Add(guna2Panel1);
             Name = "LoginControl";
