@@ -1,5 +1,4 @@
-﻿
-Public Enum DrinkCategory
+﻿Public Enum DrinkCategory
     MilkTea
     FruitTea
     Frappuccino

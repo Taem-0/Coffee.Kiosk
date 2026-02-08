@@ -28,7 +28,7 @@
         lines.Add($"[BOLD]ORDER #{OrderNumber}[/BOLD]")
 
         If ItemType = "Drink" Then
-            lines.Add($"[BOLD]{Drink.Name}[/BOLD]")
+            lines.Add($"[BOLD]{ItemName}[/BOLD]")
             lines.Add($"  Qty: {Quantity}")
             lines.Add("")
             lines.Add($"  Temperature    : {Temperature}")
