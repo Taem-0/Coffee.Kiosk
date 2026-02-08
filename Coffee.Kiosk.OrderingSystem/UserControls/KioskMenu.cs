@@ -1,4 +1,5 @@
-﻿using Coffee.Kiosk.OrderingSystem.Helper;
+﻿using Coffee.Kiosk.OrderingSystem.Forms;
+using Coffee.Kiosk.OrderingSystem.Helper;
 using Coffee.Kiosk.OrderingSystem.UserControls;
 using MaterialSkin.Controls;
 using System;
@@ -16,8 +17,9 @@ namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class KioskMenu : UserControl
     {
-        internal event Action? startOverClicked;
+        internal event Action? StartOverClicked;
         internal event Action<int>? ProductSelected;
+        internal event Action? ViewOrderClicked;
 
         private readonly Dictionary<int, UserControl> categoryPage = new();
         private UserControl? currentPage;
@@ -27,6 +29,8 @@ namespace Coffee.Kiosk.OrderingSystem
 
         int currentCartCount = 0;
         string OrderType = String.Empty;
+
+        Point scrollPos;
 
         public KioskMenu(string orderType)
         {
@@ -50,10 +54,6 @@ namespace Coffee.Kiosk.OrderingSystem
             """;
             LoadCategories();
             ShowHome();
-        }
-        private void guna2Button1_Click(object sender, EventArgs e)
-        {
-            startOverClicked?.Invoke();
         }
         private void LoadCategories()
         {
@@ -124,25 +124,16 @@ namespace Coffee.Kiosk.OrderingSystem
             currentPage = page;
         }
 
-
-        private void OnProductClicked(int prodcutId)
+        public void OnCartUpdated(Models.Orders orders)
         {
-            ProductSelected?.Invoke(prodcutId);
-        }
+            currentCartCount = orders.Items.Sum(i => i.Quantity);
 
-        public void OnCartUpdated(int count)
-        {
-            currentCartCount = count;
-            if (currentCartCount < 1)
-            {
-                checkOutBtn.Enabled = false;
-                cartCounterButton.Visible = false;
-            }else
-            {
-                checkOutBtn.Enabled = true;
-                cartCounterButton.Visible = true;
-            }
+            checkOutBtn.Enabled = currentCartCount > 0;
+            cartCounterButton.Visible = currentCartCount > 0;
             cartCounterButton.Text = currentCartCount.ToString();
+
+            decimal total = orders.Items.Sum(item => item.ProductPrice * item.Quantity);
+
             guna2HtmlLabel1.Text = $"""
             <b><font size='12'>Order summary</font></b>
             <br>
@@ -150,10 +141,41 @@ namespace Coffee.Kiosk.OrderingSystem
             <br>
             <b>{OrderType}</b>
             <br>
-            <b>Total:</b> ₱
+            <b>Total:</b> ₱{total:0.00}
             """;
         }
 
+        private void OnProductClicked(int prodcutId)
+        {
+            scrollPos = flowCategories.AutoScrollPosition;
+            ProductSelected?.Invoke(prodcutId);
+        }
+
+        public void KioskScrollPosFix()
+        {
+            flowCategories.AutoScrollPosition =
+                new Point(-scrollPos.X, -scrollPos.Y);
+        }
+
+        private void CartPicture_Click(object sender, EventArgs e)
+        {
+            ViewOrderClicked?.Invoke();
+        }
+        private void checkOutBtn_Click(object sender, EventArgs e)
+        {
+            ViewOrderClicked?.Invoke();
+        }
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            using (var confirm = new ConfirmRemove("Start Over?"))
+            {
+                var result = confirm.ShowDialog();
+                if (result == DialogResult.Yes)
+                {
+                    StartOverClicked?.Invoke();
+                }
+            }
+        }
 
         // --------------------------------------------------------------------------
 

@@ -1,10 +1,12 @@
 using Coffee.Kiosk.OrderingSystem.Helper;
 using Coffee.Kiosk.OrderingSystem.Sql;
 using Coffee.Kiosk.OrderingSystem.UserControls;
+using Coffee.Kiosk.OrderingSystem.UserControls.PayOption;
 using Coffee.Kiosk.OrderingSystem.UserControls.Reusables;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.Extensions.Configuration;
+using QuestPDF.Fluent;
 using System;
 using System.Configuration;
 using System.Drawing;
@@ -16,18 +18,22 @@ namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class CoffeeKioskMainForm : Form
     {
-        public event Action<int>? CartUpdated;
+        public event Action<Models.Orders>? CartUpdated;
 
         private GetStartedScreen? getStartedScreen;
         private DineInTakeOut? dineInTakeOut;
         private KioskMenu? kioskMenu;
+        private ViewOrder? viewOrder;
+        private PayOptionScreen? payOptionScreen;
+        private ReceiptScreen? receiptScreen;
+        private ReceiptGcashScreen? receiptGcashScreen;
 
         private ModalScreen? modalScreen;
 
-        public Models.Orders? currentOrder;
+        private Models.Orders? currentOrder;
 
         int screenHeight;
-        Size modalScreenOriginalSize = new Size(676, 800);
+        Size modalScreenOriginalSize = new Size(720, 800);
 
         public CoffeeKioskMainForm()
         {
@@ -47,9 +53,9 @@ namespace Coffee.Kiosk.OrderingSystem
             //Models.Category.LoadFromDataBase();
             //Models.Product.LoadFromDataBase();
 
-            // remove after connecting to database
             Models.Category.LoadDummyData();
             Models.Product.LoadDummyData();
+
         }
 
         private void CoffeeKiosk_Load(object sender, EventArgs e)
@@ -70,42 +76,6 @@ namespace Coffee.Kiosk.OrderingSystem
                 modalMainScreen.Size = modalScreenOriginalSize;
             }
         }
-
-        //private void loadEverything()
-        //{
-        //    if (getStartedScreen == null)
-        //    {
-        //        getStartedScreen = new GetStartedScreen();
-        //        getStartedScreen.NextClicked += ShowDineInTakeOutScreen;
-        //    }
-        //    if (dineInTakeOut == null)
-        //    {
-        //        dineInTakeOut = new DineInTakeOut();
-
-        //        dineInTakeOut.backButtonClicked += () =>
-        //        {
-        //            UI_Handling.loadUserControl(mainPanel, getStartedScreen);
-        //        };
-
-        //        dineInTakeOut.hasPickedAChoice += () =>
-        //        {
-        //            if (currentOrder == null)
-        //            {
-        //                currentOrder = new Models.Orders();
-        //            }
-        //            currentOrder.Type = dineInTakeOut.lastChoice;
-        //            ShowKioskMenuScreen();
-        //        };
-        //    }
-        //    if (kioskMenu == null)
-        //    {
-        //        kioskMenu = new KioskMenu();
-        //        kioskMenu.startOverClicked += FinishOrder;
-        //        kioskMenu.ProductSelected += ShowModalScreen;
-
-        //        this.CartUpdated += kioskMenu.OnCartUpdated;
-        //    }
-        //}
 
 
         private void ShowGetStartedScreen()
@@ -138,6 +108,7 @@ namespace Coffee.Kiosk.OrderingSystem
                         currentOrder = new Models.Orders();
                     }
                     currentOrder.Type = dineInTakeOut.lastChoice;
+
                     ShowKioskMenuScreen();
                 };
 
@@ -149,17 +120,80 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             if (kioskMenu == null)
             {
-                kioskMenu = new KioskMenu(currentOrder?.Type == Models.Orders.TypeOfOrder.DineIn ? "Dine In" : "Take Out");
+                currentOrder ??= new Models.Orders();
+                kioskMenu = new KioskMenu(currentOrder.Type == Models.Orders.TypeOfOrder.DineIn ? "Dine In" : "Take Out");
 
-                kioskMenu.startOverClicked += FinishOrder;
-                kioskMenu.ProductSelected += ShowModalScreen;
-
+                kioskMenu.StartOverClicked += FinishOrder;
+                kioskMenu.ProductSelected += ShowModalCustomizeScreen;
+                kioskMenu.ViewOrderClicked += ShowViewOrder;
                 this.CartUpdated += kioskMenu.OnCartUpdated;
             }
             UI_Handling.loadUserControl(mainPanel, kioskMenu);
         }
 
-        private void ShowModalScreen(int productId = 0)
+        private void ShowViewOrder()
+        {
+            currentOrder ??= new Models.Orders();
+            if (viewOrder == null)
+            {
+                viewOrder = new ViewOrder(currentOrder);
+                viewOrder.StartOverClicked += FinishOrder;
+                viewOrder.OrderMoreClicked += ShowKioskMenuScreen;
+                viewOrder.CompleteOrderClicked += ShowPayOptionScreen;
+            }
+            viewOrder.OnCartUpdate(currentOrder);
+            viewOrder.LoadCurrentOrders();
+            UI_Handling.loadUserControl(mainPanel, viewOrder);
+        }
+
+        private void ShowPayOptionScreen()
+        {
+            if (payOptionScreen == null)
+            {
+                payOptionScreen = new PayOptionScreen();
+                payOptionScreen.BackButtonClicked += ShowViewOrder;
+                payOptionScreen.PaymentChoiceClicked += () =>
+                {
+                    currentOrder ??= new Models.Orders();
+                    currentOrder.paymentType = payOptionScreen.paymentChoice;
+                    ShowReceiptScreen(currentOrder.paymentType);
+                };
+            }
+            UI_Handling.loadUserControl(mainPanel, payOptionScreen);
+        }
+
+        private async void ShowReceiptScreen(Models.Orders.TypeOfPayment typeOfPayment)
+        {
+            if (typeOfPayment == Models.Orders.TypeOfPayment.Cash)
+            {
+                if (receiptScreen == null)
+                {
+                    receiptScreen = new ReceiptScreen();
+                    receiptScreen.ResetRequested += ShowThankYouScreen;
+                }
+                UI_Handling.loadUserControl(mainPanel, receiptScreen);
+                await Task.Delay(3000);
+                receiptScreen.StartResetCountdown(10);
+            }
+            else
+            {
+                if (receiptGcashScreen == null)
+                {
+                    receiptGcashScreen = new ReceiptGcashScreen();
+                }
+                UI_Handling.loadUserControl(mainPanel, receiptGcashScreen);
+            }
+            QPdfGen.GenerateReceiptPdf(currentOrder!, "Kiosk_Receipt.pdf");
+        }
+
+        private void ShowThankYouScreen()
+        {
+            //TODO
+            FinishOrder();
+        }
+
+
+        private void ShowModalCustomizeScreen(int productId = 0)
         {
             if (modalScreen == null)
             {
@@ -170,9 +204,8 @@ namespace Coffee.Kiosk.OrderingSystem
                     if (currentOrder == null)
                         return;
 
-                    currentOrder.Items.Add(item);
-
-                    CartUpdated?.Invoke(currentOrder.Items.Count());
+                    currentOrder.AddOrMergeItem(item);
+                    CartUpdated?.Invoke(currentOrder);
 
                     var modifiers = new StringBuilder();
                     foreach (var modifier in item.SelectedModifiersName)
@@ -180,14 +213,18 @@ namespace Coffee.Kiosk.OrderingSystem
                         modifiers.AppendLine($"{modifier.Key}: {string.Join(",", modifier.Value)}");
                     }
 
-                    MessageBox.Show($"""
-                        {item.ProductId.ToString()}: {item.ProductName.ToString()}
-                        Quantity: {item.Quantity.ToString()}
-                        {modifiers}
-                        """);
+                    //MessageBox.Show($"""
+                    //    {item.ProductId.ToString()}: {item.ProductName.ToString()}
+                    //    Quantity: {item.Quantity.ToString()}
+                    //    {modifiers}
+                    //    """);
                     HideModalScreen();
                 };
 
+            }
+            else
+            {
+                modalScreen.ReloadModalScreen(productId);
             }
             modalScreen.productId = productId;
             modalOverlayPanel.Visible = true;
@@ -198,8 +235,10 @@ namespace Coffee.Kiosk.OrderingSystem
         private void HideModalScreen()
         {
             modalOverlayPanel.Visible = false;
-            modalScreen?.Dispose();
-            modalScreen = null;
+            //modalScreen?.Dispose();
+            //modalScreen = null;
+
+            kioskMenu?.KioskScrollPosFix();
         }
 
 
@@ -208,13 +247,26 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             getStartedScreen?.Dispose();
             dineInTakeOut?.Dispose();
-            kioskMenu?.Dispose();
+            if (kioskMenu != null)
+            {
+                this.CartUpdated -= kioskMenu.OnCartUpdated;
+                kioskMenu?.Dispose();
+                kioskMenu = null;
+            }
             modalScreen?.Dispose();
+            viewOrder?.Dispose();
+            payOptionScreen?.Dispose();
+            receiptScreen?.Dispose();
+            receiptGcashScreen?.Dispose();
+
 
             getStartedScreen = null;
             dineInTakeOut = null;
-            kioskMenu = null;
             modalScreen = null;
+            viewOrder = null;
+            payOptionScreen = null;
+            receiptScreen = null;
+            receiptGcashScreen = null;
 
             currentOrder = null;
 
@@ -225,16 +277,20 @@ namespace Coffee.Kiosk.OrderingSystem
         private void CoffeeKioskMainForm_Resize(object sender, EventArgs e)
         {
             screenHeight = this.ClientSize.Height;
-            if (screenHeight > 1000)
+            if (screenHeight > 1300)
+            {
+                modalMainScreen.Height = 1200;
+            }
+            else if (screenHeight > 1000)
             {
                 modalMainScreen.Height = 1000;
-
-            } else
+            }
+            else
             {
                 modalMainScreen.Size = modalScreenOriginalSize;
             }
 
-                UI_Handling.centerPanel(modalOverlayPanel, modalMainScreen);
+            UI_Handling.centerPanel(modalOverlayPanel, modalMainScreen);
         }
     }
 }
