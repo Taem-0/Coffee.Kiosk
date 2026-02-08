@@ -1,5 +1,6 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
+using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
 using System;
 using System.Drawing;
@@ -66,6 +67,44 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
+            ClearAllErrors();
+
+            bool hasError = false;
+
+            if (string.IsNullOrWhiteSpace(JobTitleTextBox.Text))
+            {
+                ShowError(JobTitleTextBox, "Job title is required", true);
+                hasError = true;
+            }
+
+            if (string.IsNullOrWhiteSpace(SalaryTextBox1.Text))
+            {
+                ShowError(SalaryTextBox1, "Salary is required", true);
+                hasError = true;
+            }
+            else if (!decimal.TryParse(SalaryTextBox1.Text, out _))
+            {
+                ShowError(SalaryTextBox1, "Please enter a valid salary amount", true);
+                hasError = true;
+            }
+
+            if (DepartmentComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a department", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                hasError = true;
+            }
+
+            if (EmployeeTypecomboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an employment type", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                hasError = true;
+            }
+
+            if (hasError)
+                return;
+
             _draft.Department = DepartmentComboBox.SelectedItem?.ToString() ?? "";
             _draft.JobTitle = JobTitleTextBox.Text.Trim();
             _draft.Salary = SalaryTextBox1.Text.Trim();
@@ -102,15 +141,14 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 Salary = salaryDecimal.ToString(),
                 EmploymentType = employmentType,
                 Role = role,
-                ProfilePicturePath = _draft.ProfilePicturePath 
+                ProfilePicturePath = _draft.ProfilePicturePath
             };
 
             var result = _controller.Register(registrationDto);
 
             if (!result.IsValid)
             {
-                MessageBox.Show(string.Join(Environment.NewLine, result.Errors.Values),
-                    "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ShowValidationErrors(result);
                 return;
             }
 
@@ -123,6 +161,80 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         {
             this.DialogResult = DialogResult.Retry;
             this.Close();
+        }
+
+        private void ShowError(Guna.UI2.WinForms.Guna2TextBox textBox, string errorMessage, bool clearInput = false)
+        {
+            textBox.BorderColor = UIhelp.ThemeColors.ErrorColor;
+            textBox.FocusedState.BorderColor = UIhelp.ThemeColors.ErrorColor;
+            textBox.HoverState.BorderColor = UIhelp.ThemeColors.ErrorColor;
+
+            textBox.PlaceholderText = errorMessage;
+            textBox.PlaceholderForeColor = UIhelp.ThemeColors.ErrorColor;
+
+            if (clearInput)
+            {
+                textBox.Text = "";
+            }
+        }
+
+        private void ClearError(Guna.UI2.WinForms.Guna2TextBox textBox)
+        {
+            textBox.BorderColor = UIhelp.ThemeColors.BorderColor;
+            textBox.FocusedState.BorderColor = UIhelp.ThemeColors.LightBrown;
+            textBox.HoverState.BorderColor = UIhelp.ThemeColors.LightBrown;
+
+            textBox.PlaceholderText = "";
+            textBox.PlaceholderForeColor = Color.Gray;
+        }
+
+        private void ShowValidationErrors(ValidationResults result)
+        {
+            ClearAllErrors();
+
+            foreach (var error in result.Errors)
+            {
+                switch (error.Key.ToLower())
+                {
+                    case "first name":
+                    case "firstname":
+                        // These errors would come from first step, show message box
+                        MessageBox.Show(error.Value, "Validation Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    case "last name":
+                    case "lastname":
+                        MessageBox.Show(error.Value, "Validation Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    case "email":
+                        MessageBox.Show(error.Value, "Validation Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    case "phone number":
+                    case "phonenumber":
+                        MessageBox.Show(error.Value, "Validation Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    case "job title":
+                    case "jobtitle":
+                        ShowError(JobTitleTextBox, error.Value, true);
+                        break;
+                    case "salary":
+                        ShowError(SalaryTextBox1, error.Value, true);
+                        break;
+                    default:
+                        MessageBox.Show(error.Value, "Validation Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                }
+            }
+        }
+
+        private void ClearAllErrors()
+        {
+            ClearError(JobTitleTextBox);
+            ClearError(SalaryTextBox1);
         }
     }
 }

@@ -1,16 +1,11 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
+using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
-using Guna.UI2.AnimatorNS;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Coffee.Kiosk.CMS.Helpers.UIhelp;
 
@@ -21,6 +16,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         private readonly DisplayDTO _employee;
         private readonly AccountController _controller;
         private string _selectedImagePath;
+        private bool _hasChanges;
 
         public NewUpdateEmployee(DisplayDTO employee, AccountController controller)
         {
@@ -29,85 +25,144 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             _employee = employee ?? throw new ArgumentNullException(nameof(employee));
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
             _selectedImagePath = employee.ProfilePicturePath;
+            _hasChanges = false;
 
-
-            DepartmentComboBox.DataSource =
-             Enum.GetNames(typeof(Department))
-                 .Select(EnumDisplayHelper.FormatEnum)
-                 .ToList();
-
-            EmployeeTypecomboBox.DataSource =
-                Enum.GetNames(typeof(EmploymentType))
-                    .Select(EnumDisplayHelper.FormatEnum)
-                    .ToList();
-
+            InitializeForm();
             LoadEmployeeIntoForm();
+            SetupScrollbar();
+            SetupFormControls();
+            SetupPasswordResetButton();
+            WireUpTextChangedEvents();
+        }
 
+        private void InitializeForm()
+        {
+            // Initialize combo boxes
+            DepartmentComboBox.DataSource = Enum.GetNames(typeof(Department))
+                .Select(EnumDisplayHelper.FormatEnum)
+                .ToList();
+
+            EmployeeTypecomboBox.DataSource = Enum.GetNames(typeof(EmploymentType))
+                .Select(EnumDisplayHelper.FormatEnum)
+                .ToList();
+        }
+
+        private void SetupScrollbar()
+        {
             guna2vScrollBar1.Scroll += (s, e) =>
             {
-                mainPanel.AutoScrollPosition = new Point(
-                    0,
-                    guna2vScrollBar1.Value
-                );
+                mainPanel.AutoScrollPosition = new Point(0, guna2vScrollBar1.Value);
             };
 
             mainPanel.Scroll += (s, e) =>
             {
                 int scrollY = -mainPanel.AutoScrollPosition.Y;
-                guna2vScrollBar1.Value = Math.Min(
-                    guna2vScrollBar1.Maximum,
-                    scrollY
-                );
+                guna2vScrollBar1.Value = Math.Min(guna2vScrollBar1.Maximum, scrollY);
             };
+        }
 
-            DeactivateButton.Enabled = _employee.Status != "DEACTIVATED" && _employee.Role != "Owner";
-            DeactivateButton.Text = _employee.Status == "DEACTIVATED" ? "Deactivated" : "Deactivate";
+        private void SetupFormControls()
+        {
+            // Set deactivation button state
+            bool isOwner = _employee.Role == "Owner";
+            bool isDeactivated = _employee.Status == "DEACTIVATED";
 
-            SetupPasswordResetButton();
+            DeactivateButton.Enabled = !isOwner && !isDeactivated;
+            DeactivateButton.Text = isDeactivated ? "Deactivated" : "Deactivate";
 
+            if (isOwner)
+            {
+                DeactivateButton.Enabled = false;
+                DeactivateButton.Text = "Cannot Deactivate Owner";
+                AdminRadioButton.Enabled = false;
+                ManagerRadioButton.Enabled = false;
+                employeeRadioButton.Enabled = false;
+            }
+        }
+
+        private void WireUpTextChangedEvents()
+        {
+            // Wire up all textboxes to clear errors when user types
+            FirstNameTextBox.TextChanged += (s, e) => ClearError(FirstNameTextBox);
+            MiddleNameTextBox.TextChanged += (s, e) => ClearError(MiddleNameTextBox);
+            LastNameTextBox.TextChanged += (s, e) => ClearError(LastNameTextBox);
+            EmailTextBox.TextChanged += (s, e) => ClearError(EmailTextBox);
+            PhoneTextBox.TextChanged += (s, e) => ClearError(PhoneTextBox);
+            EmergencyFirstNameTextBox.TextChanged += (s, e) => ClearError(EmergencyFirstNameTextBox);
+            EmergencyLastNameTextBox.TextChanged += (s, e) => ClearError(EmergencyLastNameTextBox);
+            EmergencyPhoneTextBox.TextChanged += (s, e) => ClearError(EmergencyPhoneTextBox);
+            JobTitleTextBox.TextChanged += (s, e) => ClearError(JobTitleTextBox);
+            SalaryTextBox1.TextChanged += (s, e) => ClearError(SalaryTextBox1);
         }
 
         private void LoadEmployeeIntoForm()
         {
-            if (!string.IsNullOrWhiteSpace(_employee.ProfilePicturePath) &&
-                File.Exists(_employee.ProfilePicturePath))
+            LoadProfilePicture();
+            LoadPersonalInformation();
+            LoadContactInformation();
+            LoadEmergencyContact();
+            LoadEmploymentDetails();
+            LoadRole();
+        }
+
+        private void LoadProfilePicture()
+        {
+            if (!string.IsNullOrWhiteSpace(_selectedImagePath) && File.Exists(_selectedImagePath))
             {
                 try
                 {
-                    using var img = Image.FromFile(_employee.ProfilePicturePath);
+                    using var img = Image.FromFile(_selectedImagePath);
                     PictureBox.Image = new Bitmap(img);
-                    PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 }
-                catch
+                catch (Exception)
                 {
-                    // If image loading fails, set to default
-                    PictureBox.Image = CreateDefaultProfileImage();
-                    PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                    SetDefaultProfileImage();
                 }
             }
             else
             {
-                PictureBox.Image = CreateDefaultProfileImage();
-                PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                SetDefaultProfileImage();
             }
 
+            PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+
+        private void SetDefaultProfileImage()
+        {
+            PictureBox.Image = CreateDefaultProfileImage();
+        }
+
+        private void LoadPersonalInformation()
+        {
             FirstNameTextBox.Text = _employee.FirstName;
             MiddleNameTextBox.Text = _employee.MiddleName;
             LastNameTextBox.Text = _employee.LastName;
+        }
 
+        private void LoadContactInformation()
+        {
             EmailTextBox.Text = _employee.Email;
             PhoneTextBox.Text = _employee.PhoneNumber;
+        }
 
+        private void LoadEmergencyContact()
+        {
             EmergencyFirstNameTextBox.Text = _employee.EmergencyFirstName;
             EmergencyLastNameTextBox.Text = _employee.EmergencyLastName;
             EmergencyPhoneTextBox.Text = _employee.EmergencyNumber;
+        }
 
+        private void LoadEmploymentDetails()
+        {
             JobTitleTextBox.Text = _employee.JobTitle;
             SalaryTextBox1.Text = _employee.Salary;
 
             DepartmentComboBox.SelectedItem = _employee.Department;
             EmployeeTypecomboBox.SelectedItem = _employee.EmploymentType;
+        }
 
+        private void LoadRole()
+        {
             switch (_employee.Role)
             {
                 case "Owner":
@@ -120,20 +175,195 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                     employeeRadioButton.Checked = true;
                     break;
             }
+        }
 
-            if (_employee.Role == "Owner")
+        private void ShowError(Guna.UI2.WinForms.Guna2TextBox textBox, string errorMessage, bool clearInput = false)
+        {
+            textBox.BorderColor = UIhelp.ThemeColors.ErrorColor;
+            textBox.FocusedState.BorderColor = UIhelp.ThemeColors.ErrorColor;
+            textBox.HoverState.BorderColor = UIhelp.ThemeColors.ErrorColor;
+
+            textBox.PlaceholderText = errorMessage;
+            textBox.PlaceholderForeColor = UIhelp.ThemeColors.ErrorColor;
+
+            if (clearInput)
             {
-                AdminRadioButton.Enabled = false;
-                ManagerRadioButton.Enabled = false;
-                employeeRadioButton.Enabled = false;
+                textBox.Text = "";
+            }
+        }
 
-                DeactivateButton.Enabled = false;
-                DeactivateButton.Text = "Cannot Deactivate Owner";
+        private void ClearError(Guna.UI2.WinForms.Guna2TextBox textBox)
+        {
+            textBox.BorderColor = UIhelp.ThemeColors.BorderColor;
+            textBox.FocusedState.BorderColor = UIhelp.ThemeColors.LightBrown;
+            textBox.HoverState.BorderColor = UIhelp.ThemeColors.LightBrown;
+
+            textBox.PlaceholderText = "";
+            textBox.PlaceholderForeColor = Color.Gray;
+        }
+
+        private void ClearAllErrors()
+        {
+            ClearError(FirstNameTextBox);
+            ClearError(MiddleNameTextBox);
+            ClearError(LastNameTextBox);
+            ClearError(EmailTextBox);
+            ClearError(PhoneTextBox);
+            ClearError(EmergencyFirstNameTextBox);
+            ClearError(EmergencyLastNameTextBox);
+            ClearError(EmergencyPhoneTextBox);
+            ClearError(JobTitleTextBox);
+            ClearError(SalaryTextBox1);
+        }
+
+        private void ShowValidationErrors(ValidationResults result)
+        {
+            ClearAllErrors();
+
+            foreach (var error in result.Errors)
+            {
+                switch (error.Key.ToLower())
+                {
+                    case "first name":
+                    case "firstname":
+                        ShowError(FirstNameTextBox, error.Value, true);
+                        break;
+                    case "middle name":
+                    case "middlename":
+                        ShowError(MiddleNameTextBox, error.Value, true);
+                        break;
+                    case "last name":
+                    case "lastname":
+                        ShowError(LastNameTextBox, error.Value, true);
+                        break;
+                    case "email":
+                        ShowError(EmailTextBox, error.Value, true);
+                        break;
+                    case "phone number":
+                    case "phonenumber":
+                        ShowError(PhoneTextBox, error.Value, true);
+                        break;
+                    case "emergency first name":
+                    case "emergencyfirstname":
+                        ShowError(EmergencyFirstNameTextBox, error.Value, true);
+                        break;
+                    case "emergency last name":
+                    case "emergencylastname":
+                        ShowError(EmergencyLastNameTextBox, error.Value, true);
+                        break;
+                    case "emergency number":
+                    case "emergencynumber":
+                        ShowError(EmergencyPhoneTextBox, error.Value, true);
+                        break;
+                    case "job title":
+                    case "jobtitle":
+                        ShowError(JobTitleTextBox, error.Value, true);
+                        break;
+                    case "salary":
+                        ShowError(SalaryTextBox1, error.Value, true);
+                        break;
+                    case "department":
+                        MessageBox.Show(error.Value, "Validation Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    case "employment type":
+                        MessageBox.Show(error.Value, "Validation Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    default:
+                        MessageBox.Show(error.Value, "Validation Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                }
+            }
+        }
+
+        private bool ValidateAllFields()
+        {
+            ClearAllErrors();
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text))
+            {
+                ShowError(FirstNameTextBox, "First name is required", true);
+                isValid = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(LastNameTextBox.Text))
+            {
+                ShowError(LastNameTextBox, "Last name is required", true);
+                isValid = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(EmailTextBox.Text))
+            {
+                ShowError(EmailTextBox, "Email is required", true);
+                isValid = false;
+            }
+            else if (!IsValidEmail(EmailTextBox.Text))
+            {
+                ShowError(EmailTextBox, "Please enter a valid email address", true);
+                isValid = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(PhoneTextBox.Text))
+            {
+                ShowError(PhoneTextBox, "Phone number is required", true);
+                isValid = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(JobTitleTextBox.Text))
+            {
+                ShowError(JobTitleTextBox, "Job title is required", true);
+                isValid = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(SalaryTextBox1.Text))
+            {
+                ShowError(SalaryTextBox1, "Salary is required", true);
+                isValid = false;
+            }
+            else if (!decimal.TryParse(SalaryTextBox1.Text, out _))
+            {
+                ShowError(SalaryTextBox1, "Please enter a valid salary amount", true);
+                isValid = false;
+            }
+
+            if (DepartmentComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a department", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                isValid = false;
+            }
+
+            if (EmployeeTypecomboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an employment type", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
             }
         }
 
         private void InputCollection()
         {
+            if (!ValidateAllFields())
+                return;
+
             _employee.FirstName = FirstNameTextBox.Text.Trim();
             _employee.MiddleName = MiddleNameTextBox.Text.Trim();
             _employee.LastName = LastNameTextBox.Text.Trim();
@@ -148,7 +378,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             _employee.Department = DepartmentComboBox.SelectedItem?.ToString() ?? "";
             _employee.EmploymentType = EmployeeTypecomboBox.SelectedItem?.ToString() ?? "";
 
-            EmployeeTypecomboBox.Text = _employee.EmploymentType;
+            _employee.JobTitle = JobTitleTextBox.Text.Trim();
 
             if (decimal.TryParse(SalaryTextBox1.Text, out var salary))
             {
@@ -171,12 +401,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             if (!result.IsValid)
             {
-                MessageBox.Show(
-                    string.Join(Environment.NewLine, result.Errors.Values),
-                    "Validation Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                ShowValidationErrors(result);
                 return;
             }
 
@@ -193,7 +418,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         private void SubmitButton_Click_1(object sender, EventArgs e)
         {
             InputCollection();
-            this.Close();
         }
 
         private void DeactivateButton_Click(object sender, EventArgs e)
@@ -222,7 +446,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             try
             {
                 _controller.DeactivateAccount(_employee);
-
                 _employee.Status = "DEACTIVATED";
 
                 MessageBox.Show(
@@ -264,10 +487,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                             PictureBox.Image = new Bitmap(img);
                             PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                         }
-
-                        // Optional: Show success message
-                        // MessageBox.Show("Profile picture updated!", "Success", 
-                        //     MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
@@ -331,8 +550,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                     if (result == DialogResult.Yes)
                     {
                         _selectedImagePath = null;
-                        PictureBox.Image = CreateDefaultProfileImage();
-                        PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                        SetDefaultProfileImage();
                     }
                 };
                 contextMenu.Items.Add(removeItem);
@@ -342,7 +560,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void acceptRequest_Click(object sender, EventArgs e)
         {
-            // Check if this employee has a password reset request
             bool hasPendingRequest = _controller.HasPendingResetRequest(int.Parse(_employee.PrimaryID));
 
             if (!hasPendingRequest)
@@ -357,7 +574,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 return;
             }
 
-            // Ask for confirmation
             var result = MessageBox.Show(
                 $"Approve password reset for {_employee.FirstName} {_employee.LastName}?\n\n" +
                 "This will reset their password to the default temporary password.\n" +
@@ -372,17 +588,13 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             try
             {
-                // Reset password to default
-                // We'll call the controller's ApprovePasswordReset method
-                // This should handle resetting to default password
                 bool success = _controller.ApprovePasswordReset(
                     int.Parse(_employee.PrimaryID),
-                    0 // Use 0 or get actual admin ID if needed
+                    0
                 );
 
                 if (success)
                 {
-                    // Get the default temporary password
                     string tempPassword = Coffee.Kiosk.CMS.Helpers.LogicHelpers.GetTemporaryPasswordDisplay();
 
                     MessageBox.Show(
@@ -395,7 +607,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                         MessageBoxIcon.Information
                     );
 
-                    // Update button to show it's been approved
                     acceptRequest.Enabled = false;
                     acceptRequest.Text = "Reset Approved";
                     acceptRequest.FillColor = Color.Gray;
@@ -423,27 +634,18 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void SetupPasswordResetButton()
         {
-            // Hide button by default - we'll show it only under specific conditions
             acceptRequest.Visible = false;
-
-            // Only show button if:
-            // 1. Employee is not an Owner (owners can change their own password)
-            // 2. Employee has a pending password reset request
-            // 3. Employee is active
 
             if (_employee.Role == "Owner")
             {
-                // Owners can change their own password, no reset needed
                 return;
             }
 
             if (_employee.Status != "ACTIVE")
             {
-                // Inactive employees can't have password resets
                 return;
             }
 
-            // Check if this employee has a pending password reset request
             bool hasPendingRequest = _controller.HasPendingResetRequest(int.Parse(_employee.PrimaryID));
 
             if (hasPendingRequest)

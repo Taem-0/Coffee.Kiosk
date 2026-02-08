@@ -45,6 +45,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void NextButton_Click(object sender, EventArgs e)
         {
+            if (!ValidateAllFields())
+                return;
+
             _draft.FirstName = FirstNameTextBox.Text.Trim();
             _draft.MiddleName = MiddleNameTextBox.Text.Trim();
             _draft.LastName = LastNameTextBox.Text.Trim();
@@ -100,5 +103,121 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         {
 
         }
+
+        private void ShowError(Guna.UI2.WinForms.Guna2TextBox textBox, string errorMessage, bool clearInput = false)
+        {
+            textBox.BorderColor = UIhelp.ThemeColors.ErrorColor;
+            textBox.FocusedState.BorderColor = UIhelp.ThemeColors.ErrorColor;
+            textBox.HoverState.BorderColor = UIhelp.ThemeColors.ErrorColor;
+
+            textBox.PlaceholderText = errorMessage;
+            textBox.PlaceholderForeColor = UIhelp.ThemeColors.ErrorColor;
+
+            if (clearInput)
+            {
+                textBox.Text = "";
+            }
+        }
+
+        private void ClearError(Guna.UI2.WinForms.Guna2TextBox textBox)
+        {
+            textBox.BorderColor = UIhelp.ThemeColors.BorderColor;
+            textBox.FocusedState.BorderColor = UIhelp.ThemeColors.LightBrown;
+            textBox.HoverState.BorderColor = UIhelp.ThemeColors.LightBrown;
+
+            textBox.PlaceholderText = "";
+            textBox.PlaceholderForeColor = Color.Gray;
+        }
+
+        private void ClearAllErrors()
+        {
+            ClearError(FirstNameTextBox);
+            ClearError(MiddleNameTextBox);
+            ClearError(LastNameTextBox);
+            ClearError(PhoneTextBox);
+            ClearError(EmailTextBox);
+            ClearError(EmergencyFirstNameTextBox);
+            ClearError(EmergencyLastNameTextBox);
+            ClearError(EmergencyPhoneTextBox);
+        }
+
+        private bool ValidateAllFields()
+        {
+            ClearAllErrors();
+            bool isValid = true;
+            bool firstErrorFocused = false;
+
+            // Add validation logic similar to OwnerRegistration
+            if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text))
+            {
+                ShowError(FirstNameTextBox, "First name is required", true);
+                isValid = false;
+                if (!firstErrorFocused)
+                {
+                    FirstNameTextBox.Focus();
+                    firstErrorFocused = true;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(LastNameTextBox.Text))
+            {
+                ShowError(LastNameTextBox, "Last name is required", true);
+                isValid = false;
+                if (!firstErrorFocused)
+                {
+                    LastNameTextBox.Focus();
+                    firstErrorFocused = true;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(EmailTextBox.Text))
+            {
+                ShowError(EmailTextBox, "Email is required", true);
+                isValid = false;
+                if (!firstErrorFocused)
+                {
+                    EmailTextBox.Focus();
+                    firstErrorFocused = true;
+                }
+            }
+            else if (!IsValidEmail(EmailTextBox.Text))
+            {
+                ShowError(EmailTextBox, "Please enter a valid email address", true);
+                isValid = false;
+                if (!firstErrorFocused)
+                {
+                    EmailTextBox.Focus();
+                    EmailTextBox.SelectAll();
+                    firstErrorFocused = true;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(PhoneTextBox.Text))
+            {
+                ShowError(PhoneTextBox, "Phone number is required", true);
+                isValid = false;
+                if (!firstErrorFocused)
+                {
+                    PhoneTextBox.Focus();
+                    firstErrorFocused = true;
+                }
+            }
+
+            return isValid;
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }
