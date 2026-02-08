@@ -1,5 +1,6 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
+using Coffee.Kiosk.CMS.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         public NewestRegisterView(AccountController controller, DisplayDTO draft)
         {
             InitializeComponent();
+
+
+
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
             _draft = draft ?? throw new ArgumentNullException(nameof(draft));
 

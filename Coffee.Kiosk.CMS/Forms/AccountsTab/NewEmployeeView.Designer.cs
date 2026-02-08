@@ -292,20 +292,20 @@
             // 
             // searchTextBox
             // 
-            searchTextBox.Anchor = AnchorStyles.None;
             searchTextBox.CustomizableEdges = customizableEdges5;
             searchTextBox.DefaultText = "";
             searchTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             searchTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
             searchTextBox.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
             searchTextBox.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            searchTextBox.Dock = DockStyle.Fill;
             searchTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             searchTextBox.Font = new Font("Segoe UI", 9F);
             searchTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
             searchTextBox.Location = new Point(156, 5);
             searchTextBox.Margin = new Padding(4, 5, 4, 5);
             searchTextBox.Name = "searchTextBox";
-            searchTextBox.PlaceholderText = "Search by employee, job, department, etc";
+            searchTextBox.PlaceholderText = "";
             searchTextBox.SelectedText = "";
             searchTextBox.ShadowDecoration.CustomizableEdges = customizableEdges6;
             searchTextBox.Size = new Size(428, 38);

@@ -43,10 +43,12 @@ namespace Coffee.Kiosk
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
             AdminHamburgerIcons = new ImageList(components);
+            customizationsContentPanel = new Panel();
             AdminFormHamburger.SuspendLayout();
             DashBoard.SuspendLayout();
             tabAccounts.SuspendLayout();
             Kiosk.SuspendLayout();
+            Customizations.SuspendLayout();
             SuspendLayout();
             // 
             // AdminFormHamburger
@@ -135,6 +137,7 @@ namespace Coffee.Kiosk
             // 
             // Customizations
             // 
+            Customizations.Controls.Add(customizationsContentPanel);
             Customizations.Location = new Point(4, 41);
             Customizations.Margin = new Padding(2);
             Customizations.Name = "Customizations";
@@ -172,6 +175,15 @@ namespace Coffee.Kiosk
             AdminHamburgerIcons.Images.SetKeyName(1, "user-management-svgrepo-com.png");
             AdminHamburgerIcons.Images.SetKeyName(2, "CART (1)(1).png");
             // 
+            // customizationsContentPanel
+            // 
+            customizationsContentPanel.Dock = DockStyle.Fill;
+            customizationsContentPanel.Location = new Point(0, 0);
+            customizationsContentPanel.Margin = new Padding(2);
+            customizationsContentPanel.Name = "customizationsContentPanel";
+            customizationsContentPanel.Size = new Size(888, 489);
+            customizationsContentPanel.TabIndex = 2;
+            // 
             // AdminControlForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -190,6 +202,7 @@ namespace Coffee.Kiosk
             DashBoard.ResumeLayout(false);
             tabAccounts.ResumeLayout(false);
             Kiosk.ResumeLayout(false);
+            Customizations.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -207,5 +220,6 @@ namespace Coffee.Kiosk
         private Panel AdminContentPanel;
         private Panel AccountsContentPanel;
         private CMS.Forms.AccountsTab.NewEmployeeView newEmployeeView1;
+        private Panel customizationsContentPanel;
     }
 }

@@ -41,13 +41,13 @@ Partial Class Form2
         ' 
         ' lvOrderNum
         ' 
-        ListView1.BackColor = Color.OldLace
-        ListView1.Font = New Font("Arial Rounded MT Bold", 24.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        ListView1.Location = New Point(70, 109)
-        ListView1.Name = "ListView1"
-        ListView1.Size = New Size(460, 836)
-        ListView1.TabIndex = 0
-        ListView1.UseCompatibleStateImageBehavior = False
+        lvOrderNum.BackColor = Color.OldLace
+        lvOrderNum.Font = New Font("Arial Rounded MT Bold", 24.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lvOrderNum.Location = New Point(70, 109)
+        lvOrderNum.Name = "lvOrderNum"
+        lvOrderNum.Size = New Size(460, 836)
+        lvOrderNum.TabIndex = 0
+        lvOrderNum.UseCompatibleStateImageBehavior = False
         ' 
         ' Label1
         ' 
@@ -169,8 +169,7 @@ Partial Class Form2
         Controls.Add(Label2)
         Controls.Add(FlowLayoutPanel1)
         Controls.Add(Label1)
-        Controls.Add(ListView1)
-        Controls.Add(FlowLayoutPanel1)
+        Controls.Add(lvOrderNum)
         Name = "Form2"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Form2"
