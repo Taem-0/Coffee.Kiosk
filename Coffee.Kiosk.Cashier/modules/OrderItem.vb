@@ -8,8 +8,6 @@
     Public Property WhippedCream As String
     Public Property SugarLevel As String
     Public Property SugarType As String
-    Public Property Quantity As Decimal
-    Public Property BasePrice As Decimal
     Public Property SizePrice As Decimal
     Public Property ToppingsPrice As Decimal
     Public Property SyrupPrice As Decimal
