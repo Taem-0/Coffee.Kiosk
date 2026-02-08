@@ -1,4 +1,5 @@
-﻿using Coffee.Kiosk.CMS.Helpers;
+﻿using Coffee.Kiosk.CMS.DTOs;
+using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -276,6 +277,165 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             catch (MySqlException ex)
             {
                 Console.WriteLine($"ERROR (UpdatePassword): {ex.Message}");
+                throw;
+            }
+        }
+
+
+        public void SubmitPasswordResetRequest(int employeeId)
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = @"UPDATE accounts 
+                               SET Password_Reset_Requested = 1
+                               WHERE ID = @id";
+
+                command.Parameters.AddWithValue("@id", employeeId);
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (SubmitPasswordResetRequest): {ex.Message}");
+                throw;
+            }
+        }
+
+        public bool HasPendingResetRequest(int employeeId)
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = @"SELECT Password_Reset_Requested 
+                               FROM accounts WHERE ID = @id";
+
+                command.Parameters.AddWithValue("@id", employeeId);
+
+                using var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    // CCOOCOCOCLUMN
+                    int columnIndex = reader.GetOrdinal("Password_Reset_Requested");
+                    if (!reader.IsDBNull(columnIndex))
+                    {
+                        return reader.GetBoolean("Password_Reset_Requested");
+                    }
+                }
+
+                return false;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (HasPendingResetRequest): {ex.Message}");
+                return false;
+            }
+        }
+
+        public List<DisplayDTO> GetEmployeesWithResetRequests()
+        {
+            var employees = new List<DisplayDTO>();
+
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = @"SELECT * FROM accounts 
+                               WHERE Password_Reset_Requested = 1 
+                               AND Status = 'ACTIVE'
+                               AND Role != 'OWNER'";
+
+                using var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var display = new DisplayDTO
+                    {
+                        PrimaryID = reader.GetInt32("ID").ToString(),
+                        FirstName = reader.GetString("First_Name"),
+                        MiddleName = reader.GetString("Middle_Name"),
+                        LastName = reader.GetString("Last_Name"),
+                        PhoneNumber = reader.GetString("Phone_Number"),
+                        Email = reader.GetString("Email_Address"),
+                        EmergencyFirstName = reader.GetString("Emergency_First_Name"),
+                        EmergencyLastName = reader.GetString("Emergency_Last_Name"),
+                        EmergencyNumber = reader.GetString("Emergency_Number"),
+                        JobTitle = reader.GetString("Job_Title"),
+                        Salary = reader.GetDecimal("Salary").ToString("F2"),
+                        Role = reader.GetString("Role"),
+                        Department = reader.GetString("Department"),
+                        EmploymentType = reader.GetString("EmploymentType"),
+                        Status = reader.GetString("Status"),
+                        ProfilePicturePath = reader.IsDBNull(
+                            reader.GetOrdinal("Profile_Picture_Path"))
+                            ? null
+                            : reader.GetString("Profile_Picture_Path")
+                    };
+
+                    employees.Add(display);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (GetEmployeesWithResetRequests): {ex.Message}");
+            }
+
+            return employees;
+        }
+
+        public void ApproveResetRequest(int employeeId, int approvedByAdminId)
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                var defaultPasswordResult = LogicHelpers.GenerateDefaultPassword();
+                string defaultHash = defaultPasswordResult.hash;
+                string defaultSalt = defaultPasswordResult.salt;
+
+                command.CommandText = @"UPDATE accounts 
+                               SET Password_Hash = @passwordHash,
+                                   Password_Salt = @passwordSalt,
+                                   Is_First_Login = 1,
+                                   Password_Reset_Requested = 0
+                               WHERE ID = @id";
+
+                command.Parameters.AddWithValue("@id", employeeId);
+                command.Parameters.AddWithValue("@passwordHash", defaultHash);
+                command.Parameters.AddWithValue("@passwordSalt", defaultSalt);
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (ApproveResetRequest): {ex.Message}");
+                throw;
+            }
+        }
+
+        public void RejectResetRequest(int employeeId, int rejectedByAdminId, string reason = "")
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = @"UPDATE accounts 
+                               SET Password_Reset_Requested = 0
+                               WHERE ID = @id";
+
+                command.Parameters.AddWithValue("@id", employeeId);
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (RejectResetRequest): {ex.Message}");
                 throw;
             }
         }

@@ -48,6 +48,9 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OwnerRegistration));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             label1 = new Label();
             label2 = new Label();
@@ -67,6 +70,8 @@
             nextButton = new Guna.UI2.WinForms.Guna2Button();
             cancelButton = new Guna.UI2.WinForms.Guna2Button();
             guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
+            hideButton = new Guna.UI2.WinForms.Guna2ImageButton();
+            hideButton2 = new Guna.UI2.WinForms.Guna2ImageButton();
             guna2Panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -282,7 +287,7 @@
             confirmPasswordTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             confirmPasswordTextBox.Font = new Font("Segoe UI", 9F);
             confirmPasswordTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            confirmPasswordTextBox.Location = new Point(398, 604);
+            confirmPasswordTextBox.Location = new Point(435, 604);
             confirmPasswordTextBox.Margin = new Padding(4, 5, 4, 5);
             confirmPasswordTextBox.Name = "confirmPasswordTextBox";
             confirmPasswordTextBox.PlaceholderText = "";
@@ -295,7 +300,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(398, 574);
+            label8.Location = new Point(435, 574);
             label8.Name = "label8";
             label8.Size = new Size(178, 25);
             label8.TabIndex = 13;
@@ -347,11 +352,43 @@
             guna2Separator1.Size = new Size(840, 20);
             guna2Separator1.TabIndex = 17;
             // 
+            // hideButton
+            // 
+            hideButton.CheckedState.ImageSize = new Size(64, 64);
+            hideButton.HoverState.ImageSize = new Size(64, 64);
+            hideButton.Image = (Image)resources.GetObject("hideButton.Image");
+            hideButton.ImageOffset = new Point(0, 0);
+            hideButton.ImageRotate = 0F;
+            hideButton.Location = new Point(377, 611);
+            hideButton.Name = "hideButton";
+            hideButton.PressedState.ImageSize = new Size(64, 64);
+            hideButton.ShadowDecoration.CustomizableEdges = customizableEdges21;
+            hideButton.Size = new Size(31, 31);
+            hideButton.TabIndex = 18;
+            hideButton.Click += hideButton_Click;
+            // 
+            // hideButton2
+            // 
+            hideButton2.CheckedState.ImageSize = new Size(64, 64);
+            hideButton2.HoverState.ImageSize = new Size(64, 64);
+            hideButton2.Image = (Image)resources.GetObject("hideButton2.Image");
+            hideButton2.ImageOffset = new Point(0, 0);
+            hideButton2.ImageRotate = 0F;
+            hideButton2.Location = new Point(775, 604);
+            hideButton2.Name = "hideButton2";
+            hideButton2.PressedState.ImageSize = new Size(64, 64);
+            hideButton2.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            hideButton2.Size = new Size(31, 31);
+            hideButton2.TabIndex = 19;
+            hideButton2.Click += hideButton2_Click;
+            // 
             // OwnerRegistration
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(840, 757);
+            Controls.Add(hideButton2);
+            Controls.Add(hideButton);
             Controls.Add(guna2Separator1);
             Controls.Add(cancelButton);
             Controls.Add(nextButton);
@@ -401,5 +438,7 @@
         private Guna.UI2.WinForms.Guna2Button nextButton;
         private Guna.UI2.WinForms.Guna2Button cancelButton;
         private Guna.UI2.WinForms.Guna2Separator guna2Separator1;
+        private Guna.UI2.WinForms.Guna2ImageButton hideButton;
+        private Guna.UI2.WinForms.Guna2ImageButton hideButton2;
     }
 }

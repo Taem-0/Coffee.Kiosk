@@ -6,7 +6,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
     {
 
         private static string[] tableCommands =
-        {
+{
             @"CREATE TABLE IF NOT EXISTS accounts (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 First_Name VARCHAR(100) NOT NULL,
@@ -29,7 +29,8 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 Profile_Picture_Path VARCHAR(255) NULL,
                 Password_Hash VARCHAR(255) NOT NULL,
                 Password_Salt VARCHAR(255) NOT NULL,
-                Is_First_Login BOOLEAN NOT NULL DEFAULT 1
+                Is_First_Login BOOLEAN NOT NULL DEFAULT 1,
+                Password_Reset_Requested BOOLEAN NOT NULL DEFAULT 0
             );",
 
 

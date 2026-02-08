@@ -83,9 +83,9 @@
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             label1.Location = new Point(17, 79);
             label1.Name = "label1";
-            label1.Size = new Size(175, 48);
+            label1.Size = new Size(376, 48);
             label1.TabIndex = 2;
-            label1.Text = "Accounts";
+            label1.Text = "Employee Dashboard";
             // 
             // guna2CustomGradientPanel1
             // 

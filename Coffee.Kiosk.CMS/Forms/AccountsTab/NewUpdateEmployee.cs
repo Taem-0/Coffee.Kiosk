@@ -63,6 +63,8 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             DeactivateButton.Enabled = _employee.Status != "DEACTIVATED" && _employee.Role != "Owner";
             DeactivateButton.Text = _employee.Status == "DEACTIVATED" ? "Deactivated" : "Deactivate";
 
+            SetupPasswordResetButton();
+
         }
 
         private void LoadEmployeeIntoForm()
@@ -338,6 +340,119 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             }
         }
 
+        private void acceptRequest_Click(object sender, EventArgs e)
+        {
+            // Check if this employee has a password reset request
+            bool hasPendingRequest = _controller.HasPendingResetRequest(int.Parse(_employee.PrimaryID));
 
+            if (!hasPendingRequest)
+            {
+                MessageBox.Show(
+                    "This employee does not have a pending password reset request.",
+                    "No Request Found",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                acceptRequest.Visible = false;
+                return;
+            }
+
+            // Ask for confirmation
+            var result = MessageBox.Show(
+                $"Approve password reset for {_employee.FirstName} {_employee.LastName}?\n\n" +
+                "This will reset their password to the default temporary password.\n" +
+                "They will need to change it on their next login.",
+                "Approve Password Reset",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result != DialogResult.Yes)
+                return;
+
+            try
+            {
+                // Reset password to default
+                // We'll call the controller's ApprovePasswordReset method
+                // This should handle resetting to default password
+                bool success = _controller.ApprovePasswordReset(
+                    int.Parse(_employee.PrimaryID),
+                    0 // Use 0 or get actual admin ID if needed
+                );
+
+                if (success)
+                {
+                    // Get the default temporary password
+                    string tempPassword = Coffee.Kiosk.CMS.Helpers.LogicHelpers.GetTemporaryPasswordDisplay();
+
+                    MessageBox.Show(
+                        $"Password reset approved!\n\n" +
+                        $"Employee: {_employee.FirstName} {_employee.LastName}\n" +
+                        $"Temporary Password: {tempPassword}\n\n" +
+                        "The employee will need to use this password on their next login.",
+                        "Reset Approved",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+
+                    // Update button to show it's been approved
+                    acceptRequest.Enabled = false;
+                    acceptRequest.Text = "Reset Approved";
+                    acceptRequest.FillColor = Color.Gray;
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Failed to approve password reset. Please try again.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error approving password reset: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void SetupPasswordResetButton()
+        {
+            // Hide button by default - we'll show it only under specific conditions
+            acceptRequest.Visible = false;
+
+            // Only show button if:
+            // 1. Employee is not an Owner (owners can change their own password)
+            // 2. Employee has a pending password reset request
+            // 3. Employee is active
+
+            if (_employee.Role == "Owner")
+            {
+                // Owners can change their own password, no reset needed
+                return;
+            }
+
+            if (_employee.Status != "ACTIVE")
+            {
+                // Inactive employees can't have password resets
+                return;
+            }
+
+            // Check if this employee has a pending password reset request
+            bool hasPendingRequest = _controller.HasPendingResetRequest(int.Parse(_employee.PrimaryID));
+
+            if (hasPendingRequest)
+            {
+                acceptRequest.Visible = true;
+                acceptRequest.Enabled = true;
+                acceptRequest.Text = "Approve Password Reset";
+                acceptRequest.FillColor = Color.Salmon;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Coffee.Kiosk.CMS.DTOs;
+using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
 using Coffee.Kiosk.CMS.Services;
 using System;
@@ -81,6 +82,89 @@ namespace Coffee.Kiosk.CMS.Controllers
         {
             public ValidationResults ValidationResults { get; set; }
             public Employee Employee { get; set; }
+        }
+
+        // Add to AccountController class
+
+        public bool ChangePassword(int employeeId, string newPassword, bool isFirstLogin = false)
+        {
+            try
+            {
+                return _service.ChangePassword(employeeId, newPassword, isFirstLogin);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool RequestPasswordReset(int employeeId)
+        {
+            try
+            {
+                // Check if there's already a pending request
+                bool hasPendingRequest = _service.HasPendingResetRequest(employeeId);
+
+                if (hasPendingRequest)
+                {
+                    return false; // Already has a pending request
+                }
+
+                // Submit new request
+                _service.SubmitPasswordResetRequest(employeeId);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public List<DisplayDTO> GetPasswordResetRequests()
+        {
+            return _service.GetEmployeesWithResetRequests();
+        }
+
+        public bool ApprovePasswordReset(int employeeId, int approvedByAdminId)
+        {
+            try
+            {
+                _service.ApproveResetRequest(employeeId, approvedByAdminId);
+
+                var tempPassword = LogicHelpers.GetTemporaryPasswordDisplay();
+                System.Diagnostics.Debug.WriteLine($"Password reset approved for employee {employeeId}. Temporary password: {tempPassword}");
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool RejectPasswordReset(int employeeId, int rejectedByAdminId, string reason = "")
+        {
+            try
+            {
+                _service.RejectResetRequest(employeeId, rejectedByAdminId, reason);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool HasPendingResetRequest(int employeeId)
+        {
+            try
+            {
+                return _service.HasPendingResetRequest(employeeId);
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

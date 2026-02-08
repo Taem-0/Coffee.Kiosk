@@ -63,7 +63,6 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
             label8.ForeColor = UIhelp.ThemeColors.TextColor;
             label8.BackColor = Color.Transparent;
 
-            // Apply theme to textboxes with a helper method
             ApplyThemeToTextBox(shopNameTextBox);
             ApplyThemeToTextBox(firstNameTextBox);
             ApplyThemeToTextBox(lastNameTextBox);
@@ -71,6 +70,11 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
             ApplyThemeToTextBox(emailAddTextBox);
             ApplyThemeToTextBox(passwordTextBox);
             ApplyThemeToTextBox(confirmPasswordTextBox);
+
+            passwordTextBox.UseSystemPasswordChar = true;
+            passwordTextBox.PasswordChar = '*';
+            confirmPasswordTextBox.UseSystemPasswordChar = true;
+            confirmPasswordTextBox.PasswordChar = '*';
 
             nextButton.FillColor = UIhelp.ThemeColors.ButtonColor;
             nextButton.ForeColor = Color.White;
@@ -95,15 +99,13 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
             textBox.FocusedState.BorderColor = UIhelp.ThemeColors.LightBrown;
             textBox.HoverState.BorderColor = UIhelp.ThemeColors.LightBrown;
 
-            // Set error colors
             textBox.DisabledState.BorderColor = UIhelp.ThemeColors.DisabledColor;
             textBox.DisabledState.FillColor = UIhelp.ThemeColors.DisabledColor;
         }
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            // DON'T clear all errors first - we need to show them!
-            // Validate all fields - this will show errors AND clear invalid input
+
             if (!ValidateAllFields())
                 return;
 
@@ -264,16 +266,13 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
 
         private void ShowError(Guna2TextBox textBox, string errorMessage, bool clearInput = false)
         {
-            // Set error text and style
             textBox.BorderColor = UIhelp.ThemeColors.ErrorColor;
             textBox.FocusedState.BorderColor = UIhelp.ThemeColors.ErrorColor;
             textBox.HoverState.BorderColor = UIhelp.ThemeColors.ErrorColor;
 
-            // Set the error message (this will show as placeholder when focused)
             textBox.PlaceholderText = errorMessage;
             textBox.PlaceholderForeColor = UIhelp.ThemeColors.ErrorColor;
 
-            // Clear the input if requested
             if (clearInput)
             {
                 textBox.Text = "";
@@ -293,14 +292,12 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
 
         private void ClearError(Guna2TextBox textBox)
         {
-            // Reset to normal theme colors
             textBox.BorderColor = UIhelp.ThemeColors.BorderColor;
             textBox.FocusedState.BorderColor = UIhelp.ThemeColors.LightBrown;
             textBox.HoverState.BorderColor = UIhelp.ThemeColors.LightBrown;
 
-            // Clear placeholder but keep the text
             textBox.PlaceholderText = "";
-            textBox.PlaceholderForeColor = Color.Gray; // Default placeholder color
+            textBox.PlaceholderForeColor = Color.Gray; 
         }
 
         private void ShowValidationErrors(ValidationResults result)
@@ -311,21 +308,21 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
                 {
                     case "first name":
                     case "firstname":
-                        ShowError(firstNameTextBox, error.Value, true); // Clear invalid first name
+                        ShowError(firstNameTextBox, error.Value, true); 
                         break;
                     case "last name":
                     case "lastname":
-                        ShowError(lastNameTextBox, error.Value, true); // Clear invalid last name
+                        ShowError(lastNameTextBox, error.Value, true); 
                         break;
                     case "email":
-                        ShowError(emailAddTextBox, error.Value, true); // Clear invalid email
+                        ShowError(emailAddTextBox, error.Value, true); 
                         break;
                     case "phone number":
                     case "phonenumber":
-                        ShowError(phoneNumberTextBox, error.Value, true); // Clear invalid phone
+                        ShowError(phoneNumberTextBox, error.Value, true);
                         break;
                     case "password":
-                        ShowError(passwordTextBox, error.Value, true); // Clear invalid password
+                        ShowError(passwordTextBox, error.Value, true); 
                         break;
                     default:
                         MessageBox.Show(error.Value, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -355,7 +352,6 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
 
         private void ValidateFields()
         {
-            // Clear real-time formatting errors first
             ClearAllErrors();
 
             bool isValid = !string.IsNullOrWhiteSpace(shopNameTextBox.Text) &&
@@ -368,7 +364,6 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
 
             nextButton.Enabled = isValid;
 
-            // Show real-time format validation WITHOUT clearing
             if (!string.IsNullOrWhiteSpace(emailAddTextBox.Text) && !IsValidEmail(emailAddTextBox.Text))
             {
                 emailAddTextBox.BorderColor = UIhelp.ThemeColors.ErrorColor;
@@ -403,5 +398,44 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
         private void phoneNumberTextBox_TextChanged(object sender, EventArgs e) => ValidateFields();
         private void passwordTextBox_TextChanged(object sender, EventArgs e) => ValidateFields();
         private void confirmPasswordTextBox_TextChanged(object sender, EventArgs e) => ValidateFields();
+
+        private bool _passwordVisible1 = false;
+        private bool _passwordVisible2 = false;
+
+        private void hideButton_Click(object sender, EventArgs e)
+        {
+            _passwordVisible1 = !_passwordVisible1;
+
+            if (_passwordVisible1)
+            {
+                passwordTextBox.UseSystemPasswordChar = false;
+                passwordTextBox.PasswordChar = '\0'; 
+                hideButton.Text = "Hide";
+            }
+            else
+            {
+                passwordTextBox.UseSystemPasswordChar = true;
+                passwordTextBox.PasswordChar = '*'; 
+                hideButton.Text = "Show";
+            }
+        }
+
+        private void hideButton2_Click(object sender, EventArgs e)
+        {
+            _passwordVisible2 = !_passwordVisible2;
+
+            if (_passwordVisible2)
+            {
+                confirmPasswordTextBox.UseSystemPasswordChar = false;
+                confirmPasswordTextBox.PasswordChar = '\0'; 
+                hideButton2.Text = "Hide";
+            }
+            else
+            {
+                confirmPasswordTextBox.UseSystemPasswordChar = true;
+                confirmPasswordTextBox.PasswordChar = '*'; 
+                hideButton2.Text = "Show";
+            }
+        }
     }
 }
