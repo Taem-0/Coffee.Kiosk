@@ -1,6 +1,7 @@
 ﻿Imports System.Linq
 Public Class HomePageControl
     Private cart As New List(Of OrderItem)
+    Private orderCounter As Integer = 0
     Private Sub HomePageControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         OrderList.ReadOnly = True
         OrderList.BorderStyle = BorderStyle.FixedSingle
@@ -22,6 +23,32 @@ Public Class HomePageControl
         MenuPanel.Controls.Clear()
         MenuPanel.Controls.Add(customize)
     End Sub
+    Public Sub OpenMealCustomize(meal As MealItem)
+        Dim customize As New MealsCustomizeControl()
+        customize.LoadMeal(meal)
+        customize.Dock = DockStyle.Fill
+        AddHandler customize.OrderAdded, AddressOf AddOrderToCart
+        AddHandler customize.RequestBackToMenu, AddressOf ShowMealsMenu
+        MenuPanel.Controls.Clear()
+        MenuPanel.Controls.Add(customize)
+    End Sub
+    Public Sub AddSimpleItem(item As SimpleItem)
+        Dim qtyInput As String = InputBox($"Enter quantity for {item.Name}:", "Quantity", "1")
+        If String.IsNullOrEmpty(qtyInput) Then Return
+        Dim qty As Decimal
+        If Not Decimal.TryParse(qtyInput, qty) OrElse qty <= 0 Then
+            MessageBox.Show("Invalid quantity.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+        Dim order As New OrderItem With {
+            .ItemName = item.Name,
+            .ItemType = item.ItemType,
+            .Quantity = qty,
+            .BasePrice = item.Price,
+            .TotalPrice = item.Price * qty
+        }
+        AddOrderToCart(order)
+    End Sub
     Private Sub ShowDrinksMenu()
         Dim drinksMenu As New DrinksMenuControl()
         drinksMenu.Dock = DockStyle.Fill
@@ -29,33 +56,35 @@ Public Class HomePageControl
         MenuPanel.Controls.Clear()
         MenuPanel.Controls.Add(drinksMenu)
     End Sub
+    Private Sub ShowMealsMenu()
+        Dim mealsMenu As New MealsMenuControl()
+        mealsMenu.Dock = DockStyle.Fill
+        AddHandler mealsMenu.MealSelected, AddressOf OpenMealCustomize
+        MenuPanel.Controls.Clear()
+        MenuPanel.Controls.Add(mealsMenu)
+    End Sub
+    Private Sub ShowPastryMenu()
+        Dim pastryMenu As New PastryMenuControl()
+        pastryMenu.Dock = DockStyle.Fill
+        AddHandler pastryMenu.PastrySelected, AddressOf AddSimpleItem
+        MenuPanel.Controls.Clear()
+        MenuPanel.Controls.Add(pastryMenu)
+    End Sub
+    Private Sub ShowSnacksMenu()
+        Dim snacksMenu As New SnacksMenuControl()
+        snacksMenu.Dock = DockStyle.Fill
+        AddHandler snacksMenu.SnackSelected, AddressOf AddSimpleItem
+        MenuPanel.Controls.Clear()
+        MenuPanel.Controls.Add(snacksMenu)
+    End Sub
     Public Sub AddOrderToCart(order As OrderItem)
+        orderCounter += 1
+        order.OrderNumber = orderCounter
         cart.Add(order)
-        If OrderList.Text.Length > 0 Then
-            OrderList.AppendText(vbCrLf & "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" & vbCrLf & vbCrLf)
-        End If
-        Dim text = order.ToDisplayText()
-        Dim parts = text.Split(New String() {"[BOLD]", "[/BOLD]"}, StringSplitOptions.None)
-        For i As Integer = 0 To parts.Length - 1
-            If i Mod 2 = 1 Then
-                Dim start = OrderList.TextLength
-                OrderList.AppendText(parts(i))
-                OrderList.Select(start, parts(i).Length)
-                OrderList.SelectionFont = New Font("Courier New", 9, FontStyle.Bold)
-            Else
-                OrderList.AppendText(parts(i))
-            End If
-        Next
-        OrderList.Select(OrderList.TextLength, 0)
+        RefreshOrderList()
         UpdateTotal()
     End Sub
-    Private Sub UpdateTotal()
-        Dim total As Decimal = cart.Sum(Function(o) o.TotalPrice)
-        lblTotal.Text = "TOTAL: ₱" & total.ToString("0.00")
-    End Sub
-    Private Sub btnRemoveOrder_Click(sender As Object, e As EventArgs) Handles btnRemoveOrder.Click
-        If cart.Count = 0 Then Return
-        cart.RemoveAt(cart.Count - 1)
+    Private Sub RefreshOrderList()
         OrderList.Clear()
         For i As Integer = 0 To cart.Count - 1
             If i > 0 Then OrderList.AppendText(vbCrLf & "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" & vbCrLf & vbCrLf)
@@ -73,7 +102,32 @@ Public Class HomePageControl
             Next
         Next
         OrderList.Select(OrderList.TextLength, 0)
+    End Sub
+    Private Sub UpdateTotal()
+        Dim total As Decimal = cart.Sum(Function(o) o.TotalPrice)
+        lblTotal.Text = "TOTAL: ₱" & total.ToString("0.00")
+    End Sub
+    Private Sub btnRemoveOrder_Click(sender As Object, e As EventArgs) Handles btnRemoveOrder.Click
+        If cart.Count = 0 Then
+            MessageBox.Show("No orders to remove.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+        Dim orderNum As String = InputBox("Enter Order Number to Remove:", "Remove Order", "")
+        If String.IsNullOrEmpty(orderNum) Then Return
+        Dim num As Integer
+        If Not Integer.TryParse(orderNum, num) Then
+            MessageBox.Show("Invalid order number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+        Dim orderToRemove = cart.FirstOrDefault(Function(o) o.OrderNumber = num)
+        If orderToRemove Is Nothing Then
+            MessageBox.Show($"Order #{num} not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+        cart.Remove(orderToRemove)
+        RefreshOrderList()
         UpdateTotal()
+        MessageBox.Show($"Order #{num} removed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
     Private Sub ShowMenu(ctrl As UserControl)
         txtSearch.Text = ""
@@ -94,23 +148,19 @@ Public Class HomePageControl
     End Sub
 
     Private Sub btnDrinks_Click(sender As Object, e As EventArgs) Handles btnDrinks.Click
-        Dim drinksMenu As New DrinksMenuControl()
-        drinksMenu.Dock = DockStyle.Fill
-        AddHandler drinksMenu.DrinkSelected, AddressOf OpenDrinkCustomize
-        MenuPanel.Controls.Clear()
-        MenuPanel.Controls.Add(drinksMenu)
+        ShowDrinksMenu()
     End Sub
 
     Private Sub btnPastry_Click(sender As Object, e As EventArgs) Handles btnPastry.Click
-        ShowMenu(New PastryMenuControl())
+        ShowPastryMenu()
     End Sub
 
     Private Sub btnSnacks_Click(sender As Object, e As EventArgs) Handles btnSnacks.Click
-        ShowMenu(New SnacksMenuControl())
+        ShowSnacksMenu()
     End Sub
 
     Private Sub btnMeals_Click(sender As Object, e As EventArgs) Handles btnMeals.Click
-        ShowMenu(New MealsMenuControl())
+        ShowMealsMenu()
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged

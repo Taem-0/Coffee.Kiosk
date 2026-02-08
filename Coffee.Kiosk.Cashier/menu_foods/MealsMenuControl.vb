@@ -1,8 +1,7 @@
 ﻿Public Class MealsMenuControl
-
+    Public Event MealSelected(meal As MealItem)
     Private Sub MealsMenuControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FlpMenu.Controls.Clear()
-
         LoadAllDayBreakfast()
         LoadRiceMeals()
         LoadBurgers()
@@ -48,7 +47,6 @@
 
     Private Sub AddMeal(mealName As String, price As Integer)
         Dim btn As New Button()
-
         btn.Width = 205
         btn.Height = 66
         btn.Text = mealName & vbCrLf & "₱" & price
@@ -58,14 +56,19 @@
         btn.FlatStyle = FlatStyle.Flat
         btn.FlatAppearance.BorderSize = 0
         btn.Font = New Font("Segoe UI", 10, FontStyle.Bold)
-
         AddHandler btn.Click, AddressOf Meal_Click
         FlpMenu.Controls.Add(btn)
     End Sub
 
     Private Sub Meal_Click(sender As Object, e As EventArgs)
-        Dim btn As Button = CType(sender, Button)
-        MessageBox.Show(btn.Text)
+        Dim btn As Button = DirectCast(sender, Button)
+        Dim mealName As String = btn.Text.Split(vbCrLf)(0)
+        Dim price As Decimal = CDec(btn.Tag)
+        Dim meal As New MealItem With {
+            .Name = mealName,
+            .BasePrice = price
+        }
+        RaiseEvent MealSelected(meal)
     End Sub
 
 End Class

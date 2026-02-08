@@ -1,8 +1,8 @@
 ﻿Public Class PastryMenuControl
 
+    Public Event PastrySelected(pastry As SimpleItem)
     Private Sub PastryMenuControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FlpMenu.Controls.Clear()
-
         LoadBreadAndCroissants()
         LoadCakes()
         LoadCookiesAndBars()
@@ -52,7 +52,6 @@
 
     Private Sub AddPastry(pastryName As String, price As Integer)
         Dim btn As New Button()
-
         btn.Width = 205
         btn.Height = 66
         btn.Text = pastryName & vbCrLf & "₱" & price
@@ -62,14 +61,20 @@
         btn.FlatStyle = FlatStyle.Flat
         btn.FlatAppearance.BorderSize = 0
         btn.Font = New Font("Segoe UI", 10, FontStyle.Bold)
-
         AddHandler btn.Click, AddressOf Pastry_Click
         FlpMenu.Controls.Add(btn)
     End Sub
 
     Private Sub Pastry_Click(sender As Object, e As EventArgs)
-        Dim btn As Button = CType(sender, Button)
-        MessageBox.Show(btn.Text)
+        Dim btn As Button = DirectCast(sender, Button)
+        Dim pastryName As String = btn.Text.Split(vbCrLf)(0)
+        Dim price As Decimal = CDec(btn.Tag)
+        Dim pastry As New SimpleItem With {
+            .Name = pastryName,
+            .Price = price,
+            .ItemType = "Pastry"
+        }
+        RaiseEvent PastrySelected(pastry)
     End Sub
 
 End Class
