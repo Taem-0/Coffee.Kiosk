@@ -1,4 +1,6 @@
-﻿namespace Coffee.Kiosk
+﻿using Coffee.Kiosk.CMS.Controllers;
+
+namespace Coffee.Kiosk
 {
     partial class AdminControlForm
     {
@@ -32,58 +34,71 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminControlForm));
             AdminFormHamburger = new MaterialSkin.Controls.MaterialTabControl();
             DashBoard = new TabPage();
+            AdminContentPanel = new Panel();
             tabAccounts = new TabPage();
             AccountsContentPanel = new Panel();
-            tabPage1 = new TabPage();
-            tabPage3 = new TabPage();
+            Kiosk = new TabPage();
+            orderingSystem1 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.OrderingSystemMainControl();
+            Customizations = new TabPage();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
             AdminHamburgerIcons = new ImageList(components);
             AdminFormHamburger.SuspendLayout();
+            DashBoard.SuspendLayout();
             tabAccounts.SuspendLayout();
+            Kiosk.SuspendLayout();
             SuspendLayout();
             // 
             // AdminFormHamburger
             // 
             AdminFormHamburger.Controls.Add(DashBoard);
             AdminFormHamburger.Controls.Add(tabAccounts);
-            AdminFormHamburger.Controls.Add(tabPage1);
-            AdminFormHamburger.Controls.Add(tabPage3);
+            AdminFormHamburger.Controls.Add(Kiosk);
+            AdminFormHamburger.Controls.Add(Customizations);
             AdminFormHamburger.Controls.Add(tabPage4);
             AdminFormHamburger.Controls.Add(tabPage5);
             AdminFormHamburger.Depth = 0;
             AdminFormHamburger.Dock = DockStyle.Fill;
             AdminFormHamburger.ImageList = AdminHamburgerIcons;
-            AdminFormHamburger.Location = new Point(2, 51);
-            AdminFormHamburger.Margin = new Padding(2, 2, 2, 2);
+            AdminFormHamburger.Location = new Point(2, 64);
+            AdminFormHamburger.Margin = new Padding(2);
             AdminFormHamburger.MouseState = MaterialSkin.MouseState.HOVER;
             AdminFormHamburger.Multiline = true;
             AdminFormHamburger.Name = "AdminFormHamburger";
             AdminFormHamburger.SelectedIndex = 0;
-            AdminFormHamburger.Size = new Size(716, 427);
+            AdminFormHamburger.Size = new Size(896, 534);
             AdminFormHamburger.TabIndex = 0;
             // 
             // DashBoard
             // 
+            DashBoard.Controls.Add(AdminContentPanel);
             DashBoard.ImageKey = "Icon_Admin.png";
             DashBoard.Location = new Point(4, 41);
-            DashBoard.Margin = new Padding(2, 2, 2, 2);
+            DashBoard.Margin = new Padding(2);
             DashBoard.Name = "DashBoard";
-            DashBoard.Padding = new Padding(2, 2, 2, 2);
-            DashBoard.Size = new Size(708, 382);
+            DashBoard.Padding = new Padding(2);
+            DashBoard.Size = new Size(888, 489);
             DashBoard.TabIndex = 0;
             DashBoard.Text = "Admin";
             DashBoard.UseVisualStyleBackColor = true;
+            // 
+            // AdminContentPanel
+            // 
+            AdminContentPanel.Dock = DockStyle.Fill;
+            AdminContentPanel.Location = new Point(2, 2);
+            AdminContentPanel.Name = "AdminContentPanel";
+            AdminContentPanel.Size = new Size(884, 485);
+            AdminContentPanel.TabIndex = 0;
             // 
             // tabAccounts
             // 
             tabAccounts.Controls.Add(AccountsContentPanel);
             tabAccounts.ImageKey = "user-management-svgrepo-com.png";
             tabAccounts.Location = new Point(4, 41);
-            tabAccounts.Margin = new Padding(2, 2, 2, 2);
+            tabAccounts.Margin = new Padding(2);
             tabAccounts.Name = "tabAccounts";
-            tabAccounts.Padding = new Padding(2, 2, 2, 2);
-            tabAccounts.Size = new Size(708, 382);
+            tabAccounts.Padding = new Padding(2);
+            tabAccounts.Size = new Size(888, 489);
             tabAccounts.TabIndex = 1;
             tabAccounts.Text = "Accounts";
             tabAccounts.UseVisualStyleBackColor = true;
@@ -92,37 +107,48 @@
             // 
             AccountsContentPanel.Dock = DockStyle.Fill;
             AccountsContentPanel.Location = new Point(2, 2);
-            AccountsContentPanel.Margin = new Padding(2, 2, 2, 2);
+            AccountsContentPanel.Margin = new Padding(2);
             AccountsContentPanel.Name = "AccountsContentPanel";
-            AccountsContentPanel.Size = new Size(704, 378);
+            AccountsContentPanel.Size = new Size(884, 485);
             AccountsContentPanel.TabIndex = 1;
             // 
-            // tabPage1
+            // Kiosk
             // 
-            tabPage1.Location = new Point(4, 41);
-            tabPage1.Margin = new Padding(2, 2, 2, 2);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(708, 382);
-            tabPage1.TabIndex = 2;
-            tabPage1.Text = "MockUp";
-            tabPage1.UseVisualStyleBackColor = true;
+            Kiosk.Controls.Add(orderingSystem1);
+            Kiosk.ImageKey = "CART (1)(1).png";
+            Kiosk.Location = new Point(4, 41);
+            Kiosk.Margin = new Padding(2);
+            Kiosk.Name = "Kiosk";
+            Kiosk.Size = new Size(888, 489);
+            Kiosk.TabIndex = 2;
+            Kiosk.Text = "Kiosk";
+            Kiosk.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // orderingSystem1
             // 
-            tabPage3.Location = new Point(4, 41);
-            tabPage3.Margin = new Padding(2, 2, 2, 2);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(707, 381);
-            tabPage3.TabIndex = 3;
-            tabPage3.Text = "MockUp";
-            tabPage3.UseVisualStyleBackColor = true;
+            orderingSystem1.Dock = DockStyle.Fill;
+            orderingSystem1.Location = new Point(0, 0);
+            orderingSystem1.Margin = new Padding(5);
+            orderingSystem1.Name = "orderingSystem1";
+            orderingSystem1.Size = new Size(888, 489);
+            orderingSystem1.TabIndex = 0;
+            // 
+            // Customizations
+            // 
+            Customizations.Location = new Point(4, 41);
+            Customizations.Margin = new Padding(2);
+            Customizations.Name = "Customizations";
+            Customizations.Size = new Size(888, 489);
+            Customizations.TabIndex = 3;
+            Customizations.Text = "Customizations";
+            Customizations.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
             tabPage4.Location = new Point(4, 41);
-            tabPage4.Margin = new Padding(2, 2, 2, 2);
+            tabPage4.Margin = new Padding(2);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(707, 381);
+            tabPage4.Size = new Size(888, 489);
             tabPage4.TabIndex = 4;
             tabPage4.Text = "MockUp";
             tabPage4.UseVisualStyleBackColor = true;
@@ -130,9 +156,9 @@
             // tabPage5
             // 
             tabPage5.Location = new Point(4, 41);
-            tabPage5.Margin = new Padding(2, 2, 2, 2);
+            tabPage5.Margin = new Padding(2);
             tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(707, 381);
+            tabPage5.Size = new Size(888, 489);
             tabPage5.TabIndex = 5;
             tabPage5.Text = "MockUp";
             tabPage5.UseVisualStyleBackColor = true;
@@ -144,23 +170,26 @@
             AdminHamburgerIcons.TransparentColor = Color.Transparent;
             AdminHamburgerIcons.Images.SetKeyName(0, "Icon_Admin.png");
             AdminHamburgerIcons.Images.SetKeyName(1, "user-management-svgrepo-com.png");
+            AdminHamburgerIcons.Images.SetKeyName(2, "CART (1)(1).png");
             // 
             // AdminControlForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(720, 480);
+            ClientSize = new Size(900, 600);
             Controls.Add(AdminFormHamburger);
             DrawerShowIconsWhenHidden = true;
             DrawerTabControl = AdminFormHamburger;
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "AdminControlForm";
-            Padding = new Padding(2, 51, 2, 2);
-            Text = "Form1";
+            Padding = new Padding(2, 64, 2, 2);
+            Text = "CMS";
             WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             AdminFormHamburger.ResumeLayout(false);
+            DashBoard.ResumeLayout(false);
             tabAccounts.ResumeLayout(false);
+            Kiosk.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -170,10 +199,13 @@
         private TabPage DashBoard;
         private TabPage tabAccounts;
         private ImageList AdminHamburgerIcons;
-        private TabPage tabPage1;
-        private TabPage tabPage3;
+        private TabPage Kiosk;
+        private TabPage Customizations;
         private TabPage tabPage4;
         private TabPage tabPage5;
+        private CMS.Forms.OrderingSystemTab.OrderingSystemMainControl orderingSystem1;
+        private Panel AdminContentPanel;
         private Panel AccountsContentPanel;
+        private CMS.Forms.AccountsTab.NewEmployeeView newEmployeeView1;
     }
 }

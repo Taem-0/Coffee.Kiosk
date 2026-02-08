@@ -29,30 +29,57 @@
         private void InitializeComponent()
         {
             flowProducts = new FlowLayoutPanel();
+            panel1 = new Panel();
+            label1 = new Label();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // flowProducts
             // 
             flowProducts.AutoScroll = true;
             flowProducts.Dock = DockStyle.Fill;
-            flowProducts.Location = new Point(0, 0);
+            flowProducts.Location = new Point(0, 39);
             flowProducts.Name = "flowProducts";
             flowProducts.Padding = new Padding(0, 25, 0, 0);
-            flowProducts.Size = new Size(495, 573);
+            flowProducts.Size = new Size(495, 458);
             flowProducts.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(label1);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(495, 39);
+            panel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.Dock = DockStyle.Fill;
+            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(495, 39);
+            label1.TabIndex = 0;
+            label1.Text = "Menu";
+            label1.TextAlign = ContentAlignment.BottomCenter;
             // 
             // CategoryPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(flowProducts);
+            Controls.Add(panel1);
             Name = "CategoryPage";
-            Size = new Size(495, 573);
+            Size = new Size(495, 497);
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private FlowLayoutPanel flowProducts;
+        private Panel panel1;
+        private Label label1;
     }
 }

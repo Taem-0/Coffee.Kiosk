@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form2
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form2
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         lvOrderNum = New ListView()
         Label1 = New Label()
@@ -41,13 +41,13 @@ Partial Class Form2
         ' 
         ' lvOrderNum
         ' 
-        lvOrderNum.BackColor = Color.OldLace
-        lvOrderNum.Font = New Font("Arial Rounded MT Bold", 24.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lvOrderNum.Location = New Point(70, 109)
-        lvOrderNum.Name = "lvOrderNum"
-        lvOrderNum.Size = New Size(460, 836)
-        lvOrderNum.TabIndex = 0
-        lvOrderNum.UseCompatibleStateImageBehavior = False
+        ListView1.BackColor = Color.OldLace
+        ListView1.Font = New Font("Arial Rounded MT Bold", 24.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        ListView1.Location = New Point(70, 109)
+        ListView1.Name = "ListView1"
+        ListView1.Size = New Size(460, 836)
+        ListView1.TabIndex = 0
+        ListView1.UseCompatibleStateImageBehavior = False
         ' 
         ' Label1
         ' 
@@ -169,7 +169,8 @@ Partial Class Form2
         Controls.Add(Label2)
         Controls.Add(FlowLayoutPanel1)
         Controls.Add(Label1)
-        Controls.Add(lvOrderNum)
+        Controls.Add(ListView1)
+        Controls.Add(FlowLayoutPanel1)
         Name = "Form2"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Form2"

@@ -1,97 +1,147 @@
-﻿using Coffee.Kiosk.CMS.DTOs;
+﻿using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
-
 
 namespace Coffee.Kiosk.CMS.CoffeeKDB
 {
     public class AccountDBManager
     {
-
         private readonly string _connectionString;
 
         public AccountDBManager(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("Database")
-                ?? throw new InvalidOperationException("Connection string 'Default' is missing in appsettings.json.");
+                ?? throw new InvalidOperationException(
+                    "Connection string 'Database' is missing in appsettings.json.");
         }
-
 
         public void PostEmployee(Employee employee)
         {
             using var connection = DBhelper.CreateConnection(_connectionString);
             using var command = connection.CreateCommand();
+
             try
             {
                 command.CommandText = @"INSERT INTO accounts
-                                              (Full_Name, 
-                                               Phone_Number, 
-                                               Email_Address, 
-                                               Emergency_Contact, 
-                                               Job_Title, 
-                                               Salary, 
-                                               Status)
-                                        VALUES(@fullName, 
-                                               @phoneNumber, 
-                                               @emailAddress, 
-                                               @emergencyContact, 
-                                               @jobTitle, 
-                                               @salary, 
-                                               @status)";
+                    (First_Name,
+                     Middle_Name,
+                     Last_Name,
+                     Phone_Number,
+                     Email_Address,
+                     Emergency_First_Name,
+                     Emergency_Last_Name,
+                     Emergency_Number,
+                     Job_Title,
+                     Salary,
+                     Role,
+                     Department,
+                     EmploymentType,
+                     Profile_Picture_Path,
+                     Password_Hash,
+                     Password_Salt,
+                     Is_First_Login,
+                     Status)
+                VALUES
+                    (@firstName,
+                     @middleName,
+                     @lastName,
+                     @phoneNumber,
+                     @emailAddress,
+                     @emergencyFirstName,
+                     @emergencyLastName,
+                     @emergencyNumber,
+                     @jobTitle,
+                     @salary,
+                     @role,
+                     @department,
+                     @employmentType,
+                     @profilePicturePath,
+                     @passwordHash,
+                     @passwordSalt,
+                     @isFirstLogin,
+                     @status)";
 
-                command.Parameters.AddWithValue("@fullName", employee.FullName);
+                command.Parameters.AddWithValue("@firstName", employee.FirstName);
+                command.Parameters.AddWithValue("@middleName", employee.MiddleName);
+                command.Parameters.AddWithValue("@lastName", employee.LastName);
                 command.Parameters.AddWithValue("@phoneNumber", employee.PhoneNumber);
                 command.Parameters.AddWithValue("@emailAddress", employee.Email);
-                command.Parameters.AddWithValue("@emergencyContact", employee.EmergencyNumber);
+                command.Parameters.AddWithValue("@emergencyFirstName", employee.EmergencyFirstName);
+                command.Parameters.AddWithValue("@emergencyLastName", employee.EmergencyLastName);
+                command.Parameters.AddWithValue("@emergencyNumber", employee.EmergencyNumber);
                 command.Parameters.AddWithValue("@jobTitle", employee.JobTitle);
                 command.Parameters.AddWithValue("@salary", employee.Salary);
+                command.Parameters.AddWithValue("@role", employee.Role.ToString());
+                command.Parameters.AddWithValue("@department", employee.Department.ToString());
+                command.Parameters.AddWithValue("@employmentType", employee.EmploymentType.ToString());
+                command.Parameters.AddWithValue(
+                    "@profilePicturePath",
+                    (object?)employee.ProfilePicturePath ?? DBNull.Value);
+                command.Parameters.AddWithValue("@passwordHash", employee.PasswordHash);
+                command.Parameters.AddWithValue("@passwordSalt", employee.PasswordSalt);
+                command.Parameters.AddWithValue("@isFirstLogin", employee.IsFirstLogin);
                 command.Parameters.AddWithValue("@status", employee.Status.ToString());
 
-                int rowsAffected = command.ExecuteNonQuery();
-
-
-
+                command.ExecuteNonQuery();
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"ERROR: {ex.Message}");
+                Console.WriteLine($"ERROR (PostEmployee): {ex.Message}");
+                throw;
             }
-
         }
 
         public void UpdateEmployee(Employee employee)
         {
             using var connection = DBhelper.CreateConnection(_connectionString);
             using var command = connection.CreateCommand();
+
             try
             {
                 command.CommandText = @"UPDATE accounts
-                                              SET Full_Name = @fullName,
-                                                  Phone_Number = @phoneNumber,
-                                                  Email_Address = @emailAddress,
-                                                  Emergency_Contact = @emergencyContact,
-                                                  Job_Title = @jobTitle,
-                                                  Salary = @salary
-                                              WHERE 
-                                                  ID = @id";
-           
-                command.Parameters.AddWithValue("@fullName", employee.FullName);
+                    SET First_Name = @firstName,
+                        Middle_Name = @middleName,
+                        Last_Name = @lastName,
+                        Phone_Number = @phoneNumber,
+                        Email_Address = @emailAddress,
+                        Emergency_First_Name = @emergencyFirstName,
+                        Emergency_Last_Name = @emergencyLastName,
+                        Emergency_Number = @emergencyNumber,
+                        Job_Title = @jobTitle,
+                        Salary = @salary,
+                        Role = @role,
+                        Department = @department,
+                        EmploymentType = @employmentType,
+                        Profile_Picture_Path = @profilePicturePath,
+                        Is_First_Login = @isFirstLogin
+                    WHERE ID = @id";
+
+                command.Parameters.AddWithValue("@id", employee.Id);
+                command.Parameters.AddWithValue("@firstName", employee.FirstName);
+                command.Parameters.AddWithValue("@middleName", employee.MiddleName);
+                command.Parameters.AddWithValue("@lastName", employee.LastName);
                 command.Parameters.AddWithValue("@phoneNumber", employee.PhoneNumber);
                 command.Parameters.AddWithValue("@emailAddress", employee.Email);
-                command.Parameters.AddWithValue("@emergencyContact", employee.EmergencyNumber);
+                command.Parameters.AddWithValue("@emergencyFirstName", employee.EmergencyFirstName);
+                command.Parameters.AddWithValue("@emergencyLastName", employee.EmergencyLastName);
+                command.Parameters.AddWithValue("@emergencyNumber", employee.EmergencyNumber);
                 command.Parameters.AddWithValue("@jobTitle", employee.JobTitle);
                 command.Parameters.AddWithValue("@salary", employee.Salary);
-                command.Parameters.AddWithValue("@id", employee.Id);
+                command.Parameters.AddWithValue("@role", employee.Role.ToString());
+                command.Parameters.AddWithValue("@department", employee.Department.ToString());
+                command.Parameters.AddWithValue("@employmentType", employee.EmploymentType.ToString());
+                command.Parameters.AddWithValue(
+                    "@profilePicturePath",
+                    (object?)employee.ProfilePicturePath ?? DBNull.Value);
+                command.Parameters.AddWithValue("@isFirstLogin", employee.IsFirstLogin);
 
-                int rowsAffected = command.ExecuteNonQuery();
-
-
+                command.ExecuteNonQuery();
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"ERROR: {ex.Message}");
-
+                Console.WriteLine($"ERROR (UpdateEmployee): {ex.Message}");
+                throw;
             }
         }
 
@@ -99,36 +149,35 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
         {
             using var connection = DBhelper.CreateConnection(_connectionString);
             using var command = connection.CreateCommand();
+
             try
             {
-
                 command.CommandText = @"UPDATE accounts
-                                              SET Status = @status
-                                              WHERE 
-                                                  ID = @id";
+                                        SET Status = @status
+                                        WHERE ID = @id";
 
                 command.Parameters.AddWithValue("@status", employee.Status.ToString());
                 command.Parameters.AddWithValue("@id", employee.Id);
 
-                int rowsAffected = command.ExecuteNonQuery();
-
+                command.ExecuteNonQuery();
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"ERROR: {ex.Message}");
+                Console.WriteLine($"ERROR (DeactivateEmployee): {ex.Message}");
             }
         }
 
         public List<Employee> GetEmployees()
         {
-
-            List<Employee> tableData = [];
+            var tableData = new List<Employee>();
 
             using var connection = DBhelper.CreateConnection(_connectionString);
             using var command = connection.CreateCommand();
+
             try
             {
-                command.CommandText = @"SELECT * FROM accounts WHERE Status = 'ACTIVE'";
+                command.CommandText =
+                    @"SELECT * FROM accounts WHERE Status = 'ACTIVE'";
 
                 using var reader = command.ExecuteReader();
 
@@ -136,16 +185,99 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                     return tableData;
 
                 ReadData(reader, tableData);
-
-
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"ERROR: {ex.Message}");
+                Console.WriteLine($"ERROR (GetEmployees): {ex.Message}");
             }
 
             return tableData;
+        }
 
+        public Employee ValidateLogin(string email, string password)
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = @"SELECT * FROM accounts 
+                              WHERE Email_Address = @email 
+                              AND Status = 'ACTIVE'";
+
+                command.Parameters.AddWithValue("@email", email);
+
+                using var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var storedHash = reader.GetString("Password_Hash");
+                    var storedSalt = reader.GetString("Password_Salt");
+
+                    if (LogicHelpers.VerifyPassword(password, storedHash, storedSalt))
+                    {
+                        return new Employee
+                        {
+                            Id = reader.GetInt32("ID"),
+                            FirstName = reader.GetString("First_Name"),
+                            MiddleName = reader.GetString("Middle_Name"),
+                            LastName = reader.GetString("Last_Name"),
+                            PhoneNumber = reader.GetString("Phone_Number"),
+                            Email = reader.GetString("Email_Address"),
+                            EmergencyFirstName = reader.GetString("Emergency_First_Name"),
+                            EmergencyLastName = reader.GetString("Emergency_Last_Name"),
+                            EmergencyNumber = reader.GetString("Emergency_Number"),
+                            JobTitle = reader.GetString("Job_Title"),
+                            Salary = reader.GetDecimal("Salary"),
+                            Role = Enum.Parse<AccountRole>(reader.GetString("Role")),
+                            Department = Enum.Parse<Department>(reader.GetString("Department")),
+                            EmploymentType = Enum.Parse<EmploymentType>(reader.GetString("EmploymentType")),
+                            ProfilePicturePath = reader.IsDBNull(
+                                reader.GetOrdinal("Profile_Picture_Path"))
+                                ? null
+                                : reader.GetString("Profile_Picture_Path"),
+                            PasswordHash = storedHash,
+                            PasswordSalt = storedSalt,
+                            IsFirstLogin = reader.GetBoolean("Is_First_Login"),
+                            Status = Enum.Parse<AccountStatus>(reader.GetString("Status"))
+                        };
+                    }
+                }
+
+                return null;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (ValidateLogin): {ex.Message}");
+                return null;
+            }
+        }
+
+        public void UpdatePassword(int employeeId, string newPasswordHash, string newPasswordSalt, bool resetFirstLogin = false)
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = @"UPDATE accounts
+                    SET Password_Hash = @passwordHash,
+                        Password_Salt = @passwordSalt,
+                        Is_First_Login = @isFirstLogin
+                    WHERE ID = @id";
+
+                command.Parameters.AddWithValue("@id", employeeId);
+                command.Parameters.AddWithValue("@passwordHash", newPasswordHash);
+                command.Parameters.AddWithValue("@passwordSalt", newPasswordSalt);
+                command.Parameters.AddWithValue("@isFirstLogin", resetFirstLogin);
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (UpdatePassword): {ex.Message}");
+                throw;
+            }
         }
 
         private void ReadData(MySqlDataReader reader, List<Employee> tableData)
@@ -154,20 +286,30 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             {
                 tableData.Add(new Employee
                 {
-                    
-                    Id = reader.GetInt32(0),
-                    FullName = reader.GetString(1),
-                    PhoneNumber = reader.GetString(2),
-                    Email = reader.GetString(3),
-                    EmergencyNumber = reader.GetString(4),
-                    JobTitle = reader.GetString(5),
-                    Salary = reader.GetDecimal(6),
+                    Id = reader.GetInt32("ID"),
+                    FirstName = reader.GetString("First_Name"),
+                    MiddleName = reader.GetString("Middle_Name"),
+                    LastName = reader.GetString("Last_Name"),
+                    PhoneNumber = reader.GetString("Phone_Number"),
+                    Email = reader.GetString("Email_Address"),
+                    EmergencyFirstName = reader.GetString("Emergency_First_Name"),
+                    EmergencyLastName = reader.GetString("Emergency_Last_Name"),
+                    EmergencyNumber = reader.GetString("Emergency_Number"),
+                    JobTitle = reader.GetString("Job_Title"),
+                    Salary = reader.GetDecimal("Salary"),
+                    Role = Enum.Parse<AccountRole>(reader.GetString("Role")),
+                    Department = Enum.Parse<Department>(reader.GetString("Department")),
+                    EmploymentType = Enum.Parse<EmploymentType>(reader.GetString("EmploymentType")),
+                    ProfilePicturePath = reader.IsDBNull(
+                        reader.GetOrdinal("Profile_Picture_Path"))
+                        ? null
+                        : reader.GetString("Profile_Picture_Path"),
+                    PasswordHash = reader.GetString("Password_Hash"),
+                    PasswordSalt = reader.GetString("Password_Salt"),
+                    IsFirstLogin = reader.GetBoolean("Is_First_Login"),
                     Status = Enum.Parse<AccountStatus>(reader.GetString("Status"))
-
                 });
             }
         }
-
-
     }
 }

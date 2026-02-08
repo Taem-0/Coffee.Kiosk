@@ -1,26 +1,36 @@
 ﻿using Coffee.Kiosk.CMS.DTOs;
 
-
 namespace Coffee.Kiosk.CMS.Models
 {
     public class RegistrationValidation : AccountBaseValidations
     {
-
-        public ValidationResults Validate (RegistrationDTO request)
+        public ValidationResults Validate(RegistrationDTO request)
         {
-            var resullt = new ValidationResults();
+            var result = new ValidationResults();
 
-            ValidateFullName(request.FullName, resullt, true);
-            ValidatePhoneNumber(request.PhoneNumber, resullt, true);
-            ValidateEmail(request.Email, resullt, true);
-            ValidateEmergencyNumber(request.EmergencyNumber, resullt, true);
-            ValidateJobTitle(request.JobTitle, resullt, true);
-            ValidateSalary(request.Salary, resullt, true);
+            ValidateName(request.FirstName, "First Name", result, true);
+            ValidateName(request.MiddleName, "Middle Name", result, false);
+            ValidateName(request.LastName, "Last Name", result, true);
 
-            return resullt;
+            ValidatePhoneNumber(request.PhoneNumber, result, false, "Phone Number");
+            ValidateEmail(request.Email, result, true);
 
+            ValidateEmergencyContact(
+                request.EmergencyFirstName,
+                request.EmergencyLastName,
+                request.EmergencyNumber,
+                result,
+                false
+            );
+
+            ValidateJobTitle(request.JobTitle, result, true);
+            ValidateSalary(request.Salary, result, true);
+
+            ValidateEnum(request.Role, "Role", result);
+            ValidateEnum(request.Department, "Department", result);
+            ValidateEnum(request.EmploymentType, "Employment Type", result);
+
+            return result;
         }
-        
-
     }
 }
