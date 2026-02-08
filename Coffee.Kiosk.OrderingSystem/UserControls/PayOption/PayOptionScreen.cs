@@ -14,6 +14,8 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
     public partial class PayOptionScreen : UserControl
     {
         internal event Action? BackButtonClicked;
+        internal event Action? PaymentChoiceClicked;
+        public Models.Orders.TypeOfPayment paymentChoice;
         public PayOptionScreen()
         {
             InitializeComponent();
@@ -40,6 +42,18 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         private void BackButton2_Click(object sender, EventArgs e)
         {
             BackButtonClicked?.Invoke();
+        }
+
+        private void PayCashBtn_Click(object sender, EventArgs e)
+        {
+            paymentChoice = Models.Orders.TypeOfPayment.Cash;
+            PaymentChoiceClicked?.Invoke();
+        }
+
+        private void PayGcashBtn_Click(object sender, EventArgs e)
+        {
+            paymentChoice = Models.Orders.TypeOfPayment.Gcash;
+            PaymentChoiceClicked?.Invoke();
         }
     }
 }

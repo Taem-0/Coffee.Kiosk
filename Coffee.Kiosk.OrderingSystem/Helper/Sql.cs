@@ -1,11 +1,19 @@
 ﻿using Coffee.Kiosk.OrderingSystem.Models;
+using MaterialSkin;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
+using MySqlX.XDevAPI.Relational;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
+using static Coffee.Kiosk.OrderingSystem.Models.Product;
+using static Mysqlx.Expect.Open.Types.Condition.Types;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Coffee.Kiosk.OrderingSystem.Sql
 {
@@ -75,8 +83,85 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 SortBy INT NOT NULL,
                 FOREIGN KEY (GroupId) REFERENCES modifier_group(ID) ON DELETE CASCADE,
                 FOREIGN KEY (InventoryItemId) REFERENCES inventory_item(ID)
-                );"
+                );",
+
+            //@"CREATE TABLE customer_orders (
+            //    ID INT AUTO_INCREMENT PRIMARY KEY,
+            //    OrderType ENUM('DineIn','TakeOut') NOT NULL,
+            //    CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            //    TotalAmount DECIMAL(10,2) NOT NULL,
+            //    OrderSummary JSON,
+            //    Status ENUM('Pending','Paid','Cancelled') NOT NULL DEFAULT 'Pending'
+            //    );",
+
+            //@"CREATE TABLE customer_order_item (
+            //    ID INT AUTO_INCREMENT PRIMARY KEY,
+            //    OrderId INT NOT NULL,
+            //    ProductId INT NOT NULL,
+            //    ProductName VARCHAR(255) NOT NULL,
+            //    UnitPrice DECIMAL(10,2) NOT NULL,
+            //    Quantity INT NOT NULL,
+            //    ImagePath VARCHAR(255),
+            //    FOREIGN KEY (OrderId) REFERENCES customer_orders(ID) ON DELETE CASCADE,
+            //    FOREIGN KEY (ProductId) REFERENCES product(ID)
+            //    );"
+
+            //@"CREATE TABLE customer_order_item_modifier (
+            //    ID INT AUTO_INCREMENT PRIMARY KEY,
+            //    OrderItemId INT NOT NULL,
+            //    ModifierGroupId INT NOT NULL,
+            //    ModifierOptionId INT NOT NULL,
+            //    ModifierName VARCHAR(100) NOT NULL,
+            //    PriceDelta DECIMAL(10,2) NOT NULL,
+            //    FOREIGN KEY (OrderItemId) REFERENCES customer_order_item(ID) ON DELETE CASCADE,
+            //    FOREIGN KEY (ModifierGroupId) REFERENCES modifier_group(ID),
+            //    FOREIGN KEY (ModifierOptionId) REFERENCES modifier_option(ID)
+            //    );"
         };
+
+        // OrderSummary Json format :
+        //{
+        //  "items": [
+        //    {
+        //      "productId": 1,
+        //      "productName": "Americano",
+        //      "basePrice": 120.00,
+        //      "quantity": 2,
+        //      "modifiers": [
+        //        {
+        //          "groupId": 1,
+        //          "groupName": "Size",
+        //          "optionId": 2,
+        //          "optionName": "Large",
+        //          "priceDelta": 30.00
+        //        },
+        //        {
+        //          "groupId": 2,
+        //          "groupName": "Sugar",
+        //          "optionId": [5],
+        //          "optionName": "[Muscovado]",
+        //          "priceDelta": 3.00
+        //        }
+        //      ],
+        //      "itemTotal": 306.00
+        //    },
+        //      "productId": 2,
+        //      "productName": "Stuff",
+        //      "basePrice": 120.00,
+        //      "quantity": 1,
+        //      "modifiers": [
+        //        {
+        //          "groupId": 1,
+        //          "groupName": "Size",
+        //          "optionId": [2, 3],
+        //          "optionName": "[stuff1, stuff2]",
+        //          "priceDelta": 30.00
+        //        },
+        //      ],
+        //      "itemTotal": 306.00
+        //  ],
+        //  "subtotal": 306.00
+        //}
 
                 
 

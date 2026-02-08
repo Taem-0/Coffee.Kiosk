@@ -1,4 +1,5 @@
-﻿using Coffee.Kiosk.OrderingSystem.Helper;
+﻿using Coffee.Kiosk.OrderingSystem.Forms;
+using Coffee.Kiosk.OrderingSystem.Helper;
 using Coffee.Kiosk.OrderingSystem.UserControls;
 using MaterialSkin.Controls;
 using System;
@@ -53,10 +54,6 @@ namespace Coffee.Kiosk.OrderingSystem
             """;
             LoadCategories();
             ShowHome();
-        }
-        private void guna2Button1_Click(object sender, EventArgs e)
-        {
-            StartOverClicked?.Invoke();
         }
         private void LoadCategories()
         {
@@ -168,7 +165,17 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             ViewOrderClicked?.Invoke();
         }
-
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            using (var confirm = new ConfirmRemove("Start Over?"))
+            {
+                var result = confirm.ShowDialog();
+                if (result == DialogResult.Yes)
+                {
+                    StartOverClicked?.Invoke();
+                }
+            }
+        }
 
         // --------------------------------------------------------------------------
 

@@ -54,7 +54,14 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             DineIn,
             TakeOut
         }
+        public enum TypeOfPayment
+        {
+            Cash,
+            Gcash
+        }
+
         public TypeOfOrder Type;
+        public TypeOfPayment paymentType;
         public List<OrderItem> Items = new();
 
         public void AddOrMergeItem(OrderItem newItem)

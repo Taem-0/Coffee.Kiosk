@@ -46,9 +46,9 @@
             panel7 = new Panel();
             BackButton2 = new Guna.UI2.WinForms.Guna2Button();
             panel4 = new Panel();
-            PayWithGcashBtn = new Guna.UI2.WinForms.Guna2Button();
+            PayGcashBtn = new Guna.UI2.WinForms.Guna2Button();
             panel5 = new Panel();
-            guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
+            PayCashBtn = new Guna.UI2.WinForms.Guna2Button();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel8.SuspendLayout();
@@ -67,7 +67,7 @@
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(676, 345);
+            panel1.Size = new Size(700, 345);
             panel1.TabIndex = 3;
             // 
             // panel3
@@ -77,7 +77,7 @@
             panel3.Location = new Point(0, 84);
             panel3.MinimumSize = new Size(426, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(676, 261);
+            panel3.Size = new Size(700, 261);
             panel3.TabIndex = 3;
             // 
             // panel8
@@ -134,7 +134,7 @@
             panel2.Location = new Point(0, 345);
             panel2.MinimumSize = new Size(0, 510);
             panel2.Name = "panel2";
-            panel2.Size = new Size(676, 510);
+            panel2.Size = new Size(700, 510);
             panel2.TabIndex = 4;
             // 
             // panel6
@@ -178,38 +178,39 @@
             // 
             // panel4
             // 
-            panel4.Controls.Add(PayWithGcashBtn);
+            panel4.Controls.Add(PayGcashBtn);
             panel4.Controls.Add(panel5);
-            panel4.Controls.Add(guna2Button2);
+            panel4.Controls.Add(PayCashBtn);
             panel4.Location = new Point(0, 0);
             panel4.Margin = new Padding(0);
             panel4.Name = "panel4";
             panel4.Size = new Size(554, 280);
             panel4.TabIndex = 6;
             // 
-            // PayWithGcashBtn
+            // PayGcashBtn
             // 
-            PayWithGcashBtn.BorderRadius = 17;
-            PayWithGcashBtn.BorderThickness = 1;
-            PayWithGcashBtn.CustomizableEdges = customizableEdges3;
-            PayWithGcashBtn.DisabledState.BorderColor = Color.DarkGray;
-            PayWithGcashBtn.DisabledState.CustomBorderColor = Color.DarkGray;
-            PayWithGcashBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            PayWithGcashBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            PayWithGcashBtn.Dock = DockStyle.Left;
-            PayWithGcashBtn.FillColor = Color.White;
-            PayWithGcashBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            PayWithGcashBtn.ForeColor = Color.Black;
-            PayWithGcashBtn.Image = Properties.Resources.PayWithGcash;
-            PayWithGcashBtn.ImageOffset = new Point(0, 125);
-            PayWithGcashBtn.ImageSize = new Size(300, 300);
-            PayWithGcashBtn.Location = new Point(301, 0);
-            PayWithGcashBtn.Name = "PayWithGcashBtn";
-            PayWithGcashBtn.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            PayWithGcashBtn.Size = new Size(250, 280);
-            PayWithGcashBtn.TabIndex = 4;
-            PayWithGcashBtn.Text = "Pay Using Gcash";
-            PayWithGcashBtn.Tile = true;
+            PayGcashBtn.BorderRadius = 17;
+            PayGcashBtn.BorderThickness = 1;
+            PayGcashBtn.CustomizableEdges = customizableEdges3;
+            PayGcashBtn.DisabledState.BorderColor = Color.DarkGray;
+            PayGcashBtn.DisabledState.CustomBorderColor = Color.DarkGray;
+            PayGcashBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            PayGcashBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            PayGcashBtn.Dock = DockStyle.Left;
+            PayGcashBtn.FillColor = Color.White;
+            PayGcashBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            PayGcashBtn.ForeColor = Color.Black;
+            PayGcashBtn.Image = Properties.Resources.PayWithGcash;
+            PayGcashBtn.ImageOffset = new Point(0, 125);
+            PayGcashBtn.ImageSize = new Size(300, 300);
+            PayGcashBtn.Location = new Point(301, 0);
+            PayGcashBtn.Name = "PayGcashBtn";
+            PayGcashBtn.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            PayGcashBtn.Size = new Size(250, 280);
+            PayGcashBtn.TabIndex = 4;
+            PayGcashBtn.Text = "Pay Using Gcash";
+            PayGcashBtn.Tile = true;
+            PayGcashBtn.Click += PayGcashBtn_Click;
             // 
             // panel5
             // 
@@ -220,29 +221,30 @@
             panel5.Size = new Size(51, 280);
             panel5.TabIndex = 3;
             // 
-            // guna2Button2
+            // PayCashBtn
             // 
-            guna2Button2.BorderRadius = 17;
-            guna2Button2.BorderThickness = 1;
-            guna2Button2.CustomizableEdges = customizableEdges5;
-            guna2Button2.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button2.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button2.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button2.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button2.Dock = DockStyle.Left;
-            guna2Button2.FillColor = Color.White;
-            guna2Button2.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button2.ForeColor = Color.Black;
-            guna2Button2.Image = Properties.Resources.PayCash;
-            guna2Button2.ImageOffset = new Point(0, 125);
-            guna2Button2.ImageSize = new Size(300, 300);
-            guna2Button2.Location = new Point(0, 0);
-            guna2Button2.Name = "guna2Button2";
-            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2Button2.Size = new Size(250, 280);
-            guna2Button2.TabIndex = 5;
-            guna2Button2.Text = "Pay Cash";
-            guna2Button2.Tile = true;
+            PayCashBtn.BorderRadius = 17;
+            PayCashBtn.BorderThickness = 1;
+            PayCashBtn.CustomizableEdges = customizableEdges5;
+            PayCashBtn.DisabledState.BorderColor = Color.DarkGray;
+            PayCashBtn.DisabledState.CustomBorderColor = Color.DarkGray;
+            PayCashBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            PayCashBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            PayCashBtn.Dock = DockStyle.Left;
+            PayCashBtn.FillColor = Color.White;
+            PayCashBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            PayCashBtn.ForeColor = Color.Black;
+            PayCashBtn.Image = Properties.Resources.PayCash;
+            PayCashBtn.ImageOffset = new Point(0, 125);
+            PayCashBtn.ImageSize = new Size(300, 300);
+            PayCashBtn.Location = new Point(0, 0);
+            PayCashBtn.Name = "PayCashBtn";
+            PayCashBtn.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            PayCashBtn.Size = new Size(250, 280);
+            PayCashBtn.TabIndex = 5;
+            PayCashBtn.Text = "Pay Cash";
+            PayCashBtn.Tile = true;
+            PayCashBtn.Click += PayCashBtn_Click;
             // 
             // PayOptionScreen
             // 
@@ -253,7 +255,7 @@
             Controls.Add(panel1);
             MinimumSize = new Size(0, 855);
             Name = "PayOptionScreen";
-            Size = new Size(676, 855);
+            Size = new Size(700, 855);
             Load += PayOptionScreen_Load;
             Resize += PayOptionScreen_Resize;
             panel1.ResumeLayout(false);
@@ -275,9 +277,9 @@
         private PictureBox CompanyLogo;
         private Panel panel2;
         private Panel panel4;
-        private Guna.UI2.WinForms.Guna2Button PayWithGcashBtn;
+        private Guna.UI2.WinForms.Guna2Button PayGcashBtn;
         private Panel panel5;
-        private Guna.UI2.WinForms.Guna2Button guna2Button2;
+        private Guna.UI2.WinForms.Guna2Button PayCashBtn;
         private Panel panel3;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Panel panel6;

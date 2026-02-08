@@ -59,7 +59,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         {
             if (item.Quantity <= 1 || remove)
             {
-                using (var confirm = new ConfirmRemove())
+                using (var confirm = new ConfirmRemove($"Remove Item {item.ProductName}?"))
                 {
                     var result = confirm.ShowDialog();
                     if (result == DialogResult.Yes)
@@ -127,7 +127,15 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 
         private void StarvOverBtn_Click(object sender, EventArgs e)
         {
-            StartOverClicked?.Invoke();
+
+            using (var confirm = new ConfirmRemove("Start Over?"))
+            {
+                var result = confirm.ShowDialog();
+                if (result == DialogResult.Yes)
+                {
+                    StartOverClicked?.Invoke();
+                }
+            }
         }
 
         private void checkOutBtn_Click(object sender, EventArgs e)

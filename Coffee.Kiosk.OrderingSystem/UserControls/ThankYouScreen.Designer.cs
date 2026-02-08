@@ -1,6 +1,6 @@
 ﻿namespace Coffee.Kiosk.OrderingSystem.UserControls
 {
-    partial class ReceiptScreen
+    partial class ThankYouScreen
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,8 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            SuspendLayout();
+            // 
+            // ThankYouScreen
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Name = "ThankYouScreen";
+            Size = new Size(700, 855);
+            ResumeLayout(false);
         }
 
         #endregion

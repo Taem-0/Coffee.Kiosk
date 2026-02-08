@@ -39,6 +39,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
         {
             ProductId = productId;
             _ProductName = name;
+            Amount = 1;
 
             pictureBox1.Image = UI_Images.loadImageFromFile(ImagePath);
             ProductNameLbl.Text = name;

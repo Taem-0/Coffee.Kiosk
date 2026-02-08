@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Coffee.Kiosk.OrderingSystem.UserControls
+namespace Coffee.Kiosk.OrderingSystem.UserControls.PayOption
 {
-    public partial class ReceiptScreen : UserControl
+    public partial class ReceiptGcashScreen : UserControl
     {
-        public ReceiptScreen()
+        public ReceiptGcashScreen()
         {
             InitializeComponent();
         }

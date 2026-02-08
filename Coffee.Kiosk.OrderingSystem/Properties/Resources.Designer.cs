@@ -63,6 +63,16 @@ namespace Coffee.Kiosk.OrderingSystem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Art_Whale_PH_GCash_QR_Code_New {
+            get {
+                object obj = ResourceManager.GetObject("Art-Whale-PH-GCash-QR-Code-New", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cafe_Brand_Web_Banner_Design {
             get {
                 object obj = ResourceManager.GetObject("Cafe Brand Web Banner Design", resourceCulture);
@@ -153,6 +163,16 @@ namespace Coffee.Kiosk.OrderingSystem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Long {
+            get {
+                object obj = ResourceManager.GetObject("Long", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PayCash {
             get {
                 object obj = ResourceManager.GetObject("PayCash", resourceCulture);
@@ -166,6 +186,26 @@ namespace Coffee.Kiosk.OrderingSystem.Properties {
         internal static System.Drawing.Bitmap PayWithGcash {
             get {
                 object obj = ResourceManager.GetObject("PayWithGcash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PayWithGcash1 {
+            get {
+                object obj = ResourceManager.GetObject("PayWithGcash1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Short {
+            get {
+                object obj = ResourceManager.GetObject("Short", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

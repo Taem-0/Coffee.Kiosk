@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coffee.Kiosk.OrderingSystem.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,10 @@ namespace Coffee.Kiosk.OrderingSystem.Forms
 {
     public partial class ConfirmRemove : Form
     {
-        public ConfirmRemove()
+        public ConfirmRemove(string dialog)
         {
             InitializeComponent();
+            label1.Text = dialog;
         }
 
         private void NoBtn_Click(object sender, EventArgs e)
@@ -27,6 +29,16 @@ namespace Coffee.Kiosk.OrderingSystem.Forms
         {
             this.DialogResult = DialogResult.Yes;
             this.Close();
+        }
+
+        private void ConfirmRemove_Load(object sender, EventArgs e)
+        {
+            UI_Handling.centerPanel(panel2, label1);
+        }
+
+        private void ConfirmRemove_Resize(object sender, EventArgs e)
+        {
+            UI_Handling.centerPanel(panel2, label1);
         }
     }
 }

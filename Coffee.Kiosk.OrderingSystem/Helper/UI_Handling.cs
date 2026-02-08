@@ -117,6 +117,11 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             if (widthDivideBy != 0) innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;
             if (heightDivideBy != 0) innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
         }
+        internal static void centerPanel(Form outerPanel, Label innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
+        {
+            if (widthDivideBy != 0) innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;
+            if (heightDivideBy != 0) innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
+        }
 
         internal static void centerPanel(
             UserControl outerPanel,

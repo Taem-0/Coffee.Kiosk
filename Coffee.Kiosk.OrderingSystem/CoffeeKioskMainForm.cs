@@ -1,10 +1,12 @@
 using Coffee.Kiosk.OrderingSystem.Helper;
 using Coffee.Kiosk.OrderingSystem.Sql;
 using Coffee.Kiosk.OrderingSystem.UserControls;
+using Coffee.Kiosk.OrderingSystem.UserControls.PayOption;
 using Coffee.Kiosk.OrderingSystem.UserControls.Reusables;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.Extensions.Configuration;
+using QuestPDF.Fluent;
 using System;
 using System.Configuration;
 using System.Drawing;
@@ -23,6 +25,8 @@ namespace Coffee.Kiosk.OrderingSystem
         private KioskMenu? kioskMenu;
         private ViewOrder? viewOrder;
         private PayOptionScreen? payOptionScreen;
+        private ReceiptScreen? receiptScreen;
+        private ReceiptGcashScreen? receiptGcashScreen;
 
         private ModalScreen? modalScreen;
 
@@ -72,7 +76,6 @@ namespace Coffee.Kiosk.OrderingSystem
                 modalMainScreen.Size = modalScreenOriginalSize;
             }
         }
-
 
 
         private void ShowGetStartedScreen()
@@ -149,8 +152,44 @@ namespace Coffee.Kiosk.OrderingSystem
             {
                 payOptionScreen = new PayOptionScreen();
                 payOptionScreen.BackButtonClicked += ShowViewOrder;
+                payOptionScreen.PaymentChoiceClicked += () =>
+                {
+                    currentOrder ??= new Models.Orders();
+                    currentOrder.paymentType = payOptionScreen.paymentChoice;
+                    ShowReceiptScreen(currentOrder.paymentType);
+                };
             }
             UI_Handling.loadUserControl(mainPanel, payOptionScreen);
+        }
+
+        private async void ShowReceiptScreen(Models.Orders.TypeOfPayment typeOfPayment)
+        {
+            if (typeOfPayment == Models.Orders.TypeOfPayment.Cash)
+            {
+                if (receiptScreen == null)
+                {
+                    receiptScreen = new ReceiptScreen();
+                    receiptScreen.ResetRequested += ShowThankYouScreen;
+                }
+                UI_Handling.loadUserControl(mainPanel, receiptScreen);
+                await Task.Delay(3000);
+                receiptScreen.StartResetCountdown(10);
+            }
+            else
+            {
+                if (receiptGcashScreen == null)
+                {
+                    receiptGcashScreen = new ReceiptGcashScreen();
+                }
+                UI_Handling.loadUserControl(mainPanel, receiptGcashScreen);
+            }
+            QPdfGen.GenerateReceiptPdf(currentOrder!, "Kiosk_Receipt.pdf");
+        }
+
+        private void ShowThankYouScreen()
+        {
+            //TODO
+            FinishOrder();
         }
 
 
@@ -216,11 +255,18 @@ namespace Coffee.Kiosk.OrderingSystem
             }
             modalScreen?.Dispose();
             viewOrder?.Dispose();
+            payOptionScreen?.Dispose();
+            receiptScreen?.Dispose();
+            receiptGcashScreen?.Dispose();
+
 
             getStartedScreen = null;
             dineInTakeOut = null;
             modalScreen = null;
             viewOrder = null;
+            payOptionScreen = null;
+            receiptScreen = null;
+            receiptGcashScreen = null;
 
             currentOrder = null;
 
