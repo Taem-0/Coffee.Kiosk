@@ -40,10 +40,10 @@ namespace Coffee.Kiosk
             Kiosk = new TabPage();
             orderingSystem1 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.OrderingSystemMainControl();
             Customizations = new TabPage();
-            tabPage4 = new TabPage();
+            settingsContentPanel = new Panel();
+            Settings = new TabPage();
             tabPage5 = new TabPage();
             AdminHamburgerIcons = new ImageList(components);
-            customizationsContentPanel = new Panel();
             AdminFormHamburger.SuspendLayout();
             DashBoard.SuspendLayout();
             tabAccounts.SuspendLayout();
@@ -57,7 +57,7 @@ namespace Coffee.Kiosk
             AdminFormHamburger.Controls.Add(tabAccounts);
             AdminFormHamburger.Controls.Add(Kiosk);
             AdminFormHamburger.Controls.Add(Customizations);
-            AdminFormHamburger.Controls.Add(tabPage4);
+            AdminFormHamburger.Controls.Add(Settings);
             AdminFormHamburger.Controls.Add(tabPage5);
             AdminFormHamburger.Depth = 0;
             AdminFormHamburger.Dock = DockStyle.Fill;
@@ -137,7 +137,7 @@ namespace Coffee.Kiosk
             // 
             // Customizations
             // 
-            Customizations.Controls.Add(customizationsContentPanel);
+            Customizations.Controls.Add(settingsContentPanel);
             Customizations.Location = new Point(4, 41);
             Customizations.Margin = new Padding(2);
             Customizations.Name = "Customizations";
@@ -146,15 +146,24 @@ namespace Coffee.Kiosk
             Customizations.Text = "Customizations";
             Customizations.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // settingsContentPanel
             // 
-            tabPage4.Location = new Point(4, 41);
-            tabPage4.Margin = new Padding(2);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(888, 489);
-            tabPage4.TabIndex = 4;
-            tabPage4.Text = "MockUp";
-            tabPage4.UseVisualStyleBackColor = true;
+            settingsContentPanel.Dock = DockStyle.Fill;
+            settingsContentPanel.Location = new Point(0, 0);
+            settingsContentPanel.Margin = new Padding(2);
+            settingsContentPanel.Name = "settingsContentPanel";
+            settingsContentPanel.Size = new Size(888, 489);
+            settingsContentPanel.TabIndex = 2;
+            // 
+            // Settings
+            // 
+            Settings.Location = new Point(4, 41);
+            Settings.Margin = new Padding(2);
+            Settings.Name = "Settings";
+            Settings.Size = new Size(888, 489);
+            Settings.TabIndex = 4;
+            Settings.Text = "Settings";
+            Settings.UseVisualStyleBackColor = true;
             // 
             // tabPage5
             // 
@@ -174,15 +183,6 @@ namespace Coffee.Kiosk
             AdminHamburgerIcons.Images.SetKeyName(0, "Icon_Admin.png");
             AdminHamburgerIcons.Images.SetKeyName(1, "user-management-svgrepo-com.png");
             AdminHamburgerIcons.Images.SetKeyName(2, "CART (1)(1).png");
-            // 
-            // customizationsContentPanel
-            // 
-            customizationsContentPanel.Dock = DockStyle.Fill;
-            customizationsContentPanel.Location = new Point(0, 0);
-            customizationsContentPanel.Margin = new Padding(2);
-            customizationsContentPanel.Name = "customizationsContentPanel";
-            customizationsContentPanel.Size = new Size(888, 489);
-            customizationsContentPanel.TabIndex = 2;
             // 
             // AdminControlForm
             // 
@@ -214,12 +214,12 @@ namespace Coffee.Kiosk
         private ImageList AdminHamburgerIcons;
         private TabPage Kiosk;
         private TabPage Customizations;
-        private TabPage tabPage4;
+        private TabPage Settings;
         private TabPage tabPage5;
         private CMS.Forms.OrderingSystemTab.OrderingSystemMainControl orderingSystem1;
         private Panel AdminContentPanel;
         private Panel AccountsContentPanel;
         private CMS.Forms.AccountsTab.NewEmployeeView newEmployeeView1;
-        private Panel customizationsContentPanel;
+        private Panel settingsContentPanel;
     }
 }

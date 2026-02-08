@@ -143,6 +143,48 @@ namespace Coffee.Kiosk.CMS.Services
             _dBManager.UpdateEmployee(employee);
         }
 
+
+        public void SubmitPasswordResetRequest(int employeeId)
+        {
+            _dBManager.SubmitPasswordResetRequest(employeeId);
+        }
+
+        public bool HasPendingResetRequest(int employeeId)
+        {
+            return _dBManager.HasPendingResetRequest(employeeId);
+        }
+
+        public List<DisplayDTO> GetEmployeesWithResetRequests()
+        {
+            return _dBManager.GetEmployeesWithResetRequests();
+        }
+
+        public void ApproveResetRequest(int employeeId, int approvedByAdminId)
+        {
+            _dBManager.ApproveResetRequest(employeeId, approvedByAdminId);
+        }
+
+        public void RejectResetRequest(int employeeId, int rejectedByAdminId, string reason = "")
+        {
+            _dBManager.RejectResetRequest(employeeId, rejectedByAdminId, reason);
+        }
+
+        public bool ChangePassword(int employeeId, string newPassword, bool isFirstLogin = false)
+        {
+            try
+            {
+                string salt = LogicHelpers.GenerateSalt();
+                string hash = LogicHelpers.HashPassword(newPassword, salt);
+
+                _dBManager.UpdatePassword(employeeId, hash, salt, false);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public void Deactivate(DisplayDTO request)
         {
             var employee = new Employee
