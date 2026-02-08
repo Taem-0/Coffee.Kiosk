@@ -10,11 +10,11 @@ using Coffee.Kiosk.CMS.Services;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.Extensions.Configuration;
+
 namespace Coffee.Kiosk
 {
     public partial class AdminControlForm : MaterialForm
     {
-
         private RegisterControl registerControl;
         private NewestRegisterView registerView;
         private SecondNewestRegisterView secondNewestRegisterView;
@@ -22,21 +22,21 @@ namespace Coffee.Kiosk
         private UpdateAccount updateControl;
         private RegistrationValidation validator;
         private UpdateValidation updateValidation;
+        private LoginValidation loginValidation;
         private AccountsService service;
         private AccountController controller;
         private DashBoardControl dashBoardControl;
 
         private readonly Stack<UserControl> _navigationStack = new();
-
-
+        private Employee _currentEmployee;
         private readonly MaterialSkinManager materialSkinManager = null!;
 
-        public AdminControlForm()
+        public AdminControlForm(Employee employee)
         {
             InitializeComponent();
+            _currentEmployee = employee;
 
-            // change later
-            this.Text = $"Logged in as: ";
+            this.Text = $"Logged in as: {employee.FirstName} {employee.LastName}";
 
             materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -49,15 +49,14 @@ namespace Coffee.Kiosk
                 TextShade.WHITE
             );
 
-
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             var dbManager = new AccountDBManager(configuration);
 
-            //Dependency Injection: Initialize injections HERE.
             validator = new RegistrationValidation();
             updateValidation = new UpdateValidation();
+            loginValidation = new LoginValidation();
             service = new AccountsService(dbManager);
-            controller = new AccountController(validator, updateValidation, service);
+            controller = new AccountController(validator, updateValidation, service, loginValidation); 
 
             registerControl = new RegisterControl(controller);
             registerControl.ParentFormReference = this;
@@ -74,18 +73,13 @@ namespace Coffee.Kiosk
 
             dashBoardControl = new DashBoardControl(controller);
             dashBoardControl.ParentFormReference = this;
-
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             ShowInPanel(dashBoardControl, AdminContentPanel);
-            //ShowInPanel(employeesControl, AccountsContentPanel);
             ShowInPanel(newEmployeeView, AccountsContentPanel);
         }
-
-
 
         public void ShowInPanel(UserControl control, Panel panel)
         {
@@ -100,7 +94,7 @@ namespace Coffee.Kiosk
             }
 
             panel.Controls.Clear();
-            control.Dock = DockStyle.Fill; 
+            control.Dock = DockStyle.Fill;
             panel.Controls.Add(control);
 
             panel.ResumeLayout(true);
@@ -126,7 +120,5 @@ namespace Coffee.Kiosk
             var previous = _navigationStack.Pop();
             UIhelp.CallControl(previous, AccountsContentPanel);
         }
-
-        
     }
 }

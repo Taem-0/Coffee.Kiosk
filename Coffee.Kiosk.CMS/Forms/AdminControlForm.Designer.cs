@@ -39,14 +39,13 @@ namespace Coffee.Kiosk
             AccountsContentPanel = new Panel();
             Kiosk = new TabPage();
             orderingSystem1 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.OrderingSystemMainControl();
-            tabPage3 = new TabPage();
+            Customizations = new TabPage();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
             AdminHamburgerIcons = new ImageList(components);
             AdminFormHamburger.SuspendLayout();
             DashBoard.SuspendLayout();
             tabAccounts.SuspendLayout();
-            AccountsContentPanel.SuspendLayout();
             Kiosk.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,7 +54,7 @@ namespace Coffee.Kiosk
             AdminFormHamburger.Controls.Add(DashBoard);
             AdminFormHamburger.Controls.Add(tabAccounts);
             AdminFormHamburger.Controls.Add(Kiosk);
-            AdminFormHamburger.Controls.Add(tabPage3);
+            AdminFormHamburger.Controls.Add(Customizations);
             AdminFormHamburger.Controls.Add(tabPage4);
             AdminFormHamburger.Controls.Add(tabPage5);
             AdminFormHamburger.Depth = 0;
@@ -106,7 +105,6 @@ namespace Coffee.Kiosk
             // 
             // AccountsContentPanel
             // 
-            AccountsContentPanel.Controls.Add(newEmployeeView1);
             AccountsContentPanel.Dock = DockStyle.Fill;
             AccountsContentPanel.Location = new Point(2, 2);
             AccountsContentPanel.Margin = new Padding(2);
@@ -135,15 +133,15 @@ namespace Coffee.Kiosk
             orderingSystem1.Size = new Size(888, 489);
             orderingSystem1.TabIndex = 0;
             // 
-            // tabPage3
+            // Customizations
             // 
-            tabPage3.Location = new Point(4, 41);
-            tabPage3.Margin = new Padding(2);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(888, 489);
-            tabPage3.TabIndex = 3;
-            tabPage3.Text = "MockUp";
-            tabPage3.UseVisualStyleBackColor = true;
+            Customizations.Location = new Point(4, 41);
+            Customizations.Margin = new Padding(2);
+            Customizations.Name = "Customizations";
+            Customizations.Size = new Size(888, 489);
+            Customizations.TabIndex = 3;
+            Customizations.Text = "Customizations";
+            Customizations.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
@@ -191,7 +189,6 @@ namespace Coffee.Kiosk
             AdminFormHamburger.ResumeLayout(false);
             DashBoard.ResumeLayout(false);
             tabAccounts.ResumeLayout(false);
-            AccountsContentPanel.ResumeLayout(false);
             Kiosk.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -203,7 +200,7 @@ namespace Coffee.Kiosk
         private TabPage tabAccounts;
         private ImageList AdminHamburgerIcons;
         private TabPage Kiosk;
-        private TabPage tabPage3;
+        private TabPage Customizations;
         private TabPage tabPage4;
         private TabPage tabPage5;
         private CMS.Forms.OrderingSystemTab.OrderingSystemMainControl orderingSystem1;
