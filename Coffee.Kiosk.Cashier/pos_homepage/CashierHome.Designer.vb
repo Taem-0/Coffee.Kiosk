@@ -54,9 +54,9 @@ Partial Class CashierHome
         btnSettings.BackgroundImageLayout = ImageLayout.Zoom
         btnSettings.FlatStyle = FlatStyle.Flat
         btnSettings.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        btnSettings.Location = New Point(81, 473)
+        btnSettings.Location = New Point(38, 518)
         btnSettings.Name = "btnSettings"
-        btnSettings.Size = New Size(87, 80)
+        btnSettings.Size = New Size(162, 105)
         btnSettings.TabIndex = 4
         btnSettings.UseVisualStyleBackColor = False
         ' 
@@ -67,9 +67,9 @@ Partial Class CashierHome
         btnHistory.BackgroundImageLayout = ImageLayout.Zoom
         btnHistory.FlatStyle = FlatStyle.Flat
         btnHistory.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        btnHistory.Location = New Point(80, 356)
+        btnHistory.Location = New Point(29, 372)
         btnHistory.Name = "btnHistory"
-        btnHistory.Size = New Size(87, 80)
+        btnHistory.Size = New Size(183, 102)
         btnHistory.TabIndex = 3
         btnHistory.UseVisualStyleBackColor = False
         ' 
@@ -80,9 +80,9 @@ Partial Class CashierHome
         btnMenu.BackgroundImageLayout = ImageLayout.Zoom
         btnMenu.FlatStyle = FlatStyle.Flat
         btnMenu.ForeColor = Color.FromArgb(CByte(111), CByte(77), CByte(56))
-        btnMenu.Location = New Point(81, 244)
+        btnMenu.Location = New Point(53, 231)
         btnMenu.Name = "btnMenu"
-        btnMenu.Size = New Size(87, 80)
+        btnMenu.Size = New Size(145, 105)
         btnMenu.TabIndex = 2
         btnMenu.UseVisualStyleBackColor = False
         ' 

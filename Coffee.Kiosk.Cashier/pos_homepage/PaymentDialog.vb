@@ -2,7 +2,7 @@
     Private cart As List(Of OrderItem)
     Private totalAmount As Decimal
     Private staffName As String
-    Private completedOrder As OrderManager.CompletedOrder = Nothing
+    Private completedOrder As CompletedOrder = Nothing
 
     Public Property OrderCart As List(Of OrderItem)
         Get
@@ -171,7 +171,7 @@
         UpdateReceiptPreview()
     End Sub
 
-    Private Sub txtReferenceNumber_TextChanged(sender As Object, e As EventArgs) Handles txtReference.TextChanged
+    Private Sub txtReference_TextChanged(sender As Object, e As EventArgs) Handles txtReference.TextChanged
         UpdateReceiptPreview()
     End Sub
 
