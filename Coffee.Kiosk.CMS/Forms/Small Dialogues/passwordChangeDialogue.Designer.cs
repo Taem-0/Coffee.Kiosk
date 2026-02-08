@@ -28,16 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(passwordChangeDialogue));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             label3 = new Label();
             newPassTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             label2 = new Label();
@@ -47,6 +51,9 @@
             confirmPassTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             ConfirmButton = new Guna.UI2.WinForms.Guna2Button();
             cancelButton = new Guna.UI2.WinForms.Guna2Button();
+            hideButton = new Guna.UI2.WinForms.Guna2ImageButton();
+            hideButton2 = new Guna.UI2.WinForms.Guna2ImageButton();
+            hideButton3 = new Guna.UI2.WinForms.Guna2ImageButton();
             SuspendLayout();
             // 
             // label3
@@ -60,7 +67,7 @@
             // 
             // newPassTextBox
             // 
-            newPassTextBox.CustomizableEdges = customizableEdges11;
+            newPassTextBox.CustomizableEdges = customizableEdges1;
             newPassTextBox.DefaultText = "";
             newPassTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             newPassTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -74,7 +81,7 @@
             newPassTextBox.Name = "newPassTextBox";
             newPassTextBox.PlaceholderText = "";
             newPassTextBox.SelectedText = "";
-            newPassTextBox.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            newPassTextBox.ShadowDecoration.CustomizableEdges = customizableEdges2;
             newPassTextBox.Size = new Size(392, 55);
             newPassTextBox.TabIndex = 8;
             // 
@@ -89,7 +96,7 @@
             // 
             // oldPassTextBox
             // 
-            oldPassTextBox.CustomizableEdges = customizableEdges13;
+            oldPassTextBox.CustomizableEdges = customizableEdges3;
             oldPassTextBox.DefaultText = "";
             oldPassTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             oldPassTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -103,7 +110,7 @@
             oldPassTextBox.Name = "oldPassTextBox";
             oldPassTextBox.PlaceholderText = "";
             oldPassTextBox.SelectedText = "";
-            oldPassTextBox.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            oldPassTextBox.ShadowDecoration.CustomizableEdges = customizableEdges4;
             oldPassTextBox.Size = new Size(392, 55);
             oldPassTextBox.TabIndex = 6;
             // 
@@ -128,7 +135,7 @@
             // 
             // confirmPassTextBox
             // 
-            confirmPassTextBox.CustomizableEdges = customizableEdges15;
+            confirmPassTextBox.CustomizableEdges = customizableEdges5;
             confirmPassTextBox.DefaultText = "";
             confirmPassTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             confirmPassTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -142,7 +149,7 @@
             confirmPassTextBox.Name = "confirmPassTextBox";
             confirmPassTextBox.PlaceholderText = "";
             confirmPassTextBox.SelectedText = "";
-            confirmPassTextBox.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            confirmPassTextBox.ShadowDecoration.CustomizableEdges = customizableEdges6;
             confirmPassTextBox.Size = new Size(392, 55);
             confirmPassTextBox.TabIndex = 10;
             // 
@@ -150,7 +157,7 @@
             // 
             ConfirmButton.Anchor = AnchorStyles.Right;
             ConfirmButton.BorderRadius = 15;
-            ConfirmButton.CustomizableEdges = customizableEdges17;
+            ConfirmButton.CustomizableEdges = customizableEdges7;
             ConfirmButton.DisabledState.BorderColor = Color.DarkGray;
             ConfirmButton.DisabledState.CustomBorderColor = Color.DarkGray;
             ConfirmButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -159,7 +166,7 @@
             ConfirmButton.ForeColor = Color.White;
             ConfirmButton.Location = new Point(430, 493);
             ConfirmButton.Name = "ConfirmButton";
-            ConfirmButton.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            ConfirmButton.ShadowDecoration.CustomizableEdges = customizableEdges8;
             ConfirmButton.Size = new Size(148, 61);
             ConfirmButton.TabIndex = 35;
             ConfirmButton.Text = "Confirm";
@@ -168,7 +175,7 @@
             // 
             cancelButton.Anchor = AnchorStyles.Right;
             cancelButton.BorderRadius = 15;
-            cancelButton.CustomizableEdges = customizableEdges19;
+            cancelButton.CustomizableEdges = customizableEdges9;
             cancelButton.DisabledState.BorderColor = Color.DarkGray;
             cancelButton.DisabledState.CustomBorderColor = Color.DarkGray;
             cancelButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -177,16 +184,64 @@
             cancelButton.ForeColor = Color.White;
             cancelButton.Location = new Point(257, 493);
             cancelButton.Name = "cancelButton";
-            cancelButton.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            cancelButton.ShadowDecoration.CustomizableEdges = customizableEdges10;
             cancelButton.Size = new Size(148, 61);
             cancelButton.TabIndex = 36;
             cancelButton.Text = "Cancel";
+            // 
+            // hideButton
+            // 
+            hideButton.CheckedState.ImageSize = new Size(64, 64);
+            hideButton.HoverState.ImageSize = new Size(64, 64);
+            hideButton.Image = (Image)resources.GetObject("hideButton.Image");
+            hideButton.ImageOffset = new Point(0, 0);
+            hideButton.ImageRotate = 0F;
+            hideButton.Location = new Point(361, 140);
+            hideButton.Name = "hideButton";
+            hideButton.PressedState.ImageSize = new Size(64, 64);
+            hideButton.ShadowDecoration.CustomizableEdges = customizableEdges11;
+            hideButton.Size = new Size(35, 35);
+            hideButton.TabIndex = 37;
+            hideButton.Click += hideButton_Click;
+            // 
+            // hideButton2
+            // 
+            hideButton2.CheckedState.ImageSize = new Size(64, 64);
+            hideButton2.HoverState.ImageSize = new Size(64, 64);
+            hideButton2.Image = (Image)resources.GetObject("hideButton2.Image");
+            hideButton2.ImageOffset = new Point(0, 0);
+            hideButton2.ImageRotate = 0F;
+            hideButton2.Location = new Point(361, 260);
+            hideButton2.Name = "hideButton2";
+            hideButton2.PressedState.ImageSize = new Size(64, 64);
+            hideButton2.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            hideButton2.Size = new Size(35, 35);
+            hideButton2.TabIndex = 38;
+            hideButton2.Click += hideButton2_Click;
+            // 
+            // hideButton3
+            // 
+            hideButton3.CheckedState.ImageSize = new Size(64, 64);
+            hideButton3.HoverState.ImageSize = new Size(64, 64);
+            hideButton3.Image = (Image)resources.GetObject("hideButton3.Image");
+            hideButton3.ImageOffset = new Point(0, 0);
+            hideButton3.ImageRotate = 0F;
+            hideButton3.Location = new Point(361, 391);
+            hideButton3.Name = "hideButton3";
+            hideButton3.PressedState.ImageSize = new Size(64, 64);
+            hideButton3.ShadowDecoration.CustomizableEdges = customizableEdges13;
+            hideButton3.Size = new Size(35, 35);
+            hideButton3.TabIndex = 39;
+            hideButton3.Click += hideButton3_Click;
             // 
             // passwordChangeDialogue
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(590, 578);
+            Controls.Add(hideButton3);
+            Controls.Add(hideButton2);
+            Controls.Add(hideButton);
             Controls.Add(cancelButton);
             Controls.Add(ConfirmButton);
             Controls.Add(label4);
@@ -213,5 +268,8 @@
         public Guna.UI2.WinForms.Guna2TextBox confirmPassTextBox;
         public Guna.UI2.WinForms.Guna2Button ConfirmButton;
         public Guna.UI2.WinForms.Guna2Button cancelButton;
+        private Guna.UI2.WinForms.Guna2ImageButton hideButton;
+        private Guna.UI2.WinForms.Guna2ImageButton hideButton2;
+        private Guna.UI2.WinForms.Guna2ImageButton hideButton3;
     }
 }

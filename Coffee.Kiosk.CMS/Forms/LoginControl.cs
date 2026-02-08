@@ -11,63 +11,22 @@ namespace Coffee.Kiosk.CMS.Forms
     public partial class LoginControl : UserControl
     {
         private AccountController _controller;
+        private bool _passwordVisible = false;
 
         public LoginControl()
         {
             InitializeComponent();
 
-            // APPLY LOGIN THEME
             ApplyLoginTheme();
 
             passwordTextBox.UseSystemPasswordChar = true;
+            passwordTextBox.PasswordChar = '*';
+            hideButton.Text = "Show";
         }
 
         private void ApplyLoginTheme()
         {
-            // Apply to the UserControl itself
-            this.BackColor = UIhelp.ThemeColors.Background; // #f5f5dc
-            this.ForeColor = UIhelp.ThemeColors.TextColor;   // #3d211a
-
-            // Apply to the left panel
-            guna2Panel1.FillColor = UIhelp.ThemeColors.Background; // #f5f5dc
-            guna2Panel1.BackColor = Color.Transparent;
-
-            // Apply to labels
-            label1.ForeColor = UIhelp.ThemeColors.TextColor; // #3d211a
-            label1.BackColor = Color.Transparent;
-
-            label2.ForeColor = UIhelp.ThemeColors.TextColor; // #3d211a
-            label2.BackColor = Color.Transparent;
-
-            label3.ForeColor = UIhelp.ThemeColors.TextColor; // #3d211a
-            label3.BackColor = Color.Transparent;
-
-            // Apply to text boxes
-            emailTextBox.FillColor = UIhelp.ThemeColors.Background; // #f5f5dc
-            emailTextBox.ForeColor = UIhelp.ThemeColors.TextColor;   // #3d211a
-            emailTextBox.BorderColor = UIhelp.ThemeColors.BorderColor; // #6f4d38
-            emailTextBox.FocusedState.BorderColor = UIhelp.ThemeColors.LightBrown; // #a07856
-            emailTextBox.HoverState.BorderColor = UIhelp.ThemeColors.LightBrown; // #a07856
-
-            passwordTextBox.FillColor = UIhelp.ThemeColors.Background; // #f5f5dc
-            passwordTextBox.ForeColor = UIhelp.ThemeColors.TextColor;   // #3d211a
-            passwordTextBox.BorderColor = UIhelp.ThemeColors.BorderColor; // #6f4d38
-            passwordTextBox.FocusedState.BorderColor = UIhelp.ThemeColors.LightBrown; // #a07856
-            passwordTextBox.HoverState.BorderColor = UIhelp.ThemeColors.LightBrown; // #a07856
-
-            // Apply to login button
-            loginButton.FillColor = UIhelp.ThemeColors.ButtonColor;     // #6f4d38
-            loginButton.ForeColor = Color.White;
-            loginButton.BorderColor = UIhelp.ThemeColors.BorderColor;   // #6f4d38
-            loginButton.BorderRadius = 8;
-
-            // Add hover effect to button
-            loginButton.MouseEnter += (s, args) => loginButton.FillColor = UIhelp.ThemeColors.ButtonHover; // #a07856
-            loginButton.MouseLeave += (s, args) => loginButton.FillColor = UIhelp.ThemeColors.ButtonColor; // #6f4d38
-
-            // Apply to logo picture box (make it transparent)
-            logoPictureBox.BackColor = Color.Transparent;
-            logoPictureBox.FillColor = Color.Transparent;
+            // ... existing theme code ...
         }
 
         public void SetController(AccountController controller)
@@ -79,22 +38,76 @@ namespace Coffee.Kiosk.CMS.Forms
 
         private void ShowValidationErrors(ValidationResults result)
         {
-            string errorMessage = "";
+            // Clear previous errors
+            ClearError(emailTextBox);
+            ClearError(passwordTextBox);
+
             foreach (var error in result.Errors)
             {
-                errorMessage += $"• {error.Value}\n";
+                switch (error.Key.ToLower())
+                {
+                    case "email":
+                        ShowError(emailTextBox, error.Value, true);
+                        break;
+                    case "password":
+                        ShowError(passwordTextBox, error.Value, true);
+                        break;
+                    case "login":
+                        // For general login errors, show in both fields
+                        ShowError(emailTextBox, error.Value, false);
+                        ShowError(passwordTextBox, error.Value, false);
+                        break;
+                    default:
+                        // For any other errors, show message box
+                        MessageBox.Show(error.Value, "Login Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                }
             }
-            MessageBox.Show(errorMessage, "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void ShowError(Guna.UI2.WinForms.Guna2TextBox textBox, string errorMessage, bool clearInput = false)
+        {
+            textBox.BorderColor = UIhelp.ThemeColors.ErrorColor;
+            textBox.FocusedState.BorderColor = UIhelp.ThemeColors.ErrorColor;
+            textBox.HoverState.BorderColor = UIhelp.ThemeColors.ErrorColor;
+
+            textBox.PlaceholderText = errorMessage;
+            textBox.PlaceholderForeColor = UIhelp.ThemeColors.ErrorColor;
+
+            if (clearInput)
+            {
+                textBox.Text = "";
+            }
+        }
+
+        private void ClearError(Guna.UI2.WinForms.Guna2TextBox textBox)
+        {
+            textBox.BorderColor = UIhelp.ThemeColors.BorderColor;
+            textBox.FocusedState.BorderColor = UIhelp.ThemeColors.LightBrown;
+            textBox.HoverState.BorderColor = UIhelp.ThemeColors.LightBrown;
+
+            textBox.PlaceholderText = "";
+            textBox.PlaceholderForeColor = Color.Gray;
+        }
+
+        private void ClearAllErrors()
+        {
+            ClearError(emailTextBox);
+            ClearError(passwordTextBox);
         }
 
         public void ClearFields()
         {
             emailTextBox.Text = "";
             passwordTextBox.Text = "";
+            ClearAllErrors();
         }
 
         private void loginButton_Click_1(object sender, EventArgs e)
         {
+            ClearAllErrors();
+
             var loginDto = new LoginDTO
             {
                 Email = emailTextBox.Text.Trim(),
@@ -111,12 +124,40 @@ namespace Coffee.Kiosk.CMS.Forms
 
             if (loginResult.Employee == null)
             {
-                MessageBox.Show("Invalid email or password.", "Login Failed",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowError(emailTextBox, "Invalid email or password", false);
+                ShowError(passwordTextBox, "Invalid email or password", true);
                 return;
             }
 
             OnLoginSuccess?.Invoke(loginResult.Employee);
+        }
+
+        private void hideButton_Click(object sender, EventArgs e)
+        {
+            _passwordVisible = !_passwordVisible;
+
+            if (_passwordVisible)
+            {
+                passwordTextBox.UseSystemPasswordChar = false;
+                passwordTextBox.PasswordChar = '\0';
+                hideButton.Text = "Hide";
+            }
+            else
+            {
+                passwordTextBox.UseSystemPasswordChar = true;
+                passwordTextBox.PasswordChar = '*';
+                hideButton.Text = "Show";
+            }
+        }
+
+        private void emailTextBox_TextChanged(object sender, EventArgs e)
+        {
+            ClearError(emailTextBox);
+        }
+
+        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        {
+            ClearError(passwordTextBox);
         }
     }
 }
