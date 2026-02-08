@@ -109,23 +109,24 @@
         Dim whippedPrice As Decimal = CalculateWhippedPrice()
 
         Dim order As New OrderItem With {
-            .Drink = _drink,
-            .Temperature = If(rbHot.Checked, "Hot", "Iced"),
-            .Size = If(rbSmall.Checked, "Small", If(rbMedium.Checked, "Medium", "Large")),
-            .Beans = GetSelectedBeans(),
-            .Toppings = GetSelectedToppings(),
-            .Syrups = GetSelectedSyrups(),
-            .WhippedCream = If(rbWhipped.Checked, "Add Whipped Cream", "No Whipped Cream"),
-            .SugarLevel = GetSugarLevel(),
-            .SugarType = GetSugarType(),
-            .Quantity = nudQty.Value,
-            .BasePrice = _drink.BasePrice,
-            .SizePrice = sizePrice,
-            .ToppingsPrice = toppingsPrice,
-            .SyrupPrice = syrupPrice,
-            .WhippedPrice = whippedPrice,
-            .TotalPrice = (_drink.BasePrice + sizePrice + toppingsPrice + syrupPrice + whippedPrice) * nudQty.Value
-        }
+        .ItemType = "Drink",
+        .Drink = _drink,
+        .Temperature = If(rbHot.Checked, "Hot", "Iced"),
+        .Size = If(rbSmall.Checked, "Small", If(rbMedium.Checked, "Medium", "Large")),
+        .Beans = GetSelectedBeans(),
+        .Toppings = GetSelectedToppings(),
+        .Syrups = GetSelectedSyrups(),
+        .WhippedCream = If(rbWhipped.Checked, "Add Whipped Cream", "No Whipped Cream"),
+        .SugarLevel = GetSugarLevel(),
+        .SugarType = GetSugarType(),
+        .Quantity = nudQty.Value,
+        .BasePrice = _drink.BasePrice,
+        .SizePrice = sizePrice,
+        .ToppingsPrice = toppingsPrice,
+        .SyrupPrice = syrupPrice,
+        .WhippedPrice = whippedPrice,
+        .TotalPrice = (_drink.BasePrice + sizePrice + toppingsPrice + syrupPrice + whippedPrice) * nudQty.Value
+    }
 
         RaiseEvent OrderAdded(order)
         RaiseEvent RequestBackToMenu()

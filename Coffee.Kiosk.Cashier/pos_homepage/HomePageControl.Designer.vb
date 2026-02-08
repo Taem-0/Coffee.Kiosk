@@ -199,7 +199,7 @@ Partial Class HomePageControl
         btnRemoveOrder.ForeColor = Color.White
         btnRemoveOrder.Location = New Point(1020, 155)
         btnRemoveOrder.Name = "btnRemoveOrder"
-        btnRemoveOrder.Size = New Size(197, 29)
+        btnRemoveOrder.Size = New Size(214, 40)
         btnRemoveOrder.TabIndex = 16
         btnRemoveOrder.Text = "Remove Selected"
         btnRemoveOrder.UseVisualStyleBackColor = False

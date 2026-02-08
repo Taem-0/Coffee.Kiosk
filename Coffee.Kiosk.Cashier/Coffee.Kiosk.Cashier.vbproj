@@ -42,4 +42,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="History_page\" />
+  </ItemGroup>
+
 </Project>

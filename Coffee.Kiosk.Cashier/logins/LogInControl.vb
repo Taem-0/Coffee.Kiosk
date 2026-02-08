@@ -12,7 +12,7 @@ Public Class LogInControl
                 "Rex Taeza|" & DEFAULT_PASSWORD & "|True",
                 "Michael Litang|" & DEFAULT_PASSWORD & "|True",
                 "Bernadette Lalata|" & DEFAULT_PASSWORD & "|True",
-                "Dwaye Ruper Casenillo|" & DEFAULT_PASSWORD & "|True"
+                "Dwayne Ruper Casenillo|" & DEFAULT_PASSWORD & "|True"
             }
             File.WriteAllLines(usersFile, defaultUsers)
         End If
