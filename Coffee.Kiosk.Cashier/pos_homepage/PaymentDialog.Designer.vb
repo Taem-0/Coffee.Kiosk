@@ -34,7 +34,7 @@ Partial Class PaymentDialog
         lblDigitalAmount = New Label()
         lblDigitalAmountLabel = New Label()
         txtReference = New TextBox()
-        Label3 = New Label()
+        lblReference = New Label()
         Label4 = New Label()
         pnlCashPayment = New Panel()
         lblChange = New Label()
@@ -154,7 +154,7 @@ Partial Class PaymentDialog
         pnlDigitalPayment.Controls.Add(lblDigitalAmount)
         pnlDigitalPayment.Controls.Add(lblDigitalAmountLabel)
         pnlDigitalPayment.Controls.Add(txtReference)
-        pnlDigitalPayment.Controls.Add(Label3)
+        pnlDigitalPayment.Controls.Add(lblReference)
         pnlDigitalPayment.Controls.Add(Label4)
         pnlDigitalPayment.Location = New Point(421, 112)
         pnlDigitalPayment.Name = "pnlDigitalPayment"
@@ -190,14 +190,14 @@ Partial Class PaymentDialog
         txtReference.Size = New Size(224, 20)
         txtReference.TabIndex = 2
         ' 
-        ' Label3
+        ' lblReference
         ' 
-        Label3.AutoSize = True
-        Label3.Location = New Point(21, 27)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(115, 20)
-        Label3.TabIndex = 1
-        Label3.Text = "Referrence no.:"
+        lblReference.AutoSize = True
+        lblReference.Location = New Point(21, 27)
+        lblReference.Name = "lblReference"
+        lblReference.Size = New Size(115, 20)
+        lblReference.TabIndex = 1
+        lblReference.Text = "Referrence no.:"
         ' 
         ' Label4
         ' 
@@ -415,7 +415,7 @@ Partial Class PaymentDialog
     Friend WithEvents lblDigitalAmount As Label
     Friend WithEvents lblDigitalAmountLabel As Label
     Friend WithEvents txtReference As TextBox
-    Friend WithEvents Label3 As Label
+    Friend WithEvents lblReference As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents lblChange As Label
     Friend WithEvents btnConfirm As Button
