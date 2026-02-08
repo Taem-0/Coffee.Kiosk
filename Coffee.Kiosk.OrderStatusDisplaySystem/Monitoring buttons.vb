@@ -10,7 +10,7 @@
                        MessageBoxIcon.Question) = DialogResult.Yes Then
 
             btnPreparing.Enabled = False
-            btnPreparing.Text = "ON GOING"
+            btnPreparing.Text = "ON GOING/TAKEN"
             btnPreparing.BackColor = Color.DarkOrange
             btnPreparing.ForeColor = Color.White
         End If
@@ -23,7 +23,7 @@
                    MessageBoxIcon.Question) = DialogResult.Yes Then
 
             btnReady.Enabled = False
-            btnReady.Text = "PENDING"
+            btnReady.Text = "PENDING/TAKEN"
             btnReady.BackColor = Color.SeaGreen
             btnReady.ForeColor = Color.White
         End If

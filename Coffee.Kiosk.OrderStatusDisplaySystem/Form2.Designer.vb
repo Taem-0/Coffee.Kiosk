@@ -22,7 +22,7 @@ Partial Class Form2
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        ListView1 = New ListView()
+        lvOrderNum = New ListView()
         Label1 = New Label()
         FlowLayoutPanel1 = New FlowLayoutPanel()
         Monitoring_buttons3 = New Monitoring_buttons()
@@ -39,15 +39,15 @@ Partial Class Form2
         FlowLayoutPanel1.SuspendLayout()
         SuspendLayout()
         ' 
-        ' ListView1
+        ' lvOrderNum
         ' 
-        ListView1.BackColor = Color.OldLace
-        ListView1.Font = New Font("Arial Rounded MT Bold", 24F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        ListView1.Location = New Point(70, 109)
-        ListView1.Name = "ListView1"
-        ListView1.Size = New Size(460, 836)
-        ListView1.TabIndex = 0
-        ListView1.UseCompatibleStateImageBehavior = False
+        lvOrderNum.BackColor = Color.OldLace
+        lvOrderNum.Font = New Font("Arial Rounded MT Bold", 24.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lvOrderNum.Location = New Point(70, 109)
+        lvOrderNum.Name = "lvOrderNum"
+        lvOrderNum.Size = New Size(460, 836)
+        lvOrderNum.TabIndex = 0
+        lvOrderNum.UseCompatibleStateImageBehavior = False
         ' 
         ' Label1
         ' 
@@ -161,7 +161,7 @@ Partial Class Form2
         ' 
         ' Form2
         ' 
-        AutoScaleDimensions = New SizeF(7F, 17F)
+        AutoScaleDimensions = New SizeF(7.0F, 17.0F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Tan
         ClientSize = New Size(1902, 1001)
@@ -169,7 +169,7 @@ Partial Class Form2
         Controls.Add(Label2)
         Controls.Add(FlowLayoutPanel1)
         Controls.Add(Label1)
-        Controls.Add(ListView1)
+        Controls.Add(lvOrderNum)
         Name = "Form2"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Form2"
@@ -178,7 +178,7 @@ Partial Class Form2
         PerformLayout()
     End Sub
 
-    Friend WithEvents ListView1 As ListView
+    Friend WithEvents lvOrderNum As ListView
     Friend WithEvents Label1 As Label
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents Monitoring_buttons3 As Monitoring_buttons

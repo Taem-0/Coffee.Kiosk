@@ -22,10 +22,10 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        ListView1 = New ListView()
-        ListView2 = New ListView()
-        ListView3 = New ListView()
-        ListView4 = New ListView()
+        lvGcash = New ListView()
+        lvCash = New ListView()
+        lvPreparing = New ListView()
+        lvReady = New ListView()
         Label1 = New Label()
         Label2 = New Label()
         Label3 = New Label()
@@ -33,49 +33,49 @@ Partial Class Form1
         Button1 = New Button()
         SuspendLayout()
         ' 
-        ' ListView1
+        ' lvGcash
         ' 
-        ListView1.BackColor = Color.OldLace
-        ListView1.Font = New Font("Arial Rounded MT Bold", 21.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        ListView1.ForeColor = Color.FromArgb(CByte(128), CByte(64), CByte(0))
-        ListView1.Location = New Point(576, 64)
-        ListView1.Name = "ListView1"
-        ListView1.Size = New Size(320, 907)
-        ListView1.TabIndex = 0
-        ListView1.UseCompatibleStateImageBehavior = False
+        lvGcash.BackColor = Color.OldLace
+        lvGcash.Font = New Font("Arial Rounded MT Bold", 21.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lvGcash.ForeColor = Color.FromArgb(CByte(128), CByte(64), CByte(0))
+        lvGcash.Location = New Point(576, 64)
+        lvGcash.Name = "lvGcash"
+        lvGcash.Size = New Size(320, 907)
+        lvGcash.TabIndex = 0
+        lvGcash.UseCompatibleStateImageBehavior = False
         ' 
-        ' ListView2
+        ' lvCash
         ' 
-        ListView2.BackColor = Color.OldLace
-        ListView2.Font = New Font("Arial Rounded MT Bold", 21.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        ListView2.ForeColor = Color.FromArgb(CByte(128), CByte(64), CByte(0))
-        ListView2.Location = New Point(907, 64)
-        ListView2.Name = "ListView2"
-        ListView2.Size = New Size(320, 905)
-        ListView2.TabIndex = 1
-        ListView2.UseCompatibleStateImageBehavior = False
+        lvCash.BackColor = Color.OldLace
+        lvCash.Font = New Font("Arial Rounded MT Bold", 21.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lvCash.ForeColor = Color.FromArgb(CByte(128), CByte(64), CByte(0))
+        lvCash.Location = New Point(907, 64)
+        lvCash.Name = "lvCash"
+        lvCash.Size = New Size(320, 905)
+        lvCash.TabIndex = 1
+        lvCash.UseCompatibleStateImageBehavior = False
         ' 
-        ' ListView3
+        ' lvPreparing
         ' 
-        ListView3.BackColor = Color.OldLace
-        ListView3.Font = New Font("Arial Rounded MT Bold", 21.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        ListView3.ForeColor = Color.FromArgb(CByte(128), CByte(64), CByte(0))
-        ListView3.Location = New Point(1238, 64)
-        ListView3.Name = "ListView3"
-        ListView3.Size = New Size(320, 905)
-        ListView3.TabIndex = 2
-        ListView3.UseCompatibleStateImageBehavior = False
+        lvPreparing.BackColor = Color.OldLace
+        lvPreparing.Font = New Font("Arial Rounded MT Bold", 21.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lvPreparing.ForeColor = Color.FromArgb(CByte(128), CByte(64), CByte(0))
+        lvPreparing.Location = New Point(1238, 64)
+        lvPreparing.Name = "lvPreparing"
+        lvPreparing.Size = New Size(320, 905)
+        lvPreparing.TabIndex = 2
+        lvPreparing.UseCompatibleStateImageBehavior = False
         ' 
-        ' ListView4
+        ' lvReady
         ' 
-        ListView4.BackColor = Color.OldLace
-        ListView4.Font = New Font("Arial Rounded MT Bold", 21.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        ListView4.ForeColor = Color.FromArgb(CByte(128), CByte(64), CByte(0))
-        ListView4.Location = New Point(1568, 64)
-        ListView4.Name = "ListView4"
-        ListView4.Size = New Size(320, 905)
-        ListView4.TabIndex = 3
-        ListView4.UseCompatibleStateImageBehavior = False
+        lvReady.BackColor = Color.OldLace
+        lvReady.Font = New Font("Arial Rounded MT Bold", 21.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lvReady.ForeColor = Color.FromArgb(CByte(128), CByte(64), CByte(0))
+        lvReady.Location = New Point(1568, 64)
+        lvReady.Name = "lvReady"
+        lvReady.Size = New Size(320, 905)
+        lvReady.TabIndex = 3
+        lvReady.UseCompatibleStateImageBehavior = False
         ' 
         ' Label1
         ' 
@@ -146,10 +146,10 @@ Partial Class Form1
         Controls.Add(Label3)
         Controls.Add(Label2)
         Controls.Add(Label1)
-        Controls.Add(ListView4)
-        Controls.Add(ListView3)
-        Controls.Add(ListView2)
-        Controls.Add(ListView1)
+        Controls.Add(lvReady)
+        Controls.Add(lvPreparing)
+        Controls.Add(lvCash)
+        Controls.Add(lvGcash)
         Name = "Form1"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Form1"
@@ -157,10 +157,10 @@ Partial Class Form1
         PerformLayout()
     End Sub
 
-    Friend WithEvents ListView1 As ListView
-    Friend WithEvents ListView2 As ListView
-    Friend WithEvents ListView3 As ListView
-    Friend WithEvents ListView4 As ListView
+    Friend WithEvents lvGcash As ListView
+    Friend WithEvents lvCash As ListView
+    Friend WithEvents lvPreparing As ListView
+    Friend WithEvents lvReady As ListView
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
