@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace Coffee.Kiosk.CMS.Controllers
 {
-    public class AccountController(RegistrationValidation validation, UpdateValidation updateValidation, AccountsService service)
+    public class AccountController(RegistrationValidation validation, UpdateValidation updateValidation, AccountsService service, LoginValidation loginValidation)
     {
 
         private readonly RegistrationValidation _validation = validation ?? throw new ArgumentNullException(nameof(validation));
         private readonly UpdateValidation _updateValidation = updateValidation ?? throw new ArgumentNullException(nameof(updateValidation));
+        private readonly LoginValidation _loginValidation = loginValidation ?? throw new ArgumentException(nameof(loginValidation));
         private readonly AccountsService _service = service ?? throw new ArgumentNullException(nameof(service));
 
         public ValidationResults Register(RegistrationDTO request)
@@ -47,6 +48,21 @@ namespace Coffee.Kiosk.CMS.Controllers
 
         }
 
+        public LoginResult Login(LoginDTO request)
+        {
+            var result = _loginValidation.Validate(request);
+
+            if (!result.IsValid)
+                return new LoginResult { ValidationResults = result, Employee = null };
+
+            var employee = _service.ValidateLogin(request.Email, request.Password);
+
+            if (employee == null)
+                result.AddError("Login", "Invalid email or password.");
+
+            return new LoginResult { ValidationResults = result, Employee = employee };
+        }
+
         public List<DisplayDTO> GetDisplayDTOs()
         {
 
@@ -59,6 +75,12 @@ namespace Coffee.Kiosk.CMS.Controllers
 
             _service.Deactivate(currentAccount);
 
+        }
+
+        public class LoginResult
+        {
+            public ValidationResults ValidationResults { get; set; }
+            public Employee Employee { get; set; }
         }
     }
 }

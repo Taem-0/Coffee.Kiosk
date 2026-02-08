@@ -2,19 +2,37 @@
 using Coffee.Kiosk.CMS.DTOs;
 using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace Coffee.Kiosk.CMS.Services
 {
-    public class AccountsService(AccountDBManager dBManager)
+    public class AccountsService
     {
+        public readonly AccountDBManager _dBManager;
 
-        public readonly AccountDBManager _dBManager = dBManager ?? throw new ArgumentNullException(nameof(dBManager));
+        public AccountsService(AccountDBManager dBManager)
+        {
+            _dBManager = dBManager ?? throw new ArgumentNullException(nameof(dBManager));
+        }
 
         public void RegisterUser(RegistrationDTO request)
         {
+            string passwordHash;
+            string passwordSalt;
+            bool isFirstLogin;
 
-            var (passwordHash, passwordSalt) = LogicHelpers.GenerateDefaultPassword();
+            if (!string.IsNullOrEmpty(request.PasswordHash) && !string.IsNullOrEmpty(request.PasswordSalt))
+            {
+                passwordHash = request.PasswordHash;
+                passwordSalt = request.PasswordSalt;
+                isFirstLogin = request.IsFirstLogin;
+            }
+            else
+            {
+                var (hash, salt) = LogicHelpers.GenerateDefaultPassword();
+                passwordHash = hash;
+                passwordSalt = salt;
+                isFirstLogin = true;
+            }
 
             var employee = new Employee
             {
@@ -35,15 +53,22 @@ namespace Coffee.Kiosk.CMS.Services
                 ProfilePicturePath = request.ProfilePicturePath,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                IsFirstLogin = true
+                IsFirstLogin = isFirstLogin
             };
 
             _dBManager.PostEmployee(employee);
 
-            var tempPassword = LogicHelpers.GetTemporaryPasswordDisplay();
-            System.Diagnostics.Debug.WriteLine($"New employee created. Temporary password: {tempPassword}");
+            if (isFirstLogin)
+            {
+                var tempPassword = LogicHelpers.GetTemporaryPasswordDisplay();
+                System.Diagnostics.Debug.WriteLine($"New employee created. Temporary password: {tempPassword}");
+            }
         }
 
+        public Employee ValidateLogin(string email, string password)
+        {
+            return _dBManager.ValidateLogin(email, password);
+        }
 
         public List<DisplayDTO> DisplayAccounts()
         {
@@ -86,7 +111,6 @@ namespace Coffee.Kiosk.CMS.Services
             return tableDisplay;
         }
 
-
         public void UpdateUser(DisplayDTO request)
         {
             var employee = new Employee
@@ -119,10 +143,8 @@ namespace Coffee.Kiosk.CMS.Services
             _dBManager.UpdateEmployee(employee);
         }
 
-
         public void Deactivate(DisplayDTO request)
         {
-
             var employee = new Employee
             {
                 Id = int.Parse(request.PrimaryID),
@@ -130,7 +152,6 @@ namespace Coffee.Kiosk.CMS.Services
             };
 
             _dBManager.DeactivateEmployee(employee);
-
         }
     }
 }

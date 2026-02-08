@@ -1,4 +1,5 @@
-﻿using Coffee.Kiosk.CMS.Models;
+﻿using Coffee.Kiosk.CMS.Helpers;
+using Coffee.Kiosk.CMS.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
@@ -191,6 +192,65 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
 
             return tableData;
+        }
+
+        public Employee ValidateLogin(string email, string password)
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = @"SELECT * FROM accounts 
+                              WHERE Email_Address = @email 
+                              AND Status = 'ACTIVE'";
+
+                command.Parameters.AddWithValue("@email", email);
+
+                using var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var storedHash = reader.GetString("Password_Hash");
+                    var storedSalt = reader.GetString("Password_Salt");
+
+                    if (LogicHelpers.VerifyPassword(password, storedHash, storedSalt))
+                    {
+                        return new Employee
+                        {
+                            Id = reader.GetInt32("ID"),
+                            FirstName = reader.GetString("First_Name"),
+                            MiddleName = reader.GetString("Middle_Name"),
+                            LastName = reader.GetString("Last_Name"),
+                            PhoneNumber = reader.GetString("Phone_Number"),
+                            Email = reader.GetString("Email_Address"),
+                            EmergencyFirstName = reader.GetString("Emergency_First_Name"),
+                            EmergencyLastName = reader.GetString("Emergency_Last_Name"),
+                            EmergencyNumber = reader.GetString("Emergency_Number"),
+                            JobTitle = reader.GetString("Job_Title"),
+                            Salary = reader.GetDecimal("Salary"),
+                            Role = Enum.Parse<AccountRole>(reader.GetString("Role")),
+                            Department = Enum.Parse<Department>(reader.GetString("Department")),
+                            EmploymentType = Enum.Parse<EmploymentType>(reader.GetString("EmploymentType")),
+                            ProfilePicturePath = reader.IsDBNull(
+                                reader.GetOrdinal("Profile_Picture_Path"))
+                                ? null
+                                : reader.GetString("Profile_Picture_Path"),
+                            PasswordHash = storedHash,
+                            PasswordSalt = storedSalt,
+                            IsFirstLogin = reader.GetBoolean("Is_First_Login"),
+                            Status = Enum.Parse<AccountStatus>(reader.GetString("Status"))
+                        };
+                    }
+                }
+
+                return null;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (ValidateLogin): {ex.Message}");
+                return null;
+            }
         }
 
         public void UpdatePassword(int employeeId, string newPasswordHash, string newPasswordSalt, bool resetFirstLogin = false)

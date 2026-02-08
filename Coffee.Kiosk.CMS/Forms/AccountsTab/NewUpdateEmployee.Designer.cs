@@ -146,6 +146,7 @@
             AddPfpButton.Size = new Size(50, 50);
             AddPfpButton.TabIndex = 4;
             AddPfpButton.TextAlign = HorizontalAlignment.Left;
+            AddPfpButton.Click += AddPfpButton_Click;
             // 
             // PictureBox
             // 
