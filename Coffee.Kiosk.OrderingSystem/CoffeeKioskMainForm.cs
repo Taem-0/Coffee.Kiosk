@@ -22,13 +22,14 @@ namespace Coffee.Kiosk.OrderingSystem
         private DineInTakeOut? dineInTakeOut;
         private KioskMenu? kioskMenu;
         private ViewOrder? viewOrder;
+        private PayOptionScreen? payOptionScreen;
 
         private ModalScreen? modalScreen;
 
         private Models.Orders? currentOrder;
 
         int screenHeight;
-        Size modalScreenOriginalSize = new Size(676, 800);
+        Size modalScreenOriginalSize = new Size(720, 800);
 
         public CoffeeKioskMainForm()
         {
@@ -48,7 +49,6 @@ namespace Coffee.Kiosk.OrderingSystem
             //Models.Category.LoadFromDataBase();
             //Models.Product.LoadFromDataBase();
 
-            // remove after connecting to database
             Models.Category.LoadDummyData();
             Models.Product.LoadDummyData();
 
@@ -105,6 +105,7 @@ namespace Coffee.Kiosk.OrderingSystem
                         currentOrder = new Models.Orders();
                     }
                     currentOrder.Type = dineInTakeOut.lastChoice;
+
                     ShowKioskMenuScreen();
                 };
 
@@ -116,12 +117,12 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             if (kioskMenu == null)
             {
-                kioskMenu = new KioskMenu(currentOrder?.Type == Models.Orders.TypeOfOrder.DineIn ? "Dine In" : "Take Out");
+                currentOrder ??= new Models.Orders();
+                kioskMenu = new KioskMenu(currentOrder.Type == Models.Orders.TypeOfOrder.DineIn ? "Dine In" : "Take Out");
 
                 kioskMenu.StartOverClicked += FinishOrder;
-                kioskMenu.ProductSelected += ShowModalScreen;
+                kioskMenu.ProductSelected += ShowModalCustomizeScreen;
                 kioskMenu.ViewOrderClicked += ShowViewOrder;
-
                 this.CartUpdated += kioskMenu.OnCartUpdated;
             }
             UI_Handling.loadUserControl(mainPanel, kioskMenu);
@@ -129,26 +130,31 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowViewOrder()
         {
+            currentOrder ??= new Models.Orders();
             if (viewOrder == null)
             {
-                if (currentOrder == null)
-                {
-                    currentOrder = new Models.Orders();
-                }
                 viewOrder = new ViewOrder(currentOrder);
                 viewOrder.StartOverClicked += FinishOrder;
-                viewOrder.OrderMoreClicked += () =>
-                {
-                    ShowKioskMenuScreen();
-                    CartUpdated?.Invoke(currentOrder);
-                };
+                viewOrder.OrderMoreClicked += ShowKioskMenuScreen;
+                viewOrder.CompleteOrderClicked += ShowPayOptionScreen;
             }
+            viewOrder.OnCartUpdate(currentOrder);
             viewOrder.LoadCurrentOrders();
             UI_Handling.loadUserControl(mainPanel, viewOrder);
         }
 
+        private void ShowPayOptionScreen()
+        {
+            if (payOptionScreen == null)
+            {
+                payOptionScreen = new PayOptionScreen();
+                payOptionScreen.BackButtonClicked += ShowViewOrder;
+            }
+            UI_Handling.loadUserControl(mainPanel, payOptionScreen);
+        }
 
-        private void ShowModalScreen(int productId = 0)
+
+        private void ShowModalCustomizeScreen(int productId = 0)
         {
             if (modalScreen == null)
             {
@@ -177,6 +183,10 @@ namespace Coffee.Kiosk.OrderingSystem
                 };
 
             }
+            else
+            {
+                modalScreen.ReloadModalScreen(productId);
+            }
             modalScreen.productId = productId;
             modalOverlayPanel.Visible = true;
             UI_Handling.centerPanel(modalOverlayPanel, modalMainScreen);
@@ -186,8 +196,10 @@ namespace Coffee.Kiosk.OrderingSystem
         private void HideModalScreen()
         {
             modalOverlayPanel.Visible = false;
-            modalScreen?.Dispose();
-            modalScreen = null;
+            //modalScreen?.Dispose();
+            //modalScreen = null;
+
+            kioskMenu?.KioskScrollPosFix();
         }
 
 
@@ -203,10 +215,12 @@ namespace Coffee.Kiosk.OrderingSystem
                 kioskMenu = null;
             }
             modalScreen?.Dispose();
+            viewOrder?.Dispose();
 
             getStartedScreen = null;
             dineInTakeOut = null;
             modalScreen = null;
+            viewOrder = null;
 
             currentOrder = null;
 
@@ -217,16 +231,20 @@ namespace Coffee.Kiosk.OrderingSystem
         private void CoffeeKioskMainForm_Resize(object sender, EventArgs e)
         {
             screenHeight = this.ClientSize.Height;
-            if (screenHeight > 1000)
+            if (screenHeight > 1300)
+            {
+                modalMainScreen.Height = 1200;
+            }
+            else if (screenHeight > 1000)
             {
                 modalMainScreen.Height = 1000;
-
-            } else
+            }
+            else
             {
                 modalMainScreen.Size = modalScreenOriginalSize;
             }
 
-                UI_Handling.centerPanel(modalOverlayPanel, modalMainScreen);
+            UI_Handling.centerPanel(modalOverlayPanel, modalMainScreen);
         }
     }
 }

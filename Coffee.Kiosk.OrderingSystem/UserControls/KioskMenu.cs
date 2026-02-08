@@ -29,6 +29,8 @@ namespace Coffee.Kiosk.OrderingSystem
         int currentCartCount = 0;
         string OrderType = String.Empty;
 
+        Point scrollPos;
+
         public KioskMenu(string orderType)
         {
             InitializeComponent();
@@ -125,21 +127,15 @@ namespace Coffee.Kiosk.OrderingSystem
             currentPage = page;
         }
 
-
-        private void OnProductClicked(int prodcutId)
+        public void OnCartUpdated(Models.Orders orders)
         {
-            ProductSelected?.Invoke(prodcutId);
-        }
-
-        public void OnCartUpdated(Models.Orders order)
-        {
-            currentCartCount = order.Items.Sum(i => i.Quantity);
+            currentCartCount = orders.Items.Sum(i => i.Quantity);
 
             checkOutBtn.Enabled = currentCartCount > 0;
             cartCounterButton.Visible = currentCartCount > 0;
             cartCounterButton.Text = currentCartCount.ToString();
 
-            decimal total = order.Items.Sum(item => item.ProductPrice * item.Quantity);
+            decimal total = orders.Items.Sum(item => item.ProductPrice * item.Quantity);
 
             guna2HtmlLabel1.Text = $"""
             <b><font size='12'>Order summary</font></b>
@@ -152,9 +148,23 @@ namespace Coffee.Kiosk.OrderingSystem
             """;
         }
 
+        private void OnProductClicked(int prodcutId)
+        {
+            scrollPos = flowCategories.AutoScrollPosition;
+            ProductSelected?.Invoke(prodcutId);
+        }
 
+        public void KioskScrollPosFix()
+        {
+            flowCategories.AutoScrollPosition =
+                new Point(-scrollPos.X, -scrollPos.Y);
+        }
 
         private void CartPicture_Click(object sender, EventArgs e)
+        {
+            ViewOrderClicked?.Invoke();
+        }
+        private void checkOutBtn_Click(object sender, EventArgs e)
         {
             ViewOrderClicked?.Invoke();
         }
@@ -171,6 +181,5 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             UI_Handling.drawBorderSides(e, BottomPanel.ClientRectangle, UI_Handling.borderSide.Top, Color.Black, 2);
         }
-
     }
 }

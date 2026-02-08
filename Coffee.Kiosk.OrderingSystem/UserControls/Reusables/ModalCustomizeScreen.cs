@@ -35,6 +35,20 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 
         }
 
+        public void ReloadModalCustomize(int productId, string name, string ImagePath)
+        {
+            ProductId = productId;
+            _ProductName = name;
+
+            pictureBox1.Image = UI_Images.loadImageFromFile(ImagePath);
+            ProductNameLbl.Text = name;
+            AmountLbl.Text = Amount.ToString();
+
+            TotalAmountLbl.Text = $"{TotalAmountPrice.ToString()}";
+            LoadModifierGroups(ProductId);
+            UpdateAddToCartState();
+        }
+
         private void LoadModifierGroups(int productId)
         {
             flowLayoutPanel1.Controls.Clear();

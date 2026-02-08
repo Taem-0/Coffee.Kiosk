@@ -34,12 +34,10 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pictureBox1 = new PictureBox();
             ViewDetailsBtn = new Guna.UI2.WinForms.Guna2Button();
             ItemLbl = new Label();
@@ -48,8 +46,8 @@
             itemCostLbl = new Label();
             panel2 = new Panel();
             panel3 = new Panel();
+            AddQuantityBtn = new Button();
             QuantityLbl = new Label();
-            AddQuantityBtn = new Guna.UI2.WinForms.Guna2Button();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -167,8 +165,8 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(QuantityLbl);
             panel3.Controls.Add(AddQuantityBtn);
+            panel3.Controls.Add(QuantityLbl);
             panel3.Controls.Add(SubtractQuantityBtn);
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 0);
@@ -176,9 +174,21 @@
             panel3.Size = new Size(111, 35);
             panel3.TabIndex = 6;
             // 
+            // AddQuantityBtn
+            // 
+            AddQuantityBtn.Dock = DockStyle.Fill;
+            AddQuantityBtn.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AddQuantityBtn.Location = new Point(73, 0);
+            AddQuantityBtn.Name = "AddQuantityBtn";
+            AddQuantityBtn.Size = new Size(38, 35);
+            AddQuantityBtn.TabIndex = 7;
+            AddQuantityBtn.Text = "+";
+            AddQuantityBtn.UseVisualStyleBackColor = true;
+            AddQuantityBtn.Click += AddQuantityBtn_Click;
+            // 
             // QuantityLbl
             // 
-            QuantityLbl.Dock = DockStyle.Fill;
+            QuantityLbl.Dock = DockStyle.Left;
             QuantityLbl.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             QuantityLbl.Location = new Point(38, 0);
             QuantityLbl.Name = "QuantityLbl";
@@ -187,28 +197,6 @@
             QuantityLbl.Text = "1";
             QuantityLbl.TextAlign = ContentAlignment.MiddleCenter;
             QuantityLbl.Paint += QuantityLbl_Paint;
-            // 
-            // AddQuantityBtn
-            // 
-            AddQuantityBtn.BackColor = Color.Transparent;
-            AddQuantityBtn.BorderColor = Color.Gray;
-            AddQuantityBtn.BorderThickness = 1;
-            AddQuantityBtn.CustomizableEdges = customizableEdges7;
-            AddQuantityBtn.DisabledState.BorderColor = Color.DarkGray;
-            AddQuantityBtn.DisabledState.CustomBorderColor = Color.DarkGray;
-            AddQuantityBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            AddQuantityBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            AddQuantityBtn.Dock = DockStyle.Right;
-            AddQuantityBtn.FillColor = Color.White;
-            AddQuantityBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AddQuantityBtn.ForeColor = Color.Black;
-            AddQuantityBtn.Location = new Point(73, 0);
-            AddQuantityBtn.Name = "AddQuantityBtn";
-            AddQuantityBtn.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            AddQuantityBtn.Size = new Size(38, 35);
-            AddQuantityBtn.TabIndex = 4;
-            AddQuantityBtn.Text = "+";
-            AddQuantityBtn.Click += AddQuantityBtn_Click;
             // 
             // guna2Panel1
             // 
@@ -219,11 +207,11 @@
             guna2Panel1.Controls.Add(pictureBox1);
             guna2Panel1.CustomBorderColor = Color.Gray;
             guna2Panel1.CustomBorderThickness = new Padding(0, 0, 0, 5);
-            guna2Panel1.CustomizableEdges = customizableEdges11;
+            guna2Panel1.CustomizableEdges = customizableEdges9;
             guna2Panel1.Dock = DockStyle.Fill;
             guna2Panel1.Location = new Point(0, 0);
             guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges10;
             guna2Panel1.Size = new Size(700, 134);
             guna2Panel1.TabIndex = 8;
             // 
@@ -233,11 +221,11 @@
             guna2Panel2.Controls.Add(itemCostLbl);
             guna2Panel2.CustomBorderColor = Color.Gray;
             guna2Panel2.CustomBorderThickness = new Padding(0, 0, 0, 5);
-            guna2Panel2.CustomizableEdges = customizableEdges9;
+            guna2Panel2.CustomizableEdges = customizableEdges7;
             guna2Panel2.Dock = DockStyle.Right;
             guna2Panel2.Location = new Point(413, 0);
             guna2Panel2.Name = "guna2Panel2";
-            guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges8;
             guna2Panel2.Size = new Size(287, 134);
             guna2Panel2.TabIndex = 7;
             // 
@@ -268,9 +256,9 @@
         private Label itemCostLbl;
         private Panel panel2;
         private Panel panel3;
-        private Guna.UI2.WinForms.Guna2Button AddQuantityBtn;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
         private Label QuantityLbl;
+        private Button AddQuantityBtn;
     }
 }

@@ -37,9 +37,12 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
         private void LoadOptions()
         {
             flowLayoutPanel1.Controls.Clear();
-            var options = Models.Product.modifierOption
-                .Where(o => o.GroupId == _group.Id)
-                .OrderBy(o => o.SortBy);
+
+            var options =
+                from opt in Models.Product.modifierOption
+                where opt.GroupId == _group.Id
+                orderby opt.SortBy
+                select opt;
 
             foreach (var option in options)
             {
@@ -53,7 +56,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
         {
             flowLayoutPanel2.Controls.Clear();
 
-            var children = _allGroups.Where(g => g.ParentGroupId == _group.Id).OrderBy(g => g.Id);
+            var children =
+                from g in _allGroups
+                where g.ParentGroupId == _group.Id
+                orderby g.Id
+                select g;
 
             foreach (var child in children)
             {
@@ -68,8 +75,12 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 
         private void UpdateChildVisibility()
         {
-            bool show = flowLayoutPanel1.Controls.OfType<ModalModifierOptions>()
-                .Any(o => o.IsSelected && o.Option.TriggersChild);
+            bool show = (
+                from ctrl in flowLayoutPanel1.Controls.OfType<ModalModifierOptions>()
+                where ctrl.IsSelected && ctrl.Option.TriggersChild
+                select 1
+                ).Any();
+
             flowLayoutPanel2.Visible = show;
 
             SelectionChanged?.Invoke();
@@ -88,10 +99,12 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 
         public decimal GetTotalPriceDelta()
         {
-            decimal total = flowLayoutPanel1.Controls
-                .OfType<ModalModifierOptions>()
-                .Where(o => o.IsSelected)
-                .Sum(o => o.Option.PriceDelta);
+            decimal total = (
+                from ctrl in flowLayoutPanel1.Controls.OfType<ModalModifierOptions>()
+                where ctrl.IsSelected
+                select ctrl.Option.PriceDelta
+                ).Sum();
+
 
             foreach (var child in _childGroups)
             {
@@ -105,7 +118,9 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 
         public bool IsValid()
         {
-            if (_group.Required && !flowLayoutPanel1.Controls.OfType<ModalModifierOptions>().Any(o => o.IsSelected))
+            var options = flowLayoutPanel1.Controls.OfType<ModalModifierOptions>().ToList(); 
+            
+            if (_group.Required && !options.Any(o => o.IsSelected) && options.Count > 0)
                 return false;
 
             foreach (var child in _childGroups)
@@ -113,14 +128,17 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
                 if (flowLayoutPanel2.Visible && !child.IsValid()) 
                     return false;
             }
-                
-
             return true;
         }
 
         public void CollectSelections(Dictionary<int, List<int>> ids, Dictionary<string, List<string>> names)
         {
-            var selected = flowLayoutPanel1.Controls.OfType<ModalModifierOptions>().Where(o => o.IsSelected).ToList();
+            var selected = (
+                from ctrl in flowLayoutPanel1.Controls.OfType<ModalModifierOptions>()
+                where ctrl.IsSelected
+                select ctrl
+                ).ToList();
+
             if (selected.Count > 0)
             {
                 ids[_group.Id] = selected.Select(o => o.Option.Id).ToList();
@@ -133,13 +151,9 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 
         private void flowLayoutPanel1_ControlAdded(object sender, ControlEventArgs e)
         {
-            if (flowLayoutPanel1.Controls.Count % 6 == 0)
+            if (flowLayoutPanel1.Controls.Count % 5 == 0)
                 flowLayoutPanel1.SetFlowBreak(e!.Control!, true);
         }
 
-        private void ModifierGroupName_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(_group.ToString());
-        }
     }
 }

@@ -32,16 +32,12 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             InitializeComponent();
             UI_Handling.fixVisualShifts(this);
-
         }
 
         private void DineInTakeOut_Load(object sender, EventArgs e)
         {
             screenHeight = this.Height;
             screenWidth = this.Width;
-            label1.Text = screenHeight.ToString();
-            label2.Text = screenWidth.ToString();
-
 
             UI_Handling.centerPanel(panel1, DineInTakeOutLogo);
 
@@ -61,8 +57,6 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             screenHeight = this.Height;
             screenWidth = this.Width;
-            label1.Text = screenHeight.ToString();
-            label2.Text = screenWidth.ToString();
 
             UI_Handling.centerPanel(panel1, DineInTakeOutLogo);
 
@@ -84,14 +78,14 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void DineIn_Button_Click(object sender, EventArgs e)
         {
-            hasPickedAChoice?.Invoke();
             lastChoice = Models.Orders.TypeOfOrder.DineIn;
+            hasPickedAChoice?.Invoke();
         }
 
         private void TakeOut_Button_Click(object sender, EventArgs e)
         {
-            hasPickedAChoice?.Invoke();
             lastChoice = Models.Orders.TypeOfOrder.TakeOut;
+            hasPickedAChoice?.Invoke();
         }
 
 

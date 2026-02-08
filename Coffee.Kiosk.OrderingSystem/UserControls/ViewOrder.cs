@@ -1,4 +1,5 @@
-﻿using Coffee.Kiosk.OrderingSystem.Helper;
+﻿using Coffee.Kiosk.OrderingSystem.Forms;
+using Coffee.Kiosk.OrderingSystem.Helper;
 using Coffee.Kiosk.OrderingSystem.UserControls.Reusables;
 using System;
 using System.Collections.Generic;
@@ -16,17 +17,19 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
     {
         internal event Action? OrderMoreClicked;
         internal event Action? StartOverClicked;
+        internal event Action? CompleteOrderClicked;
 
         private readonly Models.Orders _orders;
 
-
-
+        int currentCartCount = 0;
         decimal totalPriceAmount = 0;
         public ViewOrder(Models.Orders orders)
         {
             InitializeComponent();
             _orders = orders;
             LoadCurrentOrders();
+            OnCartUpdate(orders);
+            pictureBox1.Image = UI_Images.logoImage;
         }
 
 
@@ -51,25 +54,43 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             totalPriceAmount = _orders.Items.Sum(i => i.ProductPrice * i.Quantity);
             TotalPriceLbl.Text = $"PHP {totalPriceAmount:0.00}";
         }
-        private void OnSubtractQuantity(Models.Orders.OrderItem item)
+
+        private void OnSubtractQuantity(Models.Orders.OrderItem item, bool remove)
         {
-            if (item.Quantity <= 1)
+            if (item.Quantity <= 1 || remove)
             {
-                _orders.Items.Remove(item);
-                LoadCurrentOrders();
-            } else
+                using (var confirm = new ConfirmRemove())
+                {
+                    var result = confirm.ShowDialog();
+                    if (result == DialogResult.Yes)
+                    {
+                        _orders.Items.Remove(item);
+                        LoadCurrentOrders();
+                    }
+                }
+            }
+            else
             {
                 item.Quantity--;
             }
-
+            totalPriceAmount = _orders.Items.Sum(i => i.ProductPrice * i.Quantity);
+            TotalPriceLbl.Text = $"PHP {totalPriceAmount:0.00}";
+            OnCartUpdate(_orders);
         }
-
 
         private void OrderMoreBtn_Click(object sender, EventArgs e)
         {
             totalPriceAmount = _orders.Items.Sum(i => i.ProductPrice * i.Quantity);
             TotalPriceLbl.Text = $"PHP {totalPriceAmount:0.00}";
             OrderMoreClicked?.Invoke();
+        }
+
+        public void OnCartUpdate(Models.Orders orders)
+        {
+            currentCartCount = orders.Items.Sum(i => i.Quantity);
+
+            checkOutBtn.Enabled = currentCartCount > 0;
+            totalPriceAmount = orders.Items.Sum(item => item.ProductPrice * item.Quantity);
         }
 
         private void ViewOrder_Resize(object sender, EventArgs e)
@@ -107,6 +128,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         private void StarvOverBtn_Click(object sender, EventArgs e)
         {
             StartOverClicked?.Invoke();
+        }
+
+        private void checkOutBtn_Click(object sender, EventArgs e)
+        {
+            CompleteOrderClicked?.Invoke();
         }
     }
 }

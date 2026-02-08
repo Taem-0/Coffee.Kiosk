@@ -117,44 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="default_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\default_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TakeOut" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TakeOut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="download (29)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\download (29).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DineIn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DineIn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HOME" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HOME.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Cafe Brand Web Banner Design" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cafe Brand Web Banner Design.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Café Gelado _ Lune Graphic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Café Gelado _ Lune Graphic.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Desain  Banner" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Desain  Banner.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CART (1)(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CART (1)(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PayWithGcash" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PayWithGcash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="circleWithLeftArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\circleWithLeftArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Tux" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Tux.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PayCash" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PayCash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

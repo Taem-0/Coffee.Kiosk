@@ -31,8 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DineInTakeOut));
             DineInTakeOutLogo = new PictureBox();
             panel1 = new Panel();
-            label2 = new Label();
-            label1 = new Label();
             BackButton = new MaterialSkin.Controls.MaterialFloatingActionButton();
             panel3 = new Panel();
             TakeOut_Button = new PictureBox();
@@ -60,8 +58,6 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(label1);
             panel1.Controls.Add(BackButton);
             panel1.Controls.Add(DineInTakeOutLogo);
             panel1.Dock = DockStyle.Top;
@@ -70,24 +66,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(788, 282);
             panel1.TabIndex = 2;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(588, 90);
-            label2.Name = "label2";
-            label2.Size = new Size(38, 15);
-            label2.TabIndex = 4;
-            label2.Text = "label2";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(588, 63);
-            label1.Name = "label1";
-            label1.Size = new Size(38, 15);
-            label1.TabIndex = 3;
-            label1.Text = "label1";
             // 
             // BackButton
             // 
@@ -183,7 +161,6 @@
             Resize += DineInTakeOut_Resize;
             ((System.ComponentModel.ISupportInitialize)DineInTakeOutLogo).EndInit();
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)TakeOut_Button).EndInit();
             ((System.ComponentModel.ISupportInitialize)DineIn_Button).EndInit();
@@ -199,8 +176,6 @@
         private Panel panel4;
         private PictureBox DineIn_Button;
         private MaterialSkin.Controls.MaterialFloatingActionButton BackButton;
-        private Label label1;
-        private Label label2;
         private Panel panel2;
     }
 }

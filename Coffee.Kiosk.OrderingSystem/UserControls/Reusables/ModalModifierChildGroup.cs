@@ -31,9 +31,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
         private void LoadOptions()
         {
             flowLayoutPanel1.Controls.Clear();
-            var options = Models.Product.modifierOption
-                .Where(o => o.GroupId == _group.Id)
-                .OrderBy(o => o.SortBy);
+            var options = 
+                from opt in Models.Product.modifierOption
+                where opt.GroupId == _group.Id
+                orderby opt.SortBy
+                select opt;
 
             foreach (var option in options)
             {
@@ -57,10 +59,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
         }
         public decimal GetTotalPriceDelta()
         {
-            decimal total = flowLayoutPanel1.Controls
-                .OfType<ModalModifierOptions>()
-                .Where(o => o.IsSelected)
-                .Sum(o => o.Option.PriceDelta);
+            decimal total = (
+                from ctrl in flowLayoutPanel1.Controls.OfType<ModalModifierOptions>()
+                where ctrl.IsSelected
+                select ctrl.Option.PriceDelta
+                ).Sum();
 
             return total;
         }
@@ -76,7 +79,12 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 
         public void CollectSelections(Dictionary<int, List<int>> ids, Dictionary<string, List<string>> names)
         {
-            var selected = flowLayoutPanel1.Controls.OfType<ModalModifierOptions>().Where(o => o.IsSelected).ToList();
+            var selected = (
+                from ctrl in flowLayoutPanel1.Controls.OfType<ModalModifierOptions>()
+                where ctrl.IsSelected
+                select ctrl
+                ).ToList();
+
             if (selected.Count > 0)
             {
                 ids[_group.Id] = selected.Select(o => o.Option.Id).ToList();

@@ -184,6 +184,7 @@
             checkOutBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             checkOutBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             checkOutBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            checkOutBtn.Enabled = false;
             checkOutBtn.FillColor = Color.Red;
             checkOutBtn.Font = new Font("Segoe UI Semibold", 13.5F, FontStyle.Bold);
             checkOutBtn.ForeColor = Color.White;
@@ -194,6 +195,7 @@
             checkOutBtn.Size = new Size(250, 56);
             checkOutBtn.TabIndex = 4;
             checkOutBtn.Text = "Complete Order";
+            checkOutBtn.Click += checkOutBtn_Click;
             // 
             // StarvOverBtn
             // 
@@ -290,7 +292,6 @@
         private Panel BottomPanel;
         private Panel panel1;
         private Guna.UI2.WinForms.Guna2Button checkOutBtn;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2Button OrderMoreBtn;
         private Label label2;
         private Label TotalPriceLbl;

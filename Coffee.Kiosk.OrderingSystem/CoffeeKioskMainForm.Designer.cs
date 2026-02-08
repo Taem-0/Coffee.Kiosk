@@ -44,7 +44,7 @@
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(0, 0);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(676, 675);
+            mainPanel.Size = new Size(784, 761);
             mainPanel.TabIndex = 0;
             // 
             // modalOverlayPanel
@@ -56,7 +56,7 @@
             modalOverlayPanel.Location = new Point(0, 0);
             modalOverlayPanel.Name = "modalOverlayPanel";
             modalOverlayPanel.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            modalOverlayPanel.Size = new Size(676, 675);
+            modalOverlayPanel.Size = new Size(784, 761);
             modalOverlayPanel.TabIndex = 2;
             modalOverlayPanel.UseTransparentBackground = true;
             modalOverlayPanel.Visible = false;
@@ -69,7 +69,7 @@
             modalMainScreen.Margin = new Padding(0);
             modalMainScreen.Name = "modalMainScreen";
             modalMainScreen.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            modalMainScreen.Size = new Size(676, 675);
+            modalMainScreen.Size = new Size(720, 761);
             modalMainScreen.TabIndex = 3;
             // 
             // CoffeeKioskMainForm
@@ -77,7 +77,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(228, 227, 210);
-            ClientSize = new Size(676, 675);
+            ClientSize = new Size(784, 761);
             Controls.Add(modalOverlayPanel);
             Controls.Add(mainPanel);
             Margin = new Padding(3, 2, 3, 2);

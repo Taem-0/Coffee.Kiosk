@@ -38,6 +38,19 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             }
         }
 
+        public void ReloadModalScreen(int productId)
+        {
+            productData = Models.Product.productData.FirstOrDefault(p => p.Id == productId);
+
+            if (productData != null)
+            {
+                if (productData.IsCustomizable)
+                {
+                    ShowCustomizeScreen(productId, productData.Name, productData.ImagePath);
+                }
+            }
+        }
+
         private void BackBtnClicked()
         {
             BackButtonClicked?.Invoke();
@@ -54,8 +67,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
                     AddToCartClicked?.Invoke(item);
                 };
 
+            }else
+            {
+                modalCustomizeScreen.ReloadModalCustomize(productId, name, imagePath);
             }
-            UI_Handling.loadUserControl(mainModalScreen, modalCustomizeScreen);
+                UI_Handling.loadUserControl(mainModalScreen, modalCustomizeScreen);
         }
     }
 }

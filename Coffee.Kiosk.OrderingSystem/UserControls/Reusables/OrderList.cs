@@ -1,4 +1,7 @@
-﻿using Coffee.Kiosk.OrderingSystem.Helper;
+﻿using Coffee.Kiosk.OrderingSystem.Forms;
+using Coffee.Kiosk.OrderingSystem.Forms.ViewDetail;
+using Coffee.Kiosk.OrderingSystem.Helper;
+using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +19,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
     {
         private readonly Models.Orders.OrderItem _item;
         internal event Action<Models.Orders.OrderItem>? AddQuantityClicked;
-        internal event Action<Models.Orders.OrderItem>? SubtractQuantityClicked;
+        internal event Action<Models.Orders.OrderItem, bool>? SubtractQuantityClicked;
 
         public OrderList(Models.Orders.OrderItem item)
         {
@@ -38,19 +41,52 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 
         private void SubtractQuantityBtn_Click(object sender, EventArgs e)
         {
-            SubtractQuantityClicked?.Invoke(_item);
+            SubtractQuantityClicked?.Invoke(_item, false);
             QuantityLbl.Text = $"{_item.Quantity}";
             itemCostLbl.Text = $"PHP {_item.ProductPrice * _item.Quantity}";
         }
 
         private void RemoveBtn_Click(object sender, EventArgs e)
         {
-
+            SubtractQuantityClicked?.Invoke(_item, true);
         }
 
         private void ViewDetailsBtn_Click(object sender, EventArgs e)
         {
+            var parentForm = this.FindForm();
 
+            Guna2Panel overlay = new Guna2Panel
+            {
+                Dock = DockStyle.Fill,
+                FillColor = Color.FromArgb(67, 0, 0, 0),
+                UseTransparentBackground = true,
+            };
+            parentForm.Controls.Add(overlay);
+            overlay.BringToFront();
+
+            var view = new ViewDetail(_item);
+            view.TopLevel = false;
+            parentForm.Controls.Add(view);
+            view.BringToFront();
+
+            view.Left = (parentForm.ClientSize.Width - view.Width) / 2;
+            view.Top = (parentForm.ClientSize.Height - view.Height) / 2;
+
+
+            view.Show();
+
+            overlay.Click += (_, __) =>
+            {
+                view.Close();
+                parentForm.Controls.Remove(overlay);
+                overlay.Dispose();
+            };
+
+            view.FormClosed += (_, __) =>
+            {
+                parentForm.Controls.Remove(overlay);
+                overlay.Dispose();
+            };
         }
 
         private void QuantityLbl_Paint(object sender, PaintEventArgs e)

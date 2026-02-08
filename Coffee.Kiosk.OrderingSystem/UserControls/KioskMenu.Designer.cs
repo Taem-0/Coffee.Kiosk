@@ -113,6 +113,7 @@
             checkOutBtn.Size = new Size(250, 56);
             checkOutBtn.TabIndex = 4;
             checkOutBtn.Text = "Proceed to Checkout";
+            checkOutBtn.Click += checkOutBtn_Click;
             // 
             // panel2
             // 
@@ -132,7 +133,7 @@
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             guna2HtmlLabel1.Size = new Size(228, 130);
             guna2HtmlLabel1.TabIndex = 0;
-            guna2HtmlLabel1.Text = "<b><font size='12'>Order summary</font></b>\r\n<br>\r\n<b>Items:</b> 3\r\n<br>\r\n<b>Dine in</b>\r\n<br>\r\n<b>Total:</b> ₱450.00";
+            guna2HtmlLabel1.Text = "<b><font size='12'>Order summary</font></b>\r\n<br>\r\n<b>Items:</b> 67\r\n<br>\r\n<b>Dine in</b>\r\n<br>\r\n<b>Total:</b> ₱67.67";
             // 
             // cartCounterButton
             // 
@@ -144,11 +145,12 @@
             cartCounterButton.FillColor = Color.Red;
             cartCounterButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cartCounterButton.ForeColor = Color.White;
-            cartCounterButton.Location = new Point(87, 6);
+            cartCounterButton.Location = new Point(84, 6);
+            cartCounterButton.Margin = new Padding(0);
             cartCounterButton.Name = "cartCounterButton";
             cartCounterButton.ShadowDecoration.CustomizableEdges = customizableEdges3;
             cartCounterButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            cartCounterButton.Size = new Size(32, 30);
+            cartCounterButton.Size = new Size(35, 35);
             cartCounterButton.TabIndex = 3;
             cartCounterButton.Text = "0";
             cartCounterButton.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
