@@ -22,7 +22,7 @@ Partial Class Form2
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        ListView1 = New ListView()
+        lvOrderNum = New ListView()
         Label1 = New Label()
         FlowLayoutPanel1 = New FlowLayoutPanel()
         Monitoring_buttons3 = New Monitoring_buttons()
@@ -39,7 +39,7 @@ Partial Class Form2
         FlowLayoutPanel1.SuspendLayout()
         SuspendLayout()
         ' 
-        ' ListView1
+        ' lvOrderNum
         ' 
         ListView1.BackColor = Color.OldLace
         ListView1.Font = New Font("Arial Rounded MT Bold", 24.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -179,7 +179,7 @@ Partial Class Form2
         PerformLayout()
     End Sub
 
-    Friend WithEvents ListView1 As ListView
+    Friend WithEvents lvOrderNum As ListView
     Friend WithEvents Label1 As Label
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents Monitoring_buttons3 As Monitoring_buttons
