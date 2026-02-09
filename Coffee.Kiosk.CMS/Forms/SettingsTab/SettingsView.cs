@@ -43,19 +43,28 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             guna2CirclePictureBox1.MouseClick += ProfilePicture_MouseClick;
         }
 
+        // NOTE: Only relevant fixes applied:
+        // - TabPage background forced to theme color (no white padding)
+        // - Panels set to same background color intentionally
+        // - Parent containers matched to prevent white padding bleed
+
         private void ApplyTheme()
         {
-            // Set background colors
+            // Main control
             this.BackColor = _background;
             this.ForeColor = _darkBrown;
 
-            // Apply to header panel
+            // IMPORTANT: Tab page fix (removes white padding)
+            accountTab.UseVisualStyleBackColor = false;
+            accountTab.BackColor = _background;
+
+            // Header panel
             guna2Panel1.FillColor = _mediumBrown;
             guna2Panel1.BackColor = _mediumBrown;
             guna2Panel1.BorderColor = _darkBrown;
             guna2Panel1.BorderThickness = 1;
 
-            // Apply to labels
+            // Labels
             label1.ForeColor = Color.Black;
             label1.BackColor = Color.Transparent;
 
@@ -65,25 +74,23 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             label12.ForeColor = _darkBrown;
             label12.BackColor = Color.Transparent;
 
-            // Apply to tab control
             ApplyTabControlTheme();
 
-            // Apply to panels
-            guna2Panel2.FillColor = _beige;
-            guna2Panel2.BackColor = _beige;
+            guna2Panel2.FillColor = _background;
+            guna2Panel2.BackColor = _background;
             guna2Panel2.BorderColor = _mediumBrown;
             guna2Panel2.BorderThickness = 2;
 
-            guna2Panel3.FillColor = _beige;
-            guna2Panel3.BackColor = _beige;
+            guna2Panel3.FillColor = _background;
+            guna2Panel3.BackColor = _background;
             guna2Panel3.BorderColor = _mediumBrown;
             guna2Panel3.BorderThickness = 2;
 
-            // Apply to table layouts
-            tableLayoutPanel1.BackColor = _beige;
-            tableLayoutPanel2.BackColor = _beige;
+            mainPanel.BackColor = _background;
+            tableLayoutPanel1.BackColor = _background;
+            tableLayoutPanel2.BackColor = _background;
 
-            // Apply to labels in table layouts
+            // Label styling
             ApplyLabelTheme(label2);
             ApplyLabelTheme(label3);
             ApplyLabelTheme(label4);
@@ -94,23 +101,20 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             ApplyLabelTheme(emailLabel);
             ApplyLabelTheme(phoneLabel);
 
-            // Apply to buttons
+            // Buttons
             ConfigureButton(changeNameButton);
             ConfigureButton(pfpChangeButton);
             ConfigureButton(requestResetButton);
             ConfigureButton(changePhoneButton);
 
-            // Apply to scrollbar
+            // Scrollbar
             guna2vScrollBar1.ThumbColor = _mediumBrown;
             guna2vScrollBar1.FillColor = _background;
 
-            // Style the picture box
+            // Profile picture box
             guna2CirclePictureBox1.FillColor = Color.White;
-
-
-            // Style main panel
-            mainPanel.BackColor = _background;
         }
+
 
         private void ApplyTabControlTheme()
         {
