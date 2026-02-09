@@ -200,7 +200,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating database or tables: {ex.Message}");
-                MessageBox.Show("Failed to initialize database\n" + ex.Message);
+                //MessageBox.Show("Failed to initialize database\n" + ex.Message);
                 //throw;
             }
         }

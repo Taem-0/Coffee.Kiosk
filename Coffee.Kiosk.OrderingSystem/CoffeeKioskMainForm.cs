@@ -88,6 +88,8 @@ namespace Coffee.Kiosk.OrderingSystem
                 getStartedScreen.NextClicked += ShowDineInTakeOutScreen;
             }
             UI_Handling.loadUserControl(mainPanel, getStartedScreen);
+
+
         }
 
         private void ShowDineInTakeOutScreen()
@@ -127,6 +129,14 @@ namespace Coffee.Kiosk.OrderingSystem
                 kioskMenu.ProductSelected += ShowModalCustomizeScreen;
                 kioskMenu.ViewOrderClicked += ShowViewOrder;
                 this.CartUpdated += kioskMenu.OnCartUpdated;
+            }
+            currentOrder ??= new Models.Orders();
+            if (viewOrder == null)
+            {
+                viewOrder = new ViewOrder(currentOrder);
+                viewOrder.StartOverClicked += FinishOrder;
+                viewOrder.OrderMoreClicked += ShowKioskMenuScreen;
+                viewOrder.CompleteOrderClicked += ShowPayOptionScreen;
             }
             UI_Handling.loadUserControl(mainPanel, kioskMenu);
         }

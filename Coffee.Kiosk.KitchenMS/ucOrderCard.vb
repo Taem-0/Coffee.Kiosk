@@ -7,12 +7,12 @@ Public Class ucOrderCard
     Private Sub ucOrderCard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         btnFinish.Enabled = False
-        Panel2.BackColor = Color.FromArgb(201, 185, 159)
-        Panel3.BackColor = Color.FromArgb(201, 185, 159)
+        'Panel2.BackColor = Color.FromArgb(201, 185, 159)
+        'Panel3.BackColor = Color.FromArgb(201, 185, 159)
 
-        'lstBxOrder.Items.Add("Latte (Medium)        x1")
-        'lstBxOrder.Items.Add("Cappuccino (Large)    x1")
-        'lstBxOrder.Items.Add("Americano (Small)     x1")
+        lstBxOrder.Items.Add("Latte (Medium)        x1")
+        lstBxOrder.Items.Add("Cappuccino (Large)    x1")
+        lstBxOrder.Items.Add("Americano (Small)     x1")
     End Sub
 
 

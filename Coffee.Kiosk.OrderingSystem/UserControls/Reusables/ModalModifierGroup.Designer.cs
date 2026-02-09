@@ -41,9 +41,10 @@
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(20, 24);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(540, 69);
+            flowLayoutPanel1.Size = new Size(480, 69);
             flowLayoutPanel1.TabIndex = 0;
             flowLayoutPanel1.ControlAdded += flowLayoutPanel1_ControlAdded;
+            flowLayoutPanel1.Paint += flowLayoutPanel1_Paint;
             // 
             // flowLayoutPanel2
             // 
@@ -51,7 +52,7 @@
             flowLayoutPanel2.Dock = DockStyle.Bottom;
             flowLayoutPanel2.Location = new Point(20, 93);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(540, 0);
+            flowLayoutPanel2.Size = new Size(480, 0);
             flowLayoutPanel2.TabIndex = 1;
             // 
             // ModifierGroupName
@@ -60,7 +61,7 @@
             ModifierGroupName.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ModifierGroupName.Location = new Point(3, -1);
             ModifierGroupName.Name = "ModifierGroupName";
-            ModifierGroupName.Size = new Size(534, 25);
+            ModifierGroupName.Size = new Size(444, 25);
             ModifierGroupName.TabIndex = 0;
             ModifierGroupName.Text = "Modifier_Group_Name";
             // 
@@ -70,7 +71,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(20, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(540, 24);
+            panel1.Size = new Size(480, 24);
             panel1.TabIndex = 0;
             // 
             // ModalModifierGroup
@@ -82,10 +83,10 @@
             Controls.Add(flowLayoutPanel2);
             Controls.Add(panel1);
             Margin = new Padding(3, 3, 3, 10);
-            MinimumSize = new Size(560, 17);
+            MinimumSize = new Size(500, 17);
             Name = "ModalModifierGroup";
             Padding = new Padding(20, 0, 0, 0);
-            Size = new Size(560, 93);
+            Size = new Size(500, 93);
             panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

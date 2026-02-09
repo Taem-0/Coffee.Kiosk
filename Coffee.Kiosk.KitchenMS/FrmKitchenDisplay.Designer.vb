@@ -48,8 +48,9 @@ Partial Class FrmKitchenDisplay
         ' lblTime
         ' 
         lblTime.AutoSize = True
-        lblTime.BackColor = Color.Tan
+        lblTime.BackColor = Color.FromArgb(CByte(160), CByte(120), CByte(86))
         lblTime.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTime.ForeColor = Color.White
         lblTime.Location = New Point(809, 22)
         lblTime.Name = "lblTime"
         lblTime.Size = New Size(145, 28)
@@ -61,7 +62,7 @@ Partial Class FrmKitchenDisplay
         ' 
         ' Panel1
         ' 
-        Panel1.BackColor = Color.Tan
+        Panel1.BackColor = Color.FromArgb(CByte(160), CByte(120), CByte(86))
         Panel1.Controls.Add(Label1)
         Panel1.Controls.Add(lblActiveOrder)
         Panel1.Controls.Add(PictureBox1)
@@ -76,6 +77,7 @@ Partial Class FrmKitchenDisplay
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.ForeColor = Color.White
         Label1.Location = New Point(1664, 11)
         Label1.Name = "Label1"
         Label1.Size = New Size(51, 20)
@@ -86,6 +88,7 @@ Partial Class FrmKitchenDisplay
         ' 
         lblActiveOrder.AutoSize = True
         lblActiveOrder.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblActiveOrder.ForeColor = Color.White
         lblActiveOrder.Location = New Point(1677, 20)
         lblActiveOrder.Name = "lblActiveOrder"
         lblActiveOrder.Size = New Size(40, 46)

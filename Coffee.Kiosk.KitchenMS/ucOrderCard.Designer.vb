@@ -53,7 +53,7 @@ Partial Class ucOrderCard
         ' 
         ' Panel3
         ' 
-        Panel3.BackColor = Color.Tan
+        Panel3.BackColor = Color.FromArgb(CByte(160), CByte(120), CByte(86))
         Panel3.BorderStyle = BorderStyle.FixedSingle
         Panel3.Controls.Add(btnFinish)
         Panel3.Controls.Add(btnStart)
@@ -86,7 +86,7 @@ Partial Class ucOrderCard
         ' 
         ' Panel2
         ' 
-        Panel2.BackColor = Color.Tan
+        Panel2.BackColor = Color.FromArgb(CByte(160), CByte(120), CByte(86))
         Panel2.BorderStyle = BorderStyle.FixedSingle
         Panel2.Controls.Add(lblPlaceEat)
         Panel2.Controls.Add(lblWaitTime)
@@ -101,6 +101,7 @@ Partial Class ucOrderCard
         ' 
         lblPlaceEat.AutoSize = True
         lblPlaceEat.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblPlaceEat.ForeColor = Color.White
         lblPlaceEat.Location = New Point(258, 8)
         lblPlaceEat.Name = "lblPlaceEat"
         lblPlaceEat.Size = New Size(67, 23)
@@ -111,6 +112,7 @@ Partial Class ucOrderCard
         ' 
         lblWaitTime.AutoSize = True
         lblWaitTime.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblWaitTime.ForeColor = Color.White
         lblWaitTime.Location = New Point(269, 35)
         lblWaitTime.Name = "lblWaitTime"
         lblWaitTime.Size = New Size(50, 23)
@@ -121,6 +123,7 @@ Partial Class ucOrderCard
         ' 
         lblTimeOrder.AutoSize = True
         lblTimeOrder.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTimeOrder.ForeColor = Color.White
         lblTimeOrder.Location = New Point(13, 35)
         lblTimeOrder.Name = "lblTimeOrder"
         lblTimeOrder.Size = New Size(50, 23)
@@ -131,6 +134,7 @@ Partial Class ucOrderCard
         ' 
         lblOrderNumber.AutoSize = True
         lblOrderNumber.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblOrderNumber.ForeColor = Color.White
         lblOrderNumber.Location = New Point(11, 8)
         lblOrderNumber.Name = "lblOrderNumber"
         lblOrderNumber.Size = New Size(72, 23)

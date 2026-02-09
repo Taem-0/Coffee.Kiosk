@@ -89,12 +89,12 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             if (sides.HasFlag(borderSide.Left)) e.Graphics.DrawLine(pen, rect.Left, rect.Top, rect.Left, rect.Bottom);
             if (sides.HasFlag(borderSide.Right)) e.Graphics.DrawLine(pen, rect.Right, rect.Top, rect.Right, rect.Bottom);
         }
-        internal static void AddBottomSpacer(FlowLayoutPanel panel, int height = 40)
+        internal static void AddBottomSpacer(FlowLayoutPanel panel, int height)
         {
             var spacer = new Panel
             {
                 Height = height,
-                Width = panel.ClientSize.Width,
+                //Width = panel.ClientSize.Width,
                 Margin = new Padding(0),
             };
 
