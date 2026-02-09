@@ -30,7 +30,7 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
                 page.Content().Column(col =>
                 {
                     //col.Item().Text("=========================================================").AlignCenter();
-                    col.Item().Background(Colors.Black).Text($"67").FontSize(17).FontFamily("Times New Roman").Bold().FontColor(Colors.White).AlignCenter();
+                    col.Item().PaddingVertical(7).Background(Colors.Black).Text($"67").FontSize(48).Bold().FontColor(Colors.White).AlignCenter();
 
                     col.Item().PaddingVertical(5).Text(new String('=', 34)).AlignCenter();
                     col.Item().Text("Cafe Filipino").AlignCenter();
