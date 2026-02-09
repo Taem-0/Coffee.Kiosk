@@ -151,7 +151,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
                     child.CollectSelections(ids, names);
             }
         }
-
+ 
         private void flowLayoutPanel1_ControlAdded(object sender, ControlEventArgs e)
         {
             if (flowLayoutPanel1.Controls.Count % 4 == 0)
