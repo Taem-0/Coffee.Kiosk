@@ -118,13 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="addMore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addMore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="blue-add-button-12025" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue-add-button-12025.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="default_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\default_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="blue-add-button-12025" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\blue-add-button-12025.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="addMore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addMore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="[CITYPNG.COM]Brown Coffee Cup Logo Design HD PNG - 4000x4000" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\[CITYPNG.COM]Brown Coffee Cup Logo Design HD PNG - 4000x4000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

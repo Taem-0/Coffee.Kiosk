@@ -354,17 +354,20 @@
             // 
             // hideButton
             // 
+            hideButton.BackColor = Color.Transparent;
             hideButton.CheckedState.ImageSize = new Size(64, 64);
             hideButton.HoverState.ImageSize = new Size(64, 64);
             hideButton.Image = (Image)resources.GetObject("hideButton.Image");
             hideButton.ImageOffset = new Point(0, 0);
             hideButton.ImageRotate = 0F;
+            hideButton.ImageSize = new Size(31, 31);
             hideButton.Location = new Point(377, 611);
             hideButton.Name = "hideButton";
             hideButton.PressedState.ImageSize = new Size(64, 64);
             hideButton.ShadowDecoration.CustomizableEdges = customizableEdges21;
             hideButton.Size = new Size(31, 31);
             hideButton.TabIndex = 18;
+            hideButton.UseTransparentBackground = true;
             hideButton.Click += hideButton_Click;
             // 
             // hideButton2
@@ -374,6 +377,7 @@
             hideButton2.Image = (Image)resources.GetObject("hideButton2.Image");
             hideButton2.ImageOffset = new Point(0, 0);
             hideButton2.ImageRotate = 0F;
+            hideButton2.ImageSize = new Size(31, 31);
             hideButton2.Location = new Point(775, 604);
             hideButton2.Name = "hideButton2";
             hideButton2.PressedState.ImageSize = new Size(64, 64);

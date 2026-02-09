@@ -246,7 +246,6 @@
             label11.Size = new Size(105, 30);
             label11.TabIndex = 10;
             label11.Text = "Password";
-            label11.Click += label11_Click;
             // 
             // label6
             // 

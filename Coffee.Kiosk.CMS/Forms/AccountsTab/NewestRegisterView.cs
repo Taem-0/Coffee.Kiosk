@@ -25,6 +25,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         public NewestRegisterView(AccountController controller, DisplayDTO draft)
         {
+
             InitializeComponent();
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
             _draft = draft ?? throw new ArgumentNullException(nameof(draft));
@@ -32,31 +33,29 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             ApplyTheme();
             WireUpEvents();
             LoadDraftValues();
+
         }
 
         private void ApplyTheme()
         {
-            // Set background colors
+
             this.BackColor = _background;
             this.ForeColor = _darkBrown;
             this.Padding = new Padding(20);
 
-            // Apply to header panel
             guna2Panel1.FillColor = _mediumBrown;
             guna2Panel1.BackColor = _mediumBrown;
             guna2Panel1.BorderColor = _darkBrown;
             guna2Panel1.BorderThickness = 1;
 
-            // Apply to table layout (main content area)
             tableLayoutPanel1.BackColor = _beige;
 
-            // Apply to labels
             label1.ForeColor = Color.White;
             label1.BackColor = Color.Transparent;
 
             label2.ForeColor = _darkBrown;
             label2.BackColor = Color.Transparent;
-
+            
             label3.ForeColor = _darkBrown;
             label3.BackColor = Color.Transparent;
 
@@ -84,12 +83,10 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             label17.ForeColor = Color.White;
             label17.BackColor = Color.Transparent;
 
-            // Apply to buttons
             ConfigureButton(NextButton);
             ConfigureButton(CancelButton);
             ConfigureCircleButton(AddPfpButton);
 
-            // Apply to all textboxes
             ApplyTextBoxTheme(FirstNameTextBox);
             ApplyTextBoxTheme(MiddleNameTextBox);
             ApplyTextBoxTheme(LastNameTextBox);
@@ -99,7 +96,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             ApplyTextBoxTheme(EmergencyLastNameTextBox);
             ApplyTextBoxTheme(EmergencyPhoneTextBox);
 
-            // Style the picture box
             PictureBox.FillColor = Color.White;
 
         }
@@ -140,7 +136,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void WireUpEvents()
         {
-            // Wire up text changed events to clear errors
             FirstNameTextBox.TextChanged += (s, e) => ClearError(FirstNameTextBox);
             MiddleNameTextBox.TextChanged += (s, e) => ClearError(MiddleNameTextBox);
             LastNameTextBox.TextChanged += (s, e) => ClearError(LastNameTextBox);
@@ -150,7 +145,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             EmergencyLastNameTextBox.TextChanged += (s, e) => ClearError(EmergencyLastNameTextBox);
             EmergencyPhoneTextBox.TextChanged += (s, e) => ClearError(EmergencyPhoneTextBox);
 
-            // Add picture box right-click event
             PictureBox.MouseClick += PictureBox_MouseClick;
         }
 
@@ -165,7 +159,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             EmergencyLastNameTextBox.Text = _draft.EmergencyLastName;
             EmergencyPhoneTextBox.Text = _draft.EmergencyNumber;
 
-            // Load profile picture if exists
             if (!string.IsNullOrEmpty(_draft.ProfilePicturePath) && System.IO.File.Exists(_draft.ProfilePicturePath))
             {
                 try
@@ -174,7 +167,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 }
                 catch
                 {
-                    // If image fails to load, set to null
                     PictureBox.Image = null;
                 }
             }
@@ -207,7 +199,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 }
                 else if (result == DialogResult.Retry)
                 {
-                    // Do nothing, stay on this form
+
+                    //UHMMMM
+
                 }
             }
         }
@@ -356,7 +350,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             }
         }
 
-        // Handle picture box click to remove image
         private void PictureBox_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && PictureBox.Image != null)
@@ -374,7 +367,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void PictureBox_Click(object sender, EventArgs e)
         {
-            // Optional: Add left-click functionality if needed
+
         }
     }
 }
