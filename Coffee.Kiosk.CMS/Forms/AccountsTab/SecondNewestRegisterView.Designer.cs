@@ -192,6 +192,7 @@
             AddPictureButton.Size = new Size(50, 50);
             AddPictureButton.TabIndex = 2;
             AddPictureButton.TextAlign = HorizontalAlignment.Left;
+            AddPictureButton.UseTransparentBackground = true;
             AddPictureButton.Click += AddPictureButton_Click;
             // 
             // PictureBox2
