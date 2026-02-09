@@ -160,7 +160,7 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             productData.Add(new(5, 6, "Sugino Zen", 15000m, "C:/Images/Sugino-Big-Zen-Silver.png", true));
 
             int gId = 1;
-            for (int i = 1; i < 4; i++)
+            for (int i = 1; i <= 4; i++)
             {
                 modifierGroups.Add(new(gId, i, null, "Size", SelectionType.Single, true));
                 gId++;
@@ -176,7 +176,7 @@ namespace Coffee.Kiosk.OrderingSystem.Models
 
             int pId = 1;
             gId = 1;
-            for (int i = 1;  i < 4; i++)
+            for (int i = 1;  i <= 4; i++)
             {
                 modifierOption.Add(new ModifierOption(pId, gId, "Small", 0.00m, 250.00m, null, true, 1));
                 pId++;

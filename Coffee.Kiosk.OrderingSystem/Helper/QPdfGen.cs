@@ -30,6 +30,8 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
                 page.Content().Column(col =>
                 {
                     //col.Item().Text("=========================================================").AlignCenter();
+                    col.Item().Background(Colors.Black).Text($"67").FontSize(17).FontFamily("Times New Roman").Bold().FontColor(Colors.White).AlignCenter();
+
                     col.Item().PaddingVertical(5).Text(new String('=', 34)).AlignCenter();
                     col.Item().Text("Cafe Filipino").AlignCenter();
                     col.Item().PaddingVertical(5).Text(new String('=', 34)).AlignCenter();
@@ -53,7 +55,7 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
                             {
                                 foreach (var mod in item.SelectedModifiersName)
                                 {
-                                    itemCol.Item().Text($"    {mod.Key}: {string.Join(", ", mod.Value)}").FontSize(7);
+                                    itemCol.Item().Text($"    {mod.Key}: {string.Join(", ", mod.Value)}").FontSize(8);
                                 }
                             }
                         });

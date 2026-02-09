@@ -161,6 +161,10 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             ViewOrderClicked?.Invoke();
         }
+        private void cartCounterButton_Click(object sender, EventArgs e)
+        {
+            ViewOrderClicked?.Invoke();
+        }
         private void checkOutBtn_Click(object sender, EventArgs e)
         {
             ViewOrderClicked?.Invoke();
@@ -188,5 +192,6 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             UI_Handling.drawBorderSides(e, BottomPanel.ClientRectangle, UI_Handling.borderSide.Top, Color.Black, 2);
         }
+
     }
 }

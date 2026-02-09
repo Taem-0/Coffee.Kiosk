@@ -145,8 +145,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
                 names[_group.Name] = selected.Select(o => o.Option.Name).ToList();
             }
 
-            foreach (var child in _childGroups)
-                child.CollectSelections(ids, names);
+            if (flowLayoutPanel2.Visible)
+            {
+                foreach (var child in _childGroups)
+                    child.CollectSelections(ids, names);
+            }
         }
 
         private void flowLayoutPanel1_ControlAdded(object sender, ControlEventArgs e)

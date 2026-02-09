@@ -156,6 +156,7 @@
             cartCounterButton.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
             cartCounterButton.UseTransparentBackground = true;
             cartCounterButton.Visible = false;
+            cartCounterButton.Click += cartCounterButton_Click;
             // 
             // CartPicture
             // 
