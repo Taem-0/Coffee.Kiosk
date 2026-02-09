@@ -15,20 +15,143 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 {
     public partial class NewestRegisterView : Form
     {
-
         private readonly AccountController _controller;
         private readonly DisplayDTO _draft;
+        private Color _darkBrown = ColorTranslator.FromHtml("#3d211a");
+        private Color _mediumBrown = ColorTranslator.FromHtml("#6f4d38");
+        private Color _lightBrown = ColorTranslator.FromHtml("#a07856");
+        private Color _beige = ColorTranslator.FromHtml("#cbb799");
+        private Color _background = ColorTranslator.FromHtml("#f5f5dc");
 
         public NewestRegisterView(AccountController controller, DisplayDTO draft)
         {
             InitializeComponent();
-
-
-
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
             _draft = draft ?? throw new ArgumentNullException(nameof(draft));
 
+            ApplyTheme();
+            WireUpEvents();
             LoadDraftValues();
+        }
+
+        private void ApplyTheme()
+        {
+            // Set background colors
+            this.BackColor = _background;
+            this.ForeColor = _darkBrown;
+            this.Padding = new Padding(20);
+
+            // Apply to header panel
+            guna2Panel1.FillColor = _mediumBrown;
+            guna2Panel1.BackColor = _mediumBrown;
+            guna2Panel1.BorderColor = _darkBrown;
+            guna2Panel1.BorderThickness = 1;
+
+            // Apply to table layout (main content area)
+            tableLayoutPanel1.BackColor = _beige;
+
+            // Apply to labels
+            label1.ForeColor = Color.White;
+            label1.BackColor = Color.Transparent;
+
+            label2.ForeColor = _darkBrown;
+            label2.BackColor = Color.Transparent;
+
+            label3.ForeColor = _darkBrown;
+            label3.BackColor = Color.Transparent;
+
+            label4.ForeColor = _darkBrown;
+            label4.BackColor = Color.Transparent;
+
+            label5.ForeColor = _darkBrown;
+            label5.BackColor = Color.Transparent;
+
+            label6.ForeColor = _darkBrown;
+            label6.BackColor = Color.Transparent;
+
+            label7.ForeColor = _darkBrown;
+            label7.BackColor = Color.Transparent;
+
+            label8.ForeColor = _darkBrown;
+            label8.BackColor = Color.Transparent;
+
+            label9.ForeColor = _darkBrown;
+            label9.BackColor = Color.Transparent;
+
+            label10.ForeColor = _darkBrown;
+            label10.BackColor = Color.Transparent;
+
+            label17.ForeColor = Color.White;
+            label17.BackColor = Color.Transparent;
+
+            // Apply to buttons
+            ConfigureButton(NextButton);
+            ConfigureButton(CancelButton);
+            ConfigureCircleButton(AddPfpButton);
+
+            // Apply to all textboxes
+            ApplyTextBoxTheme(FirstNameTextBox);
+            ApplyTextBoxTheme(MiddleNameTextBox);
+            ApplyTextBoxTheme(LastNameTextBox);
+            ApplyTextBoxTheme(PhoneTextBox);
+            ApplyTextBoxTheme(EmailTextBox);
+            ApplyTextBoxTheme(EmergencyFirstNameTextBox);
+            ApplyTextBoxTheme(EmergencyLastNameTextBox);
+            ApplyTextBoxTheme(EmergencyPhoneTextBox);
+
+            // Style the picture box
+            PictureBox.FillColor = Color.White;
+
+        }
+
+        private void ConfigureButton(Guna.UI2.WinForms.Guna2Button button)
+        {
+            button.FillColor = _mediumBrown;
+            button.ForeColor = Color.White;
+            button.BorderColor = _darkBrown;
+            button.BorderThickness = 1;
+            button.HoverState.FillColor = _lightBrown;
+            button.HoverState.BorderColor = _darkBrown;
+            button.PressedColor = _darkBrown;
+            button.BorderRadius = 15;
+        }
+
+        private void ConfigureCircleButton(Guna.UI2.WinForms.Guna2CircleButton button)
+        {
+            button.FillColor = _mediumBrown;
+            button.ForeColor = Color.White;
+            button.BorderColor = _darkBrown;
+            button.BorderThickness = 1;
+            button.HoverState.FillColor = _lightBrown;
+            button.HoverState.BorderColor = _darkBrown;
+            button.PressedColor = _darkBrown;
+        }
+
+        private void ApplyTextBoxTheme(Guna.UI2.WinForms.Guna2TextBox textBox)
+        {
+            textBox.BorderColor = _mediumBrown;
+            textBox.FocusedState.BorderColor = _lightBrown;
+            textBox.HoverState.BorderColor = _lightBrown;
+            textBox.FillColor = Color.White;
+            textBox.ForeColor = _darkBrown;
+            textBox.PlaceholderForeColor = Color.Gray;
+            textBox.BorderRadius = 8;
+        }
+
+        private void WireUpEvents()
+        {
+            // Wire up text changed events to clear errors
+            FirstNameTextBox.TextChanged += (s, e) => ClearError(FirstNameTextBox);
+            MiddleNameTextBox.TextChanged += (s, e) => ClearError(MiddleNameTextBox);
+            LastNameTextBox.TextChanged += (s, e) => ClearError(LastNameTextBox);
+            PhoneTextBox.TextChanged += (s, e) => ClearError(PhoneTextBox);
+            EmailTextBox.TextChanged += (s, e) => ClearError(EmailTextBox);
+            EmergencyFirstNameTextBox.TextChanged += (s, e) => ClearError(EmergencyFirstNameTextBox);
+            EmergencyLastNameTextBox.TextChanged += (s, e) => ClearError(EmergencyLastNameTextBox);
+            EmergencyPhoneTextBox.TextChanged += (s, e) => ClearError(EmergencyPhoneTextBox);
+
+            // Add picture box right-click event
+            PictureBox.MouseClick += PictureBox_MouseClick;
         }
 
         private void LoadDraftValues()
@@ -41,6 +164,20 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             EmergencyFirstNameTextBox.Text = _draft.EmergencyFirstName;
             EmergencyLastNameTextBox.Text = _draft.EmergencyLastName;
             EmergencyPhoneTextBox.Text = _draft.EmergencyNumber;
+
+            // Load profile picture if exists
+            if (!string.IsNullOrEmpty(_draft.ProfilePicturePath) && System.IO.File.Exists(_draft.ProfilePicturePath))
+            {
+                try
+                {
+                    PictureBox.Image = Image.FromFile(_draft.ProfilePicturePath);
+                }
+                catch
+                {
+                    // If image fails to load, set to null
+                    PictureBox.Image = null;
+                }
+            }
         }
 
         private void NextButton_Click(object sender, EventArgs e)
@@ -70,13 +207,13 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 }
                 else if (result == DialogResult.Retry)
                 {
+                    // Do nothing, stay on this form
                 }
             }
         }
 
         private void CancelButton_Click_1(object sender, EventArgs e)
         {
-
             this.Close();
         }
 
@@ -92,16 +229,17 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 {
                     _draft.ProfilePicturePath = ofd.FileName;
 
-                    PictureBox.Image = Image.FromFile(ofd.FileName);
+                    try
+                    {
+                        PictureBox.Image = Image.FromFile(ofd.FileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error loading image: {ex.Message}", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
-
-            PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-        }
-
-        private void PictureBox_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void ShowError(Guna.UI2.WinForms.Guna2TextBox textBox, string errorMessage, bool clearInput = false)
@@ -121,9 +259,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void ClearError(Guna.UI2.WinForms.Guna2TextBox textBox)
         {
-            textBox.BorderColor = UIhelp.ThemeColors.BorderColor;
-            textBox.FocusedState.BorderColor = UIhelp.ThemeColors.LightBrown;
-            textBox.HoverState.BorderColor = UIhelp.ThemeColors.LightBrown;
+            textBox.BorderColor = _mediumBrown;
+            textBox.FocusedState.BorderColor = _lightBrown;
+            textBox.HoverState.BorderColor = _lightBrown;
 
             textBox.PlaceholderText = "";
             textBox.PlaceholderForeColor = Color.Gray;
@@ -147,7 +285,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             bool isValid = true;
             bool firstErrorFocused = false;
 
-            // Add validation logic similar to OwnerRegistration
             if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text))
             {
                 ShowError(FirstNameTextBox, "First name is required", true);
@@ -219,5 +356,25 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             }
         }
 
+        // Handle picture box click to remove image
+        private void PictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && PictureBox.Image != null)
+            {
+                var result = MessageBox.Show("Remove profile picture?", "Confirm",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    _draft.ProfilePicturePath = null;
+                    PictureBox.Image = null;
+                }
+            }
+        }
+
+        private void PictureBox_Click(object sender, EventArgs e)
+        {
+            // Optional: Add left-click functionality if needed
+        }
     }
 }

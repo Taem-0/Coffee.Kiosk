@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-//shitty spaghetti code INCOMING !!
+// Coffee-themed settings view!
 namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 {
     public partial class SettingsView : UserControl
@@ -20,6 +20,13 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
         private readonly AccountController _controller;
         private readonly Employee _currentEmployee;
         private string _selectedImagePath;
+
+        // Coffee theme colors
+        private Color _darkBrown = ColorTranslator.FromHtml("#3d211a");
+        private Color _mediumBrown = ColorTranslator.FromHtml("#6f4d38");
+        private Color _lightBrown = ColorTranslator.FromHtml("#a07856");
+        private Color _beige = ColorTranslator.FromHtml("#cbb799");
+        private Color _background = ColorTranslator.FromHtml("#f5f5dc");
 
         public SettingsView(AccountController controller, Employee currentEmployee)
         {
@@ -29,12 +36,130 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             _currentEmployee = currentEmployee ?? throw new ArgumentNullException(nameof(currentEmployee));
             _selectedImagePath = currentEmployee.ProfilePicturePath;
 
+            ApplyTheme();
             LoadCurrentEmployeeData();
-
+            SetupScrollbar();
 
             guna2CirclePictureBox1.MouseClick += ProfilePicture_MouseClick;
         }
 
+        private void ApplyTheme()
+        {
+            // Set background colors
+            this.BackColor = _background;
+            this.ForeColor = _darkBrown;
+
+            // Apply to header panel
+            guna2Panel1.FillColor = _mediumBrown;
+            guna2Panel1.BackColor = _mediumBrown;
+            guna2Panel1.BorderColor = _darkBrown;
+            guna2Panel1.BorderThickness = 1;
+
+            // Apply to labels
+            label1.ForeColor = Color.Black;
+            label1.BackColor = Color.Transparent;
+
+            label6.ForeColor = _darkBrown;
+            label6.BackColor = Color.Transparent;
+
+            label12.ForeColor = _darkBrown;
+            label12.BackColor = Color.Transparent;
+
+            // Apply to tab control
+            ApplyTabControlTheme();
+
+            // Apply to panels
+            guna2Panel2.FillColor = _beige;
+            guna2Panel2.BackColor = _beige;
+            guna2Panel2.BorderColor = _mediumBrown;
+            guna2Panel2.BorderThickness = 2;
+
+            guna2Panel3.FillColor = _beige;
+            guna2Panel3.BackColor = _beige;
+            guna2Panel3.BorderColor = _mediumBrown;
+            guna2Panel3.BorderThickness = 2;
+
+            // Apply to table layouts
+            tableLayoutPanel1.BackColor = _beige;
+            tableLayoutPanel2.BackColor = _beige;
+
+            // Apply to labels in table layouts
+            ApplyLabelTheme(label2);
+            ApplyLabelTheme(label3);
+            ApplyLabelTheme(label4);
+            ApplyLabelTheme(label5);
+            ApplyLabelTheme(label8);
+            ApplyLabelTheme(label11);
+            ApplyLabelTheme(fullNameLabel);
+            ApplyLabelTheme(emailLabel);
+            ApplyLabelTheme(phoneLabel);
+
+            // Apply to buttons
+            ConfigureButton(changeNameButton);
+            ConfigureButton(pfpChangeButton);
+            ConfigureButton(requestResetButton);
+            ConfigureButton(changePhoneButton);
+
+            // Apply to scrollbar
+            guna2vScrollBar1.ThumbColor = _mediumBrown;
+            guna2vScrollBar1.FillColor = _background;
+
+            // Style the picture box
+            guna2CirclePictureBox1.FillColor = Color.White;
+
+
+            // Style main panel
+            mainPanel.BackColor = _background;
+        }
+
+        private void ApplyTabControlTheme()
+        {
+            settingsTabControl.TabButtonHoverState.FillColor = _lightBrown;
+            settingsTabControl.TabButtonHoverState.ForeColor = Color.White;
+            settingsTabControl.TabButtonHoverState.InnerColor = _lightBrown;
+
+            settingsTabControl.TabButtonIdleState.FillColor = _mediumBrown;
+            settingsTabControl.TabButtonIdleState.ForeColor = Color.White;
+            settingsTabControl.TabButtonIdleState.InnerColor = _mediumBrown;
+
+            settingsTabControl.TabButtonSelectedState.FillColor = _darkBrown;
+            settingsTabControl.TabButtonSelectedState.ForeColor = Color.White;
+            settingsTabControl.TabButtonSelectedState.InnerColor = _darkBrown;
+
+            settingsTabControl.TabMenuBackColor = _mediumBrown;
+        }
+
+        private void ApplyLabelTheme(Label label)
+        {
+            label.ForeColor = _darkBrown;
+            label.BackColor = Color.Transparent;
+        }
+
+        private void ConfigureButton(Guna.UI2.WinForms.Guna2Button button)
+        {
+            button.FillColor = _mediumBrown;
+            button.ForeColor = Color.White;
+            button.BorderColor = _darkBrown;
+            button.BorderThickness = 1;
+            button.HoverState.FillColor = _lightBrown;
+            button.HoverState.BorderColor = _darkBrown;
+            button.PressedColor = _darkBrown;
+            button.BorderRadius = 6;
+        }
+
+        private void SetupScrollbar()
+        {
+            guna2vScrollBar1.Scroll += (s, e) =>
+            {
+                mainPanel.AutoScrollPosition = new Point(0, guna2vScrollBar1.Value);
+            };
+
+            mainPanel.Scroll += (s, e) =>
+            {
+                int scrollY = -mainPanel.AutoScrollPosition.Y;
+                guna2vScrollBar1.Value = Math.Min(guna2vScrollBar1.Maximum, scrollY);
+            };
+        }
 
         private void LoadCurrentEmployeeData()
         {
@@ -72,15 +197,15 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             var bmp = new Bitmap(120, 120);
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                g.Clear(Color.LightGray);
-                using (Pen pen = new Pen(Color.Gray, 2))
+                g.Clear(Color.FromArgb(240, 240, 240));
+                using (Pen pen = new Pen(_mediumBrown, 2))
                 {
                     g.DrawEllipse(pen, 5, 5, 110, 110);
                 }
 
                 string initials = GetInitials(_currentEmployee.FirstName, _currentEmployee.LastName);
                 using (Font font = new Font("Arial", 24, FontStyle.Bold))
-                using (Brush brush = new SolidBrush(Color.DarkGray))
+                using (Brush brush = new SolidBrush(_darkBrown))
                 {
                     StringFormat format = new StringFormat();
                     format.Alignment = StringAlignment.Center;
@@ -104,6 +229,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
         private void label11_Click(object sender, EventArgs e)
         {
+            // Optional: Add functionality if needed
         }
 
         private void pfpChangeButton_Click(object sender, EventArgs e)
@@ -288,28 +414,54 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
                 dialog.Size = new Size(400, 200);
                 dialog.FormBorderStyle = FormBorderStyle.FixedDialog;
                 dialog.StartPosition = FormStartPosition.CenterParent;
+                dialog.BackColor = _background;
+                dialog.ForeColor = _darkBrown;
 
-                var firstNameLabel = new Label { Text = "First Name:", Location = new Point(20, 20) };
+                var firstNameLabel = new Label
+                {
+                    Text = "First Name:",
+                    Location = new Point(20, 20),
+                    ForeColor = _darkBrown
+                };
+
                 var firstNameBox = new TextBox
                 {
                     Text = _currentEmployee.FirstName,
                     Location = new Point(120, 20),
-                    Width = 250
+                    Width = 250,
+                    BackColor = Color.White,
+                    ForeColor = _darkBrown,
+                    BorderStyle = BorderStyle.FixedSingle
                 };
 
-                var lastNameLabel = new Label { Text = "Last Name:", Location = new Point(20, 60) };
+                var lastNameLabel = new Label
+                {
+                    Text = "Last Name:",
+                    Location = new Point(20, 60),
+                    ForeColor = _darkBrown
+                };
+
                 var lastNameBox = new TextBox
                 {
                     Text = _currentEmployee.LastName,
                     Location = new Point(120, 60),
-                    Width = 250
+                    Width = 250,
+                    BackColor = Color.White,
+                    ForeColor = _darkBrown,
+                    BorderStyle = BorderStyle.FixedSingle
                 };
 
-                var saveButton = new Button
+                var saveButton = new Guna.UI2.WinForms.Guna2Button
                 {
                     Text = "Save",
                     DialogResult = DialogResult.OK,
-                    Location = new Point(120, 110)
+                    Location = new Point(120, 110),
+                    FillColor = _mediumBrown,
+                    ForeColor = Color.White,
+                    BorderColor = _darkBrown,
+                    BorderThickness = 1,
+                    HoverState = { FillColor = _lightBrown, BorderColor = _darkBrown },
+                    BorderRadius = 6
                 };
 
                 dialog.Controls.AddRange(new Control[]
@@ -375,20 +527,37 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
                 dialog.Size = new Size(400, 150);
                 dialog.FormBorderStyle = FormBorderStyle.FixedDialog;
                 dialog.StartPosition = FormStartPosition.CenterParent;
+                dialog.BackColor = _background;
+                dialog.ForeColor = _darkBrown;
 
-                var phoneLabel = new Label { Text = "Phone Number:", Location = new Point(20, 20) };
+                var phoneLabel = new Label
+                {
+                    Text = "Phone Number:",
+                    Location = new Point(20, 20),
+                    ForeColor = _darkBrown
+                };
+
                 var phoneBox = new TextBox
                 {
                     Text = _currentEmployee.PhoneNumber,
                     Location = new Point(150, 20),
-                    Width = 200
+                    Width = 200,
+                    BackColor = Color.White,
+                    ForeColor = _darkBrown,
+                    BorderStyle = BorderStyle.FixedSingle
                 };
 
-                var saveButton = new Button
+                var saveButton = new Guna.UI2.WinForms.Guna2Button
                 {
                     Text = "Save",
                     DialogResult = DialogResult.OK,
-                    Location = new Point(150, 70)
+                    Location = new Point(150, 70),
+                    FillColor = _mediumBrown,
+                    ForeColor = Color.White,
+                    BorderColor = _darkBrown,
+                    BorderThickness = 1,
+                    HoverState = { FillColor = _lightBrown, BorderColor = _darkBrown },
+                    BorderRadius = 6
                 };
 
                 dialog.Controls.AddRange(new Control[] { phoneLabel, phoneBox, saveButton });
@@ -476,6 +645,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
                             viewForm.Text = "Profile Picture";
                             viewForm.Size = new Size(500, 500);
                             viewForm.StartPosition = FormStartPosition.CenterParent;
+                            viewForm.BackColor = _background;
 
                             var pictureBox = new PictureBox
                             {

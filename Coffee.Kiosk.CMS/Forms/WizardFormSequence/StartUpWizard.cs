@@ -19,28 +19,23 @@ namespace Coffee.Kiosk.CMS.Forms.WizardWoopWoop
         {
             guna2PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            // :3 - Applying your theme colors manually!
+            // :3 Manual, causeeeeeee.....!
 
-            // Create colors from your hex values
             Color darkBrown = ColorTranslator.FromHtml("#3d211a");
             Color mediumBrown = ColorTranslator.FromHtml("#6f4d38");
             Color lightBrown = ColorTranslator.FromHtml("#a07856");
             Color beige = ColorTranslator.FromHtml("#cbb799");
             Color background = ColorTranslator.FromHtml("#f5f5dc");
 
-            // Apply to the form
             this.BackColor = background;
-            this.ForeColor = darkBrown; // Text color
+            this.ForeColor = darkBrown; 
 
-            // Apply to panels
-            BannerPanel.BackColor = mediumBrown; // Left panel gets medium brown
-            panel1.BackColor = background; // Top right panel gets background color
-            panel1.ForeColor = darkBrown; // Text in panel
+            BannerPanel.BackColor = mediumBrown; 
+            panel1.BackColor = background; 
+            panel1.ForeColor = darkBrown; 
 
-            // Apply to label
             label1.ForeColor = darkBrown;
 
-            // Apply to buttons
             guna2Button1.FillColor = mediumBrown;
             guna2Button1.ForeColor = Color.White;
             guna2Button1.BorderColor = darkBrown;
@@ -49,10 +44,8 @@ namespace Coffee.Kiosk.CMS.Forms.WizardWoopWoop
             guna2Button2.ForeColor = Color.White;
             guna2Button2.BorderColor = darkBrown;
 
-            // Apply to separator
             guna2Separator1.FillColor = darkBrown;
 
-            // Optional: Add hover effects
             guna2Button1.MouseEnter += (s, args) => guna2Button1.FillColor = lightBrown;
             guna2Button1.MouseLeave += (s, args) => guna2Button1.FillColor = mediumBrown;
 
