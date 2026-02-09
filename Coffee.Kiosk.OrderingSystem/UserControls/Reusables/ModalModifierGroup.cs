@@ -118,14 +118,14 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 
         public bool IsValid()
         {
-            var options = flowLayoutPanel1.Controls.OfType<ModalModifierOptions>().ToList(); 
-            
+            var options = flowLayoutPanel1.Controls.OfType<ModalModifierOptions>().ToList();
+
             if (_group.Required && !options.Any(o => o.IsSelected) && options.Count > 0)
                 return false;
 
             foreach (var child in _childGroups)
             {
-                if (flowLayoutPanel2.Visible && !child.IsValid()) 
+                if (flowLayoutPanel2.Visible && !child.IsValid())
                     return false;
             }
             return true;
@@ -154,9 +154,13 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 
         private void flowLayoutPanel1_ControlAdded(object sender, ControlEventArgs e)
         {
-            if (flowLayoutPanel1.Controls.Count % 5 == 0)
+            if (flowLayoutPanel1.Controls.Count % 4 == 0)
                 flowLayoutPanel1.SetFlowBreak(e!.Control!, true);
         }
 
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

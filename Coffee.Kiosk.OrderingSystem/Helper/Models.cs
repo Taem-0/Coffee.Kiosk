@@ -156,11 +156,21 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             productData.Add(new(2, 1, "Mocha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Mocha Latte.png", true));
             productData.Add(new(3, 1, "Cafe Latte", 120m, "C:/Images/Kiosk/Coffee Product/Cafe Latte.png", true));
             productData.Add(new(4, 1, "Matcha Latte", 120m, "C:/Images/Kiosk/Coffee Product/Matcha Latte.png", true));
+            productData.Add(new(5, 1, "Test Product", 120m, "C:/Images/Kiosk/Coffee Product/Matcha Latte.png", true));
+            productData.Add(new(6, 1, "Test Product", 120m, "C:/Images/Kiosk/Coffee Product/Test Product.png", true));
+            productData.Add(new(7, 1, "Test Product", 120m, "C:/Images/Kiosk/Coffee Product/Test Product.png", true));
+            productData.Add(new(8, 1, "Test Product", 120m, "C:/Images/Kiosk/Coffee Product/Test Product.png", true));
+            productData.Add(new(9, 1, "Test Product", 120m, "C:/Images/Kiosk/Coffee Product/Test Product.png", true));
+            productData.Add(new(10, 1, "Test Product", 120m, "C:/Images/Kiosk/Coffee Product/Test Product.png", true));
+            productData.Add(new(11, 1, "Test Product", 120m, "C:/Images/Kiosk/Coffee Product/Test Product.png", true));
+            productData.Add(new(12, 1, "Test Product", 120m, "C:/Images/Kiosk/Coffee Product/Test Product.png", true));
+            productData.Add(new(13, 1, "Test Product", 120m, "C:/Images/Kiosk/Coffee Product/Test Product.png", true));
 
-            productData.Add(new(5, 6, "Sugino Zen", 15000m, "C:/Images/Sugino-Big-Zen-Silver.png", true));
+
+            productData.Add(new(14, 6, "Sugino Zen", 15000m, "C:/Images/Sugino-Big-Zen-Silver.png", true));
 
             int gId = 1;
-            for (int i = 1; i <= 4; i++)
+            for (int i = 1; i <= 13; i++)
             {
                 modifierGroups.Add(new(gId, i, null, "Size", SelectionType.Single, true));
                 gId++;
@@ -170,13 +180,15 @@ namespace Coffee.Kiosk.OrderingSystem.Models
                 gId++;
                 modifierGroups.Add(new(gId, i, null, "Temperature", SelectionType.Single, true));
                 gId++;
+                modifierGroups.Add(new(gId, i, gId - 1, "Ice level", SelectionType.Single, false));
+                gId++;
             }
-            modifierGroups.Add(new(gId, 5, null, "Color", SelectionType.Single, false));
-            modifierGroups.Add(new(gId+1, 5, null, "Teeth", SelectionType.Single, true));
+            modifierGroups.Add(new(gId, 14, null, "Color", SelectionType.Single, false));
+            modifierGroups.Add(new(gId+1, 14, null, "Teeth", SelectionType.Single, true));
 
             int pId = 1;
             gId = 1;
-            for (int i = 1;  i <= 4; i++)
+            for (int i = 1;  i <= 13; i++)
             {
                 modifierOption.Add(new ModifierOption(pId, gId, "Small", 0.00m, 250.00m, null, true, 1));
                 pId++;
@@ -201,9 +213,14 @@ namespace Coffee.Kiosk.OrderingSystem.Models
                 modifierOption.Add(new ModifierOption(pId, gId, "100%", 15.00m, 8.00m, null, true, 10));
                 pId++; gId++;
 
-                modifierOption.Add(new ModifierOption(pId, gId, "Hot", 0.00m, 0.00m, null, true, 11));
+                modifierOption.Add(new ModifierOption(pId, gId, "Hot", 0.00m, 0.00m, null, false, 11));
                 pId++;
                 modifierOption.Add(new ModifierOption(pId, gId, "Iced", 0.00m, 0.00m, null, true, 12));
+                pId++; gId++;
+
+                modifierOption.Add(new ModifierOption(pId, gId, "Normal", 0.00m, 0.00m, null, true, 13));
+                pId++;
+                modifierOption.Add(new ModifierOption(pId, gId, "Less Ice", 0.00m, 0.00m, null, true, 14));
                 pId++; gId++;
             }
             modifierOption.Add(new ModifierOption(pId, gId, "Silver", 167m, 0.00m, null, true, 13));
