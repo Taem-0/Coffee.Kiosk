@@ -18,6 +18,13 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         private string _selectedImagePath;
         private bool _hasChanges;
 
+        // Coffee theme colors
+        private Color _darkBrown = ColorTranslator.FromHtml("#3d211a");
+        private Color _mediumBrown = ColorTranslator.FromHtml("#6f4d38");
+        private Color _lightBrown = ColorTranslator.FromHtml("#a07856");
+        private Color _beige = ColorTranslator.FromHtml("#cbb799");
+        private Color _background = ColorTranslator.FromHtml("#f5f5dc");
+
         public NewUpdateEmployee(DisplayDTO employee, AccountController controller)
         {
             InitializeComponent();
@@ -27,12 +34,160 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             _selectedImagePath = employee.ProfilePicturePath;
             _hasChanges = false;
 
+            ApplyTheme();
             InitializeForm();
             LoadEmployeeIntoForm();
             SetupScrollbar();
             SetupFormControls();
             SetupPasswordResetButton();
             WireUpTextChangedEvents();
+        }
+
+        private void ApplyTheme()
+        {
+            // Set background colors
+            this.BackColor = _background;
+            this.ForeColor = _darkBrown;
+            this.Padding = new Padding(20);
+
+            // Apply to left panel
+            guna2Panel1.FillColor = _mediumBrown;
+            guna2Panel1.BackColor = _mediumBrown;
+            guna2Panel1.BorderColor = _darkBrown;
+            guna2Panel1.BorderThickness = 1;
+
+            // Apply to main content panels
+            mainPanel.BackColor = _beige;
+
+            guna2Panel2.FillColor = _beige;
+            guna2Panel2.BackColor = _beige;
+            guna2Panel2.BorderColor = _mediumBrown;
+            guna2Panel2.BorderThickness = 2;
+
+            guna2Panel3.FillColor = _beige;
+            guna2Panel3.BackColor = _beige;
+            guna2Panel3.BorderColor = _mediumBrown;
+            guna2Panel3.BorderThickness = 2;
+
+            // Apply to table layouts
+            tableLayoutPanel1.BackColor = _beige;
+            tableLayoutPanel3.BackColor = _beige;
+
+            // Apply to scrollbar
+            guna2vScrollBar1.ThumbColor = _mediumBrown;
+            guna2vScrollBar1.FillColor = _background;
+
+            // Apply to labels
+            ApplyLabelTheme(label1);
+            ApplyLabelTheme(label2);
+            ApplyLabelTheme(label3);
+            ApplyLabelTheme(label4);
+            ApplyLabelTheme(label5);
+            ApplyLabelTheme(label6);
+            ApplyLabelTheme(label7);
+            ApplyLabelTheme(label8);
+            ApplyLabelTheme(label9);
+            ApplyLabelTheme(label10);
+            ApplyLabelTheme(label11);
+            ApplyLabelTheme(label12);
+            ApplyLabelTheme(label13);
+            ApplyLabelTheme(label14);
+            ApplyLabelTheme(label15);
+            ApplyLabelTheme(label16);
+            ApplyLabelTheme(label17);
+
+            // Style the section headers differently
+            label17.ForeColor = Color.White;
+            label4.ForeColor = Color.White;
+            label13.ForeColor = Color.White;
+
+            // Apply to buttons
+            ConfigureButton(SubmitButton);
+            ConfigureButton(DeactivateButton);
+            ConfigureButton(acceptRequest);
+            ConfigureCircleButton(AddPfpButton);
+
+            // Apply to all textboxes
+            ApplyTextBoxTheme(FirstNameTextBox);
+            ApplyTextBoxTheme(MiddleNameTextBox);
+            ApplyTextBoxTheme(LastNameTextBox);
+            ApplyTextBoxTheme(PhoneTextBox);
+            ApplyTextBoxTheme(EmailTextBox);
+            ApplyTextBoxTheme(EmergencyFirstNameTextBox);
+            ApplyTextBoxTheme(EmergencyLastNameTextBox);
+            ApplyTextBoxTheme(EmergencyPhoneTextBox);
+            ApplyTextBoxTheme(JobTitleTextBox);
+            ApplyTextBoxTheme(SalaryTextBox1);
+
+            // Apply to combo boxes
+            ApplyComboBoxTheme(DepartmentComboBox);
+            ApplyComboBoxTheme(EmployeeTypecomboBox);
+
+            // Apply to radio buttons
+            ApplyRadioButtonTheme(AdminRadioButton);
+            ApplyRadioButtonTheme(ManagerRadioButton);
+            ApplyRadioButtonTheme(employeeRadioButton);
+
+            // Style the picture box
+            PictureBox.FillColor = Color.White;
+
+
+            // Style tableLayoutPanel2 (radio button container)
+            tableLayoutPanel2.BackColor = Color.Transparent;
+        }
+
+        private void ApplyLabelTheme(Label label)
+        {
+            label.ForeColor = _darkBrown;
+            label.BackColor = Color.Transparent;
+        }
+
+        private void ConfigureButton(Guna.UI2.WinForms.Guna2Button button)
+        {
+            button.FillColor = _mediumBrown;
+            button.ForeColor = Color.White;
+            button.BorderColor = _darkBrown;
+            button.BorderThickness = 1;
+            button.HoverState.FillColor = _lightBrown;
+            button.HoverState.BorderColor = _darkBrown;
+            button.PressedColor = _darkBrown;
+            button.BorderRadius = 15;
+        }
+
+        private void ConfigureCircleButton(Guna.UI2.WinForms.Guna2CircleButton button)
+        {
+            button.FillColor = _mediumBrown;
+            button.ForeColor = Color.White;
+            button.BorderColor = _darkBrown;
+            button.BorderThickness = 1;
+            button.HoverState.FillColor = _lightBrown;
+            button.HoverState.BorderColor = _darkBrown;
+            button.PressedColor = _darkBrown;
+        }
+
+        private void ApplyTextBoxTheme(Guna.UI2.WinForms.Guna2TextBox textBox)
+        {
+            textBox.BorderColor = _mediumBrown;
+            textBox.FocusedState.BorderColor = _lightBrown;
+            textBox.HoverState.BorderColor = _lightBrown;
+            textBox.FillColor = Color.White;
+            textBox.ForeColor = _darkBrown;
+            textBox.PlaceholderForeColor = Color.Gray;
+            textBox.BorderRadius = 8;
+        }
+
+        private void ApplyComboBoxTheme(ComboBox comboBox)
+        {
+            comboBox.BackColor = Color.White;
+            comboBox.ForeColor = _darkBrown;
+            comboBox.FlatStyle = FlatStyle.Flat;
+            comboBox.Font = new Font("Segoe UI", 11F);
+        }
+
+        private void ApplyRadioButtonTheme(RadioButton radioButton)
+        {
+            radioButton.ForeColor = _darkBrown;
+            radioButton.BackColor = Color.Transparent;
         }
 
         private void InitializeForm()
@@ -74,9 +229,23 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             {
                 DeactivateButton.Enabled = false;
                 DeactivateButton.Text = "Cannot Deactivate Owner";
+                DeactivateButton.FillColor = Color.Gray;
                 AdminRadioButton.Enabled = false;
                 ManagerRadioButton.Enabled = false;
                 employeeRadioButton.Enabled = false;
+            }
+            else
+            {
+                // Make DeactivateButton red for emphasis
+                DeactivateButton.FillColor = Color.Red;
+                DeactivateButton.HoverState.FillColor = Color.DarkRed;
+            }
+
+            // Style password reset button
+            if (acceptRequest.Visible)
+            {
+                acceptRequest.FillColor = Color.Salmon;
+                acceptRequest.HoverState.FillColor = Color.Coral;
             }
         }
 
@@ -194,9 +363,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void ClearError(Guna.UI2.WinForms.Guna2TextBox textBox)
         {
-            textBox.BorderColor = UIhelp.ThemeColors.BorderColor;
-            textBox.FocusedState.BorderColor = UIhelp.ThemeColors.LightBrown;
-            textBox.HoverState.BorderColor = UIhelp.ThemeColors.LightBrown;
+            textBox.BorderColor = _mediumBrown;
+            textBox.FocusedState.BorderColor = _lightBrown;
+            textBox.HoverState.BorderColor = _lightBrown;
 
             textBox.PlaceholderText = "";
             textBox.PlaceholderForeColor = Color.Gray;
@@ -654,6 +823,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 acceptRequest.Enabled = true;
                 acceptRequest.Text = "Approve Password Reset";
                 acceptRequest.FillColor = Color.Salmon;
+                acceptRequest.HoverState.FillColor = Color.Coral;
             }
         }
     }

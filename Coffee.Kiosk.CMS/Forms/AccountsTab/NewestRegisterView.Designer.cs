@@ -84,6 +84,7 @@
             // 
             // guna2Panel1
             // 
+            guna2Panel1.BorderRadius = 15;
             guna2Panel1.Controls.Add(AddPfpButton);
             guna2Panel1.Controls.Add(PictureBox);
             guna2Panel1.CustomizableEdges = customizableEdges3;

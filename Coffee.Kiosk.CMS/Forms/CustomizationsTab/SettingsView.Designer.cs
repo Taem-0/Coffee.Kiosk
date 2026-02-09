@@ -1,6 +1,6 @@
 ﻿namespace Coffee.Kiosk.CMS.Forms.CustomizationsTab
 {
-    partial class CustomizationView
+    partial class SettingsView
     {
         /// <summary> 
         /// Required designer variable.

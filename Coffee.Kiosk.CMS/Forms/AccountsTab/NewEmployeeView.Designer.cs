@@ -328,6 +328,7 @@
             guna2Button1.Size = new Size(150, 42);
             guna2Button1.TabIndex = 2;
             guna2Button1.Text = "Search";
+            guna2Button1.Click += guna2Button1_Click_1;
             // 
             // tableLayoutPanel1
             // 

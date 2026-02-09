@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Coffee.Kiosk.CMS.Forms.CustomizationsTab
 {
-    public partial class CustomizationView : UserControl
+    public partial class SettingsView : UserControl
     {
-        public CustomizationView()
+        public SettingsView()
         {
             InitializeComponent();
         }
