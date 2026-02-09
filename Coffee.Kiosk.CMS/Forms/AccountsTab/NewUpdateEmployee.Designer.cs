@@ -30,6 +30,8 @@
         {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -62,9 +64,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            acceptRequest = new Guna.UI2.WinForms.Guna2Button();
             AddPfpButton = new Guna.UI2.WinForms.Guna2CircleButton();
             PictureBox = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             mainPanel = new Guna.UI2.WinForms.Guna2Panel();
@@ -108,7 +109,6 @@
             EmergencyLastNameTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             EmergencyPhoneTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             guna2vScrollBar1 = new Guna.UI2.WinForms.Guna2VScrollBar();
-            acceptRequest = new Guna.UI2.WinForms.Guna2Button();
             guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBox).BeginInit();
             mainPanel.SuspendLayout();
@@ -132,6 +132,26 @@
             guna2Panel1.Size = new Size(223, 658);
             guna2Panel1.TabIndex = 0;
             // 
+            // acceptRequest
+            // 
+            acceptRequest.Anchor = AnchorStyles.Right;
+            acceptRequest.BorderRadius = 15;
+            acceptRequest.CustomizableEdges = customizableEdges1;
+            acceptRequest.DisabledState.BorderColor = Color.DarkGray;
+            acceptRequest.DisabledState.CustomBorderColor = Color.DarkGray;
+            acceptRequest.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            acceptRequest.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            acceptRequest.FillColor = Color.Salmon;
+            acceptRequest.Font = new Font("Segoe UI", 9F);
+            acceptRequest.ForeColor = Color.White;
+            acceptRequest.Location = new Point(25, 572);
+            acceptRequest.Name = "acceptRequest";
+            acceptRequest.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            acceptRequest.Size = new Size(173, 61);
+            acceptRequest.TabIndex = 36;
+            acceptRequest.Text = "Password Reset";
+            acceptRequest.Click += acceptRequest_Click;
+            // 
             // AddPfpButton
             // 
             AddPfpButton.BackColor = Color.Transparent;
@@ -150,6 +170,7 @@
             AddPfpButton.Size = new Size(50, 50);
             AddPfpButton.TabIndex = 4;
             AddPfpButton.TextAlign = HorizontalAlignment.Left;
+            AddPfpButton.UseTransparentBackground = true;
             AddPfpButton.Click += AddPfpButton_Click;
             // 
             // PictureBox
@@ -771,35 +792,13 @@
             guna2vScrollBar1.BorderRadius = 6;
             guna2vScrollBar1.FillOffset = new Padding(10, 10, 0, 10);
             guna2vScrollBar1.InUpdate = false;
-            guna2vScrollBar1.LargeChange = 658;
+            guna2vScrollBar1.LargeChange = 10;
             guna2vScrollBar1.Location = new Point(1281, 20);
-            guna2vScrollBar1.Maximum = 798;
             guna2vScrollBar1.Name = "guna2vScrollBar1";
             guna2vScrollBar1.Padding = new Padding(10, 10, 0, 10);
             guna2vScrollBar1.ScrollbarSize = 16;
             guna2vScrollBar1.Size = new Size(26, 658);
-            guna2vScrollBar1.SmallChange = 5;
             guna2vScrollBar1.TabIndex = 0;
-            // 
-            // acceptRequest
-            // 
-            acceptRequest.Anchor = AnchorStyles.Right;
-            acceptRequest.BorderRadius = 15;
-            acceptRequest.CustomizableEdges = customizableEdges1;
-            acceptRequest.DisabledState.BorderColor = Color.DarkGray;
-            acceptRequest.DisabledState.CustomBorderColor = Color.DarkGray;
-            acceptRequest.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            acceptRequest.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            acceptRequest.FillColor = Color.Salmon;
-            acceptRequest.Font = new Font("Segoe UI", 9F);
-            acceptRequest.ForeColor = Color.White;
-            acceptRequest.Location = new Point(25, 572);
-            acceptRequest.Name = "acceptRequest";
-            acceptRequest.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            acceptRequest.Size = new Size(173, 61);
-            acceptRequest.TabIndex = 36;
-            acceptRequest.Text = "Password Reset";
-            acceptRequest.Click += acceptRequest_Click;
             // 
             // NewUpdateEmployee
             // 

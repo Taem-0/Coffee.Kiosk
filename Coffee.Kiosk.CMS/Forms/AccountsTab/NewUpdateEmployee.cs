@@ -192,7 +192,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void InitializeForm()
         {
-            // Initialize combo boxes
+
             DepartmentComboBox.DataSource = Enum.GetNames(typeof(Department))
                 .Select(EnumDisplayHelper.FormatEnum)
                 .ToList();
@@ -204,6 +204,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void SetupScrollbar()
         {
+
             guna2vScrollBar1.Scroll += (s, e) =>
             {
                 mainPanel.AutoScrollPosition = new Point(0, guna2vScrollBar1.Value);
@@ -214,11 +215,12 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 int scrollY = -mainPanel.AutoScrollPosition.Y;
                 guna2vScrollBar1.Value = Math.Min(guna2vScrollBar1.Maximum, scrollY);
             };
+
         }
 
         private void SetupFormControls()
         {
-            // Set deactivation button state
+
             bool isOwner = _employee.Role == "Owner";
             bool isDeactivated = _employee.Status == "DEACTIVATED";
 
@@ -236,12 +238,10 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             }
             else
             {
-                // Make DeactivateButton red for emphasis
                 DeactivateButton.FillColor = Color.Red;
                 DeactivateButton.HoverState.FillColor = Color.DarkRed;
             }
 
-            // Style password reset button
             if (acceptRequest.Visible)
             {
                 acceptRequest.FillColor = Color.Salmon;
@@ -251,7 +251,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void WireUpTextChangedEvents()
         {
-            // Wire up all textboxes to clear errors when user types
             FirstNameTextBox.TextChanged += (s, e) => ClearError(FirstNameTextBox);
             MiddleNameTextBox.TextChanged += (s, e) => ClearError(MiddleNameTextBox);
             LastNameTextBox.TextChanged += (s, e) => ClearError(LastNameTextBox);

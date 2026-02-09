@@ -30,6 +30,8 @@
         {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginControl));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -38,9 +40,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginControl));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            hideButton = new Guna.UI2.WinForms.Guna2ImageButton();
             loginButton = new Guna.UI2.WinForms.Guna2Button();
             label3 = new Label();
             passwordTextBox = new Guna.UI2.WinForms.Guna2TextBox();
@@ -48,7 +49,6 @@
             emailTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             label1 = new Label();
             logoPictureBox = new Guna.UI2.WinForms.Guna2PictureBox();
-            hideButton = new Guna.UI2.WinForms.Guna2ImageButton();
             guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
             SuspendLayout();
@@ -69,6 +69,22 @@
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges9;
             guna2Panel1.Size = new Size(450, 600);
             guna2Panel1.TabIndex = 0;
+            // 
+            // hideButton
+            // 
+            hideButton.CheckedState.ImageSize = new Size(64, 64);
+            hideButton.HoverState.ImageSize = new Size(64, 64);
+            hideButton.Image = (Image)resources.GetObject("hideButton.Image");
+            hideButton.ImageOffset = new Point(0, 0);
+            hideButton.ImageRotate = 0F;
+            hideButton.ImageSize = new Size(35, 35);
+            hideButton.Location = new Point(377, 332);
+            hideButton.Name = "hideButton";
+            hideButton.PressedState.ImageSize = new Size(64, 64);
+            hideButton.ShadowDecoration.CustomizableEdges = customizableEdges1;
+            hideButton.Size = new Size(35, 35);
+            hideButton.TabIndex = 2;
+            hideButton.Click += hideButton_Click;
             // 
             // loginButton
             // 
@@ -161,28 +177,15 @@
             logoPictureBox.BackColor = Color.White;
             logoPictureBox.CustomizableEdges = customizableEdges10;
             logoPictureBox.FillColor = Color.Transparent;
+            logoPictureBox.Image = Properties.Resources._CITYPNG_COM_Brown_Coffee_Cup_Logo_Design_HD_PNG___4000x4000;
             logoPictureBox.ImageRotate = 0F;
+            logoPictureBox.InitialImage = (Image)resources.GetObject("logoPictureBox.InitialImage");
             logoPictureBox.Location = new Point(460, 85);
             logoPictureBox.Name = "logoPictureBox";
             logoPictureBox.ShadowDecoration.CustomizableEdges = customizableEdges11;
             logoPictureBox.Size = new Size(430, 430);
             logoPictureBox.TabIndex = 1;
             logoPictureBox.TabStop = false;
-            // 
-            // hideButton
-            // 
-            hideButton.CheckedState.ImageSize = new Size(64, 64);
-            hideButton.HoverState.ImageSize = new Size(64, 64);
-            hideButton.Image = (Image)resources.GetObject("hideButton.Image");
-            hideButton.ImageOffset = new Point(0, 0);
-            hideButton.ImageRotate = 0F;
-            hideButton.Location = new Point(377, 332);
-            hideButton.Name = "hideButton";
-            hideButton.PressedState.ImageSize = new Size(64, 64);
-            hideButton.ShadowDecoration.CustomizableEdges = customizableEdges1;
-            hideButton.Size = new Size(35, 35);
-            hideButton.TabIndex = 2;
-            hideButton.Click += hideButton_Click;
             // 
             // LoginControl
             // 

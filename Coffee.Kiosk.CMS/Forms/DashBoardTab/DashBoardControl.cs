@@ -73,7 +73,6 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
 
             tableLayoutPanel3.BackColor = Color.Transparent;
 
-            // Add subtle borders to table panels for definition
             tableLayoutPanel1.Paint += (s, e) =>
             {
                 using (Pen pen = new Pen(_mediumBrown, 2))
@@ -112,7 +111,6 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             comboBox.FocusedState.BorderColor = _lightBrown;
             comboBox.BorderRadius = 17;
 
-            // Style the dropdown items
             comboBox.ItemHeight = 30;
             comboBox.ItemsAppearance.BackColor = _beige;
             comboBox.ItemsAppearance.ForeColor = _darkBrown;
@@ -122,30 +120,12 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
 
         private void ApplyContainerTheme(Guna.UI2.WinForms.Guna2ContainerControl container)
         {
-            container.BackColor = _beige;
-            container.FillColor = _beige;
             container.BorderColor = _mediumBrown;
             container.BorderThickness = 2;
             container.BorderRadius = 25;
-            container.ShadowDecoration.Enabled = true;
-            container.ShadowDecoration.Color = Color.FromArgb(100, 0, 0, 0);
-            container.ShadowDecoration.Shadow = new Padding(5);
 
-            // Add a subtle inner shadow or gradient
-            container.Paint += (s, e) =>
-            {
-                // Draw a subtle inner border
-                using (Pen pen = new Pen(Color.FromArgb(50, _darkBrown), 1))
-                {
-                    e.Graphics.DrawRectangle(pen, 1, 1, container.Width - 3, container.Height - 3);
-                }
 
-                // Add a title area at the top
-                using (Brush brush = new SolidBrush(_mediumBrown))
-                {
-                    e.Graphics.FillRectangle(brush, 0, 0, container.Width, 40);
-                }
-            };
+            
         }
 
         private void DashBoardControl_Load(object sender, EventArgs e)
@@ -206,7 +186,6 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             // Optional: Add functionality if needed
         }
 
-        // Helper method to add a data card to containers
         private void AddDataCard(Guna.UI2.WinForms.Guna2ContainerControl container, string title, string value, Color valueColor)
         {
             container.Controls.Clear();
@@ -235,7 +214,7 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             container.Controls.Add(valueLabel);
         }
 
-        // You can call this in Load or when data updates
+        // Call future cards
         private void InitializeDashboardCards()
         {
             // Example: Initialize the data cards

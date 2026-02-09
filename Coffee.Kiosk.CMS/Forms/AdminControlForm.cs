@@ -16,11 +16,9 @@ namespace Coffee.Kiosk
 {
     public partial class AdminControlForm : MaterialForm
     {
-        private RegisterControl registerControl;
         private NewestRegisterView registerView;
         private SecondNewestRegisterView secondNewestRegisterView;
         private NewEmployeeView newEmployeeView;
-        private UpdateAccount updateControl;
         private RegistrationValidation validator;
         private UpdateValidation updateValidation;
         private LoginValidation loginValidation;
@@ -64,8 +62,6 @@ namespace Coffee.Kiosk
             service = new AccountsService(dbManager);
             controller = new AccountController(validator, updateValidation, service, loginValidation); 
 
-            registerControl = new RegisterControl(controller);
-            registerControl.ParentFormReference = this;
 
             var draft = new DisplayDTO();
             registerView = new NewestRegisterView(controller, draft);
@@ -74,8 +70,6 @@ namespace Coffee.Kiosk
             newEmployeeView = new NewEmployeeView(controller);
             newEmployeeView.ParentFormReference = this;
 
-            updateControl = new UpdateAccount(controller);
-            updateControl.ParentFormReference = this;
 
             dashBoardControl = new DashBoardControl(controller);
             dashBoardControl.ParentFormReference = this;
@@ -128,16 +122,7 @@ namespace Coffee.Kiosk
             panel.PerformLayout();
         }
 
-        public void ShowRegister()
-        {
-            ShowInPanel(registerControl, AccountsContentPanel);
-        }
-
-        public void ShowUpdate(DisplayDTO dto)
-        {
-            updateControl.DisplayAccount(dto);
-            ShowInPanel(updateControl, AccountsContentPanel);
-        }
+        
 
         public void GoBack()
         {
