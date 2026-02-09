@@ -125,7 +125,7 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             container.BorderRadius = 25;
 
 
-            
+
         }
 
         private void DashBoardControl_Load(object sender, EventArgs e)
@@ -222,6 +222,21 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             AddDataCard(guna2ContainerControl2, "Active Today", "0", Color.Green);
             AddDataCard(guna2ContainerControl3, "Pending Tasks", "0", Color.Orange);
             AddDataCard(guna2ContainerControl4, "Revenue", "$0.00", Color.Green);
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2ContainerControl2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2ContainerControl3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
