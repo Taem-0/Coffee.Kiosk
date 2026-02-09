@@ -15,9 +15,10 @@ Module ReceiptHelper
 
         Dim receipt As New System.Text.StringBuilder()
         Dim line As String = "================================"
+        Dim width As Integer = 32
 
         receipt.AppendLine(line)
-        receipt.AppendLine("      CAFE FILIPINO")
+        receipt.AppendLine(CenterText("CAFE FILIPINO", width))
         receipt.AppendLine(line)
         receipt.AppendLine($"Date: {DateTime.Now:MM/dd/yyyy  hh:mm tt}")
         receipt.AppendLine($"Order ID: {orderId}")
@@ -42,7 +43,7 @@ Module ReceiptHelper
             Dim itemLine As String = $"{item.Quantity}x {displayName}"
             Dim price As String = $"₱{item.TotalPrice:F2}"
 
-            Dim spaces As Integer = 32 - itemLine.Length - price.Length
+            Dim spaces As Integer = width - itemLine.Length - price.Length
             If spaces < 1 Then spaces = 1
             receipt.AppendLine(itemLine & New String(" "c, spaces) & price)
 
@@ -74,33 +75,39 @@ Module ReceiptHelper
         receipt.AppendLine("--------------------------------")
         Dim totalLine As String = "TOTAL:"
         Dim totalPrice As String = $"₱{totalAmount:F2}"
-        Dim totalSpaces As Integer = 32 - totalLine.Length - totalPrice.Length
+        Dim totalSpaces As Integer = width - totalLine.Length - totalPrice.Length
         receipt.AppendLine(totalLine & New String(" "c, totalSpaces) & totalPrice)
         receipt.AppendLine()
 
-        receipt.AppendLine($"Payment: {paymentMethod}")
+        receipt.AppendLine(CenterText($"Payment: {paymentMethod}", width))
 
         If paymentMethod = "Cash" Then
             Dim paidLine As String = "Amount Paid:"
             Dim paidAmount As String = $"₱{amountPaid:F2}"
-            Dim paidSpaces As Integer = 32 - paidLine.Length - paidAmount.Length
+            Dim paidSpaces As Integer = width - paidLine.Length - paidAmount.Length
             receipt.AppendLine(paidLine & New String(" "c, paidSpaces) & paidAmount)
 
             Dim changeLine As String = "Change:"
             Dim changeAmt As String = $"₱{changeAmount:F2}"
-            Dim changeSpaces As Integer = 32 - changeLine.Length - changeAmt.Length
+            Dim changeSpaces As Integer = width - changeLine.Length - changeAmt.Length
             receipt.AppendLine(changeLine & New String(" "c, changeSpaces) & changeAmt)
         Else
-            Dim refLine As String = "Reference:"
-            receipt.AppendLine(refLine & " " & If(referenceNumber, "N/A"))
+            receipt.AppendLine(CenterText($"Reference: {If(referenceNumber, "N/A")}", width))
         End If
 
         receipt.AppendLine()
         receipt.AppendLine(line)
-        receipt.AppendLine("   Thank you! Come again!")
+        receipt.AppendLine(CenterText("Thank you! Come again!", width))
         receipt.AppendLine(line)
 
         Return receipt.ToString()
+    End Function
+
+    Private Function CenterText(text As String, width As Integer) As String
+        If text.Length >= width Then Return text
+        Dim totalPadding As Integer = width - text.Length
+        Dim leftPadding As Integer = totalPadding \ 2
+        Return New String(" "c, leftPadding) & text
     End Function
 
     Public Sub PrintReceipt(receiptText As String)
