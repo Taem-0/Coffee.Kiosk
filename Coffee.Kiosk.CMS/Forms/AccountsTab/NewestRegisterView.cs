@@ -34,6 +34,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             WireUpEvents();
             LoadDraftValues();
 
+            PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+
         }
 
         private void ApplyTheme()
@@ -361,6 +364,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 {
                     _draft.ProfilePicturePath = null;
                     PictureBox.Image = null;
+                    PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 }
             }
         }

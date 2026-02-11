@@ -21,6 +21,12 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
         {
             InitializeComponent();
             _controller = accountController ?? throw new ArgumentNullException(nameof(accountController));
+
+            guna2PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            guna2PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            guna2PictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            guna2PictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+
             ApplyTheme();
         }
 
