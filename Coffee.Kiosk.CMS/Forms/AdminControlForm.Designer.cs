@@ -134,6 +134,7 @@ namespace Coffee.Kiosk
             // Settings
             // 
             Settings.Controls.Add(settingsContentPanel);
+            Settings.ImageKey = "settings-5670.png";
             Settings.Location = new Point(4, 41);
             Settings.Margin = new Padding(2);
             Settings.Name = "Settings";
@@ -159,6 +160,7 @@ namespace Coffee.Kiosk
             AdminHamburgerIcons.Images.SetKeyName(0, "Icon_Admin.png");
             AdminHamburgerIcons.Images.SetKeyName(1, "user-management-svgrepo-com.png");
             AdminHamburgerIcons.Images.SetKeyName(2, "CART (1)(1).png");
+            AdminHamburgerIcons.Images.SetKeyName(3, "settings-5670.png");
             // 
             // AdminControlForm
             // 
