@@ -1,19 +1,5 @@
-﻿using Coffee.Kiosk.OrderingSystem.Models;
-using MaterialSkin;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
-using Mysqlx.Crud;
-using MySqlX.XDevAPI.Relational;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms.VisualStyles;
-using static Coffee.Kiosk.OrderingSystem.Models.Product;
-using static Mysqlx.Expect.Open.Types.Condition.Types;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Coffee.Kiosk.OrderingSystem.Sql
 {
@@ -26,13 +12,37 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
         {
             @"CREATE TABLE IF NOT EXISTS accounts (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
-                Full_Name VARCHAR(255) NOT NULL,
-                Phone_Number VARCHAR(255) NOT NULL,
+                First_Name VARCHAR(100) NOT NULL,
+                Middle_Name VARCHAR(100) NOT NULL,
+                Last_Name VARCHAR(100) NOT NULL,
+                Phone_Number VARCHAR(25) NOT NULL,
                 Email_Address VARCHAR(255) NOT NULL,
-                Emergency_Contact VARCHAR(255) NOT NULL,
-                Job_Title VARCHAR(255) NOT NULL,
+                Emergency_First_Name VARCHAR(100) NOT NULL,
+                Emergency_Last_Name VARCHAR(100) NOT NULL,
+                Emergency_Number VARCHAR(20) NOT NULL,
+                Job_Title VARCHAR(50) NOT NULL,
                 Salary DECIMAL(10,2) NOT NULL,
-                Status ENUM('ACTIVE','DEACTIVATED') NOT NULL
+                Role ENUM('EMPLOYEE', 'MANAGER', 'OWNER') NOT NULL,
+                Department ENUM('OPERATIONS', 'MANAGEMENT', 'ADMINISTRATION') 
+                    NOT NULL DEFAULT 'OPERATIONS',
+                EmploymentType ENUM('FULL_TIME', 'PART_TIME', 'CONTRACT') 
+                    NOT NULL DEFAULT 'FULL_TIME',
+                Status ENUM('ACTIVE','DEACTIVATED') 
+                    NOT NULL DEFAULT 'ACTIVE',
+                Profile_Picture_Path VARCHAR(255) NULL,
+                Password_Hash VARCHAR(255) NOT NULL,
+                Password_Salt VARCHAR(255) NOT NULL,
+                Is_First_Login BOOLEAN NOT NULL DEFAULT 1,
+                Password_Reset_Requested BOOLEAN NOT NULL DEFAULT 0
+            );",
+
+
+            // inventory
+            @"CREATE TABLE IF NOT EXISTS inventory_item (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                Name VARCHAR(255) UNIQUE NOT NULL,
+                Stock Decimal(10, 2) NOT NULL,
+                Unit VARCHAR(255) NOT NULL
             );",
 
 
@@ -52,13 +62,6 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 ImagePath VARCHAR(255),
                 IsCustomizable BOOLEAN NOT NULL DEFAULT 0,
                 FOREIGN KEY (CategoryID) REFERENCES category(ID) ON DELETE CASCADE
-            );",
-
-            @"CREATE TABLE IF NOT EXISTS inventory_item (
-                ID INT AUTO_INCREMENT PRIMARY KEY,
-                Name VARCHAR(255) UNIQUE NOT NULL,
-                Stock Decimal(10, 2) NOT NULL,
-                Unit VARCHAR(255) NOT NULL
             );",
 
             @"CREATE TABLE IF NOT EXISTS modifier_group (
@@ -85,38 +88,45 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 FOREIGN KEY (InventoryItemId) REFERENCES inventory_item(ID)
                 );",
 
-            //@"CREATE TABLE customer_orders (
-            //    ID INT AUTO_INCREMENT PRIMARY KEY,
-            //    OrderType ENUM('DineIn','TakeOut') NOT NULL,
-            //    CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            //    TotalAmount DECIMAL(10,2) NOT NULL,
-            //    OrderSummary JSON,
-            //    Status ENUM('Pending','Paid','Cancelled') NOT NULL DEFAULT 'Pending'
-            //    );",
 
-            //@"CREATE TABLE customer_order_item (
-            //    ID INT AUTO_INCREMENT PRIMARY KEY,
-            //    OrderId INT NOT NULL,
-            //    ProductId INT NOT NULL,
-            //    ProductName VARCHAR(255) NOT NULL,
-            //    UnitPrice DECIMAL(10,2) NOT NULL,
-            //    Quantity INT NOT NULL,
-            //    ImagePath VARCHAR(255),
-            //    FOREIGN KEY (OrderId) REFERENCES customer_orders(ID) ON DELETE CASCADE,
-            //    FOREIGN KEY (ProductId) REFERENCES product(ID)
-            //    );"
+            // customer orders
+            @"CREATE TABLE customer_orders (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
 
-            //@"CREATE TABLE customer_order_item_modifier (
-            //    ID INT AUTO_INCREMENT PRIMARY KEY,
-            //    OrderItemId INT NOT NULL,
-            //    ModifierGroupId INT NOT NULL,
-            //    ModifierOptionId INT NOT NULL,
-            //    ModifierName VARCHAR(100) NOT NULL,
-            //    PriceDelta DECIMAL(10,2) NOT NULL,
-            //    FOREIGN KEY (OrderItemId) REFERENCES customer_order_item(ID) ON DELETE CASCADE,
-            //    FOREIGN KEY (ModifierGroupId) REFERENCES modifier_group(ID),
-            //    FOREIGN KEY (ModifierOptionId) REFERENCES modifier_option(ID)
-            //    );"
+                OrderType ENUM('DineIn','TakeOut') NOT NULL,
+                Status ENUM('Pending','Paid','Cancelled') NOT NULL DEFAULT 'Pending',
+                TotalAmount DECIMAL(10,2) NOT NULL,
+
+                CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );",
+
+            @"CREATE TABLE customer_order_item (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                CustomerOrderId INT NOT NULL,
+
+                ProductId INT,
+                ProductName VARCHAR(255) NOT NULL,
+
+                BasePrice DECIMAL(10,2) NOT NULL,
+                UnitPrice DECIMAL(10,2) NOT NULL,
+                Quantity INT NOT NULL,
+
+                FOREIGN KEY (CustomerOrderId) REFERENCES customer_orders(ID) ON DELETE CASCADE
+                );",
+
+            @"CREATE TABLE customer_order_item_modifier (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                CustomerOrderItemId INT NOT NULL,
+
+                ModifierGroupId INT,
+                ModifierOptionId INT,
+                ModifierGroupName VARCHAR(100) NOT NULL,
+                ModifierOptionName VARCHAR(100) NOT NULL,
+
+                PriceDelta DECIMAL(10,2) NOT NULL,
+
+                FOREIGN KEY (CustomerOrderItemId) REFERENCES customer_order_item(ID) ON DELETE CASCADE
+                );"
         };
 
         // OrderSummary Json format :
@@ -200,8 +210,8 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating database or tables: {ex.Message}");
-                //MessageBox.Show("Failed to initialize database\n" + ex.Message);
-                //throw;
+                MessageBox.Show("Failed to initialize database\n" + ex.Message);
+                throw;
             }
         }
     }
