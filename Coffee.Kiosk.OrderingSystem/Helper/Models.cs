@@ -12,6 +12,7 @@ namespace Coffee.Kiosk.OrderingSystem.Models
         {
             public int ProductId;
             public string ProductName = String.Empty;
+            public decimal BasePrice;
             public decimal ProductPrice;
             public int Quantity;
             public String ImagePath = String.Empty;
@@ -190,9 +191,9 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             gId = 1;
             for (int i = 1;  i <= 13; i++)
             {
-                modifierOption.Add(new ModifierOption(pId, gId, "Small", 0.00m, 250.00m, null, true, 1));
+                modifierOption.Add(new ModifierOption(pId, gId, "Small", 0.00m, 1m, null, true, 1));
                 pId++;
-                modifierOption.Add(new ModifierOption(pId, gId, "Large", 30.00m, 450.00m, null, true, 2));
+                modifierOption.Add(new ModifierOption(pId, gId, "Large", 30.00m, 1m, null, true, 2));
                 pId++; gId++;
 
                 modifierOption.Add(new ModifierOption(pId, gId, "No Sugar", 0.00m, 0.00m, null, false, 3));

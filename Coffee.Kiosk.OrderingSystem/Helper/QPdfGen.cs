@@ -49,14 +49,31 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
                             itemCol.Item().Row(row =>
                             {
                                 row.RelativeItem().Text($"{item.Quantity}x {item.ProductName}");
-                                row.ConstantItem(80).AlignRight().Text($"₱{item.ProductPrice * item.Quantity:0.00}");
+                                row.ConstantItem(80).AlignRight().Text($"₱{item.BasePrice * item.Quantity:0.00}");
                             });
                             if (item.SelectedModifiersName.Count > 0)
                             {
-                                foreach (var mod in item.SelectedModifiersName)
+                                foreach (var groupEntry in item.SelectedModifierOptions)
                                 {
-                                    itemCol.Item().Text($"    {mod.Key}: {string.Join(", ", mod.Value)}").FontSize(8);
+                                    //var group = Models.Product.modifierGroups.First(g => g.Id == groupEntry.Key);
+                                    var group = (
+                                        from g in Models.Product.modifierGroups
+                                        where g.Id == groupEntry.Key
+                                        select g
+                                    ).First();
+
+                                    itemCol.Item().Row(row =>
+                                    {
+                                        foreach (var optionId in groupEntry.Value)
+                                        {
+                                            var option = Models.Product.modifierOption.First(o => o.Id == optionId);
+
+                                            row.RelativeItem().Text($"    {group.Name}: {option.Name}").FontSize(8);
+                                            row.ConstantItem(80).AlignRight().Text($"+₱{option.PriceDelta:0.00}").FontSize(8);
+                                        }
+                                    });
                                 }
+                                col.Item().Text($"₱{item.ProductPrice * item.Quantity:0.00}").AlignRight().Bold().FontSize(8);
                             }
                         });
                     }

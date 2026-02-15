@@ -34,6 +34,16 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             );",
 
 
+            // inventory
+            @"CREATE TABLE IF NOT EXISTS inventory_item (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                Name VARCHAR(255) UNIQUE NOT NULL,
+                Stock Decimal(10, 2) NOT NULL,
+                Unit VARCHAR(255) NOT NULL
+            );",
+
+
+            // Ordering System
             @"CREATE TABLE IF NOT EXISTS category (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) NOT NULL,
@@ -47,13 +57,75 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 Name VARCHAR(255) NOT NULL,
                 Price DECIMAL(10,2) NOT NULL,
                 ImagePath VARCHAR(255),
-                Ingredients JSON,
+                IsCustomizable BOOLEAN NOT NULL DEFAULT 0,
                 FOREIGN KEY (CategoryID) REFERENCES category(ID) ON DELETE CASCADE
-            );"
+            );",
+
+            @"CREATE TABLE IF NOT EXISTS modifier_group (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                ProductId INT NOT NULL,
+                ParentGroupId INT NULL,
+                Name VARCHAR(100),
+                SelectionType ENUM('Single','Multiple') NOT NULL,
+                Required BOOLEAN NOT NULL DEFAULT 0,
+                FOREIGN KEY (ProductId) REFERENCES product(ID) ON DELETE CASCADE,
+                FOREIGN KEY (ParentGroupId) REFERENCES modifier_group(ID) ON DELETE CASCADE
+                );",
+
+            @"CREATE TABLE IF NOT EXISTS modifier_option (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                GroupId INT,
+                Name VARCHAR(100),
+                PriceDelta DECIMAL (10, 2),
+                InventorySubtraction Decimal(10, 2) DEFAULT 0,
+                InventoryItemId INT,
+                TriggersChild BOOLEAN NOT NULL DEFAULT TRUE,
+                SortBy INT NOT NULL,
+                FOREIGN KEY (GroupId) REFERENCES modifier_group(ID) ON DELETE CASCADE,
+                FOREIGN KEY (InventoryItemId) REFERENCES inventory_item(ID)
+                );",
+
+
+            // customer orders
+            @"CREATE TABLE customer_orders (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+
+                OrderType ENUM('DineIn','TakeOut') NOT NULL,
+                Status ENUM('Pending','Paid','Cancelled') NOT NULL DEFAULT 'Pending',
+                TotalAmount DECIMAL(10,2) NOT NULL,
+
+                CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );",
+
+            @"CREATE TABLE customer_order_item (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                CustomerOrderId INT NOT NULL,
+
+                ProductId INT,
+                ProductName VARCHAR(255) NOT NULL,
+
+                BasePrice DECIMAL(10,2) NOT NULL,
+                UnitPrice DECIMAL(10,2) NOT NULL,
+                Quantity INT NOT NULL,
+
+                FOREIGN KEY (CustomerOrderId) REFERENCES customer_orders(ID) ON DELETE CASCADE
+                );",
+
+            @"CREATE TABLE customer_order_item_modifier (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                CustomerOrderItemId INT NOT NULL,
+
+                ModifierGroupId INT,
+                ModifierOptionId INT,
+                ModifierGroupName VARCHAR(100) NOT NULL,
+                ModifierOptionName VARCHAR(100) NOT NULL,
+
+                PriceDelta DECIMAL(10,2) NOT NULL,
+
+                FOREIGN KEY (CustomerOrderItemId) REFERENCES customer_order_item(ID) ON DELETE CASCADE
+                );"
         };
 
-        // ingredients json will look like this
-        // { "sugar": 50,
 
 
         private readonly string _connectionString;

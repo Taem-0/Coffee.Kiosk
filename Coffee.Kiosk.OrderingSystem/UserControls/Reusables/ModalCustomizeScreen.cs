@@ -164,6 +164,7 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
             {
                 ProductId = ProductId,
                 ProductName = product.Name,
+                BasePrice = product.Price,
                 ProductPrice = product.Price + CalculateModifiersTotal(),
                 Quantity = Amount,
                 ImagePath = product.ImagePath

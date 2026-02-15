@@ -20,6 +20,9 @@ namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class CoffeeKioskMainForm : Form
     {
+        private const int IdleTimeoutSeconds = 60;
+
+
         public event Action<Models.Orders>? CartUpdated;
 
         private GetStartedScreen? getStartedScreen;
@@ -29,14 +32,11 @@ namespace Coffee.Kiosk.OrderingSystem
         private PayOptionScreen? payOptionScreen;
         private ReceiptScreen? receiptScreen;
         private ReceiptGcashScreen? receiptGcashScreen;
-
         private ModalScreen? modalScreen;
-
 
         private Models.Orders? currentOrder;
 
         private System.Windows.Forms.Timer _idleTimer = new();
-        private const int IdleTimeoutSeconds = 6;
         private int _idleSeconds;
 
         private Guna.UI2.WinForms.Guna2Panel? idleOverlay;
@@ -268,6 +268,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private async void ShowReceiptScreen(Models.Orders.TypeOfPayment typeOfPayment)
         {
+            int countdown = 10;
             _idleTimer.Stop();
             if (typeOfPayment == Models.Orders.TypeOfPayment.Cash)
             {
@@ -278,15 +279,18 @@ namespace Coffee.Kiosk.OrderingSystem
                 }
                 UI_Handling.loadUserControl(mainPanel, receiptScreen);
                 await Task.Delay(3000);
-                receiptScreen.StartResetCountdown(10);
+                receiptScreen.StartResetCountdown(countdown);
             }
             else
             {
                 if (receiptGcashScreen == null)
                 {
                     receiptGcashScreen = new ReceiptGcashScreen();
+                    receiptGcashScreen.ResetRequested += ShowThankYouScreen;
                 }
                 UI_Handling.loadUserControl(mainPanel, receiptGcashScreen);
+                await Task.Delay(3000);
+                receiptGcashScreen.StartResetCountdown(countdown);
             }
             QPdfGen.GenerateReceiptPdf(currentOrder!, "Kiosk_Receipt.pdf");
         }
