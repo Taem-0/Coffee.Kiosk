@@ -1,4 +1,6 @@
+﻿using Coffee.Kiosk.OrderingSystem.Forms;
 using Coffee.Kiosk.OrderingSystem.Helper;
+using Coffee.Kiosk.OrderingSystem.IdleTimer;
 using Coffee.Kiosk.OrderingSystem.Sql;
 using Coffee.Kiosk.OrderingSystem.UserControls;
 using Coffee.Kiosk.OrderingSystem.UserControls.PayOption;
@@ -30,7 +32,17 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private ModalScreen? modalScreen;
 
+
         private Models.Orders? currentOrder;
+
+        private System.Windows.Forms.Timer _idleTimer = new();
+        private const int IdleTimeoutSeconds = 6;
+        private int _idleSeconds;
+
+        private Guna.UI2.WinForms.Guna2Panel? idleOverlay;
+        private bool _idleWarningShown;
+        private IdleWarningScreen? idleWarning = new IdleWarningScreen();
+        
 
         int screenHeight;
         Size modalScreenOriginalSize = new Size(720, 800);
@@ -56,6 +68,53 @@ namespace Coffee.Kiosk.OrderingSystem
             Models.Category.LoadDummyData();
             Models.Product.LoadDummyData();
 
+            _idleTimer.Interval = 1000;
+            _idleTimer.Tick += IdleTimer_Tick;
+
+            Application.AddMessageFilter(new IdleMessageFilter(ResetIdleTimer));
+        }
+
+        private void IdleTimer_Tick(object? sender, EventArgs e)
+        {
+            _idleSeconds--;
+
+            if (_idleSeconds <= IdleTimeoutSeconds / 2 && !_idleWarningShown) ShowIdleWarning();
+
+            if (_idleWarningShown) idleWarning?.SetTimerNumber(_idleSeconds);
+
+            if (_idleSeconds < 0)
+            {
+                _idleTimer.Stop();
+                ResetIdleWarning();
+                FinishOrder();
+            }
+        }
+
+        private void ResetIdleTimer()
+        {
+            if (_idleWarningShown) return;
+
+            _idleSeconds = IdleTimeoutSeconds;
+            ResetIdleWarning();
+        }
+
+        private void ResetIdleWarning()
+        {
+            if (!_idleWarningShown) return;
+
+            idleWarning!.Hide();
+            idleOverlay!.Visible = false;
+
+            _idleWarningShown = false;
+        }
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.UserPaint, true);
         }
 
         private void CoffeeKiosk_Load(object sender, EventArgs e)
@@ -77,6 +136,37 @@ namespace Coffee.Kiosk.OrderingSystem
             }
         }
 
+        private void LoadNecessary()
+        {
+            if (kioskMenu == null)
+            {
+                currentOrder ??= new Models.Orders();
+                kioskMenu = new KioskMenu(currentOrder.Type == Models.Orders.TypeOfOrder.DineIn ? "Dine In" : "Take Out");
+
+                kioskMenu.StartOverClicked += FinishOrder;
+                kioskMenu.ProductSelected += ShowModalCustomizeScreen;
+                kioskMenu.ViewOrderClicked += ShowViewOrder;
+                this.CartUpdated += kioskMenu.OnCartUpdated;
+            }
+            currentOrder ??= new Models.Orders();
+            if (viewOrder == null)
+            {
+                viewOrder = new ViewOrder(currentOrder);
+                viewOrder.StartOverClicked += FinishOrder;
+                viewOrder.OrderMoreClicked += ShowKioskMenuScreen;
+                viewOrder.CompleteOrderClicked += ShowPayOptionScreen;
+            }
+
+            currentOrder ??= new Models.Orders();
+            if (viewOrder == null)
+            {
+                viewOrder = new ViewOrder(currentOrder);
+                viewOrder.StartOverClicked += FinishOrder;
+                viewOrder.OrderMoreClicked += ShowKioskMenuScreen;
+                viewOrder.CompleteOrderClicked += ShowPayOptionScreen;
+            }
+        }
+
 
         private void ShowGetStartedScreen()
         {
@@ -87,9 +177,9 @@ namespace Coffee.Kiosk.OrderingSystem
                 getStartedScreen = new GetStartedScreen();
                 getStartedScreen.NextClicked += ShowDineInTakeOutScreen;
             }
+            LoadNecessary();
+            _idleTimer.Stop();
             UI_Handling.loadUserControl(mainPanel, getStartedScreen);
-
-
         }
 
         private void ShowDineInTakeOutScreen()
@@ -116,10 +206,13 @@ namespace Coffee.Kiosk.OrderingSystem
 
             }
             UI_Handling.loadUserControl(mainPanel, dineInTakeOut);
+            ResetIdleTimer();
+            _idleTimer.Start();
         }
 
         private void ShowKioskMenuScreen()
         {
+            mainPanel.SuspendLayout();
             if (kioskMenu == null)
             {
                 currentOrder ??= new Models.Orders();
@@ -139,6 +232,7 @@ namespace Coffee.Kiosk.OrderingSystem
                 viewOrder.CompleteOrderClicked += ShowPayOptionScreen;
             }
             UI_Handling.loadUserControl(mainPanel, kioskMenu);
+            mainPanel.ResumeLayout();
         }
 
         private void ShowViewOrder()
@@ -174,6 +268,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private async void ShowReceiptScreen(Models.Orders.TypeOfPayment typeOfPayment)
         {
+            _idleTimer.Stop();
             if (typeOfPayment == Models.Orders.TypeOfPayment.Cash)
             {
                 if (receiptScreen == null)
@@ -205,6 +300,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowModalCustomizeScreen(int productId = 0)
         {
+            modalMainScreen.SuspendLayout();
             if (modalScreen == null)
             {
                 modalScreen = new ModalScreen(productId);
@@ -230,7 +326,7 @@ namespace Coffee.Kiosk.OrderingSystem
                     //    """);
                     HideModalScreen();
                 };
-
+            modalMainScreen.ResumeLayout();
             }
             else
             {
@@ -252,9 +348,66 @@ namespace Coffee.Kiosk.OrderingSystem
         }
 
 
+        private void ShowIdleWarning()
+        {
+            if (_idleWarningShown) return;
+
+            _idleWarningShown = true;
+
+            foreach (Form openForm in Application.OpenForms)
+            {
+                if (openForm != this && openForm.Modal)
+                {
+                    openForm.Close();
+                }
+            }
+
+            idleOverlay = new Guna.UI2.WinForms.Guna2Panel
+            {
+                Dock = DockStyle.Fill,
+                FillColor = Color.FromArgb(67, 0, 0, 0),
+                UseTransparentBackground = true,
+            };
+
+            this.Controls.Add(idleOverlay);
+            idleOverlay.BringToFront();
+
+            idleWarning = new IdleWarningScreen
+            {
+                TopLevel = false
+            };
+
+            this.Controls.Add(idleWarning);
+            idleWarning.BringToFront();
+
+            idleWarning.Left = (this.ClientSize.Width - idleWarning.Width) / 2;
+            idleWarning.Top = (this.ClientSize.Height - idleWarning.Height) / 2;
+
+            idleWarning.Show();
+
+            idleOverlay.Click += (_, __) =>
+            {
+                this.Controls.Remove(idleOverlay);
+                idleWarning.Close();
+                _idleWarningShown = false;
+                
+            };
+            idleWarning.FormClosed += (_, __) =>
+            {
+                this.Controls.Remove(idleOverlay);
+                _idleWarningShown = false;
+            };
+        }
+
+
 
         internal void FinishOrder()
         {
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f is ConfirmRemove) f.Close();
+            }
+
             getStartedScreen?.Dispose();
             dineInTakeOut?.Dispose();
             if (kioskMenu != null)
@@ -280,6 +433,8 @@ namespace Coffee.Kiosk.OrderingSystem
 
             currentOrder = null;
 
+            _idleTimer.Stop();
+            ResetIdleWarning();
             ShowGetStartedScreen();
         }
 

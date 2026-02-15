@@ -35,6 +35,7 @@ namespace Coffee.Kiosk.OrderingSystem
         public KioskMenu(string orderType)
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
 
             flowCategories.Dock = DockStyle.Left;
             flowCategories.FlowDirection = FlowDirection.TopDown;
@@ -54,6 +55,16 @@ namespace Coffee.Kiosk.OrderingSystem
             """;
             LoadCategories();
             ShowHome();
+        }
+
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.UserPaint, true);
         }
         private void LoadCategories()
         {
