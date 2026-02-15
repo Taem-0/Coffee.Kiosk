@@ -1,4 +1,6 @@
-﻿namespace Coffee.Kiosk.OrderingSystem
+﻿using Coffee.Kiosk.OrderingSystem.Panels;
+
+namespace Coffee.Kiosk.OrderingSystem
 {
     partial class CoffeeKioskMainForm
     {
@@ -32,7 +34,7 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            mainPanel = new Panel();
+            mainPanel = new SmoothPanel();
             modalOverlayPanel = new Guna.UI2.WinForms.Guna2Panel();
             modalMainScreen = new Guna.UI2.WinForms.Guna2Panel();
             modalOverlayPanel.SuspendLayout();
@@ -80,6 +82,7 @@
             ClientSize = new Size(784, 761);
             Controls.Add(modalOverlayPanel);
             Controls.Add(mainPanel);
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 2, 3, 2);
             MinimumSize = new Size(676, 675);
             Name = "CoffeeKioskMainForm";
@@ -95,7 +98,7 @@
 
         #endregion
 
-        private Panel mainPanel;
+        private SmoothPanel mainPanel;
         private Guna.UI2.WinForms.Guna2Panel modalOverlayPanel;
         private Guna.UI2.WinForms.Guna2Panel modalMainScreen;
     }

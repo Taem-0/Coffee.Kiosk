@@ -32,6 +32,14 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             pictureBox1.Image = UI_Images.logoImage;
         }
 
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.UserPaint, true);
+        }
 
         public void LoadCurrentOrders()
         {

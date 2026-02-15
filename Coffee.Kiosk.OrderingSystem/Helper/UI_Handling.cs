@@ -31,9 +31,17 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
 
         internal static void loadUserControl(Panel mainScreen, UserControl userControl)
         {
-                mainScreen.Controls.Clear();
+            foreach (Control ctrl in mainScreen.Controls)
+                ctrl.Visible = false;
+
+            if (!mainScreen.Controls.Contains(userControl))
+            {
                 userControl.Dock = DockStyle.Fill;
                 mainScreen.Controls.Add(userControl);
+            }
+
+            userControl.Visible = true;
+            userControl.BringToFront();
         }
 
 
