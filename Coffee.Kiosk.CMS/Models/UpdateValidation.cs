@@ -23,7 +23,6 @@ public class UpdateValidation : AccountBaseValidations
         );
 
         ValidateJobTitle(request.JobTitle, result, false);
-        ValidateSalary(request.Salary, result, false);
 
         // Wooopss
         // ValidateEnum(request.Role, "Role", result);

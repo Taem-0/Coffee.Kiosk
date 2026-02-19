@@ -77,26 +77,6 @@ namespace Coffee.Kiosk.CMS.Models
                 result.AddError("JobTitle", "Job title cannot exceed 50 characters.");
         }
 
-        public void ValidateSalary(string? salaryString, ValidationResults result, bool required)
-        {
-            if (string.IsNullOrWhiteSpace(salaryString))
-            {
-                if (required)
-                    result.AddError("Salary", "Salary is required.");
-                return;
-            }
-
-            if (!decimal.TryParse(salaryString, out decimal salary))
-            {
-                result.AddError("Salary", "Salary must be a valid number.");
-                return;
-            }
-
-            if (salary < 0)
-                result.AddError("Salary", "Salary cannot be negative.");
-        }
-
-
 
         public void ValidateEnum<T>(T value, string fieldName, ValidationResults result)
             where T : struct, Enum

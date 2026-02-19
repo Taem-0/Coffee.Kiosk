@@ -27,7 +27,6 @@
         public string EmergencyNumber { get; set; } = string.Empty;
 
         public string JobTitle { get; set; } = string.Empty;
-        public string Salary { get; set; } = string.Empty;
 
         public string Role { get; set; } = string.Empty;          
         public string Department { get; set; } = string.Empty;    

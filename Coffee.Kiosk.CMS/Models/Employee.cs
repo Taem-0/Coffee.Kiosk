@@ -30,8 +30,6 @@ namespace Coffee.Kiosk.CMS.Models
 
         public string? ProfilePicturePath { get; set; }
 
-        public decimal Salary { get; set; } = decimal.Zero;
-
         public AccountRole Role { get; set; } = AccountRole.EMPLOYEE;
 
         public Department Department { get; set; } = Department.OPERATIONS;
