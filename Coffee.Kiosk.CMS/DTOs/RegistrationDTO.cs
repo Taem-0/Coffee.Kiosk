@@ -28,8 +28,6 @@ namespace Coffee.Kiosk.CMS.DTOs
 
         public string JobTitle { get; set; } = string.Empty;
 
-        public string Salary { get; set; } = string.Empty;
-
         public string? ProfilePicturePath { get; set; }
 
         public AccountRole Role { get; set; } 

@@ -24,7 +24,6 @@ namespace Coffee.Kiosk.CMS.Models
             );
 
             ValidateJobTitle(request.JobTitle, result, true);
-            ValidateSalary(request.Salary, result, true);
 
             ValidateEnum(request.Role, "Role", result);
             ValidateEnum(request.Department, "Department", result);

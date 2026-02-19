@@ -34,20 +34,20 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -62,8 +62,6 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             acceptRequest = new Guna.UI2.WinForms.Guna2Button();
             AddPfpButton = new Guna.UI2.WinForms.Guna2CircleButton();
@@ -74,8 +72,6 @@
             label12 = new Label();
             label13 = new Label();
             JobTitleTextBox = new Guna.UI2.WinForms.Guna2TextBox();
-            label14 = new Label();
-            SalaryTextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             label11 = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
             AdminRadioButton = new RadioButton();
@@ -191,10 +187,10 @@
             mainPanel.AutoScrollMargin = new Size(0, 10);
             mainPanel.Controls.Add(guna2Panel3);
             mainPanel.Controls.Add(guna2Panel2);
-            mainPanel.CustomizableEdges = customizableEdges35;
+            mainPanel.CustomizableEdges = customizableEdges33;
             mainPanel.Location = new Point(243, 20);
             mainPanel.Name = "mainPanel";
-            mainPanel.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            mainPanel.ShadowDecoration.CustomizableEdges = customizableEdges34;
             mainPanel.Size = new Size(1064, 658);
             mainPanel.TabIndex = 1;
             // 
@@ -204,11 +200,11 @@
             guna2Panel3.BorderRadius = 15;
             guna2Panel3.BorderThickness = 2;
             guna2Panel3.Controls.Add(tableLayoutPanel3);
-            guna2Panel3.CustomizableEdges = customizableEdges15;
+            guna2Panel3.CustomizableEdges = customizableEdges13;
             guna2Panel3.Location = new Point(6, 399);
             guna2Panel3.Name = "guna2Panel3";
             guna2Panel3.Padding = new Padding(10);
-            guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges14;
             guna2Panel3.Size = new Size(1026, 390);
             guna2Panel3.TabIndex = 3;
             // 
@@ -223,16 +219,14 @@
             tableLayoutPanel3.Controls.Add(label12, 0, 1);
             tableLayoutPanel3.Controls.Add(label13, 0, 0);
             tableLayoutPanel3.Controls.Add(JobTitleTextBox, 0, 2);
-            tableLayoutPanel3.Controls.Add(label14, 0, 3);
-            tableLayoutPanel3.Controls.Add(SalaryTextBox1, 0, 4);
-            tableLayoutPanel3.Controls.Add(label11, 0, 5);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel2, 0, 6);
             tableLayoutPanel3.Controls.Add(label15, 2, 1);
             tableLayoutPanel3.Controls.Add(DepartmentComboBox, 2, 2);
             tableLayoutPanel3.Controls.Add(label16, 2, 3);
             tableLayoutPanel3.Controls.Add(EmployeeTypecomboBox, 2, 4);
             tableLayoutPanel3.Controls.Add(SubmitButton, 3, 7);
             tableLayoutPanel3.Controls.Add(DeactivateButton, 2, 7);
+            tableLayoutPanel3.Controls.Add(label11, 0, 3);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel2, 0, 4);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(10, 10);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -247,6 +241,7 @@
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 19.6453819F));
             tableLayoutPanel3.Size = new Size(1006, 370);
             tableLayoutPanel3.TabIndex = 2;
+            tableLayoutPanel3.Paint += tableLayoutPanel3_Paint;
             // 
             // label12
             // 
@@ -288,41 +283,11 @@
             JobTitleTextBox.Size = new Size(304, 42);
             JobTitleTextBox.TabIndex = 20;
             // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label14.Location = new Point(3, 129);
-            label14.Name = "label14";
-            label14.Size = new Size(76, 28);
-            label14.TabIndex = 23;
-            label14.Text = "Salary:";
-            // 
-            // SalaryTextBox1
-            // 
-            SalaryTextBox1.CustomizableEdges = customizableEdges9;
-            SalaryTextBox1.DefaultText = "";
-            SalaryTextBox1.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            SalaryTextBox1.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            SalaryTextBox1.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            SalaryTextBox1.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            SalaryTextBox1.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            SalaryTextBox1.Font = new Font("Segoe UI", 11F);
-            SalaryTextBox1.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            SalaryTextBox1.Location = new Point(5, 163);
-            SalaryTextBox1.Margin = new Padding(5, 6, 5, 6);
-            SalaryTextBox1.Name = "SalaryTextBox1";
-            SalaryTextBox1.PlaceholderText = "";
-            SalaryTextBox1.SelectedText = "";
-            SalaryTextBox1.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            SalaryTextBox1.Size = new Size(304, 42);
-            SalaryTextBox1.TabIndex = 36;
-            // 
             // label11
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label11.Location = new Point(3, 212);
+            label11.Location = new Point(3, 129);
             label11.Name = "label11";
             label11.Size = new Size(68, 28);
             label11.TabIndex = 38;
@@ -337,8 +302,7 @@
             tableLayoutPanel2.Controls.Add(AdminRadioButton, 2, 0);
             tableLayoutPanel2.Controls.Add(ManagerRadioButton, 1, 0);
             tableLayoutPanel2.Controls.Add(employeeRadioButton, 0, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(3, 243);
+            tableLayoutPanel2.Location = new Point(3, 160);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -426,7 +390,7 @@
             // 
             SubmitButton.Anchor = AnchorStyles.Right;
             SubmitButton.BorderRadius = 15;
-            SubmitButton.CustomizableEdges = customizableEdges11;
+            SubmitButton.CustomizableEdges = customizableEdges9;
             SubmitButton.DisabledState.BorderColor = Color.DarkGray;
             SubmitButton.DisabledState.CustomBorderColor = Color.DarkGray;
             SubmitButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -435,7 +399,7 @@
             SubmitButton.ForeColor = Color.White;
             SubmitButton.Location = new Point(857, 301);
             SubmitButton.Name = "SubmitButton";
-            SubmitButton.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            SubmitButton.ShadowDecoration.CustomizableEdges = customizableEdges10;
             SubmitButton.Size = new Size(146, 61);
             SubmitButton.TabIndex = 34;
             SubmitButton.Text = "Update";
@@ -445,7 +409,7 @@
             // 
             DeactivateButton.Anchor = AnchorStyles.Right;
             DeactivateButton.BorderRadius = 15;
-            DeactivateButton.CustomizableEdges = customizableEdges13;
+            DeactivateButton.CustomizableEdges = customizableEdges11;
             DeactivateButton.DisabledState.BorderColor = Color.DarkGray;
             DeactivateButton.DisabledState.CustomBorderColor = Color.DarkGray;
             DeactivateButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -455,7 +419,7 @@
             DeactivateButton.ForeColor = Color.White;
             DeactivateButton.Location = new Point(688, 301);
             DeactivateButton.Name = "DeactivateButton";
-            DeactivateButton.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            DeactivateButton.ShadowDecoration.CustomizableEdges = customizableEdges12;
             DeactivateButton.Size = new Size(148, 61);
             DeactivateButton.TabIndex = 35;
             DeactivateButton.Text = "Deactivate";
@@ -467,11 +431,11 @@
             guna2Panel2.BorderRadius = 15;
             guna2Panel2.BorderThickness = 2;
             guna2Panel2.Controls.Add(tableLayoutPanel1);
-            guna2Panel2.CustomizableEdges = customizableEdges33;
+            guna2Panel2.CustomizableEdges = customizableEdges31;
             guna2Panel2.Location = new Point(6, 3);
             guna2Panel2.Name = "guna2Panel2";
             guna2Panel2.Padding = new Padding(10);
-            guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges34;
+            guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges32;
             guna2Panel2.Size = new Size(1026, 390);
             guna2Panel2.TabIndex = 2;
             // 
@@ -518,7 +482,7 @@
             // 
             // LastNameTextBox
             // 
-            LastNameTextBox.CustomizableEdges = customizableEdges17;
+            LastNameTextBox.CustomizableEdges = customizableEdges15;
             LastNameTextBox.DefaultText = "";
             LastNameTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             LastNameTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -532,7 +496,7 @@
             LastNameTextBox.Name = "LastNameTextBox";
             LastNameTextBox.PlaceholderText = "";
             LastNameTextBox.SelectedText = "";
-            LastNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            LastNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges16;
             LastNameTextBox.Size = new Size(293, 41);
             LastNameTextBox.TabIndex = 21;
             // 
@@ -578,7 +542,7 @@
             // 
             // MiddleNameTextBox
             // 
-            MiddleNameTextBox.CustomizableEdges = customizableEdges19;
+            MiddleNameTextBox.CustomizableEdges = customizableEdges17;
             MiddleNameTextBox.DefaultText = "";
             MiddleNameTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             MiddleNameTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -592,13 +556,13 @@
             MiddleNameTextBox.Name = "MiddleNameTextBox";
             MiddleNameTextBox.PlaceholderText = "";
             MiddleNameTextBox.SelectedText = "";
-            MiddleNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            MiddleNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges18;
             MiddleNameTextBox.Size = new Size(184, 41);
             MiddleNameTextBox.TabIndex = 18;
             // 
             // FirstNameTextBox
             // 
-            FirstNameTextBox.CustomizableEdges = customizableEdges21;
+            FirstNameTextBox.CustomizableEdges = customizableEdges19;
             FirstNameTextBox.DefaultText = "";
             FirstNameTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             FirstNameTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -612,7 +576,7 @@
             FirstNameTextBox.Name = "FirstNameTextBox";
             FirstNameTextBox.PlaceholderText = "";
             FirstNameTextBox.SelectedText = "";
-            FirstNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            FirstNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges20;
             FirstNameTextBox.Size = new Size(293, 41);
             FirstNameTextBox.TabIndex = 20;
             // 
@@ -638,7 +602,7 @@
             // 
             // EmailTextBox
             // 
-            EmailTextBox.CustomizableEdges = customizableEdges23;
+            EmailTextBox.CustomizableEdges = customizableEdges21;
             EmailTextBox.DefaultText = "";
             EmailTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             EmailTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -652,7 +616,7 @@
             EmailTextBox.Name = "EmailTextBox";
             EmailTextBox.PlaceholderText = "";
             EmailTextBox.SelectedText = "";
-            EmailTextBox.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            EmailTextBox.ShadowDecoration.CustomizableEdges = customizableEdges22;
             EmailTextBox.Size = new Size(293, 41);
             EmailTextBox.TabIndex = 24;
             // 
@@ -668,7 +632,7 @@
             // 
             // PhoneTextBox
             // 
-            PhoneTextBox.CustomizableEdges = customizableEdges25;
+            PhoneTextBox.CustomizableEdges = customizableEdges23;
             PhoneTextBox.DefaultText = "";
             PhoneTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             PhoneTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -682,7 +646,7 @@
             PhoneTextBox.Name = "PhoneTextBox";
             PhoneTextBox.PlaceholderText = "";
             PhoneTextBox.SelectedText = "";
-            PhoneTextBox.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            PhoneTextBox.ShadowDecoration.CustomizableEdges = customizableEdges24;
             PhoneTextBox.Size = new Size(184, 41);
             PhoneTextBox.TabIndex = 26;
             // 
@@ -728,7 +692,7 @@
             // 
             // EmergencyFirstNameTextBox
             // 
-            EmergencyFirstNameTextBox.CustomizableEdges = customizableEdges27;
+            EmergencyFirstNameTextBox.CustomizableEdges = customizableEdges25;
             EmergencyFirstNameTextBox.DefaultText = "";
             EmergencyFirstNameTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             EmergencyFirstNameTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -742,13 +706,13 @@
             EmergencyFirstNameTextBox.Name = "EmergencyFirstNameTextBox";
             EmergencyFirstNameTextBox.PlaceholderText = "";
             EmergencyFirstNameTextBox.SelectedText = "";
-            EmergencyFirstNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            EmergencyFirstNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges26;
             EmergencyFirstNameTextBox.Size = new Size(293, 41);
             EmergencyFirstNameTextBox.TabIndex = 31;
             // 
             // EmergencyLastNameTextBox
             // 
-            EmergencyLastNameTextBox.CustomizableEdges = customizableEdges29;
+            EmergencyLastNameTextBox.CustomizableEdges = customizableEdges27;
             EmergencyLastNameTextBox.DefaultText = "";
             EmergencyLastNameTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             EmergencyLastNameTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -762,13 +726,13 @@
             EmergencyLastNameTextBox.Name = "EmergencyLastNameTextBox";
             EmergencyLastNameTextBox.PlaceholderText = "";
             EmergencyLastNameTextBox.SelectedText = "";
-            EmergencyLastNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            EmergencyLastNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges28;
             EmergencyLastNameTextBox.Size = new Size(184, 41);
             EmergencyLastNameTextBox.TabIndex = 32;
             // 
             // EmergencyPhoneTextBox
             // 
-            EmergencyPhoneTextBox.CustomizableEdges = customizableEdges31;
+            EmergencyPhoneTextBox.CustomizableEdges = customizableEdges29;
             EmergencyPhoneTextBox.DefaultText = "";
             EmergencyPhoneTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             EmergencyPhoneTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -782,7 +746,7 @@
             EmergencyPhoneTextBox.Name = "EmergencyPhoneTextBox";
             EmergencyPhoneTextBox.PlaceholderText = "";
             EmergencyPhoneTextBox.SelectedText = "";
-            EmergencyPhoneTextBox.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            EmergencyPhoneTextBox.ShadowDecoration.CustomizableEdges = customizableEdges30;
             EmergencyPhoneTextBox.Size = new Size(293, 41);
             EmergencyPhoneTextBox.TabIndex = 33;
             // 
@@ -861,8 +825,6 @@
         private Label label12;
         private Label label13;
         private Guna.UI2.WinForms.Guna2TextBox JobTitleTextBox;
-        private Label label14;
-        private Guna.UI2.WinForms.Guna2TextBox SalaryTextBox1;
         private Label label11;
         private TableLayoutPanel tableLayoutPanel2;
         private RadioButton AdminRadioButton;

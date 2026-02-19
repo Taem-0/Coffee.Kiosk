@@ -91,7 +91,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             ApplyLabelTheme(label11);
             ApplyLabelTheme(label12);
             ApplyLabelTheme(label13);
-            ApplyLabelTheme(label14);
             ApplyLabelTheme(label15);
             ApplyLabelTheme(label16);
             ApplyLabelTheme(label17);
@@ -117,7 +116,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             ApplyTextBoxTheme(EmergencyLastNameTextBox);
             ApplyTextBoxTheme(EmergencyPhoneTextBox);
             ApplyTextBoxTheme(JobTitleTextBox);
-            ApplyTextBoxTheme(SalaryTextBox1);
 
             // Apply to combo boxes
             ApplyComboBoxTheme(DepartmentComboBox);
@@ -260,7 +258,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             EmergencyLastNameTextBox.TextChanged += (s, e) => ClearError(EmergencyLastNameTextBox);
             EmergencyPhoneTextBox.TextChanged += (s, e) => ClearError(EmergencyPhoneTextBox);
             JobTitleTextBox.TextChanged += (s, e) => ClearError(JobTitleTextBox);
-            SalaryTextBox1.TextChanged += (s, e) => ClearError(SalaryTextBox1);
         }
 
         private void LoadEmployeeIntoForm()
@@ -323,7 +320,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         private void LoadEmploymentDetails()
         {
             JobTitleTextBox.Text = _employee.JobTitle;
-            SalaryTextBox1.Text = _employee.Salary;
 
             DepartmentComboBox.SelectedItem = _employee.Department;
             EmployeeTypecomboBox.SelectedItem = _employee.EmploymentType;
@@ -381,7 +377,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             ClearError(EmergencyLastNameTextBox);
             ClearError(EmergencyPhoneTextBox);
             ClearError(JobTitleTextBox);
-            ClearError(SalaryTextBox1);
         }
 
         private void ShowValidationErrors(ValidationResults result)
@@ -428,7 +423,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                         ShowError(JobTitleTextBox, error.Value, true);
                         break;
                     case "salary":
-                        ShowError(SalaryTextBox1, error.Value, true);
                         break;
                     case "department":
                         MessageBox.Show(error.Value, "Validation Error",
@@ -486,17 +480,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 isValid = false;
             }
 
-            if (string.IsNullOrWhiteSpace(SalaryTextBox1.Text))
-            {
-                ShowError(SalaryTextBox1, "Salary is required", true);
-                isValid = false;
-            }
-            else if (!decimal.TryParse(SalaryTextBox1.Text, out _))
-            {
-                ShowError(SalaryTextBox1, "Please enter a valid salary amount", true);
-                isValid = false;
-            }
-
             if (DepartmentComboBox.SelectedItem == null)
             {
                 MessageBox.Show("Please select a department", "Validation Error",
@@ -548,10 +531,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             _employee.JobTitle = JobTitleTextBox.Text.Trim();
 
-            if (decimal.TryParse(SalaryTextBox1.Text, out var salary))
-            {
-                _employee.Salary = salary.ToString();
-            }
 
             _employee.ProfilePicturePath = _selectedImagePath;
 
@@ -660,7 +639,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                     {
                         MessageBox.Show($"Error loading image: {ex.Message}",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        _selectedImagePath = _employee.ProfilePicturePath; // Revert to original
+                        _selectedImagePath = _employee.ProfilePicturePath; 
                     }
                 }
             }
@@ -824,6 +803,11 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 acceptRequest.FillColor = Color.Salmon;
                 acceptRequest.HoverState.FillColor = Color.Coral;
             }
+        }
+
+        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

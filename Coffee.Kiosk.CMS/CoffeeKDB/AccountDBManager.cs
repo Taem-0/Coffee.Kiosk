@@ -34,7 +34,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                      Emergency_Last_Name,
                      Emergency_Number,
                      Job_Title,
-                     Salary,
                      Role,
                      Department,
                      EmploymentType,
@@ -53,7 +52,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                      @emergencyLastName,
                      @emergencyNumber,
                      @jobTitle,
-                     @salary,
                      @role,
                      @department,
                      @employmentType,
@@ -72,7 +70,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 command.Parameters.AddWithValue("@emergencyLastName", employee.EmergencyLastName);
                 command.Parameters.AddWithValue("@emergencyNumber", employee.EmergencyNumber);
                 command.Parameters.AddWithValue("@jobTitle", employee.JobTitle);
-                command.Parameters.AddWithValue("@salary", employee.Salary);
                 command.Parameters.AddWithValue("@role", employee.Role.ToString());
                 command.Parameters.AddWithValue("@department", employee.Department.ToString());
                 command.Parameters.AddWithValue("@employmentType", employee.EmploymentType.ToString());
@@ -110,7 +107,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                         Emergency_Last_Name = @emergencyLastName,
                         Emergency_Number = @emergencyNumber,
                         Job_Title = @jobTitle,
-                        Salary = @salary,
                         Role = @role,
                         Department = @department,
                         EmploymentType = @employmentType,
@@ -128,7 +124,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 command.Parameters.AddWithValue("@emergencyLastName", employee.EmergencyLastName);
                 command.Parameters.AddWithValue("@emergencyNumber", employee.EmergencyNumber);
                 command.Parameters.AddWithValue("@jobTitle", employee.JobTitle);
-                command.Parameters.AddWithValue("@salary", employee.Salary);
                 command.Parameters.AddWithValue("@role", employee.Role.ToString());
                 command.Parameters.AddWithValue("@department", employee.Department.ToString());
                 command.Parameters.AddWithValue("@employmentType", employee.EmploymentType.ToString());
@@ -229,7 +224,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                             EmergencyLastName = reader.GetString("Emergency_Last_Name"),
                             EmergencyNumber = reader.GetString("Emergency_Number"),
                             JobTitle = reader.GetString("Job_Title"),
-                            Salary = reader.GetDecimal("Salary"),
                             Role = Enum.Parse<AccountRole>(reader.GetString("Role")),
                             Department = Enum.Parse<Department>(reader.GetString("Department")),
                             EmploymentType = Enum.Parse<EmploymentType>(reader.GetString("EmploymentType")),
@@ -366,7 +360,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                         EmergencyLastName = reader.GetString("Emergency_Last_Name"),
                         EmergencyNumber = reader.GetString("Emergency_Number"),
                         JobTitle = reader.GetString("Job_Title"),
-                        Salary = reader.GetDecimal("Salary").ToString("F2"),
                         Role = reader.GetString("Role"),
                         Department = reader.GetString("Department"),
                         EmploymentType = reader.GetString("EmploymentType"),
@@ -456,7 +449,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                     EmergencyLastName = reader.GetString("Emergency_Last_Name"),
                     EmergencyNumber = reader.GetString("Emergency_Number"),
                     JobTitle = reader.GetString("Job_Title"),
-                    Salary = reader.GetDecimal("Salary"),
                     Role = Enum.Parse<AccountRole>(reader.GetString("Role")),
                     Department = Enum.Parse<Department>(reader.GetString("Department")),
                     EmploymentType = Enum.Parse<EmploymentType>(reader.GetString("EmploymentType")),

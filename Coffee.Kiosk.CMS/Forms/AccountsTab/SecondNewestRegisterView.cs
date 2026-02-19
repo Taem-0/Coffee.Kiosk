@@ -52,7 +52,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             ApplyLabelTheme(label1);
             ApplyLabelTheme(label2);
             ApplyLabelTheme(label3);
-            ApplyLabelTheme(label5);
             ApplyLabelTheme(label6);
 
             // Style the section header differently
@@ -66,7 +65,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             // Apply to textboxes
             ApplyTextBoxTheme(JobTitleTextBox);
-            ApplyTextBoxTheme(SalaryTextBox1);
 
             // Apply to combo boxes
             ApplyComboBoxTheme(DepartmentComboBox);
@@ -143,7 +141,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         {
             // Wire up text changed events to clear errors
             JobTitleTextBox.TextChanged += (s, e) => ClearError(JobTitleTextBox);
-            SalaryTextBox1.TextChanged += (s, e) => ClearError(SalaryTextBox1);
 
             // Add picture box right-click event
             PictureBox2.MouseClick += PictureBox2_MouseClick;
@@ -152,7 +149,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         private void LoadDraftValues()
         {
             JobTitleTextBox.Text = _draft.JobTitle;
-            SalaryTextBox1.Text = _draft.Salary;
 
             if (!string.IsNullOrEmpty(_draft.Department))
                 DepartmentComboBox.SelectedItem = _draft.Department;
@@ -236,17 +232,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 hasError = true;
             }
 
-            if (string.IsNullOrWhiteSpace(SalaryTextBox1.Text))
-            {
-                ShowError(SalaryTextBox1, "Salary is required", true);
-                hasError = true;
-            }
-            else if (!decimal.TryParse(SalaryTextBox1.Text, out _))
-            {
-                ShowError(SalaryTextBox1, "Please enter a valid salary amount", true);
-                hasError = true;
-            }
-
             if (DepartmentComboBox.SelectedItem == null)
             {
                 MessageBox.Show("Please select a department", "Validation Error",
@@ -266,7 +251,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             _draft.Department = DepartmentComboBox.SelectedItem?.ToString() ?? "";
             _draft.JobTitle = JobTitleTextBox.Text.Trim();
-            _draft.Salary = SalaryTextBox1.Text.Trim();
             _draft.EmploymentType = EmployeeTypecomboBox.SelectedItem?.ToString() ?? "";
 
             if (employeeRadioButton.Checked)
@@ -285,8 +269,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             if (!Enum.TryParse<AccountRole>(_draft.Role, true, out var role))
                 role = AccountRole.EMPLOYEE;
 
-            if (!decimal.TryParse(_draft.Salary, out var salaryDecimal))
-                salaryDecimal = 0m;
 
             var registrationDto = new RegistrationDTO
             {
@@ -300,7 +282,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 EmergencyNumber = _draft.EmergencyNumber,
                 JobTitle = _draft.JobTitle,
                 Department = department,
-                Salary = salaryDecimal.ToString(),
                 EmploymentType = employmentType,
                 Role = role,
                 ProfilePicturePath = _draft.ProfilePicturePath
@@ -353,7 +334,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         private void ClearAllErrors()
         {
             ClearError(JobTitleTextBox);
-            ClearError(SalaryTextBox1);
         }
 
         private void ShowValidationErrors(ValidationResults result)
@@ -387,9 +367,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                     case "job title":
                     case "jobtitle":
                         ShowError(JobTitleTextBox, error.Value, true);
-                        break;
-                    case "salary":
-                        ShowError(SalaryTextBox1, error.Value, true);
                         break;
                     default:
                         MessageBox.Show(error.Value, "Validation Error",

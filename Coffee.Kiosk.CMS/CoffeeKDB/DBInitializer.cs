@@ -18,7 +18,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 Emergency_Last_Name VARCHAR(100) NOT NULL,
                 Emergency_Number VARCHAR(20) NOT NULL,
                 Job_Title VARCHAR(50) NOT NULL,
-                Salary DECIMAL(10,2) NOT NULL,
                 Role ENUM('EMPLOYEE', 'MANAGER', 'OWNER') NOT NULL,
                 Department ENUM('OPERATIONS', 'MANAGEMENT', 'ADMINISTRATION') 
                     NOT NULL DEFAULT 'OPERATIONS',

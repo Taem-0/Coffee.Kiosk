@@ -38,20 +38,16 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             label1 = new Label();
             label17 = new Label();
             label2 = new Label();
             JobTitleTextBox = new Guna.UI2.WinForms.Guna2TextBox();
-            label5 = new Label();
             label6 = new Label();
             SubmitButton = new Guna.UI2.WinForms.Guna2Button();
             BackButton = new Guna.UI2.WinForms.Guna2Button();
             AddPictureButton = new Guna.UI2.WinForms.Guna2CircleButton();
             PictureBox2 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             tableLayoutPanel1 = new TableLayoutPanel();
-            SalaryTextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             label3 = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
             AdminRadioButton = new RadioButton();
@@ -115,16 +111,6 @@
             JobTitleTextBox.ShadowDecoration.CustomizableEdges = customizableEdges2;
             JobTitleTextBox.Size = new Size(304, 42);
             JobTitleTextBox.TabIndex = 20;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label5.Location = new Point(3, 152);
-            label5.Name = "label5";
-            label5.Size = new Size(76, 28);
-            label5.TabIndex = 23;
-            label5.Text = "Salary:";
             // 
             // label6
             // 
@@ -217,15 +203,13 @@
             tableLayoutPanel1.Controls.Add(label17, 0, 0);
             tableLayoutPanel1.Controls.Add(JobTitleTextBox, 0, 2);
             tableLayoutPanel1.Controls.Add(BackButton, 0, 7);
-            tableLayoutPanel1.Controls.Add(label5, 0, 3);
-            tableLayoutPanel1.Controls.Add(SalaryTextBox1, 0, 4);
             tableLayoutPanel1.Controls.Add(SubmitButton, 2, 7);
-            tableLayoutPanel1.Controls.Add(label3, 0, 5);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 6);
             tableLayoutPanel1.Controls.Add(label2, 2, 1);
             tableLayoutPanel1.Controls.Add(DepartmentComboBox, 2, 2);
             tableLayoutPanel1.Controls.Add(label6, 2, 3);
             tableLayoutPanel1.Controls.Add(EmployeeTypecomboBox, 2, 4);
+            tableLayoutPanel1.Controls.Add(label3, 0, 3);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 4);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(20, 243);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -241,31 +225,11 @@
             tableLayoutPanel1.Size = new Size(800, 435);
             tableLayoutPanel1.TabIndex = 5;
             // 
-            // SalaryTextBox1
-            // 
-            SalaryTextBox1.CustomizableEdges = customizableEdges9;
-            SalaryTextBox1.DefaultText = "";
-            SalaryTextBox1.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            SalaryTextBox1.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            SalaryTextBox1.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            SalaryTextBox1.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            SalaryTextBox1.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            SalaryTextBox1.Font = new Font("Segoe UI", 11F);
-            SalaryTextBox1.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            SalaryTextBox1.Location = new Point(5, 190);
-            SalaryTextBox1.Margin = new Padding(5, 6, 5, 6);
-            SalaryTextBox1.Name = "SalaryTextBox1";
-            SalaryTextBox1.PlaceholderText = "";
-            SalaryTextBox1.SelectedText = "";
-            SalaryTextBox1.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            SalaryTextBox1.Size = new Size(304, 42);
-            SalaryTextBox1.TabIndex = 36;
-            // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label3.Location = new Point(3, 248);
+            label3.Location = new Point(3, 152);
             label3.Name = "label3";
             label3.Size = new Size(68, 28);
             label3.TabIndex = 38;
@@ -281,11 +245,11 @@
             tableLayoutPanel2.Controls.Add(ManagerRadioButton, 1, 0);
             tableLayoutPanel2.Controls.Add(employeeRadioButton, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(3, 285);
+            tableLayoutPanel2.Location = new Point(3, 187);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(346, 57);
+            tableLayoutPanel2.Size = new Size(346, 58);
             tableLayoutPanel2.TabIndex = 39;
             // 
             // AdminRadioButton
@@ -349,11 +313,11 @@
             // 
             guna2Panel1.Controls.Add(AddPictureButton);
             guna2Panel1.Controls.Add(PictureBox2);
-            guna2Panel1.CustomizableEdges = customizableEdges11;
+            guna2Panel1.CustomizableEdges = customizableEdges9;
             guna2Panel1.Dock = DockStyle.Top;
             guna2Panel1.Location = new Point(20, 20);
             guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges10;
             guna2Panel1.Size = new Size(800, 223);
             guna2Panel1.TabIndex = 4;
             // 
@@ -383,7 +347,6 @@
         private Label label17;
         private Label label2;
         private Guna.UI2.WinForms.Guna2TextBox JobTitleTextBox;
-        private Label label5;
         private Label label6;
         private Guna.UI2.WinForms.Guna2Button SubmitButton;
         private Guna.UI2.WinForms.Guna2Button BackButton;
@@ -391,7 +354,6 @@
         private Guna.UI2.WinForms.Guna2CirclePictureBox PictureBox2;
         private TableLayoutPanel tableLayoutPanel1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Guna.UI2.WinForms.Guna2TextBox SalaryTextBox1;
         private Label label3;
         private TableLayoutPanel tableLayoutPanel2;
         private RadioButton employeeRadioButton;
