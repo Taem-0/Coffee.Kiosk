@@ -16,6 +16,9 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
         internal int CategoryId { get; }
         internal bool IsDraft { get; }
 
+        bool isSelected = false;
+
+        internal event Action<int>? OnClicked;
         internal event Action<int>? doubleClicked;
         internal event Action<int, string>? IconEditRequest;
         internal event Action<int>? NameEditRequest;
@@ -60,6 +63,10 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
             IconEditRequest?.Invoke(CategoryId, selectedPath);
         }
 
+        private void CategoryItem_Click(object sender, EventArgs e)
+        {
+            OnClicked?.Invoke(CategoryId);
+        }
 
         private void CategoryItem_DoubleClick(object sender, EventArgs e)
         {
@@ -68,8 +75,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
         private void materialSwitch1_Click(object sender, EventArgs e)
         {
             IsDraftEditRequest?.Invoke(CategoryId, materialSwitch1.Checked);
-
         }
+
         private void EditName_Click(object sender, EventArgs e)
         {
             NameEditRequest?.Invoke(CategoryId);
@@ -112,6 +119,13 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
             }
         }
 
+        internal void SetSelected(bool selected)
+        {
+            isSelected = selected;
+            this.Invalidate();
+            CategoryName.Invalidate();
+        }
+
         // ----------------------------------------------------------
 
         bool isHovered = false;
@@ -121,15 +135,24 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
         private void CategoryItem_Paint(object sender, PaintEventArgs e)
         {
             UIhelp.drawBorder(e, this.ClientRectangle, UIhelp.boxOrCircle.box, Color.Black);
-            if (!isHovered) return;
-            UIhelp.darkenOnHover(e, this.ClientRectangle, UIhelp.boxOrCircle.box);
-        }
 
+            if (isSelected || isHovered)
+            {
+                //UIhelp.darkenOnHover(e, this.ClientRectangle, UIhelp.boxOrCircle.box);
+                this.BackColor = Color.Gray;
+                return;
+            }
+            else
+            {
+                this.BackColor = Color.WhiteSmoke;
+            }
+        }
         private void CategoryItem_MouseEnter(object sender, EventArgs e)
         {
             isHovered = true;
             this.Invalidate();
             CategoryName.Invalidate();
+            materialSwitch1.Invalidate();
         }
 
         private void CategoryItem_MouseLeave(object sender, EventArgs e)
@@ -137,16 +160,18 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
             isHovered = false;
             this.Invalidate();
             CategoryName.Invalidate();
+            materialSwitch1.Invalidate();
         }
 
         private void CategoryName_Paint(object sender, PaintEventArgs e)
         {
-            if (isHovered || isHoveredName)
-            {
-                UIhelp.darkenOnHover(e, CategoryName.ClientRectangle, UIhelp.boxOrCircle.box);
-            }
-        }
+            if (!isHoveredName) return;
 
+            using var pen = new Pen(Color.Black, 2);
+            var rect = CategoryName.ClientRectangle;
+
+            e.Graphics.DrawLine(pen, 0, rect.Height - 1, rect.Width, rect.Height - 1);
+        }
         private void CategoryName_MouseEnter(object sender, EventArgs e)
         {
             isHoveredName = true;
@@ -178,6 +203,23 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
             UIhelp.drawBorder(e, pictureBox1.ClientRectangle, UIhelp.boxOrCircle.box, Color.Black);
             if (!isHoveredPicture) return;
             UIhelp.darkenOnHover(e, pictureBox1.ClientRectangle, UIhelp.boxOrCircle.box);
+        }
+
+        private void CategoryItem_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void materialSwitch1_Paint(object sender, PaintEventArgs e)
+        {
+            if (isSelected || isHovered)
+            {
+                UIhelp.darkenOnHover(e, materialSwitch1.ClientRectangle, UIhelp.boxOrCircle.box);
+            }
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.Show(guna2Button1, new Point(0, guna2Button1.Height));
         }
     }
 }

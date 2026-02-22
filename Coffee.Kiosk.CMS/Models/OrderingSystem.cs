@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Coffee.Kiosk.CMS.Models
 {
-    internal class OrderingSystem
+    public class OrderingSystem
     {
         internal class CategoryData
         {
@@ -23,23 +23,42 @@ namespace Coffee.Kiosk.CMS.Models
                 IsDraft = isDraft;
             }
         }
-        internal class ProductData
-        {
-            public int Id { get; set; }
-            public int CategoryId { get; set; }
-            public string Name { get; set; }
-            public decimal Price { get; set; }
-            public string ImagePath { get; set; } 
 
-            public ProductData(int id, int categoryId, string name, decimal price, string imagePath)
-            {
-                Id = id;
-                CategoryId = categoryId;
-                Name = name;
-                Price = price;
-                ImagePath = imagePath;
-            }
+
+        public enum SelectionType
+        {
+            Single,
+            Multiple
         }
 
+        internal record ProductData(
+            int Id,
+            int CategoryId,
+            string Name,
+            decimal Price,
+            string ImagePath,
+            bool IsCustomizable
+        );
+
+        public record ModifierGroup(
+            int Id,
+            int ProductId,
+            int? ParentGroupId,
+            string Name,
+            SelectionType SelectionType,
+            bool Required
+        );
+
+        public record ModifierOption(
+            int Id,
+            int GroupId,
+            string Name,
+            decimal PriceDelta,
+            decimal InventorySubtraction,
+            int? InventoryItemId,
+            bool TriggersChild,
+            int SortBy
+        );
     }
+
 }

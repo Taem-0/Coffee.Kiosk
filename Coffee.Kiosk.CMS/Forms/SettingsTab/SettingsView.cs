@@ -316,7 +316,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
                 EmergencyLastName = _currentEmployee.EmergencyLastName,
                 EmergencyNumber = _currentEmployee.EmergencyNumber,
                 JobTitle = _currentEmployee.JobTitle,
-                Salary = _currentEmployee.Salary.ToString("F2"),
+                //Salary = _currentEmployee.Salary.ToString("F2"),
                 Role = _currentEmployee.Role.ToString(),
                 Department = _currentEmployee.Department.ToString(),
                 EmploymentType = _currentEmployee.EmploymentType.ToString(),
