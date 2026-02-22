@@ -131,7 +131,7 @@ Partial Class Form1
         Button1.Name = "Button1"
         Button1.Size = New Size(75, 41)
         Button1.TabIndex = 8
-        Button1.Text = "Button1"
+        Button1.Text = "Redirect"
         Button1.UseVisualStyleBackColor = True
         ' 
         ' Form1
