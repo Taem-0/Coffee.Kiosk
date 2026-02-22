@@ -16,8 +16,12 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
     public partial class KioskMenu : UserControl
     {
         List<Models.OrderingSystem.CategoryData> categoryData = new();
+        List<Models.OrderingSystem.ProductData> productData = new();
 
         private AddCategoryButton addCategoryButton = new AddCategoryButton();
+        private AddProductButton addProductButton = new AddProductButton();
+
+        private int? selectedCategoryId = null;
 
         public KioskMenu()
         {
@@ -25,6 +29,17 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
 
             categoryData = OrderingSystemDbManager.GetAllCategories();
             LoadCategories();
+
+            if (categoryData.Count > 0)
+            {
+                var firstCategory = categoryData.First();
+                selectedCategoryId = firstCategory.Id;
+                LoadProducts(firstCategory.Id);
+            }
+            else
+            {
+                ShowNoProductsState();
+            }
         }
 
 
@@ -41,11 +56,13 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
                     category.IconPath,
                     category.IsDraft
                     );
+                categoryItem.OnClicked += LoadProducts;
                 categoryItem.doubleClicked += OnCategoryDoubleClicked;
                 categoryItem.NameEditRequest += OnEditCategoryName;
                 categoryItem.DeleteRequest += OnDeleteCategory;
                 categoryItem.IsDraftEditRequest += OnIsDraftClicked;
                 categoryItem.IconEditRequest += OnChangeCategoryImage;
+
                 flowCategory.Controls.Add(categoryItem);
             }
             flowCategory.Controls.Add(addCategoryButton);
@@ -71,6 +88,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
             ));
 
             var categoryItem = new CategoryItem(newId, newName, "C:/Images/default_icon.png", false);
+            categoryItem.OnClicked += LoadProducts;
             categoryItem.doubleClicked += OnCategoryDoubleClicked;
             categoryItem.NameEditRequest += OnEditCategoryName;
             categoryItem.DeleteRequest += OnDeleteCategory;
@@ -83,6 +101,13 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
             flowCategory.Controls.Add(addCategoryButton);
 
             flowCategory.ScrollControlIntoView(addCategoryButton);
+
+            if (selectedCategoryId == null)
+            {
+                var firstCategory = categoryData.Last();
+                selectedCategoryId = firstCategory.Id;
+                LoadProducts(firstCategory.Id);
+            }
         }
 
         private void OnIsDraftClicked(int categoryId, bool isDraft)
@@ -102,6 +127,12 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
 
             var item = flowCategory.Controls.OfType<CategoryItem>().FirstOrDefault(c => c.CategoryId == categoryId);
             if (item != null) flowCategory.Controls.Remove(item);
+
+
+            if (categoryData.Count <= 0 || selectedCategoryId == categoryId)
+            {
+                ShowNoProductsState();
+            }
 
             //ReloadCategories();
         }
@@ -139,10 +170,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
 
         private void OnChangeCategoryImage(int categoryId, string newIconPath)
         {
-            // Update the database
             OrderingSystemDbManager.UpdateCategoryIcon(categoryId, newIconPath);
 
-            // Update the categoryData in memory
             var category = categoryData.FirstOrDefault(c => c.Id == categoryId);
             if (category != null)
             {
@@ -168,6 +197,76 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
                 scroll,
                 flowCategory.VerticalScroll.Maximum
             );
+        }
+
+
+        private void LoadProducts(int categoryId)
+        {
+            flowProduct.Controls.Clear();
+            selectedCategoryId = categoryId;
+            //label2.Text = $"Products : {";
+
+            productData = OrderingSystemDbManager.GetAllProductsCategory(categoryId);
+
+            foreach (CategoryItem item in flowCategory.Controls.OfType<CategoryItem>())
+            {
+                item.SetSelected(item.CategoryId == categoryId);
+            }
+
+            foreach (var product in productData)
+            {
+                var productItem = new ProductItem(
+                    product.Id,
+                    product.CategoryId,
+                    product.Name,
+                    product.ImagePath,
+                    product.Price
+                );
+                flowProduct.Controls.Add(productItem);
+            }
+
+            addProductButton.ProductAddMoreClicked -= AddMoreProduct;
+            addProductButton.ProductAddMoreClicked += AddMoreProduct;
+
+            flowProduct.Controls.Add(addProductButton);
+        }
+
+        private void AddMoreProduct()
+        {
+            if (selectedCategoryId == null) return;
+
+            using var form = new AddProduct(selectedCategoryId.Value);
+
+            var result = form.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                // TODO
+                LoadProducts(selectedCategoryId.Value);
+            }else
+            {
+                // TODO
+            }
+        }
+
+        private void ShowNoProductsState()
+        {
+            selectedCategoryId = null;
+
+            foreach (CategoryItem item in flowCategory.Controls.OfType<CategoryItem>())
+            {
+                item.SetSelected(false);
+            }
+
+            flowProduct.Controls.Clear();
+
+            flowProduct.Controls.Add(new Label()
+            {
+                Text = "No categories selected yet",
+                AutoSize = true,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Roboto", 17)
+            });
         }
 
         private void flowCategory_Paint(object sender, PaintEventArgs e)

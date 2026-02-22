@@ -147,5 +147,41 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 Console.Write(ex);
             }
         }
+
+
+
+        internal static List<Models.OrderingSystem.ProductData> GetAllProductsCategory(int categoryId)
+        {
+            var result = new List<Models.OrderingSystem.ProductData>();
+
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"SELECT * FROM product WHERE CategoryID = @categoryId";
+                cmd.Parameters.AddWithValue("@categoryId", categoryId);
+
+                using var row = cmd.ExecuteReader();
+                while (row.Read())
+                {
+                    result.Add(new Models.OrderingSystem.ProductData(
+                        row.GetInt32("ID"),
+                        row.GetInt32("CategoryID"),
+                        row.GetString("Name"),
+                        row.GetDecimal("Price"),
+                        row.GetString("ImagePath"),
+                        row.GetBoolean("IsCustomizable")
+                        ));
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Couldn't GetAllProductsCategory for : ${categoryId}");
+                MessageBox.Show($"${ex.Message}");
+            }
+            return result;
+        }
     }
 }

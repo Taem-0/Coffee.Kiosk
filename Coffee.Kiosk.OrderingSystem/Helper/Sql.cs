@@ -90,7 +90,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
 
             // customer orders
-            @"CREATE TABLE customer_orders (
+            @"CREATE TABLE IF NOT EXISTS customer_orders (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
 
                 OrderType ENUM('DineIn','TakeOut') NOT NULL,
@@ -100,7 +100,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );",
 
-            @"CREATE TABLE customer_order_item (
+            @"CREATE TABLE IF NOT EXISTS customer_order_item (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 CustomerOrderId INT NOT NULL,
 
@@ -114,7 +114,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 FOREIGN KEY (CustomerOrderId) REFERENCES customer_orders(ID) ON DELETE CASCADE
                 );",
 
-            @"CREATE TABLE customer_order_item_modifier (
+            @"CREATE TABLE IF NOT EXISTS customer_order_item_modifier (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 CustomerOrderItemId INT NOT NULL,
 
