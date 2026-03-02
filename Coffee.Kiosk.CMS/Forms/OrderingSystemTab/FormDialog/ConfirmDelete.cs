@@ -12,30 +12,30 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
 {
     public partial class ConfirmDelete : Form
     {
-        public ConfirmDelete()
+        public ConfirmDelete(string label)
         {
             InitializeComponent();
 
-            AcceptButton = DeleteBtn;
-            CancelButton = CancelBtn;
+            DeleteBtn.Focus();
+            label1.Text = label;
+        }
+
+
+        private void ConfirmDelete_Load(object sender, EventArgs e)
+        {
             DeleteBtn.Focus();
         }
 
-        private void DeleteBtn_Click(object sender, EventArgs e)
+        private void guna2Button1_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             Close();
         }
 
-        private void CancelBtn_Click(object sender, EventArgs e)
+        private void guna2Button1_Click_1(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
-        }
-
-        private void ConfirmDelete_Load(object sender, EventArgs e)
-        {
-            DeleteBtn.Focus();
         }
     }
 }

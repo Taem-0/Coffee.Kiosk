@@ -14,10 +14,18 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
 {
     public partial class ProductItem : UserControl
     {
+
+        public event Action<int, string, decimal, string>? EditClicked;
+        public event Action<int>? DeleteClicked;
+
         internal event Action<int>? productClicked;
 
         internal int ProductId { get; set; }
         internal int CategoryId { get; set; }
+
+        string _name = String.Empty;
+        decimal _price;
+        string _imagePath = String.Empty;
 
         private Color normalColor = ColorTranslator.FromHtml("#FFFFFF");
         private Color hoverColor = Color.FromArgb(220, 220, 220);
@@ -29,9 +37,12 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
 
             ProductId = productId;
             CategoryId = categoryId;
+            _name = name;
+            _price = price;
+            _imagePath = imagePath;
 
             productName.Text = name;
-            productPrice.Text = $"PHP {price:0,00}";
+            productPrice.Text = $"PHP {price:0.00}";
             pictureBox1.Image = UIhelp.loadImageFromFile(imagePath);
         }
 
@@ -55,9 +66,31 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
                 if (surfacePanel != null)
                     surfacePanel.FillColor = normalColor;
             };
+
+            if (control != guna2Button1)
+            {
+                control.MouseClick += (_, _) =>
+                {
+                    EditClicked?.Invoke(ProductId, _name, _price, _imagePath);
+                };
+            }
             foreach (Control child in control.Controls)
                 AttachHover(child);
         }
 
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.Show(guna2Button1, new Point(0, guna2Button1.Height));
+        }
+
+        private void EditName_Click(object sender, EventArgs e)
+        {
+            EditClicked?.Invoke(ProductId, _name, _price, _imagePath);
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteClicked?.Invoke(ProductId);
+        }
     }
 }

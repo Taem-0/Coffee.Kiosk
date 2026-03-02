@@ -57,14 +57,15 @@ namespace Coffee.Kiosk
             AdminFormHamburger.Controls.Add(Settings);
             AdminFormHamburger.Depth = 0;
             AdminFormHamburger.Dock = DockStyle.Fill;
+            AdminFormHamburger.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             AdminFormHamburger.ImageList = AdminHamburgerIcons;
-            AdminFormHamburger.Location = new Point(2, 64);
+            AdminFormHamburger.Location = new Point(2, 51);
             AdminFormHamburger.Margin = new Padding(2);
             AdminFormHamburger.MouseState = MaterialSkin.MouseState.HOVER;
             AdminFormHamburger.Multiline = true;
             AdminFormHamburger.Name = "AdminFormHamburger";
             AdminFormHamburger.SelectedIndex = 0;
-            AdminFormHamburger.Size = new Size(896, 534);
+            AdminFormHamburger.Size = new Size(716, 427);
             AdminFormHamburger.TabIndex = 0;
             // 
             // DashBoard
@@ -75,7 +76,7 @@ namespace Coffee.Kiosk
             DashBoard.Margin = new Padding(2);
             DashBoard.Name = "DashBoard";
             DashBoard.Padding = new Padding(2);
-            DashBoard.Size = new Size(888, 489);
+            DashBoard.Size = new Size(708, 382);
             DashBoard.TabIndex = 0;
             DashBoard.Text = "Admin";
             DashBoard.UseVisualStyleBackColor = true;
@@ -84,19 +85,20 @@ namespace Coffee.Kiosk
             // 
             AdminContentPanel.Dock = DockStyle.Fill;
             AdminContentPanel.Location = new Point(2, 2);
+            AdminContentPanel.Margin = new Padding(2);
             AdminContentPanel.Name = "AdminContentPanel";
-            AdminContentPanel.Size = new Size(884, 485);
+            AdminContentPanel.Size = new Size(704, 378);
             AdminContentPanel.TabIndex = 0;
             // 
             // tabAccounts
             // 
             tabAccounts.Controls.Add(AccountsContentPanel);
             tabAccounts.ImageKey = "user-management-svgrepo-com.png";
-            tabAccounts.Location = new Point(4, 41);
+            tabAccounts.Location = new Point(4, 29);
             tabAccounts.Margin = new Padding(2);
             tabAccounts.Name = "tabAccounts";
             tabAccounts.Padding = new Padding(2);
-            tabAccounts.Size = new Size(888, 489);
+            tabAccounts.Size = new Size(192, 67);
             tabAccounts.TabIndex = 1;
             tabAccounts.Text = "Accounts";
             tabAccounts.UseVisualStyleBackColor = true;
@@ -107,17 +109,17 @@ namespace Coffee.Kiosk
             AccountsContentPanel.Location = new Point(2, 2);
             AccountsContentPanel.Margin = new Padding(2);
             AccountsContentPanel.Name = "AccountsContentPanel";
-            AccountsContentPanel.Size = new Size(884, 485);
+            AccountsContentPanel.Size = new Size(188, 63);
             AccountsContentPanel.TabIndex = 1;
             // 
             // Kiosk
             // 
             Kiosk.Controls.Add(orderingSystem1);
             Kiosk.ImageKey = "CART (1)(1).png";
-            Kiosk.Location = new Point(4, 41);
+            Kiosk.Location = new Point(4, 29);
             Kiosk.Margin = new Padding(2);
             Kiosk.Name = "Kiosk";
-            Kiosk.Size = new Size(888, 489);
+            Kiosk.Size = new Size(192, 67);
             Kiosk.TabIndex = 2;
             Kiosk.Text = "Kiosk";
             Kiosk.UseVisualStyleBackColor = true;
@@ -128,17 +130,17 @@ namespace Coffee.Kiosk
             orderingSystem1.Location = new Point(0, 0);
             orderingSystem1.Margin = new Padding(5);
             orderingSystem1.Name = "orderingSystem1";
-            orderingSystem1.Size = new Size(888, 489);
+            orderingSystem1.Size = new Size(192, 67);
             orderingSystem1.TabIndex = 0;
             // 
             // Settings
             // 
             Settings.Controls.Add(settingsContentPanel);
             Settings.ImageKey = "settings-5670.png";
-            Settings.Location = new Point(4, 41);
+            Settings.Location = new Point(4, 54);
             Settings.Margin = new Padding(2);
             Settings.Name = "Settings";
-            Settings.Size = new Size(888, 489);
+            Settings.Size = new Size(192, 42);
             Settings.TabIndex = 3;
             Settings.Text = "Settings";
             Settings.UseVisualStyleBackColor = true;
@@ -149,7 +151,7 @@ namespace Coffee.Kiosk
             settingsContentPanel.Location = new Point(0, 0);
             settingsContentPanel.Margin = new Padding(2);
             settingsContentPanel.Name = "settingsContentPanel";
-            settingsContentPanel.Size = new Size(888, 489);
+            settingsContentPanel.Size = new Size(192, 42);
             settingsContentPanel.TabIndex = 2;
             // 
             // AdminHamburgerIcons
@@ -164,15 +166,16 @@ namespace Coffee.Kiosk
             // 
             // AdminControlForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(900, 600);
+            ClientSize = new Size(720, 480);
             Controls.Add(AdminFormHamburger);
+            DrawerAutoShow = true;
             DrawerShowIconsWhenHidden = true;
             DrawerTabControl = AdminFormHamburger;
             Margin = new Padding(2);
             Name = "AdminControlForm";
-            Padding = new Padding(2, 64, 2, 2);
+            Padding = new Padding(2, 51, 2, 2);
             Text = "CMS";
             WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
