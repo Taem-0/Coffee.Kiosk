@@ -1,4 +1,6 @@
-﻿using Coffee.Kiosk.CMS.Helpers;
+﻿using Coffee.Kiosk.CMS.CoffeeKDB;
+using Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers;
+using Coffee.Kiosk.CMS.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,21 +13,70 @@ using System.Windows.Forms;
 
 namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
 {
-    public partial class AddProduct : Form
+    public partial class EditProduct : Form
     {
 
-        private string _ProductName = "ProductPlaceHolderName";
-        private decimal _Price = 100.00M;
-        private string _ImagePath = "../../../Resources/default_icon.png";
+        private AddModifierGroupButton addModifierGroupButton = new AddModifierGroupButton();
 
-        public string ProductName1 => _ProductName;
-        public decimal Price => _Price;
-        public string ImagePath => _ImagePath;
 
-        public AddProduct(int categoryId)
+        //private List<Models.OrderingSystem.ModifierGroup> modifierGroup = new ();
+
+        int _ProductId;
+        string _ProductName = String.Empty;
+        decimal _ProductPrice;
+        string _ImagePath = String.Empty;
+
+        public EditProduct(int productId, string productName, decimal productPrice, string imagePath)
         {
             InitializeComponent();
+
+
+            _ProductId = productId;
+            _ProductName = productName;
+            _ProductPrice = productPrice;
+            _ImagePath = imagePath;
+
+
+            ProductNameTxtBox.Text = productName;
+            PriceTxtBox.Text = productPrice.ToString();
+            pictureBox1.Image = UIhelp.loadImageFromFile(imagePath);
+
+            LoadModifierGroups();
         }
+
+        private void LoadModifierGroups()
+        {
+            flowLayoutPanel1.Controls.Clear();
+
+            var modifierGroups = OrderingSystemDbManager.GetModifierGroups(_ProductId);
+
+            foreach (var group in modifierGroups)
+            {
+                if (group.ParentGroupId == null)
+                {
+                    var groupControl = new ModifierGroup(
+                        group.Id,
+                        group.ProductId,
+                        group.ParentGroupId,
+                        group.Name,
+                        group.SelectionType,
+                        group.Required
+                        );
+
+                    flowLayoutPanel1.Controls.Add(groupControl);
+                }
+            }
+
+            addModifierGroupButton.AddModifierClicked -= AddModifier;
+            addModifierGroupButton.AddModifierClicked += AddModifier;
+            flowLayoutPanel1.Controls.Add(addModifierGroupButton);
+        }
+
+        private void AddModifier()
+        {
+
+        }
+
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -54,12 +105,9 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
 
             if (errors.Count > 0)
             {
-                MessageBox.Show(string.Join("\n", errors)); 
+                MessageBox.Show(string.Join("\n", errors));
                 return;
             }
-
-            _ProductName = name;
-            _Price = parsedPrice;
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -70,6 +118,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+
 
         //---------------------------------------------
 
@@ -92,6 +142,5 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
             if (!isHoveredPicture) return;
             UIhelp.darkenOnHover(e, pictureBox1.ClientRectangle, UIhelp.boxOrCircle.box);
         }
-
     }
 }

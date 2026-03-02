@@ -1,6 +1,6 @@
-﻿namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
+﻿namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 {
-    partial class AddProductButton
+    partial class ModifierOption
     {
         /// <summary> 
         /// Required designer variable.
@@ -35,36 +35,38 @@
             // 
             // guna2Button1
             // 
-            guna2Button1.BorderColor = Color.FromArgb(105, 86, 69);
-            guna2Button1.BorderRadius = 13;
-            guna2Button1.BorderThickness = 3;
+            guna2Button1.BackColor = Color.Transparent;
+            guna2Button1.BorderColor = Color.DimGray;
+            guna2Button1.BorderRadius = 7;
+            guna2Button1.BorderThickness = 1;
             guna2Button1.CustomizableEdges = customizableEdges1;
+            guna2Button1.DefaultAutoSize = true;
             guna2Button1.DisabledState.BorderColor = Color.DarkGray;
             guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button1.FillColor = Color.White;
-            guna2Button1.Font = new Font("Segoe UI", 9F);
-            guna2Button1.ForeColor = Color.White;
-            guna2Button1.Image = Properties.Resources.addMore;
-            guna2Button1.ImageSize = new Size(130, 130);
+            guna2Button1.FillColor = Color.WhiteSmoke;
+            guna2Button1.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2Button1.ForeColor = Color.Black;
             guna2Button1.Location = new Point(3, 3);
-            guna2Button1.MinimumSize = new Size(203, 237);
+            guna2Button1.MinimumSize = new Size(90, 40);
             guna2Button1.Name = "guna2Button1";
+            guna2Button1.Padding = new Padding(0, 5, 0, 5);
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Button1.Size = new Size(203, 270);
+            guna2Button1.Size = new Size(236, 46);
             guna2Button1.TabIndex = 1;
-            guna2Button1.Tile = true;
-            guna2Button1.Click += guna2Button1_Click;
+            guna2Button1.Text = "Modifier_Options_Name";
             // 
-            // AddProductButton
+            // ModifierOption
             // 
-            AutoScaleMode = AutoScaleMode.None;
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
             Controls.Add(guna2Button1);
-            MinimumSize = new Size(209, 243);
-            Name = "AddProductButton";
-            Size = new Size(209, 276);
+            Name = "ModifierOption";
+            Size = new Size(243, 55);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

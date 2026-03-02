@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             MainScreen = new Panel();
+            DarkOverlayPanel = new Guna.UI2.WinForms.Guna2Panel();
             SuspendLayout();
             // 
             // MainScreen
@@ -39,11 +42,26 @@
             MainScreen.Size = new Size(1008, 657);
             MainScreen.TabIndex = 2;
             // 
+            // DarkOverlayPanel
+            // 
+            DarkOverlayPanel.BackColor = Color.Transparent;
+            DarkOverlayPanel.CustomizableEdges = customizableEdges1;
+            DarkOverlayPanel.Dock = DockStyle.Fill;
+            DarkOverlayPanel.FillColor = Color.FromArgb(67, 0, 0, 0);
+            DarkOverlayPanel.Location = new Point(0, 0);
+            DarkOverlayPanel.Name = "DarkOverlayPanel";
+            DarkOverlayPanel.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            DarkOverlayPanel.Size = new Size(1008, 657);
+            DarkOverlayPanel.TabIndex = 0;
+            DarkOverlayPanel.UseTransparentBackground = true;
+            DarkOverlayPanel.Visible = false;
+            // 
             // OrderingSystemMainControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(MainScreen);
+            Controls.Add(DarkOverlayPanel);
             Name = "OrderingSystemMainControl";
             Size = new Size(1008, 657);
             Load += OrderingSystemMainControl_Load;
@@ -53,5 +71,6 @@
         #endregion
 
         private Panel MainScreen;
+        private Guna.UI2.WinForms.Guna2Panel DarkOverlayPanel;
     }
 }

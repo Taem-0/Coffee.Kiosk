@@ -31,10 +31,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 
             if (productData != null)
             {
-                if (productData.IsCustomizable)
-                {
+                //if (productData.IsCustomizable)
+                //{
+
                     ShowCustomizeScreen(productId, productData.Name, productData.ImagePath);
-                }
+                //}
             }
         }
 

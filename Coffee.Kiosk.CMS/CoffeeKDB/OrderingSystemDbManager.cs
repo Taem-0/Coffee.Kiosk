@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -149,7 +150,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
         }
 
 
-
         internal static List<Models.OrderingSystem.ProductData> GetAllProductsCategory(int categoryId)
         {
             var result = new List<Models.OrderingSystem.ProductData>();
@@ -182,6 +182,91 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 MessageBox.Show($"${ex.Message}");
             }
             return result;
+        }
+
+        internal static int AddProduct(int categoryId, string name, decimal price, string imagePath)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"INSERT INTO product (CategoryID, Name, Price, ImagePath, IsCustomizable)
+                                    VALUES (@categoryId, @name, @price, @imagePath, false);";
+                cmd.Parameters.AddWithValue("@categoryId", categoryId);
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@price", price);
+                cmd.Parameters.AddWithValue("@imagePath", imagePath);
+                cmd.ExecuteNonQuery();
+                return (int)cmd.LastInsertedId;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to insert into table product");
+                Console.Write(ex.Message);
+                return 0;
+            }
+        }
+
+        internal static List<Models.OrderingSystem.ModifierGroup> GetModifierGroups(int productId)
+        {
+            var result = new List<Models.OrderingSystem.ModifierGroup>();
+
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"SELECT * FROM modifier_group WHERE ProductId = @productId";
+                cmd.Parameters.AddWithValue("@productId", productId);
+
+                using var row = cmd.ExecuteReader();
+                while (row.Read())
+                {
+                    string selectionTypeString = row.GetString("SelectionType");
+
+                    var selectionType = Enum.Parse<Models.OrderingSystem.SelectionType>(selectionTypeString);
+
+                    result.Add(new Models.OrderingSystem.ModifierGroup(
+                        row.GetInt32("ID"),
+                        row.GetInt32("ProductID"),
+                        row.IsDBNull("ParentGroupId")
+                            ? null
+                            : row.GetInt32("ParentGroupId"),
+                        row.GetString("Name"),
+                        selectionType,
+                        row.GetBoolean("Required")
+                    ));
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Couldn't GetModifierGroup for : ${productId}");
+                MessageBox.Show($"${ex.Message}");
+            }
+            return result;
+        }
+
+        internal static void DeleteProduct(int productId)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"DELETE FROM product
+                                    WHERE ID = @productid;";
+                cmd.Parameters.AddWithValue("@productId", productId);
+                cmd.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Failed to delete product");
+                Console.Write(ex.Message);
+            }
         }
     }
 }

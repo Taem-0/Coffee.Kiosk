@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -43,6 +44,8 @@
             PriceTxtBox = new Guna.UI2.WinForms.Guna2TextBox();
             SaveBtn = new Guna.UI2.WinForms.Guna2Button();
             CancelBtn = new Guna.UI2.WinForms.Guna2Button();
+            guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -58,7 +61,7 @@
             ProductNameTxtBox.Font = new Font("Segoe UI", 9F);
             ProductNameTxtBox.ForeColor = Color.Black;
             ProductNameTxtBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            ProductNameTxtBox.Location = new Point(12, 250);
+            ProductNameTxtBox.Location = new Point(12, 304);
             ProductNameTxtBox.Margin = new Padding(3, 4, 3, 4);
             ProductNameTxtBox.Name = "ProductNameTxtBox";
             ProductNameTxtBox.PlaceholderText = "ProductPlaceHolderName";
@@ -86,7 +89,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ControlDarkDark;
-            label1.Location = new Point(12, 215);
+            label1.Location = new Point(12, 269);
             label1.Name = "label1";
             label1.Size = new Size(77, 31);
             label1.TabIndex = 2;
@@ -97,7 +100,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ControlDarkDark;
-            label2.Location = new Point(12, 295);
+            label2.Location = new Point(12, 361);
             label2.Name = "label2";
             label2.Size = new Size(67, 31);
             label2.TabIndex = 4;
@@ -115,7 +118,7 @@
             PriceTxtBox.Font = new Font("Segoe UI", 9F);
             PriceTxtBox.ForeColor = Color.Black;
             PriceTxtBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            PriceTxtBox.Location = new Point(12, 330);
+            PriceTxtBox.Location = new Point(12, 396);
             PriceTxtBox.Margin = new Padding(3, 4, 3, 4);
             PriceTxtBox.Name = "PriceTxtBox";
             PriceTxtBox.PlaceholderText = "100.00";
@@ -134,7 +137,7 @@
             SaveBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             SaveBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             SaveBtn.ForeColor = Color.White;
-            SaveBtn.Location = new Point(277, 403);
+            SaveBtn.Location = new Point(277, 458);
             SaveBtn.Name = "SaveBtn";
             SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges6;
             SaveBtn.Size = new Size(127, 49);
@@ -153,7 +156,7 @@
             CancelBtn.FillColor = Color.FromArgb(224, 224, 224);
             CancelBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             CancelBtn.ForeColor = Color.DimGray;
-            CancelBtn.Location = new Point(144, 403);
+            CancelBtn.Location = new Point(144, 458);
             CancelBtn.Name = "CancelBtn";
             CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges8;
             CancelBtn.Size = new Size(127, 49);
@@ -161,11 +164,34 @@
             CancelBtn.Text = "Cancel";
             CancelBtn.Click += CancelBtn_Click;
             // 
+            // guna2BorderlessForm1
+            // 
+            guna2BorderlessForm1.BorderRadius = 30;
+            guna2BorderlessForm1.ContainerControl = this;
+            guna2BorderlessForm1.DockForm = false;
+            guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
+            guna2BorderlessForm1.ResizeForm = false;
+            guna2BorderlessForm1.TransparentWhileDrag = true;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ControlDarkDark;
+            label3.Location = new Point(82, 215);
+            label3.Name = "label3";
+            label3.Size = new Size(250, 31);
+            label3.TabIndex = 7;
+            label3.Text = "Click to change image";
+            // 
             // AddProduct
             // 
+            AcceptButton = SaveBtn;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(416, 464);
+            CancelButton = CancelBtn;
+            ClientSize = new Size(413, 533);
+            Controls.Add(label3);
             Controls.Add(CancelBtn);
             Controls.Add(SaveBtn);
             Controls.Add(label2);
@@ -173,9 +199,12 @@
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Controls.Add(ProductNameTxtBox);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "AddProduct";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Add Product";
+            TopMost = true;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -190,5 +219,7 @@
         private Guna.UI2.WinForms.Guna2TextBox PriceTxtBox;
         private Guna.UI2.WinForms.Guna2Button SaveBtn;
         private Guna.UI2.WinForms.Guna2Button CancelBtn;
+        private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
+        private Label label3;
     }
 }
