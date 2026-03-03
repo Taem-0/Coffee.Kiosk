@@ -56,6 +56,7 @@
             guna2Button1.Size = new Size(236, 46);
             guna2Button1.TabIndex = 1;
             guna2Button1.Text = "Modifier_Options_Name";
+            guna2Button1.Click += guna2Button1_Click;
             // 
             // ModifierOption
             // 

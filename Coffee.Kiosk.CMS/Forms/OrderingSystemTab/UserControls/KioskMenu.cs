@@ -298,7 +298,11 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
 
             _parent.ShowDarkOverlay(true);
             using var dialog = new ConfirmDelete("Are you sure you want to delete this product?");
-            if (dialog.ShowDialog() != DialogResult.OK) return;
+            if (dialog.ShowDialog() != DialogResult.OK)
+            {
+                _parent.ShowDarkOverlay(false);
+                return;
+            }
 
             OrderingSystemDbManager.DeleteProduct(productId);
             LoadProducts(selectedCategoryId.Value);

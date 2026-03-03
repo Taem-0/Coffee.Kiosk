@@ -209,6 +209,25 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
         }
 
+        internal static void DeleteProduct(int productId)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"DELETE FROM product
+                                    WHERE ID = @productid;";
+                cmd.Parameters.AddWithValue("@productId", productId);
+                cmd.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Failed to delete product");
+                Console.Write(ex.Message);
+            }
+        }
         internal static List<Models.OrderingSystem.ModifierGroup> GetModifierGroups(int productId)
         {
             var result = new List<Models.OrderingSystem.ModifierGroup>();
@@ -249,7 +268,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             return result;
         }
 
-        internal static void DeleteProduct(int productId)
+        internal static int AddModifierGroup(
+            int productId,
+            int? parentGroupId,
+            string name,
+            Models.OrderingSystem.SelectionType selectionType,
+            bool required
+            )
         {
             try
             {
@@ -257,16 +282,62 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 conn.Open();
 
                 using var cmd = conn.CreateCommand();
-                cmd.CommandText = @"DELETE FROM product
-                                    WHERE ID = @productid;";
+                cmd.CommandText = @"INSERT INTO modifier_group(ProductId, ParentGroupId, Name, SelectionType, Required)
+                                    VALUES (@productId, @parentGroupId, @name, @selectionType, @required);";
                 cmd.Parameters.AddWithValue("@productId", productId);
+                cmd.Parameters.AddWithValue("@parentGroupId", parentGroupId);
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@selectionType", selectionType.ToString());
+                cmd.Parameters.AddWithValue("@required", required);
                 cmd.ExecuteNonQuery();
+                return (int)cmd.LastInsertedId;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to insert into table modifier_group\n {ex.Message}");
+                return 0;
+            }
+        }
+
+
+        internal static List<Models.OrderingSystem.ModifierOption> GetModifierOptions(int groupId)
+        {
+            var result = new List<Models.OrderingSystem.ModifierOption>();
+
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"SELECT * FROM modifier_option WHERE GroupId = @groupId";
+                cmd.Parameters.AddWithValue("@groupId", groupId);
+
+                using var row = cmd.ExecuteReader();
+                while (row.Read())
+                {
+                    int? inventoryItemId = row.IsDBNull(row.GetOrdinal("InventoryItemId"))
+                        ? null
+                        : row.GetInt32("InventoryItemId");
+
+                    result.Add(new Models.OrderingSystem.ModifierOption(
+                        row.GetInt32("ID"),
+                        row.GetInt32("GroupId"),
+                        row.GetString("Name"),
+                        row.GetDecimal("PriceDelta"),
+                        row.GetDecimal("InventorySubtraction"),
+                        inventoryItemId,
+                        row.GetBoolean("TriggersChild"),
+                        row.GetInt32("SortBy")
+                    ));
+                }
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Failed to delete product");
-                Console.Write(ex.Message);
+                Console.WriteLine($"Couldn't GetModifierOptions for : ${groupId}");
+                MessageBox.Show($"${ex.Message}");
             }
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coffee.Kiosk.CMS.CoffeeKDB;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,27 +13,74 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 {
     public partial class ModifierGroup : UserControl
     {
-        public ModifierGroup(
-            int id,
-            int productId,
-            int? parentGroupId,
-            string modifierName,
-            Models.OrderingSystem.SelectionType selType,
-            bool required
-            )
+
+        private AddModifierOptionButton addModifierOptionButton = new AddModifierOptionButton();
+
+        private List<Models.OrderingSystem.ModifierOption> modifierOptions = new();
+
+        private Models.OrderingSystem.ModifierGroup _model;
+
+        public ModifierGroup(Models.OrderingSystem.ModifierGroup model)
         {
             InitializeComponent();
+            _model = model;
+
+            ModifierGroupName.Text = model.Name;
+            LoadOptions();
         }
 
-        private void LoadOptions(int modifierId)
+        private void LoadOptions()
         {
             flowMainGroup.Controls.Clear();
+            modifierOptions.Clear();
+
+            modifierOptions = OrderingSystemDbManager.GetModifierOptions(_model.Id);
+
+            foreach (var options in modifierOptions)
+            {
+                var optionControl = new ModifierOption(options);
+                optionControl.OptionClicked += EditOption;
+                flowMainGroup.Controls.Add(optionControl);
+            }
+
+            addModifierOptionButton.AddOptionsClicked -= AddOptions;
+            addModifierOptionButton.AddOptionsClicked += AddOptions;
+            flowMainGroup.Controls.Add(addModifierOptionButton);
+
+            //if (_id != null)
+            //{
+            //    modifierOptions = OrderingSystemDbManager.GetModifierOptions(_id.Value);
+
+            //    foreach (var options in modifierOptions)
+            //    {
+            //        var optionControl = new ModifierOption(options);
+            //        optionControl.OptionClicked += EditOption;
+            //        flowMainGroup.Controls.Add(optionControl);
+            //    }
+            //}
+            //else
+            //{
+            //}
         }
 
-        public void LoadChildGroups(int parentGroupId)
+        private void LoadChildGroups(int parentGroupId)
         {
             flowLayoutPanel2.Controls.Clear();
+            //TODO
+            // probably wont need this and just load every groups as if theyre individual to make it able to switch different parentId's or even remove parentId's
         }
+
+        private void AddOptions()
+        {
+            //TODO
+        }
+
+        private void EditOption(int Id)
+        {
+
+        }
+
+
 
         // -------------------------------
         private void flowMainGroup_ControlAdded(object sender, ControlEventArgs e)

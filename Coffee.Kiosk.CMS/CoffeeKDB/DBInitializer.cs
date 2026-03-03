@@ -97,9 +97,9 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
 
             @"CREATE TABLE IF NOT EXISTS modifier_option (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
-                GroupId INT,
+                GroupId INT NOT NULL,
                 Name VARCHAR(100),
-                PriceDelta DECIMAL (10, 2),
+                PriceDelta DECIMAL (10, 2) NOT NULL,
                 InventorySubtraction Decimal(10, 2) DEFAULT 0,
                 InventoryItemId INT,
                 TriggersChild BOOLEAN NOT NULL DEFAULT TRUE,

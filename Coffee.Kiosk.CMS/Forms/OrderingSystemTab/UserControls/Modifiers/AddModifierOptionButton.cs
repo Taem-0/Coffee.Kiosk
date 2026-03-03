@@ -10,24 +10,17 @@ using System.Windows.Forms;
 
 namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 {
-    public partial class ModifierOption : UserControl
+    public partial class AddModifierOptionButton : UserControl
     {
-        private Models.OrderingSystem.ModifierOption _model;
-
-        public event Action<int>? OptionClicked;
-
-        public ModifierOption(Models.OrderingSystem.ModifierOption model)
+        public event Action? AddOptionsClicked;
+        public AddModifierOptionButton()
         {
             InitializeComponent();
-
-            _model = model;
-
-            guna2Button1.Text = _model.Name;
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            OptionClicked?.Invoke(_model.Id);
+            AddOptionsClicked?.Invoke();
         }
     }
 }
