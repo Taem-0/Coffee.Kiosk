@@ -139,10 +139,8 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void WireUpEvents()
         {
-            // Wire up text changed events to clear errors
             JobTitleTextBox.TextChanged += (s, e) => ClearError(JobTitleTextBox);
 
-            // Add picture box right-click event
             PictureBox2.MouseClick += PictureBox2_MouseClick;
         }
 
@@ -346,7 +344,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 {
                     case "first name":
                     case "firstname":
-                        // These errors would come from first step, show message box
                         MessageBox.Show(error.Value, "Validation Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;

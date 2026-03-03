@@ -48,7 +48,6 @@ namespace Coffee.Kiosk.CMS.Services
                 Department = request.Department,
                 EmploymentType = request.EmploymentType,
                 Role = request.Role,
-                //Salary = decimal.TryParse(request.Salary, out var sal) ? sal : 0m,
                 Status = AccountStatus.ACTIVE,
                 ProfilePicturePath = request.ProfilePicturePath,
                 PasswordHash = passwordHash,
@@ -94,7 +93,6 @@ namespace Coffee.Kiosk.CMS.Services
                     EmergencyNumber = account.EmergencyNumber,
 
                     JobTitle = account.JobTitle,
-                    //Salary = account.Salary.ToString("F2"),
 
                     Role = Helpers.UIhelp.EnumDisplayHelper.FormatEnum(account.Role.ToString()),
                     Department = Helpers.UIhelp.EnumDisplayHelper.FormatEnum(account.Department.ToString()),
@@ -129,7 +127,6 @@ namespace Coffee.Kiosk.CMS.Services
                 EmergencyNumber = request.EmergencyNumber,
 
                 JobTitle = request.JobTitle,
-                //Salary = decimal.Parse(request.Salary),
 
                 Role = Enum.Parse<AccountRole>(request.Role.Replace(" ", "_").ToUpper()),
                 Department = Enum.Parse<Department>(request.Department.Replace(" ", "_").ToUpper()),

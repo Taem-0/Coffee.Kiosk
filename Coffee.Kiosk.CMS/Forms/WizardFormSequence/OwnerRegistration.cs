@@ -121,7 +121,6 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
                 Email = emailAddTextBox.Text.Trim(),
                 PhoneNumber = phoneNumberTextBox.Text.Trim(),
                 JobTitle = "Owner",
-                //Salary = "0",
                 Department = Department.ADMINISTRATION,
                 EmploymentType = EmploymentType.FULL_TIME,
                 Role = AccountRole.OWNER,

@@ -32,6 +32,30 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 Password_Reset_Requested BOOLEAN NOT NULL DEFAULT 0
             );",
 
+            @"CREATE TABLE IF NOT EXISTS theme (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                Is_Default BOOLEAN NOT NULL DEFAULT 1,
+                Primary_Color VARCHAR(10) NOT NULL,
+                DarkPrimary_Color VARCHAR(10) NOT NULL,
+                Secondary_Color VARCHAR(10) NOT NULL,
+                Background_Color VARCHAR(10) NOT NULL,
+                Accent_Color VARCHAR(10) NOT NULL
+            );",
+
+            @"INSERT INTO theme (
+                Is_Default,
+                Primary_Color,
+                DarkPrimary_Color,
+                Secondary_Color,
+                Background_Color,
+                Accent_Color
+            )
+            SELECT 1, '#6F4D38', '#3D211A', '#A07856', '#F5F5DC', '#CBB799'
+            WHERE NOT EXISTS 
+            (
+                SELECT 1 FROM theme
+            );",
+
 
             // inventory
             @"CREATE TABLE IF NOT EXISTS inventory_item (
