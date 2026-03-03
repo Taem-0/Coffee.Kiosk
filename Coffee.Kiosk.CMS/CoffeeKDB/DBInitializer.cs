@@ -197,7 +197,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating database: {ex.Message}");
-                MessageBox.Show("Failed to initialize database");
+                MessageBox.Show($"Failed to initialize database ${ex.Message}");
                 throw;
             }
         }

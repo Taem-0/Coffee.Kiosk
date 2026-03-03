@@ -20,7 +20,7 @@ namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class CoffeeKioskMainForm : Form
     {
-        private const int IdleTimeoutSeconds = 60;
+        private const int IdleTimeoutSeconds = 10;
 
 
         public event Action<Models.Orders>? CartUpdated;
@@ -62,11 +62,11 @@ namespace Coffee.Kiosk.OrderingSystem
                 .Build();
             DBInitializer.Init(config);
 
-            //Models.Category.LoadFromDataBase();
-            //Models.Product.LoadFromDataBase();
+            Models.Category.LoadFromDataBase();
+            Models.Product.LoadFromDataBase();
 
-            Models.Category.LoadDummyData();
-            Models.Product.LoadDummyData();
+            //Models.Category.LoadDummyData();
+            //Models.Product.LoadDummyData();
 
             _idleTimer.Interval = 1000;
             _idleTimer.Tick += IdleTimer_Tick;
@@ -170,8 +170,8 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowGetStartedScreen()
         {
-            //Models.Category.LoadFromDataBase();
-            //Models.Product.LoadFromDataBase();
+            Models.Category.LoadFromDataBase();
+            Models.Product.LoadFromDataBase();
             if (getStartedScreen == null)
             {
                 getStartedScreen = new GetStartedScreen();
@@ -407,6 +407,8 @@ namespace Coffee.Kiosk.OrderingSystem
 
         internal void FinishOrder()
         {
+            HideModalScreen();
+
             foreach (Form f in Application.OpenForms)
             {
                 if (f is ConfirmRemove) f.Close();

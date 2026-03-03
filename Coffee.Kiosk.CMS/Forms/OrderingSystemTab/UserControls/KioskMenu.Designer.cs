@@ -31,8 +31,8 @@
             flowCategory = new FlowLayoutPanel();
             flowProduct = new FlowLayoutPanel();
             panel1 = new Panel();
-            label1 = new Label();
             label2 = new Label();
+            label1 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -50,13 +50,12 @@
             // 
             // flowProduct
             // 
+            flowProduct.AutoScroll = true;
             flowProduct.Dock = DockStyle.Fill;
-            flowProduct.FlowDirection = FlowDirection.TopDown;
             flowProduct.Location = new Point(511, 65);
             flowProduct.Name = "flowProduct";
             flowProduct.Size = new Size(551, 611);
             flowProduct.TabIndex = 1;
-            flowProduct.WrapContents = false;
             // 
             // panel1
             // 
@@ -68,17 +67,6 @@
             panel1.Size = new Size(1062, 65);
             panel1.TabIndex = 0;
             // 
-            // label1
-            // 
-            label1.Dock = DockStyle.Left;
-            label1.Font = new Font("Tahoma", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(511, 65);
-            label1.TabIndex = 0;
-            label1.Text = "Categories";
-            label1.TextAlign = ContentAlignment.BottomCenter;
-            // 
             // label2
             // 
             label2.Dock = DockStyle.Fill;
@@ -89,6 +77,17 @@
             label2.TabIndex = 1;
             label2.Text = "Products";
             label2.TextAlign = ContentAlignment.BottomCenter;
+            // 
+            // label1
+            // 
+            label1.Dock = DockStyle.Left;
+            label1.Font = new Font("Tahoma", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(511, 65);
+            label1.TabIndex = 0;
+            label1.Text = "Categories";
+            label1.TextAlign = ContentAlignment.BottomCenter;
             // 
             // KioskMenu
             // 

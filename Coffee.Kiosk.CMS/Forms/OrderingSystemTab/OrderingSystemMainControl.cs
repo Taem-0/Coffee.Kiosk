@@ -27,11 +27,25 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab
             ShowKioskMenu();
         }
 
+        public void ShowDarkOverlay(bool isShown)
+        {
+            if (isShown)
+            {
+                DarkOverlayPanel.Visible = true;
+                DarkOverlayPanel.BringToFront();
+            }
+            else
+            {
+                DarkOverlayPanel.Visible = false;
+                MainScreen.BringToFront();
+            }
+        }
+
         private void ShowKioskMenu()
         {
             if (kioskMenu == null)
             {
-                kioskMenu = new KioskMenu();
+                kioskMenu = new KioskMenu(this);
             }
             UIhelp.CallControl(kioskMenu, MainScreen);
         }
