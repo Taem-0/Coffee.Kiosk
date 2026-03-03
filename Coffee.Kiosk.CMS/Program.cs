@@ -33,7 +33,7 @@ namespace Coffee.Kiosk
             services.AddTransient<AccountsService>();
             services.AddTransient<RegistrationValidation>();
             services.AddTransient<UpdateValidation>();
-            services.AddTransient<LoginValidation>(); // Add this line
+            services.AddTransient<LoginValidation>(); 
             services.AddTransient<AccountController>();
 
             var serviceProvider = services.BuildServiceProvider();

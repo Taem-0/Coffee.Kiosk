@@ -422,8 +422,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                     case "jobtitle":
                         ShowError(JobTitleTextBox, error.Value, true);
                         break;
-                    case "salary":
-                        break;
                     case "department":
                         MessageBox.Show(error.Value, "Validation Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Warning);

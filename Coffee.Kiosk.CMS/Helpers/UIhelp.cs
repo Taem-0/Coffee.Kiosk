@@ -1,17 +1,38 @@
-﻿using System;
+﻿using Coffee.Kiosk.CMS.Controllers;
+using Coffee.Kiosk.CMS.Models;
+using Guna.UI2.WinForms;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using Guna.UI2.WinForms;
 
 namespace Coffee.Kiosk.CMS.Helpers
 {
     internal static class UIhelp
     {
+
+        public class UITheme
+        {
+            public Color DarkPrimary { get; }
+            public Color Primary { get; }
+            public Color Secondary { get; }
+            public Color Background { get; }
+            public Color Accent { get; }
+
+            public UITheme(Theme theme)
+            {
+                DarkPrimary = ColorTranslator.FromHtml(theme.DarkPrimaryColor);
+                Primary = ColorTranslator.FromHtml(theme.PrimaryColor);
+                Secondary = ColorTranslator.FromHtml(theme.SecondaryColor);
+                Background = ColorTranslator.FromHtml(theme.Background);
+                Accent = ColorTranslator.FromHtml(theme.Accent);
+            }
+        }
+
         public static void CallControl(UserControl control, Panel panel)
         {
             panel.SuspendLayout();
@@ -137,23 +158,16 @@ namespace Coffee.Kiosk.CMS.Helpers
             return File.Exists(path) ? Image.FromFile(path) : Properties.Resources.default_icon;
         }
 
-        // ===================================================================
-        // THEME SYSTEM - ADDED HERE
-        // ===================================================================
 
-        /// <summary>
-        /// Contains all the theme colors you specified
-        /// </summary>
+        //Delete later, new "Universal" theme manager is set. Only for settingsView thoughhh
         public static class ThemeColors
         {
-            // Your provided colors
             public static Color DarkBrown = ColorTranslator.FromHtml("#3d211a");
             public static Color MediumBrown = ColorTranslator.FromHtml("#6f4d38");
             public static Color LightBrown = ColorTranslator.FromHtml("#a07856");
             public static Color Beige = ColorTranslator.FromHtml("#cbb799");
             public static Color Background = ColorTranslator.FromHtml("#f5f5dc");
 
-            // Default colors (fallbacks)
             public static Color TextColor = DarkBrown;
             public static Color ButtonColor = MediumBrown;
             public static Color ButtonHover = LightBrown;
@@ -168,291 +182,114 @@ namespace Coffee.Kiosk.CMS.Helpers
             public static Color SuccessColor = Color.FromArgb(80, 180, 80);
         }
 
-        /// <summary>
-        /// Applies theme to forms and controls automatically
-        /// </summary>
-        public static class ThemeApplier
+        public static class ThemeManager
         {
-            /// <summary>
-            /// Applies theme to a form and all its child controls - ONE LINER!
-            /// </summary>
-            public static void ApplyThemeToForm(Form form, bool applyToChildren = true)
+            public static void ApplyTheme(Control root, UITheme theme)
             {
-                form.BackColor = ThemeColors.Background;
-                form.ForeColor = ThemeColors.TextColor;
+                if (theme == null) return;
 
-                if (applyToChildren)
+                var darkPrimary = theme.DarkPrimary;
+                var primary = theme.Primary;
+                var secondary = theme.Secondary;
+                var background = theme.Background;
+                var accent = theme.Accent;
+
+                root.BackColor = background;
+                root.ForeColor = darkPrimary;
+
+                ApplyRecursive(root, darkPrimary, primary, secondary, background, accent);
+            }
+
+            public static UITheme BuildUITheme(ThemeController controller, bool useCustom)
+            {
+                if (controller == null)
+                    throw new ArgumentNullException(nameof(controller));
+
+                var theme = controller.GetTheme(useCustom);
+                return new UITheme(theme);
+            }
+
+            private static void ApplyRecursive(
+                Control parent,
+                Color darkPrimary,
+                Color primary,
+                Color secondary,
+                Color background,
+                Color accent)
+            {
+                foreach (Control control in parent.Controls)
                 {
-                    ApplyThemeToControl(form, form.Controls);
+                    ApplyToSingleControl(control, darkPrimary, primary, secondary, background, accent);
+
+                    if (control.HasChildren)
+                        ApplyRecursive(control, darkPrimary, primary, secondary, background, accent);
                 }
             }
 
-            /// <summary>
-            /// Applies theme to a UserControl and all its child controls - ONE LINER!
-            /// </summary>
-            public static void ApplyThemeToUserControl(UserControl userControl)
+            private static void ApplyToSingleControl(
+                Control control,
+                Color darkPrimary,
+                Color primary,
+                Color secondary,
+                Color background,
+                Color accent)
             {
-                userControl.BackColor = ThemeColors.Background;
-                ApplyThemeToControl(userControl, userControl.Controls);
-            }
-
-            /// <summary>
-            /// Applies theme to a specific control and its children
-            /// </summary>
-            public static void ApplyThemeToControl(Control parentControl, Control.ControlCollection controls)
-            {
-                foreach (Control control in controls)
+                switch (control)
                 {
-                    try
-                    {
-                        ApplyThemeToSingleControl(control);
+                    case Guna2Panel panel:
+                        panel.FillColor = background;
+                        panel.BorderColor = primary;
+                        break;
 
-                        // Recursively apply to child controls
-                        if (control.HasChildren)
-                        {
-                            ApplyThemeToControl(control, control.Controls);
-                        }
-                    }
-                    catch
-                    {
-                        // Silent fail
-                    }
-                }
-            }
+                    case Guna2Button button:
+                        button.FillColor = primary;
+                        button.ForeColor = Color.White;
+                        button.BorderColor = darkPrimary;
+                        button.BorderThickness = 1;
+                        button.BorderRadius = 6;
 
-            /// <summary>
-            /// Applies theme to a single control based on its type
-            /// </summary>
-            private static void ApplyThemeToSingleControl(Control control)
-            {
-                // Handle specific controls first
-                if (control is Guna2DataGridView dataGridView)
-                {
-                    ApplyThemeToDataGridView(dataGridView);
-                }
-                else if (control is Guna2Panel guna2Panel)
-                {
-                    guna2Panel.FillColor = ThemeColors.PanelColor;
-                    guna2Panel.BorderColor = ThemeColors.BorderColor;
-                }
-                else if (control is Guna2CustomGradientPanel gradientPanel)
-                {
-                    gradientPanel.FillColor = ThemeColors.PanelColor;
-                    gradientPanel.FillColor2 = ThemeColors.Beige;
-                    gradientPanel.FillColor3 = ThemeColors.Beige;
-                    gradientPanel.FillColor4 = ThemeColors.PanelColor;
-                    gradientPanel.BorderColor = ThemeColors.BorderColor;
-                }
-                else if (control is Guna2Button guna2Button)
-                {
-                    guna2Button.FillColor = ThemeColors.ButtonColor;
-                    guna2Button.ForeColor = Color.White;
-                    guna2Button.BorderColor = ThemeColors.BorderColor;
-                }
-                else if (control is Guna2TextBox guna2TextBox)
-                {
-                    // FIXED: Simplified Guna2TextBox theming - only set colors, don't mess with effects
-                    guna2TextBox.FillColor = ThemeColors.Background;
-                    guna2TextBox.ForeColor = ThemeColors.TextColor;
-                    guna2TextBox.BorderColor = ThemeColors.BorderColor;
-                    guna2TextBox.FocusedState.BorderColor = ThemeColors.LightBrown;
+                        button.HoverState.FillColor = secondary;
+                        button.HoverState.BorderColor = darkPrimary;
+                        button.PressedColor = darkPrimary;
+                        break;
 
-                    // Clear any shadow effects that might be causing weird borders
-                    guna2TextBox.ShadowDecoration.Enabled = false;
+                    case Guna2VScrollBar scroll:
+                        scroll.ThumbColor = primary;
+                        scroll.FillColor = background;
+                        break;
 
-                    // Make sure placeholder text is visible
-                    guna2TextBox.PlaceholderForeColor = Color.Gray;
-                }
-                else if (control is Guna2ComboBox guna2ComboBox)
-                {
-                    guna2ComboBox.FillColor = ThemeColors.Background;
-                    guna2ComboBox.ForeColor = ThemeColors.TextColor;
-                    guna2ComboBox.BorderColor = ThemeColors.BorderColor;
-                }
-                // Then handle base controls
-                else
-                {
-                    switch (control)
-                    {
-                        case Label label:
-                            label.ForeColor = ThemeColors.TextColor;
-                            break;
+                    case Guna2TabControl tab:
+                        tab.TabButtonHoverState.FillColor = secondary;
+                        tab.TabButtonHoverState.ForeColor = Color.White;
+                        tab.TabButtonHoverState.InnerColor = secondary;
 
-                        case Button button:
-                            button.BackColor = ThemeColors.ButtonColor;
-                            button.ForeColor = Color.White;
-                            button.FlatAppearance.BorderColor = ThemeColors.BorderColor;
-                            break;
+                        tab.TabButtonIdleState.FillColor = primary;
+                        tab.TabButtonIdleState.ForeColor = Color.White;
+                        tab.TabButtonIdleState.InnerColor = primary;
 
-                        case Panel panel:
-                            panel.BackColor = ThemeColors.PanelColor;
-                            break;
+                        tab.TabButtonSelectedState.FillColor = darkPrimary;
+                        tab.TabButtonSelectedState.ForeColor = Color.White;
+                        tab.TabButtonSelectedState.InnerColor = darkPrimary;
 
-                        case DataGridView dgv:
-                            ApplyThemeToWinFormsDataGrid(dgv);
-                            break;
+                        tab.TabMenuBackColor = primary;
+                        break;
 
-                        case TextBox textBox:
-                            textBox.BackColor = ThemeColors.Background;
-                            textBox.ForeColor = ThemeColors.TextColor;
-                            textBox.BorderStyle = BorderStyle.FixedSingle;
-                            break;
+                    case Label label:
+                        label.ForeColor = darkPrimary;
+                        label.BackColor = Color.Transparent;
+                        break;
 
-                        case ComboBox comboBox:
-                            comboBox.BackColor = ThemeColors.Background;
-                            comboBox.ForeColor = ThemeColors.TextColor;
-                            break;
+                    case Panel panel2:
+                        panel2.BackColor = background;
+                        break;
 
-                        case ListBox listBox:
-                            listBox.BackColor = ThemeColors.Background;
-                            listBox.ForeColor = ThemeColors.TextColor;
-                            break;
-
-                        case CheckBox checkBox:
-                            checkBox.ForeColor = ThemeColors.TextColor;
-                            break;
-
-                        case RadioButton radioButton:
-                            radioButton.ForeColor = ThemeColors.TextColor;
-                            break;
-
-                        case GroupBox groupBox:
-                            groupBox.ForeColor = ThemeColors.TextColor;
-                            break;
-
-                        case TabControl tabControl:
-                            tabControl.BackColor = ThemeColors.Background;
-                            tabControl.ForeColor = ThemeColors.TextColor;
-                            break;
-
-
-                    }
+                    default:
+                        control.BackColor = background;
+                        control.ForeColor = darkPrimary;
+                        break;
                 }
             }
+        } 
 
-            /// <summary>
-            /// Applies theme to Guna2DataGridView
-            /// </summary>
-            private static void ApplyThemeToDataGridView(Guna2DataGridView dataGridView)
-            {
-                // Header
-                dataGridView.ColumnHeadersDefaultCellStyle.BackColor = ThemeColors.GridHeaderColor;
-                dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                dataGridView.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-                dataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-
-                // Rows
-                dataGridView.DefaultCellStyle.BackColor = ThemeColors.Background;
-                dataGridView.DefaultCellStyle.ForeColor = ThemeColors.TextColor;
-                dataGridView.DefaultCellStyle.SelectionBackColor = ThemeColors.LightBrown;
-                dataGridView.DefaultCellStyle.SelectionForeColor = Color.White;
-
-                // Alternating rows
-                dataGridView.AlternatingRowsDefaultCellStyle.BackColor = ThemeColors.GridAlternateRow;
-                dataGridView.AlternatingRowsDefaultCellStyle.ForeColor = ThemeColors.TextColor;
-
-                // Grid color
-                dataGridView.GridColor = ThemeColors.BorderColor;
-
-                // Theme style
-                try
-                {
-                    dataGridView.ThemeStyle.HeaderStyle.BackColor = ThemeColors.GridHeaderColor;
-                    dataGridView.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-                    dataGridView.ThemeStyle.HeaderStyle.ForeColor = Color.White;
-                    dataGridView.ThemeStyle.BackColor = ThemeColors.Background;
-                    dataGridView.ThemeStyle.GridColor = ThemeColors.BorderColor;
-                    dataGridView.ThemeStyle.RowsStyle.BackColor = ThemeColors.Background;
-                    dataGridView.ThemeStyle.RowsStyle.ForeColor = ThemeColors.TextColor;
-                    dataGridView.ThemeStyle.RowsStyle.SelectionBackColor = ThemeColors.LightBrown;
-                    dataGridView.ThemeStyle.RowsStyle.SelectionForeColor = Color.White;
-                    dataGridView.ThemeStyle.AlternatingRowsStyle.BackColor = ThemeColors.GridAlternateRow;
-                    dataGridView.ThemeStyle.AlternatingRowsStyle.ForeColor = ThemeColors.TextColor;
-                }
-                catch { }
-            }
-
-            /// <summary>
-            /// Applies theme to standard WinForms DataGridView
-            /// </summary>
-            private static void ApplyThemeToWinFormsDataGrid(DataGridView dataGridView)
-            {
-                dataGridView.BackgroundColor = ThemeColors.Background;
-                dataGridView.BorderStyle = BorderStyle.FixedSingle;
-                dataGridView.GridColor = ThemeColors.BorderColor;
-
-                // Header
-                dataGridView.ColumnHeadersDefaultCellStyle.BackColor = ThemeColors.GridHeaderColor;
-                dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                dataGridView.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-                dataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-                dataGridView.EnableHeadersVisualStyles = false;
-
-                // Rows
-                dataGridView.DefaultCellStyle.BackColor = ThemeColors.Background;
-                dataGridView.DefaultCellStyle.ForeColor = ThemeColors.TextColor;
-                dataGridView.DefaultCellStyle.SelectionBackColor = ThemeColors.LightBrown;
-                dataGridView.DefaultCellStyle.SelectionForeColor = Color.White;
-
-                // Alternating rows
-                dataGridView.AlternatingRowsDefaultCellStyle.BackColor = ThemeColors.GridAlternateRow;
-                dataGridView.AlternatingRowsDefaultCellStyle.ForeColor = ThemeColors.TextColor;
-
-                // Row headers
-                dataGridView.RowHeadersDefaultCellStyle.BackColor = ThemeColors.GridHeaderColor;
-                dataGridView.RowHeadersDefaultCellStyle.ForeColor = Color.White;
-            }
-
-            /// <summary>
-            /// Quick method to apply theme to all open forms
-            /// </summary>
-            public static void ApplyGlobalTheme()
-            {
-                foreach (Form form in Application.OpenForms)
-                {
-                    ApplyThemeToForm(form);
-                }
-            }
-
-            /// <summary>
-            /// Creates a pre-styled themed button
-            /// </summary>
-            public static Guna2Button CreateThemedButton(string text, int width = 150, int height = 45)
-            {
-                return new Guna2Button
-                {
-                    Text = text,
-                    Width = width,
-                    Height = height,
-                    FillColor = ThemeColors.ButtonColor,
-                    ForeColor = Color.White,
-                    BorderColor = ThemeColors.BorderColor,
-                    BorderThickness = 2,
-                    BorderRadius = 8,
-                    Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                    Animated = true,
-                    Cursor = Cursors.Hand
-                };
-            }
-
-            /// <summary>
-            /// Creates a pre-styled themed panel
-            /// </summary>
-            public static Guna2Panel CreateThemedPanel()
-            {
-                var panel = new Guna2Panel
-                {
-                    FillColor = ThemeColors.PanelColor,
-                    BorderColor = ThemeColors.BorderColor,
-                    BorderThickness = 1,
-                    BorderRadius = 10,
-                };
-
-                return panel;
-            }
-        }
-        // ===================================================================
-        // END THEME SYSTEM
-        // ===================================================================
     }
 }

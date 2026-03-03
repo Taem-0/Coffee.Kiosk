@@ -84,7 +84,6 @@ namespace Coffee.Kiosk.CMS.Controllers
             public Employee Employee { get; set; }
         }
 
-        // Add to AccountController class
 
         public bool ChangePassword(int employeeId, string newPassword, bool isFirstLogin = false)
         {
@@ -102,15 +101,13 @@ namespace Coffee.Kiosk.CMS.Controllers
         {
             try
             {
-                // Check if there's already a pending request
                 bool hasPendingRequest = _service.HasPendingResetRequest(employeeId);
 
                 if (hasPendingRequest)
                 {
-                    return false; // Already has a pending request
+                    return false; 
                 }
 
-                // Submit new request
                 _service.SubmitPasswordResetRequest(employeeId);
                 return true;
             }

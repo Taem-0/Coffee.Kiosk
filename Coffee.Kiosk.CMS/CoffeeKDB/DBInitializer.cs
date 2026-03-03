@@ -32,6 +32,30 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 Password_Reset_Requested BOOLEAN NOT NULL DEFAULT 0
             );",
 
+            @"CREATE TABLE IF NOT EXISTS theme (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                Is_Default BOOLEAN NOT NULL DEFAULT 1,
+                Primary_Color VARCHAR(10) NOT NULL,
+                DarkPrimary_Color VARCHAR(10) NOT NULL,
+                Secondary_Color VARCHAR(10) NOT NULL,
+                Background_Color VARCHAR(10) NOT NULL,
+                Accent_Color VARCHAR(10) NOT NULL
+            );",
+
+            @"INSERT INTO theme (
+                Is_Default,
+                Primary_Color,
+                DarkPrimary_Color,
+                Secondary_Color,
+                Background_Color,
+                Accent_Color
+            )
+            SELECT 1, '#6F4D38', '#3D211A', '#A07856', '#F5F5DC', '#CBB799'
+            WHERE NOT EXISTS 
+            (
+                SELECT 1 FROM theme
+            );",
+
 
             // inventory
             @"CREATE TABLE IF NOT EXISTS inventory_item (
@@ -86,7 +110,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
 
 
             // customer orders
-            @"CREATE TABLE customer_orders (
+            @"CREATE TABLE IF NOT EXISTS customer_orders (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
 
                 OrderType ENUM('DineIn','TakeOut') NOT NULL,
@@ -96,7 +120,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );",
 
-            @"CREATE TABLE customer_order_item (
+            @"CREATE TABLE IF NOT EXISTS customer_order_item (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 CustomerOrderId INT NOT NULL,
 
@@ -110,7 +134,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 FOREIGN KEY (CustomerOrderId) REFERENCES customer_orders(ID) ON DELETE CASCADE
                 );",
 
-            @"CREATE TABLE customer_order_item_modifier (
+            @"CREATE TABLE IF NOT EXISTS customer_order_item_modifier (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 CustomerOrderItemId INT NOT NULL,
 

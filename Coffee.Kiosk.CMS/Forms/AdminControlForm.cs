@@ -24,6 +24,7 @@ namespace Coffee.Kiosk
         private LoginValidation loginValidation;
         private AccountsService service;
         private AccountController controller;
+        private ThemeController themeController;
         private DashBoardControl dashBoardControl;
         private SettingsView settingsView;
 
@@ -46,22 +47,24 @@ namespace Coffee.Kiosk
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
 
             materialSkinManager.ColorScheme = new ColorScheme(
-                primary: UIhelp.ThemeColors.MediumBrown,      // #6f4d38
-                darkPrimary: UIhelp.ThemeColors.DarkBrown,    // #3d211a
-                lightPrimary: UIhelp.ThemeColors.LightBrown,  // #a07856
-                accent: UIhelp.ThemeColors.Beige,             // #cbb799
+                primary: UIhelp.ThemeColors.MediumBrown,      //  Will be replaced with TI (TaezaIntelligence >;3)
+                darkPrimary: UIhelp.ThemeColors.DarkBrown,    
+                lightPrimary: UIhelp.ThemeColors.LightBrown,  
+                accent: UIhelp.ThemeColors.Beige,             
                 textShade: TextShade.WHITE
             );
 
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             var dbManager = new AccountDBManager(configuration);
+            var themeManager = new ThemeDBManager(configuration);
+            var themeService = new ThemeService(themeManager);
 
             validator = new RegistrationValidation();
             updateValidation = new UpdateValidation();
             loginValidation = new LoginValidation();
             service = new AccountsService(dbManager);
-            controller = new AccountController(validator, updateValidation, service, loginValidation); 
-
+            controller = new AccountController(validator, updateValidation, service, loginValidation);
+            themeController = new ThemeController(themeService);
 
             var draft = new DisplayDTO();
             registerView = new NewestRegisterView(controller, draft);
@@ -74,8 +77,7 @@ namespace Coffee.Kiosk
             dashBoardControl = new DashBoardControl(controller);
             dashBoardControl.ParentFormReference = this;
 
-            settingsView = new SettingsView(controller, _currentEmployee);
-
+            settingsView = new SettingsView(controller, themeController, _currentEmployee);
 
         }
 
