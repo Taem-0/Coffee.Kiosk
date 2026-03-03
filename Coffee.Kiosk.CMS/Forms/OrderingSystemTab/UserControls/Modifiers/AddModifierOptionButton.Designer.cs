@@ -1,6 +1,6 @@
 ﻿namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 {
-    partial class AddModifierGroupButton
+    partial class AddModifierOptionButton
     {
         /// <summary> 
         /// Required designer variable.
@@ -48,23 +48,23 @@
             guna2Button1.Font = new Font("Segoe UI", 9F);
             guna2Button1.ForeColor = Color.White;
             guna2Button1.Image = Properties.Resources.addMore;
-            guna2Button1.ImageSize = new Size(80, 80);
+            guna2Button1.ImageSize = new Size(30, 30);
             guna2Button1.Location = new Point(3, 3);
             guna2Button1.Name = "guna2Button1";
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2Button1.ShadowDecoration.Depth = 15;
             guna2Button1.ShadowDecoration.Enabled = true;
-            guna2Button1.Size = new Size(668, 76);
-            guna2Button1.TabIndex = 0;
+            guna2Button1.Size = new Size(137, 48);
+            guna2Button1.TabIndex = 1;
             guna2Button1.Click += guna2Button1_Click;
             // 
-            // AddModifierGroupButton
+            // AddModifierOptionButton
             // 
-            AutoScaleMode = AutoScaleMode.None;
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(guna2Button1);
-            MinimumSize = new Size(600, 0);
-            Name = "AddModifierGroupButton";
-            Size = new Size(674, 82);
+            Name = "AddModifierOptionButton";
+            Size = new Size(143, 54);
             ResumeLayout(false);
         }
 

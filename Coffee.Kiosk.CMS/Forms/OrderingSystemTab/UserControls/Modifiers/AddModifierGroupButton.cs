@@ -20,7 +20,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-
+            AddModifierClicked?.Invoke();
         }
     }
 }
