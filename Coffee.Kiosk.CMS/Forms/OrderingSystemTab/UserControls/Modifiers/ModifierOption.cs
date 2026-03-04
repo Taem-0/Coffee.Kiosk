@@ -27,7 +27,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            OptionClicked?.Invoke(_model.Id);
+            if (_model.Id == null) return;
+            OptionClicked?.Invoke(_model.Id.Value);
         }
     }
 }

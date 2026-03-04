@@ -320,16 +320,21 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                         ? null
                         : row.GetInt32("InventoryItemId");
 
-                    result.Add(new Models.OrderingSystem.ModifierOption(
-                        row.GetInt32("ID"),
-                        row.GetInt32("GroupId"),
-                        row.GetString("Name"),
-                        row.GetDecimal("PriceDelta"),
-                        row.GetDecimal("InventorySubtraction"),
-                        inventoryItemId,
-                        row.GetBoolean("TriggersChild"),
-                        row.GetInt32("SortBy")
-                    ));
+                    int? sortBy = row.IsDBNull(row.GetOrdinal("SortBy"))
+                        ? null
+                        : row.GetInt32("SortBy");
+
+                    result.Add(new Models.OrderingSystem.ModifierOption
+                    {
+                        Id = row.GetInt32("ID"),
+                        GroupId = row.GetInt32("GroupId"),
+                        Name = row.GetString("Name"),
+                        PriceDelta = row.GetDecimal("PriceDelta"),
+                        InventorySubtraction = row.GetDecimal("InventorySubtraction"),
+                        InventoryItemId = inventoryItemId,
+                        TriggersChild = row.GetBoolean("TriggersChild"),
+                        SortBy = sortBy
+                    });
                 }
             }
             catch(Exception ex)
@@ -338,6 +343,56 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 MessageBox.Show($"${ex.Message}");
             }
             return result;
+        }
+        internal static int AddModifierOption(Models.OrderingSystem.ModifierOption model)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"INSERT INTO modifier_option(
+                    GroupId,
+                    Name,
+                    PriceDelta,
+                    InventorySubtraction,
+                    InventoryItemId,
+                    TriggersChild
+                    )
+                    VALUES (
+                    @groupId,
+                    @name,
+                    @priceDelta,
+                    @inventorySubtraction,
+                    @inventoryItemId,
+                    @triggersChild
+                    );";
+                cmd.Parameters.AddWithValue("@groupId", model.GroupId);
+                cmd.Parameters.AddWithValue("@name", model.Name);
+                cmd.Parameters.AddWithValue("@priceDelta", model.PriceDelta);
+                cmd.Parameters.AddWithValue("@inventorySubtraction", model.InventorySubtraction);
+                cmd.Parameters.AddWithValue("@inventoryItemId", model.InventoryItemId);
+                cmd.Parameters.AddWithValue("@triggersChild", model.TriggersChild);
+                cmd.ExecuteNonQuery();
+
+                int lastInsertedId = (int)cmd.LastInsertedId;
+
+                using var cmd2 = conn.CreateCommand();
+                cmd2.CommandText = $"""
+                             UPDATE modifier_option 
+                             SET SortBy = { lastInsertedId }
+                             WHERE ID = { lastInsertedId };
+                             """;
+                cmd2.ExecuteNonQuery();
+
+                return lastInsertedId;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to insert into table modifier_option\n {ex.Message}");
+                return 0;
+            }
         }
     }
 }

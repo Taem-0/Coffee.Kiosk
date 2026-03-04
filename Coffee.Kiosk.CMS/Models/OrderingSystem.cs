@@ -49,16 +49,17 @@ namespace Coffee.Kiosk.CMS.Models
             bool Required
         );
 
-        public record ModifierOption(
-            int Id,
-            int GroupId,
-            string Name,
-            decimal PriceDelta,
-            decimal InventorySubtraction,
-            int? InventoryItemId,
-            bool TriggersChild,
-            int SortBy
-        );
+        public record ModifierOption
+        {
+            public int? Id { get; set; }
+            public int GroupId { get; set; }
+            public string Name { get; set; } = string.Empty;
+            public decimal PriceDelta { get; set; }
+            public decimal InventorySubtraction { get; set; }
+            public int? InventoryItemId { get; set; }
+            public bool TriggersChild { get; set; }
+            public int? SortBy { get; set; }
+        }
     }
 
 }

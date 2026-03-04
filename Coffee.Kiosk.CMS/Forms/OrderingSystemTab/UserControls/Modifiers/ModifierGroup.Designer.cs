@@ -44,7 +44,7 @@
             flowMainGroup.Dock = DockStyle.Fill;
             flowMainGroup.Location = new Point(0, 34);
             flowMainGroup.Name = "flowMainGroup";
-            flowMainGroup.Size = new Size(674, 66);
+            flowMainGroup.Size = new Size(930, 66);
             flowMainGroup.TabIndex = 2;
             flowMainGroup.ControlAdded += flowMainGroup_ControlAdded;
             // 
@@ -54,7 +54,7 @@
             flowLayoutPanel2.Dock = DockStyle.Bottom;
             flowLayoutPanel2.Location = new Point(0, 100);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(674, 0);
+            flowLayoutPanel2.Size = new Size(930, 0);
             flowLayoutPanel2.TabIndex = 4;
             // 
             // panel1
@@ -64,7 +64,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(674, 34);
+            panel1.Size = new Size(930, 34);
             panel1.TabIndex = 3;
             // 
             // guna2Button1
@@ -81,7 +81,7 @@
             guna2Button1.ForeColor = Color.Black;
             guna2Button1.Image = Properties.Resources._3_dots;
             guna2Button1.ImageSize = new Size(30, 30);
-            guna2Button1.Location = new Point(637, 0);
+            guna2Button1.Location = new Point(893, 0);
             guna2Button1.Name = "guna2Button1";
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2Button1.Size = new Size(34, 36);
@@ -94,7 +94,7 @@
             ModifierGroupName.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ModifierGroupName.Location = new Point(3, -1);
             ModifierGroupName.Name = "ModifierGroupName";
-            ModifierGroupName.Size = new Size(672, 35);
+            ModifierGroupName.Size = new Size(927, 35);
             ModifierGroupName.TabIndex = 0;
             ModifierGroupName.Text = "Modifier_Group_Name";
             // 
@@ -106,9 +106,9 @@
             Controls.Add(flowMainGroup);
             Controls.Add(flowLayoutPanel2);
             Controls.Add(panel1);
-            MinimumSize = new Size(674, 100);
+            MinimumSize = new Size(930, 100);
             Name = "ModifierGroup";
-            Size = new Size(674, 100);
+            Size = new Size(930, 100);
             panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

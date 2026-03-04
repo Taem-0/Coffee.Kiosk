@@ -72,7 +72,32 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 
         private void AddOptions()
         {
-            //TODO
+
+            var newOption = new Models.OrderingSystem.ModifierOption
+            {
+                Id = null,
+                GroupId = _model.Id,
+                Name = "New Option",
+                PriceDelta = 0.00m,
+                InventorySubtraction = 0.00m,
+                InventoryItemId = null,
+                TriggersChild = true,
+                SortBy = null
+            };
+            int newOptionId = OrderingSystemDbManager.AddModifierOption(newOption);
+            newOption.Id = newOptionId;
+            newOption.SortBy = newOptionId;
+            modifierOptions.Add(newOption);
+
+            var newOptionControl = new ModifierOption(newOption);
+
+            flowMainGroup.Controls.Remove(addModifierOptionButton);
+            addModifierOptionButton.AddOptionsClicked -= AddOptions;
+
+            flowMainGroup.Controls.Add(newOptionControl);
+
+            flowMainGroup.Controls.Add(addModifierOptionButton);
+            addModifierOptionButton.AddOptionsClicked += AddOptions;
         }
 
         private void EditOption(int Id)
@@ -86,7 +111,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
         private void flowMainGroup_ControlAdded(object sender, ControlEventArgs e)
         {
 
-            if (flowMainGroup.Controls.Count % 5 == 0)
+            if (flowMainGroup.Controls.Count % 4 == 0)
                 flowMainGroup.SetFlowBreak(e!.Control!, true);
         }
     }

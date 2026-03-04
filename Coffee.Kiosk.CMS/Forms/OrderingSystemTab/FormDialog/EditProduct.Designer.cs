@@ -68,7 +68,7 @@
             guna2Panel1.ShadowDecoration.BorderRadius = 17;
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2Panel1.ShadowDecoration.Enabled = true;
-            guna2Panel1.Size = new Size(707, 540);
+            guna2Panel1.Size = new Size(947, 638);
             guna2Panel1.TabIndex = 18;
             // 
             // label4
@@ -88,7 +88,7 @@
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(3, 51);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(701, 460);
+            flowLayoutPanel1.Size = new Size(941, 567);
             flowLayoutPanel1.TabIndex = 8;
             flowLayoutPanel1.WrapContents = false;
             // 
@@ -114,7 +114,7 @@
             CancelBtn.FillColor = Color.FromArgb(224, 224, 224);
             CancelBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             CancelBtn.ForeColor = Color.DimGray;
-            CancelBtn.Location = new Point(125, 503);
+            CancelBtn.Location = new Point(144, 581);
             CancelBtn.Name = "CancelBtn";
             CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges4;
             CancelBtn.Size = new Size(127, 49);
@@ -132,7 +132,7 @@
             SaveBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             SaveBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             SaveBtn.ForeColor = Color.White;
-            SaveBtn.Location = new Point(258, 503);
+            SaveBtn.Location = new Point(277, 581);
             SaveBtn.Name = "SaveBtn";
             SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges6;
             SaveBtn.Size = new Size(127, 49);
@@ -233,7 +233,7 @@
             AcceptButton = SaveBtn;
             AutoScaleMode = AutoScaleMode.None;
             CancelButton = CancelBtn;
-            ClientSize = new Size(1129, 572);
+            ClientSize = new Size(1369, 662);
             Controls.Add(guna2Panel1);
             Controls.Add(label3);
             Controls.Add(CancelBtn);
