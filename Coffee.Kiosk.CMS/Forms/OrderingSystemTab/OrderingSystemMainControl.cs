@@ -40,6 +40,9 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab
                 MainScreen.BringToFront();
             }
         }
+        public void DarkOverlayPanel_Click(object sender, EventArgs e)
+        {
+        }
 
         private void ShowKioskMenu()
         {
@@ -49,5 +52,6 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab
             }
             UIhelp.CallControl(kioskMenu, MainScreen);
         }
+
     }
 }

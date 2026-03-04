@@ -54,7 +54,7 @@
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2Button1.ShadowDecoration.Depth = 15;
             guna2Button1.ShadowDecoration.Enabled = true;
-            guna2Button1.Size = new Size(668, 76);
+            guna2Button1.Size = new Size(924, 76);
             guna2Button1.TabIndex = 0;
             guna2Button1.Click += guna2Button1_Click;
             // 
@@ -62,9 +62,9 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             Controls.Add(guna2Button1);
-            MinimumSize = new Size(600, 0);
+            MinimumSize = new Size(930, 0);
             Name = "AddModifierGroupButton";
-            Size = new Size(674, 82);
+            Size = new Size(930, 82);
             ResumeLayout(false);
         }
 

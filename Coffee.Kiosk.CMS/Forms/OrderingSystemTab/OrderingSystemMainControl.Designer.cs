@@ -55,6 +55,7 @@
             DarkOverlayPanel.TabIndex = 0;
             DarkOverlayPanel.UseTransparentBackground = true;
             DarkOverlayPanel.Visible = false;
+            DarkOverlayPanel.Click += DarkOverlayPanel_Click;
             // 
             // OrderingSystemMainControl
             // 

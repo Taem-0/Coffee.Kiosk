@@ -21,7 +21,6 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 Emergency_Last_Name VARCHAR(100) NOT NULL,
                 Emergency_Number VARCHAR(20) NOT NULL,
                 Job_Title VARCHAR(50) NOT NULL,
-                Salary DECIMAL(10,2) NOT NULL,
                 Role ENUM('EMPLOYEE', 'MANAGER', 'OWNER') NOT NULL,
                 Department ENUM('OPERATIONS', 'MANAGEMENT', 'ADMINISTRATION') 
                     NOT NULL DEFAULT 'OPERATIONS',
@@ -34,6 +33,30 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 Password_Salt VARCHAR(255) NOT NULL,
                 Is_First_Login BOOLEAN NOT NULL DEFAULT 1,
                 Password_Reset_Requested BOOLEAN NOT NULL DEFAULT 0
+            );",
+
+            @"CREATE TABLE IF NOT EXISTS theme (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                Is_Default BOOLEAN NOT NULL DEFAULT 1,
+                Primary_Color VARCHAR(10) NOT NULL,
+                DarkPrimary_Color VARCHAR(10) NOT NULL,
+                Secondary_Color VARCHAR(10) NOT NULL,
+                Background_Color VARCHAR(10) NOT NULL,
+                Accent_Color VARCHAR(10) NOT NULL
+            );",
+
+            @"INSERT INTO theme (
+                Is_Default,
+                Primary_Color,
+                DarkPrimary_Color,
+                Secondary_Color,
+                Background_Color,
+                Accent_Color
+            )
+            SELECT 1, '#6F4D38', '#3D211A', '#A07856', '#F5F5DC', '#CBB799'
+            WHERE NOT EXISTS 
+            (
+                SELECT 1 FROM theme
             );",
 
 
@@ -77,13 +100,13 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
             @"CREATE TABLE IF NOT EXISTS modifier_option (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
-                GroupId INT,
+                GroupId INT NOT NULL,
                 Name VARCHAR(100),
-                PriceDelta DECIMAL (10, 2),
+                PriceDelta DECIMAL (10, 2) NOT NULL,
                 InventorySubtraction Decimal(10, 2) DEFAULT 0,
                 InventoryItemId INT,
                 TriggersChild BOOLEAN NOT NULL DEFAULT TRUE,
-                SortBy INT NOT NULL,
+                SortBy INT,
                 FOREIGN KEY (GroupId) REFERENCES modifier_group(ID) ON DELETE CASCADE,
                 FOREIGN KEY (InventoryItemId) REFERENCES inventory_item(ID)
                 );",
