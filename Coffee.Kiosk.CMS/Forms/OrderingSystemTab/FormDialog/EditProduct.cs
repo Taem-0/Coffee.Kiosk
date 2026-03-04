@@ -1,6 +1,7 @@
 ﻿using Coffee.Kiosk.CMS.CoffeeKDB;
 using Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers;
 using Coffee.Kiosk.CMS.Helpers;
+using MySqlX.XDevAPI.Common;
 
 namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
 {
@@ -54,6 +55,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
             foreach (var group in modifierGroups)
             {
                 var groupControl = new ModifierGroup(group);
+                groupControl.EditClicked += EditModifierGroup;
+                groupControl.DeleteClicked += DeleteModifierGroup;
                 flowLayoutPanel1.Controls.Add(groupControl);
             }
 
@@ -64,25 +67,6 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
 
         private void AddModifier()
         {
-            //var newGroup = new UnsavedModifierGroup()
-            //{
-            //    ProductId = _ProductId,
-            //    ParentGroupId = null,
-            //    Name = "New Modifier Group",
-            //    SelectionType = Models.OrderingSystem.SelectionType.Single,
-            //    Required = false
-            //};
-
-            //_unsavedModifierGroups.Add(newGroup);
-            //var newGroupControl = new ModifierGroup(
-            //    null,
-            //    newGroup.ProductId,
-            //    newGroup.ParentGroupId,
-            //    newGroup.Name,
-            //    newGroup.SelectionType,
-            //    newGroup.Required
-            //    );
-
             int newGroup = OrderingSystemDbManager.AddModifierGroup(
                 _ProductId,
                 null,
@@ -101,6 +85,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
                 ));
 
             var newGroupControl = new ModifierGroup(modifierGroups.Last());
+                newGroupControl.EditClicked += EditModifierGroup;
+                newGroupControl.DeleteClicked += DeleteModifierGroup;
             
             flowLayoutPanel1.Controls.Remove(addModifierGroupButton);
             flowLayoutPanel1.Controls.Add(newGroupControl);
@@ -110,7 +96,20 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
             addModifierGroupButton.AddModifierClicked += AddModifier;
 
             flowLayoutPanel1.ScrollControlIntoView(addModifierGroupButton);
+        }
 
+        private void EditModifierGroup(Models.OrderingSystem.ModifierGroup model)
+        {
+            using var dialog = new EditModifierGroup(model);
+            var result = dialog.ShowDialog();
+        }
+        private void DeleteModifierGroup(int GroupId)
+        {
+            using var dialog = new ConfirmDelete("Are you sure you want to delete this Modifier Group?");
+            if (dialog.ShowDialog() != DialogResult.OK) return;
+
+            OrderingSystemDbManager.DeleteModifierGroup(GroupId);
+            LoadModifierGroups();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

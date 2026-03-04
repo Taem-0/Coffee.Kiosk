@@ -220,6 +220,9 @@
             // 
             // guna2BorderlessForm1
             // 
+            guna2BorderlessForm1.AnimateWindow = true;
+            guna2BorderlessForm1.AnimationInterval = 200;
+            guna2BorderlessForm1.AnimationType = Guna.UI2.WinForms.Guna2BorderlessForm.AnimateWindowType.AW_CENTER;
             guna2BorderlessForm1.BorderRadius = 30;
             guna2BorderlessForm1.ContainerControl = this;
             guna2BorderlessForm1.DockForm = false;
@@ -245,9 +248,9 @@
             Controls.Add(ProductNameTxtBox);
             FormBorderStyle = FormBorderStyle.None;
             Name = "EditProduct";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "EditProduct";
-            TopMost = true;
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

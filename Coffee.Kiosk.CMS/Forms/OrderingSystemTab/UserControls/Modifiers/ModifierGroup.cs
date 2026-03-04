@@ -13,6 +13,9 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 {
     public partial class ModifierGroup : UserControl
     {
+        public event Action<Models.OrderingSystem.ModifierGroup>? EditClicked;
+        public event Action<int>? DeleteClicked;
+
 
         private AddModifierOptionButton addModifierOptionButton = new AddModifierOptionButton();
 
@@ -113,6 +116,21 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 
             if (flowMainGroup.Controls.Count % 4 == 0)
                 flowMainGroup.SetFlowBreak(e!.Control!, true);
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.Show(guna2Button1, new Point(0, guna2Button1.Height));
+        }
+
+        private void EditName_Click(object sender, EventArgs e)
+        {
+            EditClicked?.Invoke(_model);
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteClicked?.Invoke(_model.Id);
         }
     }
 }

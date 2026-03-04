@@ -299,6 +299,23 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
         }
 
+        internal static void DeleteModifierGroup(int GroupId)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = $"DELETE FROM modifier_group WHERE ID = {GroupId}";
+                cmd.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Failed to delete modifier_group\n{ex.Message}");
+            }
+        }
+
 
         internal static List<Models.OrderingSystem.ModifierOption> GetModifierOptions(int groupId)
         {
