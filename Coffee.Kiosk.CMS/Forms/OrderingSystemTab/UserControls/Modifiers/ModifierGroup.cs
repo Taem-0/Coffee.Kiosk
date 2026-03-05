@@ -29,6 +29,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
             _model = model;
 
             ModifierGroupName.Text = $"ID {model.Id}: {model.Name}";
+            if (model.ParentGroupId != null) ModifierGroupName.Text += $" ( Child Of ID: {model.ParentGroupId} )";
             LoadOptions();
         }
 
