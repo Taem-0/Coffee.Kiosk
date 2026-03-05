@@ -53,7 +53,6 @@
             guna2Button1.Name = "guna2Button1";
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2Button1.ShadowDecoration.Depth = 15;
-            guna2Button1.ShadowDecoration.Enabled = true;
             guna2Button1.Size = new Size(137, 48);
             guna2Button1.TabIndex = 1;
             guna2Button1.Click += guna2Button1_Click;

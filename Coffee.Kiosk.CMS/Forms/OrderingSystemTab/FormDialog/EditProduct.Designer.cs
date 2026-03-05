@@ -58,7 +58,6 @@
             // guna2Panel1
             // 
             guna2Panel1.BackColor = Color.Transparent;
-            guna2Panel1.BorderRadius = 17;
             guna2Panel1.Controls.Add(label4);
             guna2Panel1.Controls.Add(flowLayoutPanel1);
             guna2Panel1.CustomizableEdges = customizableEdges1;
@@ -67,7 +66,6 @@
             guna2Panel1.Name = "guna2Panel1";
             guna2Panel1.ShadowDecoration.BorderRadius = 17;
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Panel1.ShadowDecoration.Enabled = true;
             guna2Panel1.Size = new Size(947, 638);
             guna2Panel1.TabIndex = 18;
             // 

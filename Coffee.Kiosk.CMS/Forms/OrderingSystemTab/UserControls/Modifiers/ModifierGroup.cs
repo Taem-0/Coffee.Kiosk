@@ -28,7 +28,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
             InitializeComponent();
             _model = model;
 
-            ModifierGroupName.Text = model.Name;
+            ModifierGroupName.Text = $"ID {model.Id}: {model.Name}";
             LoadOptions();
         }
 
