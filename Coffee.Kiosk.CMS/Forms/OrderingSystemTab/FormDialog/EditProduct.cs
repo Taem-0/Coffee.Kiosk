@@ -49,20 +49,35 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
         private void LoadModifierGroups()
         {
             flowLayoutPanel1.Controls.Clear();
+            flowLayoutPanel1.SuspendLayout();
 
             modifierGroups = OrderingSystemDbManager.GetModifierGroups(_ProductId);
 
-            foreach (var group in modifierGroups)
+            var modifierGroupWithoutParentId = modifierGroups.Where(g => g.ParentGroupId == null).ToList();
+            var modifierGroupWithParentId = modifierGroups.Where(g => g.ParentGroupId != null).ToList();
+
+            foreach (var parent in modifierGroupWithoutParentId)
             {
-                var groupControl = new ModifierGroup(group);
+                var groupControl = new ModifierGroup(parent);
                 groupControl.EditClicked += EditModifierGroup;
                 groupControl.DeleteClicked += DeleteModifierGroup;
+
                 flowLayoutPanel1.Controls.Add(groupControl);
+                foreach(var child in modifierGroupWithParentId.Where(g => g.ParentGroupId == parent.Id))
+                {
+                    var childControl = new ModifierGroup(child);
+                    childControl.EditClicked += EditModifierGroup;
+                    childControl.DeleteClicked += DeleteModifierGroup;
+
+                    flowLayoutPanel1.Controls.Add(childControl);
+                }
             }
 
             addModifierGroupButton.AddModifierClicked -= AddModifier;
             addModifierGroupButton.AddModifierClicked += AddModifier;
             flowLayoutPanel1.Controls.Add(addModifierGroupButton);
+
+            flowLayoutPanel1.ResumeLayout();
         }
 
         private void AddModifier()
@@ -100,8 +115,12 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
 
         private void EditModifierGroup(Models.OrderingSystem.ModifierGroup model)
         {
-            using var dialog = new EditModifierGroup(model);
+            using var dialog = new EditModifierGroup(model, modifierGroups);
             var result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                LoadModifierGroups();
+            }
         }
         private void DeleteModifierGroup(int GroupId)
         {

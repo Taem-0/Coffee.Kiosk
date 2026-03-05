@@ -228,6 +228,8 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 Console.Write(ex.Message);
             }
         }
+
+
         internal static List<Models.OrderingSystem.ModifierGroup> GetModifierGroups(int productId)
         {
             var result = new List<Models.OrderingSystem.ModifierGroup>();
@@ -299,6 +301,36 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
         }
 
+        internal static bool UpdateModifierGroup(Models.OrderingSystem.ModifierGroup model)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"UPDATE modifier_group
+                                    SET ParentGroupId = @parentGroupId,
+                                        Name = @name,
+                                        SelectionType = @selectionType,
+                                        Required = @required
+                                    WHERE ID = @id;";
+
+                cmd.Parameters.AddWithValue("@parentGroupId", model.ParentGroupId);
+                cmd.Parameters.AddWithValue("@name", model.Name);
+                cmd.Parameters.AddWithValue("@selectionType", model.SelectionType.ToString());
+                cmd.Parameters.AddWithValue("@required", model.Required);
+                cmd.Parameters.AddWithValue("@id", model.Id);
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to update table modifier_group\n {ex.Message}");
+                return false;
+            }
+        }
+
         internal static void DeleteModifierGroup(int GroupId)
         {
             try
@@ -361,6 +393,8 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
             return result;
         }
+
+
         internal static int AddModifierOption(Models.OrderingSystem.ModifierOption model)
         {
             try

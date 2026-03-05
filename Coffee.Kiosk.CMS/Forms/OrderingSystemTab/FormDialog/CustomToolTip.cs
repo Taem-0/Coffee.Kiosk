@@ -20,8 +20,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
             this.StartPosition = FormStartPosition.Manual;
             this.ShowInTaskbar = false;
             this.TopMost = true;
-            this.BackColor = Color.LightYellow; // optional styling
-            this.AutoSize = true; // adjusts automatically to content
+            this.BackColor = Color.LightYellow;
+            this.AutoSize = true;
         }
 
         public void ChangeToolTipText(string tipText)
