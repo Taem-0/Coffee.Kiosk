@@ -15,6 +15,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
         private readonly Employee _currentEmployee;
         private readonly ThemeController _themeController;
         private string? _selectedImagePath;
+        private Cyotek.Windows.Forms.ColorPickerDialog colorPickerDialog1 = new Cyotek.Windows.Forms.ColorPickerDialog();
 
 
         public SettingsView(AccountController controller, ThemeController themeController, Employee currentEmployee)
@@ -38,10 +39,11 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             UploadLogoContainer.FillColor = uiTheme.Background;
 
             LoadCurrentEmployeeData();
-            
+            SetColorEditing(false);
+
         }
 
-
+        #region ACCOUNT TAB
         private void LoadCurrentEmployeeData()
         {
             LoadProfilePicture();
@@ -71,7 +73,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             }
         }
 
-        
+
 
         private DisplayDTO GetCurrentDisplayDTO() => new()
         {
@@ -195,9 +197,72 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
+
+        #region ORGANIZATION TAB
+
+        private void SetColorEditing(bool enabled)
+        {
+            primaryColorButton.Enabled = enabled;
+            primaryDarkColorButton.Enabled = enabled;
+            secondaryColorButton.Enabled = enabled;
+            backgroundColorButton.Enabled = enabled;
+            accentColorButton.Enabled = enabled;
+        }
+
+        private void SetButtonState(Guna.UI2.WinForms.Guna2Button button, bool enabled)
+        {
+            button.Enabled = enabled;
+
+            if (enabled)
+                button.FillColor = Color.FromArgb(255, button.FillColor);   
+            else
+                button.FillColor = Color.FromArgb(120, button.FillColor);  
+        }
+
+        private void selectThemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool isCustom = selectThemeComboBox.SelectedItem?.ToString() == "Custom";
+            SetColorEditing(isCustom);
+        }
+
+        private void PickColor(Guna.UI2.WinForms.Guna2Button button)
+        {
+            colorPickerDialog1.Color = button.FillColor;
+
+            if (colorPickerDialog1.ShowDialog() == DialogResult.OK)
+            {
+                button.FillColor = colorPickerDialog1.Color;
+            }
+        }
+
+        private void primaryColorButton_Click(object sender, EventArgs e)
+        {
+            PickColor(primaryColorButton);
+        }
+
+        private void primaryDarkColorButton_Click(object sender, EventArgs e)
+        {
+            PickColor(primaryDarkColorButton);
+        }
+
+        private void secondaryColorButton_Click(object sender, EventArgs e)
+        {
+            PickColor(secondaryColorButton);
+        }
+
+        private void backgroundColorButton_Click(object sender, EventArgs e)
+        {
+            PickColor(backgroundColorButton);
+        }
+
+        private void accentColorButton_Click(object sender, EventArgs e)
+        {
+            PickColor(accentColorButton);
+        }
 
 
-        
+        #endregion
 
 
     }
