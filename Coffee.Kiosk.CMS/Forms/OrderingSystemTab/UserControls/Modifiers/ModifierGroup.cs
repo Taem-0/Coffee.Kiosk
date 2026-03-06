@@ -1,4 +1,5 @@
 ﻿using Coffee.Kiosk.CMS.CoffeeKDB;
+using Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +30,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
             _model = model;
 
             ModifierGroupName.Text = $"ID {model.Id}: {model.Name}";
+            if (model.ParentGroupId != null) ModifierGroupName.Text += $" ( Child Of ID: {model.ParentGroupId} )";
             LoadOptions();
         }
 
@@ -43,6 +45,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
             {
                 var optionControl = new ModifierOption(options);
                 optionControl.OptionClicked += EditOption;
+                optionControl.DeleteClicked += DeleteOption;
                 flowMainGroup.Controls.Add(optionControl);
             }
 
@@ -94,18 +97,38 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 
             var newOptionControl = new ModifierOption(newOption);
 
+            newOptionControl.OptionClicked += EditOption;
+            newOptionControl.DeleteClicked += DeleteOption;
+
             flowMainGroup.Controls.Remove(addModifierOptionButton);
             addModifierOptionButton.AddOptionsClicked -= AddOptions;
 
             flowMainGroup.Controls.Add(newOptionControl);
 
+
             flowMainGroup.Controls.Add(addModifierOptionButton);
             addModifierOptionButton.AddOptionsClicked += AddOptions;
         }
 
-        private void EditOption(int Id)
+        private void EditOption(Models.OrderingSystem.ModifierOption model)
         {
-
+            using var dialog = new EditModifierOption(model);
+            var result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                OrderingSystemDbManager.UpdateModifierOption(model);
+                LoadOptions();
+            }
+        }
+        private void DeleteOption(int optionId)
+        {
+            using var dialog = new ConfirmDelete("Are you sure you want to delete this option?");
+            var result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                OrderingSystemDbManager.DeleteModifierOption(optionId);
+                LoadOptions();
+            }
         }
 
 

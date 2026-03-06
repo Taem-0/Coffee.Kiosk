@@ -221,20 +221,6 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
             //}
         }
 
-        private void ReloadCategories()
-        {
-            var scroll = flowCategory.VerticalScroll.Value;
-
-            categoryData = OrderingSystemDbManager.GetAllCategories();
-            LoadCategories();
-
-            flowCategory.VerticalScroll.Value = Math.Min(
-                scroll,
-                flowCategory.VerticalScroll.Maximum
-            );
-        }
-
-
         private void LoadProducts(int categoryId)
         {
             flowProduct.Controls.Clear();
@@ -294,7 +280,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
 
         private void DeleteProduct(int productId)
         {
-            if(selectedCategoryId == null) return;
+            if (selectedCategoryId == null) return;
 
             _parent.ShowDarkOverlay(true);
             using var dialog = new ConfirmDelete("Are you sure you want to delete this product?");
@@ -321,7 +307,6 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
 
             if (result == DialogResult.OK)
             {
-                //TODO
                 LoadProducts(selectedCategoryId.Value);
             }
             _parent.ShowDarkOverlay(false);
@@ -348,9 +333,22 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
             });
         }
 
+
+
+
         private void flowCategory_Paint(object sender, PaintEventArgs e)
         {
             UIhelp.drawBorderSides(e, flowCategory.ClientRectangle, UIhelp.borderSide.Right | UIhelp.borderSide.Top, Color.Black);
+        }
+
+        private void KioskMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void KioskMenu_Resize(object sender, EventArgs e)
+        {
+            UIhelp.centerPanel(panel3, panel4);
         }
     }
 }

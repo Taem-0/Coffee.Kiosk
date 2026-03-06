@@ -29,22 +29,17 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditModifierGroup));
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             CancelBtn = new Guna.UI2.WinForms.Guna2Button();
             SaveBtn = new Guna.UI2.WinForms.Guna2Button();
@@ -52,12 +47,12 @@
             GroupName = new Guna.UI2.WinForms.Guna2TextBox();
             ParentGroupSelection = new Guna.UI2.WinForms.Guna2ComboBox();
             label2 = new Label();
-            guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             SelectionType = new Guna.UI2.WinForms.Guna2ComboBox();
-            SelectionTypeToolTip = new Guna.UI2.WinForms.Guna2Button();
             label3 = new Label();
             RequiredSwitch = new MaterialSkin.Controls.MaterialSwitch();
-            RequiredToolTip = new Guna.UI2.WinForms.Guna2Button();
+            tipButton1 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
+            tipButton2 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
+            tipButton3 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
             SuspendLayout();
             // 
             // guna2BorderlessForm1
@@ -73,7 +68,7 @@
             // CancelBtn
             // 
             CancelBtn.BorderRadius = 10;
-            CancelBtn.CustomizableEdges = customizableEdges17;
+            CancelBtn.CustomizableEdges = customizableEdges11;
             CancelBtn.DisabledState.BorderColor = Color.DarkGray;
             CancelBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             CancelBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -83,7 +78,7 @@
             CancelBtn.ForeColor = Color.DimGray;
             CancelBtn.Location = new Point(163, 342);
             CancelBtn.Name = "CancelBtn";
-            CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges12;
             CancelBtn.Size = new Size(127, 49);
             CancelBtn.TabIndex = 20;
             CancelBtn.Text = "Cancel";
@@ -92,7 +87,7 @@
             // SaveBtn
             // 
             SaveBtn.BorderRadius = 10;
-            SaveBtn.CustomizableEdges = customizableEdges19;
+            SaveBtn.CustomizableEdges = customizableEdges13;
             SaveBtn.DisabledState.BorderColor = Color.DarkGray;
             SaveBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             SaveBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -101,7 +96,7 @@
             SaveBtn.ForeColor = Color.White;
             SaveBtn.Location = new Point(296, 342);
             SaveBtn.Name = "SaveBtn";
-            SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges14;
             SaveBtn.Size = new Size(127, 49);
             SaveBtn.TabIndex = 19;
             SaveBtn.Text = "Save";
@@ -120,7 +115,7 @@
             // 
             // GroupName
             // 
-            GroupName.CustomizableEdges = customizableEdges21;
+            GroupName.CustomizableEdges = customizableEdges15;
             GroupName.DefaultText = "";
             GroupName.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             GroupName.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -135,14 +130,14 @@
             GroupName.Name = "GroupName";
             GroupName.PlaceholderText = "GroupPlaceHolderName";
             GroupName.SelectedText = "";
-            GroupName.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            GroupName.ShadowDecoration.CustomizableEdges = customizableEdges16;
             GroupName.Size = new Size(392, 52);
             GroupName.TabIndex = 17;
             // 
             // ParentGroupSelection
             // 
             ParentGroupSelection.BackColor = Color.Transparent;
-            ParentGroupSelection.CustomizableEdges = customizableEdges23;
+            ParentGroupSelection.CustomizableEdges = customizableEdges17;
             ParentGroupSelection.DrawMode = DrawMode.OwnerDrawFixed;
             ParentGroupSelection.DropDownStyle = ComboBoxStyle.DropDownList;
             ParentGroupSelection.FocusedColor = Color.FromArgb(94, 148, 255);
@@ -153,7 +148,7 @@
             ParentGroupSelection.Items.AddRange(new object[] { "None" });
             ParentGroupSelection.Location = new Point(31, 256);
             ParentGroupSelection.Name = "ParentGroupSelection";
-            ParentGroupSelection.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            ParentGroupSelection.ShadowDecoration.CustomizableEdges = customizableEdges18;
             ParentGroupSelection.Size = new Size(352, 36);
             ParentGroupSelection.StartIndex = 0;
             ParentGroupSelection.TabIndex = 21;
@@ -169,29 +164,10 @@
             label2.TabIndex = 22;
             label2.Text = "Parent Group";
             // 
-            // guna2Button1
-            // 
-            guna2Button1.CustomizableEdges = customizableEdges25;
-            guna2Button1.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button1.FillColor = Color.Transparent;
-            guna2Button1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button1.ForeColor = Color.Black;
-            guna2Button1.Image = Properties.Resources.default_icon;
-            guna2Button1.ImageSize = new Size(30, 30);
-            guna2Button1.Location = new Point(389, 256);
-            guna2Button1.Name = "guna2Button1";
-            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges26;
-            guna2Button1.Size = new Size(34, 36);
-            guna2Button1.TabIndex = 23;
-            guna2Button1.Tile = true;
-            // 
             // SelectionType
             // 
             SelectionType.BackColor = Color.Transparent;
-            SelectionType.CustomizableEdges = customizableEdges27;
+            SelectionType.CustomizableEdges = customizableEdges19;
             SelectionType.DrawMode = DrawMode.OwnerDrawFixed;
             SelectionType.DropDownStyle = ComboBoxStyle.DropDownList;
             SelectionType.FocusedColor = Color.FromArgb(94, 148, 255);
@@ -200,40 +176,19 @@
             SelectionType.ForeColor = Color.FromArgb(68, 88, 112);
             SelectionType.ItemHeight = 30;
             SelectionType.Items.AddRange(new object[] { "Single", "Multiple" });
-            SelectionType.Location = new Point(31, 161);
+            SelectionType.Location = new Point(31, 170);
             SelectionType.Name = "SelectionType";
-            SelectionType.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            SelectionType.ShadowDecoration.CustomizableEdges = customizableEdges20;
             SelectionType.Size = new Size(156, 36);
             SelectionType.StartIndex = 0;
             SelectionType.TabIndex = 24;
-            // 
-            // SelectionTypeToolTip
-            // 
-            SelectionTypeToolTip.CustomizableEdges = customizableEdges29;
-            SelectionTypeToolTip.DisabledState.BorderColor = Color.DarkGray;
-            SelectionTypeToolTip.DisabledState.CustomBorderColor = Color.DarkGray;
-            SelectionTypeToolTip.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            SelectionTypeToolTip.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            SelectionTypeToolTip.FillColor = Color.Transparent;
-            SelectionTypeToolTip.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            SelectionTypeToolTip.ForeColor = Color.Black;
-            SelectionTypeToolTip.Image = Properties.Resources.default_icon;
-            SelectionTypeToolTip.ImageSize = new Size(30, 30);
-            SelectionTypeToolTip.Location = new Point(199, 161);
-            SelectionTypeToolTip.Name = "SelectionTypeToolTip";
-            SelectionTypeToolTip.ShadowDecoration.CustomizableEdges = customizableEdges30;
-            SelectionTypeToolTip.Size = new Size(34, 36);
-            SelectionTypeToolTip.TabIndex = 25;
-            SelectionTypeToolTip.Tile = true;
-            SelectionTypeToolTip.MouseEnter += SelectionTypeToolTip_MouseEnter;
-            SelectionTypeToolTip.MouseLeave += SelectionTypeToolTip_MouseLeave;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.ControlDarkDark;
-            label3.Location = new Point(31, 127);
+            label3.Location = new Point(31, 136);
             label3.Name = "label3";
             label3.Size = new Size(169, 31);
             label3.TabIndex = 26;
@@ -243,7 +198,7 @@
             // 
             RequiredSwitch.AutoSize = true;
             RequiredSwitch.Depth = 0;
-            RequiredSwitch.Location = new Point(263, 161);
+            RequiredSwitch.Location = new Point(260, 170);
             RequiredSwitch.Margin = new Padding(0);
             RequiredSwitch.MouseLocation = new Point(-1, -1);
             RequiredSwitch.MouseState = MaterialSkin.MouseState.HOVER;
@@ -254,26 +209,32 @@
             RequiredSwitch.Text = "Required";
             RequiredSwitch.UseVisualStyleBackColor = true;
             // 
-            // RequiredToolTip
+            // tipButton1
             // 
-            RequiredToolTip.CustomizableEdges = customizableEdges31;
-            RequiredToolTip.DisabledState.BorderColor = Color.DarkGray;
-            RequiredToolTip.DisabledState.CustomBorderColor = Color.DarkGray;
-            RequiredToolTip.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            RequiredToolTip.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            RequiredToolTip.FillColor = Color.Transparent;
-            RequiredToolTip.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            RequiredToolTip.ForeColor = Color.Black;
-            RequiredToolTip.Image = Properties.Resources.default_icon;
-            RequiredToolTip.ImageSize = new Size(30, 30);
-            RequiredToolTip.Location = new Point(389, 162);
-            RequiredToolTip.Name = "RequiredToolTip";
-            RequiredToolTip.ShadowDecoration.CustomizableEdges = customizableEdges32;
-            RequiredToolTip.Size = new Size(34, 36);
-            RequiredToolTip.TabIndex = 28;
-            RequiredToolTip.Tile = true;
-            RequiredToolTip.MouseEnter += RequiredToolTip_MouseEnter;
-            RequiredToolTip.MouseLeave += RequiredToolTip_MouseLeave;
+            tipButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tipButton1.Location = new Point(193, 170);
+            tipButton1.Name = "tipButton1";
+            tipButton1.Size = new Size(40, 40);
+            tipButton1.TabIndex = 28;
+            tipButton1.TipText = "Select single or multiple options \r\n\r\nSingle - Only allows one option to be selected. \r\nMultiple - Allows multiple option to be selected";
+            // 
+            // tipButton2
+            // 
+            tipButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tipButton2.Location = new Point(383, 170);
+            tipButton2.Name = "tipButton2";
+            tipButton2.Size = new Size(40, 40);
+            tipButton2.TabIndex = 29;
+            tipButton2.TipText = "Makes it so users can't proceed without\r\nselecting an option first.";
+            // 
+            // tipButton3
+            // 
+            tipButton3.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tipButton3.Location = new Point(383, 256);
+            tipButton3.Name = "tipButton3";
+            tipButton3.Size = new Size(40, 40);
+            tipButton3.TabIndex = 30;
+            tipButton3.TipText = resources.GetString("tipButton3.TipText");
             // 
             // EditModifierGroup
             // 
@@ -282,12 +243,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = CancelBtn;
             ClientSize = new Size(454, 418);
-            Controls.Add(RequiredToolTip);
+            Controls.Add(tipButton3);
+            Controls.Add(tipButton2);
+            Controls.Add(tipButton1);
             Controls.Add(RequiredSwitch);
             Controls.Add(label3);
-            Controls.Add(SelectionTypeToolTip);
             Controls.Add(SelectionType);
-            Controls.Add(guna2Button1);
             Controls.Add(label2);
             Controls.Add(ParentGroupSelection);
             Controls.Add(CancelBtn);
@@ -299,7 +260,6 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "EditModifierGroup";
-            TopMost = true;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -313,11 +273,11 @@
         private Guna.UI2.WinForms.Guna2TextBox GroupName;
         private Label label2;
         private Guna.UI2.WinForms.Guna2ComboBox ParentGroupSelection;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Label label3;
-        private Guna.UI2.WinForms.Guna2Button SelectionTypeToolTip;
         private Guna.UI2.WinForms.Guna2ComboBox SelectionType;
-        private Guna.UI2.WinForms.Guna2Button RequiredToolTip;
         private MaterialSkin.Controls.MaterialSwitch RequiredSwitch;
+        private UserControls.TipButton tipButton1;
+        private UserControls.TipButton tipButton3;
+        private UserControls.TipButton tipButton2;
     }
 }

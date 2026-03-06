@@ -40,6 +40,7 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            tipButton1 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
             label4 = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
             label3 = new Label();
@@ -58,6 +59,7 @@
             // guna2Panel1
             // 
             guna2Panel1.BackColor = Color.Transparent;
+            guna2Panel1.Controls.Add(tipButton1);
             guna2Panel1.Controls.Add(label4);
             guna2Panel1.Controls.Add(flowLayoutPanel1);
             guna2Panel1.CustomizableEdges = customizableEdges1;
@@ -66,8 +68,17 @@
             guna2Panel1.Name = "guna2Panel1";
             guna2Panel1.ShadowDecoration.BorderRadius = 17;
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Panel1.Size = new Size(947, 638);
+            guna2Panel1.Size = new Size(978, 638);
             guna2Panel1.TabIndex = 18;
+            // 
+            // tipButton1
+            // 
+            tipButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tipButton1.Location = new Point(124, 18);
+            tipButton1.Name = "tipButton1";
+            tipButton1.Size = new Size(37, 30);
+            tipButton1.TabIndex = 10;
+            tipButton1.TipText = "Create customizable product in this section.";
             // 
             // label4
             // 
@@ -86,7 +97,7 @@
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(3, 51);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(941, 567);
+            flowLayoutPanel1.Size = new Size(972, 567);
             flowLayoutPanel1.TabIndex = 8;
             flowLayoutPanel1.WrapContents = false;
             // 
@@ -234,7 +245,7 @@
             AcceptButton = SaveBtn;
             AutoScaleMode = AutoScaleMode.None;
             CancelButton = CancelBtn;
-            ClientSize = new Size(1369, 662);
+            ClientSize = new Size(1400, 662);
             Controls.Add(guna2Panel1);
             Controls.Add(label3);
             Controls.Add(CancelBtn);
@@ -270,5 +281,6 @@
         private PictureBox pictureBox1;
         private Guna.UI2.WinForms.Guna2TextBox ProductNameTxtBox;
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
+        private UserControls.TipButton tipButton1;
     }
 }

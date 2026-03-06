@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             flowMainGroup = new FlowLayoutPanel();
             flowLayoutPanel2 = new FlowLayoutPanel();
             panel1 = new Panel();
@@ -77,7 +77,7 @@
             // 
             guna2Button1.BackColor = Color.Gainsboro;
             guna2Button1.BorderRadius = 7;
-            guna2Button1.CustomizableEdges = customizableEdges3;
+            guna2Button1.CustomizableEdges = customizableEdges1;
             guna2Button1.DisabledState.BorderColor = Color.DarkGray;
             guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -89,7 +89,7 @@
             guna2Button1.ImageSize = new Size(30, 30);
             guna2Button1.Location = new Point(893, 0);
             guna2Button1.Name = "guna2Button1";
-            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2Button1.Size = new Size(34, 36);
             guna2Button1.TabIndex = 5;
             guna2Button1.Tile = true;
@@ -111,26 +111,26 @@
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { EditName, deleteToolStripMenuItem, Cancel });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(211, 140);
+            contextMenuStrip1.Size = new Size(201, 112);
             // 
             // EditName
             // 
             EditName.Name = "EditName";
-            EditName.Size = new Size(210, 36);
-            EditName.Text = "Edit";
+            EditName.Size = new Size(200, 36);
+            EditName.Text = "Edit Group";
             EditName.Click += EditName_Click;
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(210, 36);
+            deleteToolStripMenuItem.Size = new Size(200, 36);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
             // Cancel
             // 
             Cancel.Name = "Cancel";
-            Cancel.Size = new Size(210, 36);
+            Cancel.Size = new Size(200, 36);
             Cancel.Text = "Cancel";
             // 
             // ModifierGroup
@@ -138,6 +138,7 @@
             AutoScaleMode = AutoScaleMode.None;
             AutoSize = true;
             BorderStyle = BorderStyle.FixedSingle;
+            ContextMenuStrip = contextMenuStrip1;
             Controls.Add(flowMainGroup);
             Controls.Add(flowLayoutPanel2);
             Controls.Add(panel1);

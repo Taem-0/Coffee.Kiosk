@@ -53,31 +53,47 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
 
             modifierGroups = OrderingSystemDbManager.GetModifierGroups(_ProductId);
 
-            var modifierGroupWithoutParentId = modifierGroups.Where(g => g.ParentGroupId == null).ToList();
-            var modifierGroupWithParentId = modifierGroups.Where(g => g.ParentGroupId != null).ToList();
+            //var modifierGroupWithoutParentId = modifierGroups.Where(g => g.ParentGroupId == null).ToList();
+            //var modifierGroupWithParentId = modifierGroups.Where(g => g.ParentGroupId != null).ToList();
 
-            foreach (var parent in modifierGroupWithoutParentId)
-            {
-                var groupControl = new ModifierGroup(parent);
-                groupControl.EditClicked += EditModifierGroup;
-                groupControl.DeleteClicked += DeleteModifierGroup;
+            //foreach (var parent in modifierGroupWithoutParentId)
+            //{
+            //    var groupControl = new ModifierGroup(parent);
+            //    groupControl.EditClicked += EditModifierGroup;
+            //    groupControl.DeleteClicked += DeleteModifierGroup;
 
-                flowLayoutPanel1.Controls.Add(groupControl);
-                foreach(var child in modifierGroupWithParentId.Where(g => g.ParentGroupId == parent.Id))
-                {
-                    var childControl = new ModifierGroup(child);
-                    childControl.EditClicked += EditModifierGroup;
-                    childControl.DeleteClicked += DeleteModifierGroup;
+            //    flowLayoutPanel1.Controls.Add(groupControl);
+            //    foreach(var child in modifierGroupWithParentId.Where(g => g.ParentGroupId == parent.Id))
+            //    {
+            //        var childControl = new ModifierGroup(child);
+            //        childControl.EditClicked += EditModifierGroup;
+            //        childControl.DeleteClicked += DeleteModifierGroup;
 
-                    flowLayoutPanel1.Controls.Add(childControl);
-                }
-            }
+            //        flowLayoutPanel1.Controls.Add(childControl);
+            //    }
+            //}
+
+            RecursivelyAddGroups(null);
 
             addModifierGroupButton.AddModifierClicked -= AddModifier;
             addModifierGroupButton.AddModifierClicked += AddModifier;
             flowLayoutPanel1.Controls.Add(addModifierGroupButton);
 
             flowLayoutPanel1.ResumeLayout();
+        }
+
+        private void RecursivelyAddGroups(int? parentId)
+        {
+            foreach (var group in modifierGroups.Where(g => g.ParentGroupId == parentId))
+            {
+                var groupControl = new ModifierGroup(group);
+                groupControl.EditClicked += EditModifierGroup;
+                groupControl.DeleteClicked += DeleteModifierGroup;
+
+                flowLayoutPanel1.Controls.Add(groupControl);
+
+                RecursivelyAddGroups(group.Id);
+            }
         }
 
         private void AddModifier()
@@ -161,6 +177,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
                 MessageBox.Show(string.Join("\n", errors));
                 return;
             }
+
+            if (!OrderingSystemDbManager.EditProduct(_ProductId, name, parsedPrice, _ImagePath)) return;
 
             this.DialogResult = DialogResult.OK;
             this.Close();

@@ -56,7 +56,8 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) UNIQUE NOT NULL,
                 Stock Decimal(10, 2) NOT NULL,
-                Unit VARCHAR(255) NOT NULL
+                Unit VARCHAR(255) NOT NULL,
+                ImagePath VARCHAR(255)
             );",
 
 

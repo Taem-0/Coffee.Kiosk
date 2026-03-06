@@ -209,6 +209,35 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
         }
 
+        internal static bool EditProduct(int productId, string name, decimal price, string imagePath)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"UPDATE product
+                                    SET Name = @name,
+                                        Price = @price,
+                                        ImagePath = @imagePath
+                                    WHERE ID = @id;
+                                        ";
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@price", price);
+                cmd.Parameters.AddWithValue("@imagePath", imagePath);
+                cmd.Parameters.AddWithValue("@id", productId);
+
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to update table product\n{ex.Message}");
+                return false;
+            }
+        }
+
         internal static void DeleteProduct(int productId)
         {
             try
@@ -443,6 +472,54 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             {
                 MessageBox.Show($"Failed to insert into table modifier_option\n {ex.Message}");
                 return 0;
+            }
+        }
+        internal static bool UpdateModifierOption(Models.OrderingSystem.ModifierOption model)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"UPDATE modifier_option
+                                    SET Name = @name,
+                                        PriceDelta = @priceDelta,
+                                        InventorySubtraction = @inventorySubtraction,
+                                        InventoryItemId = @inventoryItemId,
+                                        TriggersChild = @triggersChild
+                                    WHERE ID = @id;";
+
+                cmd.Parameters.AddWithValue("@name", model.Name);
+                cmd.Parameters.AddWithValue("@priceDelta", model.PriceDelta);
+                cmd.Parameters.AddWithValue("@inventorySubtraction", model.InventorySubtraction);
+                cmd.Parameters.AddWithValue("@inventoryItemId", model.InventoryItemId);
+                cmd.Parameters.AddWithValue("@triggersChild", model.TriggersChild);
+                cmd.Parameters.AddWithValue("@id", model.Id);
+
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to update table modifier_option\n {ex.Message}");
+                return false;
+            }
+        }
+        internal static void DeleteModifierOption(int OptionId)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = $"DELETE FROM modifier_option WHERE ID = {OptionId}";
+                cmd.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Failed to delete modifier_option\n{ex.Message}");
             }
         }
     }
