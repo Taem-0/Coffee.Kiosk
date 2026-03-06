@@ -24,47 +24,50 @@ namespace Coffee.Kiosk
         private LoginValidation loginValidation;
         private AccountsService service;
         private AccountController controller;
-        private ThemeController themeController;
+        private ShopController themeController;
         private DashBoardControl dashBoardControl;
         private SettingsView settingsView;
 
         private readonly Stack<UserControl> _navigationStack = new();
         private Employee _currentEmployee;
         private readonly MaterialSkinManager materialSkinManager = null!;
+        private Shop _currentShop;
 
         public AdminControlForm(Employee employee)
         {
             InitializeComponent();
 
-
             _currentEmployee = employee;
 
             this.Text = $"Logged in as: {employee.FirstName} {employee.LastName}";
-
 
             materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
 
             materialSkinManager.ColorScheme = new ColorScheme(
-                primary: UIhelp.ThemeColors.MediumBrown,      //  Will be replaced with TI (TaezaIntelligence >;3)
-                darkPrimary: UIhelp.ThemeColors.DarkBrown,    
-                lightPrimary: UIhelp.ThemeColors.LightBrown,  
-                accent: UIhelp.ThemeColors.Beige,             
+                primary: UIhelp.ThemeColors.MediumBrown,
+                darkPrimary: UIhelp.ThemeColors.DarkBrown,
+                lightPrimary: UIhelp.ThemeColors.LightBrown,
+                accent: UIhelp.ThemeColors.Beige,
                 textShade: TextShade.WHITE
             );
 
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             var dbManager = new AccountDBManager(configuration);
-            var themeManager = new ThemeDBManager(configuration);
-            var themeService = new ThemeService(themeManager);
+            var themeManager = new ShopDBManager(configuration);
+            var themeService = new ShopService(themeManager);
 
             validator = new RegistrationValidation();
             updateValidation = new UpdateValidation();
             loginValidation = new LoginValidation();
             service = new AccountsService(dbManager);
             controller = new AccountController(validator, updateValidation, service, loginValidation);
-            themeController = new ThemeController(themeService);
+            themeController = new ShopController(themeService);
+
+            _currentShop = themeController.GetShopSettings();
+
+            this.Text = $"Shop: {_currentShop.ShopName}";
 
             var draft = new DisplayDTO();
             registerView = new NewestRegisterView(controller, draft);
@@ -73,17 +76,14 @@ namespace Coffee.Kiosk
             newEmployeeView = new NewEmployeeView(controller);
             newEmployeeView.ParentFormReference = this;
 
-
             dashBoardControl = new DashBoardControl(controller);
             dashBoardControl.ParentFormReference = this;
 
             settingsView = new SettingsView(controller, themeController, _currentEmployee);
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             AdminFormHamburger.BackColor = UIhelp.ThemeColors.Background;
             AdminFormHamburger.ForeColor = UIhelp.ThemeColors.TextColor;
 
@@ -123,8 +123,6 @@ namespace Coffee.Kiosk
             panel.ResumeLayout(true);
             panel.PerformLayout();
         }
-
-        
 
         public void GoBack()
         {

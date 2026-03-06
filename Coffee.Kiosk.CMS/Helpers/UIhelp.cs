@@ -31,6 +31,15 @@ namespace Coffee.Kiosk.CMS.Helpers
                 Background = ColorTranslator.FromHtml(theme.Background);
                 Accent = ColorTranslator.FromHtml(theme.Accent);
             }
+
+            public UITheme(Shop shop)
+            {
+                DarkPrimary = ColorTranslator.FromHtml(shop.DarkPrimaryColor);
+                Primary = ColorTranslator.FromHtml(shop.PrimaryColor);
+                Secondary = ColorTranslator.FromHtml(shop.SecondaryColor);
+                Background = ColorTranslator.FromHtml(shop.BackgroundColor);
+                Accent = ColorTranslator.FromHtml(shop.AccentColor);
+            }
         }
 
         public static void CallControl(UserControl control, Panel panel)
@@ -200,14 +209,15 @@ namespace Coffee.Kiosk.CMS.Helpers
                 ApplyRecursive(root, darkPrimary, primary, secondary, background, accent);
             }
 
-            public static UITheme BuildUITheme(ThemeController controller, bool useCustom)
+            public static UITheme BuildUITheme(ShopController controller)
             {
                 if (controller == null)
                     throw new ArgumentNullException(nameof(controller));
 
-                var theme = controller.GetTheme(useCustom);
-                return new UITheme(theme);
+                var shop = controller.GetShopSettings();
+                return new UITheme(shop);
             }
+
 
             private static void ApplyRecursive(
                 Control parent,
@@ -220,7 +230,6 @@ namespace Coffee.Kiosk.CMS.Helpers
                 foreach (Control control in parent.Controls)
                 {
                     ApplyToSingleControl(control, darkPrimary, primary, secondary, background, accent);
-
                     if (control.HasChildren)
                         ApplyRecursive(control, darkPrimary, primary, secondary, background, accent);
                 }
@@ -247,7 +256,6 @@ namespace Coffee.Kiosk.CMS.Helpers
                         button.BorderColor = darkPrimary;
                         button.BorderThickness = 1;
                         button.BorderRadius = 6;
-
                         button.HoverState.FillColor = secondary;
                         button.HoverState.BorderColor = darkPrimary;
                         button.PressedColor = darkPrimary;
@@ -262,15 +270,12 @@ namespace Coffee.Kiosk.CMS.Helpers
                         tab.TabButtonHoverState.FillColor = secondary;
                         tab.TabButtonHoverState.ForeColor = Color.White;
                         tab.TabButtonHoverState.InnerColor = secondary;
-
                         tab.TabButtonIdleState.FillColor = primary;
                         tab.TabButtonIdleState.ForeColor = Color.White;
                         tab.TabButtonIdleState.InnerColor = primary;
-
                         tab.TabButtonSelectedState.FillColor = darkPrimary;
                         tab.TabButtonSelectedState.ForeColor = Color.White;
                         tab.TabButtonSelectedState.InnerColor = darkPrimary;
-
                         tab.TabMenuBackColor = primary;
                         break;
 
@@ -289,7 +294,7 @@ namespace Coffee.Kiosk.CMS.Helpers
                         break;
                 }
             }
-        } 
+        }
 
     }
 }

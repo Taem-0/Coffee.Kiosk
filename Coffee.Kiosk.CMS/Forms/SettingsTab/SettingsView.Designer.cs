@@ -232,7 +232,7 @@
             guna2Panel3.Name = "guna2Panel3";
             guna2Panel3.Padding = new Padding(10);
             guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2Panel3.Size = new Size(1592, 277);
+            guna2Panel3.Size = new Size(1566, 277);
             guna2Panel3.TabIndex = 4;
             // 
             // tableLayoutPanel2
@@ -253,7 +253,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 36.17021F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 30.319149F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new Size(1572, 257);
+            tableLayoutPanel2.Size = new Size(1546, 257);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // requestResetButton
@@ -267,7 +267,7 @@
             requestResetButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             requestResetButton.Font = new Font("Segoe UI", 9F);
             requestResetButton.ForeColor = Color.White;
-            requestResetButton.Location = new Point(1447, 29);
+            requestResetButton.Location = new Point(1421, 29);
             requestResetButton.Name = "requestResetButton";
             requestResetButton.ShadowDecoration.CustomizableEdges = customizableEdges4;
             requestResetButton.Size = new Size(112, 40);
@@ -291,7 +291,7 @@
             label11.Anchor = AnchorStyles.None;
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.Location = new Point(419, 34);
+            label11.Location = new Point(412, 34);
             label11.Name = "label11";
             label11.Size = new Size(105, 30);
             label11.TabIndex = 10;
@@ -329,7 +329,7 @@
             guna2Panel2.Name = "guna2Panel2";
             guna2Panel2.Padding = new Padding(10);
             guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges15;
-            guna2Panel2.Size = new Size(1592, 355);
+            guna2Panel2.Size = new Size(1566, 355);
             guna2Panel2.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -358,7 +358,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 21.5873013F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 18.0952377F));
-            tableLayoutPanel1.Size = new Size(1572, 335);
+            tableLayoutPanel1.Size = new Size(1546, 335);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // changeNameButton
@@ -372,7 +372,7 @@
             changeNameButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             changeNameButton.Font = new Font("Segoe UI", 9F);
             changeNameButton.ForeColor = Color.White;
-            changeNameButton.Location = new Point(1447, 151);
+            changeNameButton.Location = new Point(1421, 151);
             changeNameButton.Name = "changeNameButton";
             changeNameButton.ShadowDecoration.CustomizableEdges = customizableEdges8;
             changeNameButton.Size = new Size(112, 40);
@@ -390,7 +390,7 @@
             pfpChangeButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             pfpChangeButton.Font = new Font("Segoe UI", 9F);
             pfpChangeButton.ForeColor = Color.White;
-            pfpChangeButton.Location = new Point(1447, 13);
+            pfpChangeButton.Location = new Point(1421, 13);
             pfpChangeButton.Name = "pfpChangeButton";
             pfpChangeButton.ShadowDecoration.CustomizableEdges = customizableEdges10;
             pfpChangeButton.Size = new Size(112, 49);
@@ -445,7 +445,7 @@
             // 
             guna2CirclePictureBox1.Anchor = AnchorStyles.None;
             guna2CirclePictureBox1.ImageRotate = 0F;
-            guna2CirclePictureBox1.Location = new Point(412, 13);
+            guna2CirclePictureBox1.Location = new Point(405, 13);
             guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
             guna2CirclePictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges11;
             guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
@@ -458,7 +458,7 @@
             fullNameLabel.Anchor = AnchorStyles.None;
             fullNameLabel.AutoSize = true;
             fullNameLabel.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            fullNameLabel.Location = new Point(415, 156);
+            fullNameLabel.Location = new Point(408, 156);
             fullNameLabel.Name = "fullNameLabel";
             fullNameLabel.Size = new Size(114, 30);
             fullNameLabel.TabIndex = 10;
@@ -469,7 +469,7 @@
             emailLabel.Anchor = AnchorStyles.None;
             emailLabel.AutoSize = true;
             emailLabel.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            emailLabel.Location = new Point(439, 222);
+            emailLabel.Location = new Point(432, 222);
             emailLabel.Name = "emailLabel";
             emailLabel.Size = new Size(66, 30);
             emailLabel.TabIndex = 11;
@@ -480,7 +480,7 @@
             phoneLabel.Anchor = AnchorStyles.None;
             phoneLabel.AutoSize = true;
             phoneLabel.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            phoneLabel.Location = new Point(433, 287);
+            phoneLabel.Location = new Point(426, 287);
             phoneLabel.Name = "phoneLabel";
             phoneLabel.Size = new Size(77, 30);
             phoneLabel.TabIndex = 12;
@@ -497,7 +497,7 @@
             changePhoneButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             changePhoneButton.Font = new Font("Segoe UI", 9F);
             changePhoneButton.ForeColor = Color.White;
-            changePhoneButton.Location = new Point(1447, 282);
+            changePhoneButton.Location = new Point(1421, 282);
             changePhoneButton.Name = "changePhoneButton";
             changePhoneButton.ShadowDecoration.CustomizableEdges = customizableEdges13;
             changePhoneButton.Size = new Size(112, 40);
@@ -557,6 +557,7 @@
             saveButton.Size = new Size(195, 68);
             saveButton.TabIndex = 2;
             saveButton.Text = "Save";
+            saveButton.Click += saveButton_Click;
             // 
             // accentColorButton
             // 

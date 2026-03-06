@@ -8,20 +8,23 @@ using System.Threading.Tasks;
 
 namespace Coffee.Kiosk.CMS.Controllers
 {
-    public class ThemeController
+    public class ShopController
     {
+        private readonly ShopService _service;
 
-        private readonly ThemeService _service;
-
-        public ThemeController(ThemeService service)
+        public ShopController(ShopService service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Theme GetTheme(bool useCustomTheme)
+        public Shop GetShopSettings()
         {
-            return _service.GetActiveTheme(useCustomTheme);
+            return _service.GetShopSettings();
         }
 
+        public void UpdateShopSettings(Shop updatedShop)
+        {
+            _service.UpdateShopSettings(updatedShop);
+        }
     }
 }
