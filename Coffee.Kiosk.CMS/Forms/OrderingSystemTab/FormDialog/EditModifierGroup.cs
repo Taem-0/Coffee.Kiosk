@@ -15,9 +15,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
     public partial class EditModifierGroup : Form
     {
 
-        private CustomToolTip currentToolTip = new CustomToolTip();
         Models.OrderingSystem.ModifierGroup _model;
-        List<Models.OrderingSystem.ModifierGroup> _modifiersExceptItself;
+        List<Models.OrderingSystem.ModifierGroup> _modifiersExceptItselfAndChild;
         public Models.OrderingSystem.ModifierGroup? ResultModel { get; private set; }
 
         public EditModifierGroup(Models.OrderingSystem.ModifierGroup model, List<Models.OrderingSystem.ModifierGroup> modifierGroups)
@@ -25,20 +24,37 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
             InitializeComponent();
 
             _model = model;
-            _modifiersExceptItself = modifierGroups.Where(g => g.Id != model.Id).ToList();
+            var descendants = GetDescendants(model, modifierGroups);
+            _modifiersExceptItselfAndChild = modifierGroups.Where(g => g.Id != model.Id && !descendants.Any(d => d.Id == g.Id)).ToList();
 
             GroupName.Text = model.Name;
             SelectionType.StartIndex = (model.SelectionType.ToString() == "Single" ? 0 : 1);
             RequiredSwitch.Checked = model.Required;
 
-            foreach (var group in _modifiersExceptItself)
+            foreach (var group in _modifiersExceptItselfAndChild)
             {
                 ParentGroupSelection.Items.Add($"ID {group.Id}: {group.Name}");
             }
             if (model.ParentGroupId != null)
             {
-                ParentGroupSelection.SelectedIndex = _modifiersExceptItself.FindIndex(g => g.Id == model.ParentGroupId) + 1;
+                ParentGroupSelection.SelectedIndex = _modifiersExceptItselfAndChild.FindIndex(g => g.Id == model.ParentGroupId) + 1;
             }
+        }
+
+        private List<Models.OrderingSystem.ModifierGroup> GetDescendants(
+            Models.OrderingSystem.ModifierGroup node,
+            List<Models.OrderingSystem.ModifierGroup> allGroups)
+        {
+            var descendants = new List<Models.OrderingSystem.ModifierGroup>();
+
+            var directChildren = allGroups.Where(g => g.ParentGroupId == node.Id).ToList();
+            foreach (var child in directChildren)
+            {
+                descendants.Add(child);
+                descendants.AddRange(GetDescendants(child, allGroups));
+            }
+
+            return descendants;
         }
 
         private void SaveBtn_Click(object sender, EventArgs e)
@@ -63,7 +79,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
                 parentIndex = null;
             }else
             {
-                parentIndex = _modifiersExceptItself[ParentGroupSelection.SelectedIndex - 1].Id;
+                parentIndex = _modifiersExceptItselfAndChild[ParentGroupSelection.SelectedIndex - 1].Id;
             }
 
             ResultModel = new Models.OrderingSystem.ModifierGroup
@@ -84,49 +100,6 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
         {
             DialogResult = DialogResult.Cancel;
             this.Close();
-        }
-
-        private void ShowToolTip(String tipText)
-        {
-            currentToolTip.ChangeToolTipText(tipText);
-
-            currentToolTip.ChangeToolTipText(tipText);
-
-            Point screenPos = Cursor.Position;
-            currentToolTip.Location = new Point(screenPos.X + 10, screenPos.Y + 10);
-
-            currentToolTip.Show();
-        }
-        private void HideToolTip()
-        {
-            currentToolTip.Hide();
-        }
-
-        // ------------------------------------------
-
-        private void SelectionTypeToolTip_MouseEnter(object sender, EventArgs e)
-        {
-            ShowToolTip("""
-                Select single or multiple options
-
-                Single - Only allows one option to be selected.
-                Multiple - Allows multiple option to be selected
-                """);
-        }
-
-        private void SelectionTypeToolTip_MouseLeave(object sender, EventArgs e)
-        {
-            HideToolTip();
-        }
-
-        private void RequiredToolTip_MouseEnter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void RequiredToolTip_MouseLeave(object sender, EventArgs e)
-        {
-
         }
     }
 }

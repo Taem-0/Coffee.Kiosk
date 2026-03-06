@@ -117,16 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="guna2BorderlessForm1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="tipButton3.TipText" xml:space="preserve">
-    <value>Makes it so this group won't appear unless
-parent group has a selected option.
-Ex. 
-     "Sugar Type" needs to have a selected option
-     before "Sugar Level" appears. 
-
-None - appears as individual group.</value>
-  </data>
 </root>
