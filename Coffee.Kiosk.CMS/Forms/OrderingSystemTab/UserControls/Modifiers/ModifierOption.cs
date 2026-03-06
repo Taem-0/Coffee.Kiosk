@@ -12,9 +12,10 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 {
     public partial class ModifierOption : UserControl
     {
-        private Models.OrderingSystem.ModifierOption _model;
+        public event Action<Models.OrderingSystem.ModifierOption>? OptionClicked;
+        public event Action<int>? DeleteClicked;
 
-        public event Action<int>? OptionClicked;
+        private Models.OrderingSystem.ModifierOption _model;
 
         public ModifierOption(Models.OrderingSystem.ModifierOption model)
         {
@@ -27,8 +28,17 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            if (_model.Id == null) return;
-            OptionClicked?.Invoke(_model.Id.Value);
+            OptionClicked?.Invoke(_model);
+        }
+
+        private void EditName_Click(object sender, EventArgs e)
+        {
+            OptionClicked?.Invoke(_model);
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

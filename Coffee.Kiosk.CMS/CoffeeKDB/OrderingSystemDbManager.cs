@@ -445,5 +445,53 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 return 0;
             }
         }
+        internal static bool UpdateModifierOption(Models.OrderingSystem.ModifierOption model)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"UPDATE modifier_option
+                                    SET Name = @name,
+                                        PriceDelta = @priceDelta,
+                                        InventorySubtraction = @inventorySubtraction,
+                                        InventoryItemId = @inventoryItemId,
+                                        TriggersChild = @triggersChild
+                                    WHERE ID = @id;";
+
+                cmd.Parameters.AddWithValue("@name", model.Name);
+                cmd.Parameters.AddWithValue("@priceDelta", model.PriceDelta);
+                cmd.Parameters.AddWithValue("@inventorySubtraction", model.InventorySubtraction);
+                cmd.Parameters.AddWithValue("@inventoryItemId", model.InventoryItemId);
+                cmd.Parameters.AddWithValue("@triggersChild", model.TriggersChild);
+                cmd.Parameters.AddWithValue("@id", model.Id);
+
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to update table modifier_option\n {ex.Message}");
+                return false;
+            }
+        }
+        internal static void DeleteModifierOption(int OptionId)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = $"DELETE FROM modifier_option WHERE ID = {OptionId}";
+                cmd.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Failed to delete modifier_option\n{ex.Message}");
+            }
+        }
     }
 }
