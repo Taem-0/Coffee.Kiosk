@@ -13,12 +13,12 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
     {
         private readonly AccountController _controller;
         private readonly Employee _currentEmployee;
-        private readonly ThemeController _themeController;
+        private readonly ShopController _themeController;
         private string? _selectedImagePath;
         private Cyotek.Windows.Forms.ColorPickerDialog colorPickerDialog1 = new Cyotek.Windows.Forms.ColorPickerDialog();
 
 
-        public SettingsView(AccountController controller, ThemeController themeController, Employee currentEmployee)
+        public SettingsView(AccountController controller, ShopController themeController, Employee currentEmployee)
         {
             InitializeComponent();
 
@@ -27,7 +27,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             _currentEmployee = currentEmployee ?? throw new ArgumentNullException(nameof(currentEmployee));
             _selectedImagePath = currentEmployee.ProfilePicturePath;
 
-            var uiTheme = UIhelp.ThemeManager.BuildUITheme(_themeController, false);
+            var uiTheme = UIhelp.ThemeManager.BuildUITheme(_themeController);
 
             UIhelp.ThemeManager.ApplyTheme(this, uiTheme);
 
@@ -38,8 +38,16 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             accentColorButton.FillColor = uiTheme.Accent;
             UploadLogoContainer.FillColor = uiTheme.Background;
 
+            selectThemeComboBox.Items.Clear();
+            selectThemeComboBox.Items.Add("Default");
+            selectThemeComboBox.Items.Add("Custom");
+
+            var currentShop = _themeController.GetShopSettings();
+            selectThemeComboBox.SelectedItem = currentShop.ThemeMode?.Equals("custom", StringComparison.OrdinalIgnoreCase) == true
+                ? "Custom"
+                : "Default";
+
             LoadCurrentEmployeeData();
-            SetColorEditing(false);
 
         }
 
@@ -210,16 +218,6 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             accentColorButton.Enabled = enabled;
         }
 
-        private void SetButtonState(Guna.UI2.WinForms.Guna2Button button, bool enabled)
-        {
-            button.Enabled = enabled;
-
-            if (enabled)
-                button.FillColor = Color.FromArgb(255, button.FillColor);   
-            else
-                button.FillColor = Color.FromArgb(120, button.FillColor);  
-        }
-
         private void selectThemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             bool isCustom = selectThemeComboBox.SelectedItem?.ToString() == "Custom";
@@ -261,8 +259,51 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             PickColor(accentColorButton);
         }
 
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            var shop = _themeController.GetShopSettings();
+
+            bool isCustom = selectThemeComboBox.SelectedItem?.ToString() == "Custom";
+            shop.ThemeMode = isCustom ? "custom" : "default";
+
+            if (isCustom)
+            {
+                shop.PrimaryColor = ColorTranslator.ToHtml(primaryColorButton.FillColor);
+                shop.DarkPrimaryColor = ColorTranslator.ToHtml(primaryDarkColorButton.FillColor);
+                shop.SecondaryColor = ColorTranslator.ToHtml(secondaryColorButton.FillColor);
+                shop.BackgroundColor = ColorTranslator.ToHtml(backgroundColorButton.FillColor);
+                shop.AccentColor = ColorTranslator.ToHtml(accentColorButton.FillColor);
+            }
+            else
+            {
+                shop.PrimaryColor = "#6F4D38";
+                shop.DarkPrimaryColor = "#3D211A";
+                shop.SecondaryColor = "#A07856";
+                shop.BackgroundColor = "#F5F5DC";
+                shop.AccentColor = "#CBB799";
+            }
+
+            _themeController.UpdateShopSettings(shop);
+
+            var uiTheme = UIhelp.ThemeManager.BuildUITheme(_themeController);
+            primaryColorButton.FillColor = uiTheme.Primary;
+            primaryDarkColorButton.FillColor = uiTheme.DarkPrimary;
+            secondaryColorButton.FillColor = uiTheme.Secondary;
+            backgroundColorButton.FillColor = uiTheme.Background;
+            accentColorButton.FillColor = uiTheme.Accent;
+
+            UIhelp.ThemeManager.ApplyTheme(this, uiTheme);
+
+            primaryColorButton.FillColor = uiTheme.Primary;
+            primaryDarkColorButton.FillColor = uiTheme.DarkPrimary;
+            secondaryColorButton.FillColor = uiTheme.Secondary;
+            backgroundColorButton.FillColor = uiTheme.Background;
+            accentColorButton.FillColor = uiTheme.Accent;
+            UploadLogoContainer.FillColor = uiTheme.Background;
+        }
 
         #endregion
+
 
 
     }
