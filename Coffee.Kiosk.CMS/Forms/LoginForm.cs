@@ -48,7 +48,7 @@ namespace Coffee.Kiosk.CMS.Forms
             var serviceProvider = services.BuildServiceProvider();
             _controller = serviceProvider.GetRequiredService<AccountController>();
 
-            loginControl = new LoginControl();
+            loginControl = new LoginControl(this);
             loginControl.SetController(_controller);
             loginControl.OnLoginSuccess += OnLoginSuccess;
 
@@ -62,6 +62,7 @@ namespace Coffee.Kiosk.CMS.Forms
             adminForm.ShowDialog();
             this.Close();
         }
+
 
         private void LoginForm_Load(object sender, EventArgs e)
         {

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
             EditName = new ToolStripMenuItem();
@@ -45,7 +45,7 @@
             guna2Button1.BorderColor = Color.DimGray;
             guna2Button1.BorderRadius = 7;
             guna2Button1.BorderThickness = 1;
-            guna2Button1.CustomizableEdges = customizableEdges3;
+            guna2Button1.CustomizableEdges = customizableEdges1;
             guna2Button1.DefaultAutoSize = true;
             guna2Button1.DisabledState.BorderColor = Color.DarkGray;
             guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
@@ -58,7 +58,7 @@
             guna2Button1.MinimumSize = new Size(190, 40);
             guna2Button1.Name = "guna2Button1";
             guna2Button1.Padding = new Padding(0, 5, 0, 5);
-            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2Button1.Size = new Size(236, 46);
             guna2Button1.TabIndex = 1;
             guna2Button1.Text = "Modifier_Options_Name";
@@ -76,7 +76,7 @@
             // 
             EditName.Name = "EditName";
             EditName.Size = new Size(210, 36);
-            EditName.Text = "Edit";
+            EditName.Text = "Edit Option";
             EditName.Click += EditName_Click;
             // 
             // deleteToolStripMenuItem

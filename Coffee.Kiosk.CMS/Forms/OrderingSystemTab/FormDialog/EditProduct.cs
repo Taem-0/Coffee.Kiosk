@@ -178,6 +178,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
                 return;
             }
 
+            if (!OrderingSystemDbManager.EditProduct(_ProductId, name, parsedPrice, _ImagePath)) return;
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

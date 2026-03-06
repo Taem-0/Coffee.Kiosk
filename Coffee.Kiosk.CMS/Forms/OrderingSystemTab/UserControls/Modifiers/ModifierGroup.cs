@@ -127,6 +127,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
             if (result == DialogResult.OK)
             {
                 OrderingSystemDbManager.DeleteModifierOption(optionId);
+                LoadOptions();
             }
         }
 

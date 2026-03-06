@@ -39,6 +39,8 @@ namespace Coffee.Kiosk
             AccountsContentPanel = new Panel();
             Kiosk = new TabPage();
             orderingSystem1 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.OrderingSystemMainControl();
+            InventoryTab = new TabPage();
+            inventorySystemControl1 = new Coffee.Kiosk.CMS.Forms.InventoryTab.InventorySystemControl();
             Settings = new TabPage();
             settingsContentPanel = new Panel();
             AdminHamburgerIcons = new ImageList(components);
@@ -46,6 +48,7 @@ namespace Coffee.Kiosk
             DashBoard.SuspendLayout();
             tabAccounts.SuspendLayout();
             Kiosk.SuspendLayout();
+            InventoryTab.SuspendLayout();
             Settings.SuspendLayout();
             SuspendLayout();
             // 
@@ -54,6 +57,7 @@ namespace Coffee.Kiosk
             AdminFormHamburger.Controls.Add(DashBoard);
             AdminFormHamburger.Controls.Add(tabAccounts);
             AdminFormHamburger.Controls.Add(Kiosk);
+            AdminFormHamburger.Controls.Add(InventoryTab);
             AdminFormHamburger.Controls.Add(Settings);
             AdminFormHamburger.Depth = 0;
             AdminFormHamburger.Dock = DockStyle.Fill;
@@ -133,6 +137,26 @@ namespace Coffee.Kiosk
             orderingSystem1.Size = new Size(192, 67);
             orderingSystem1.TabIndex = 0;
             // 
+            // InventoryTab
+            // 
+            InventoryTab.Controls.Add(inventorySystemControl1);
+            InventoryTab.Font = new Font("Segoe UI", 10.8F);
+            InventoryTab.ImageKey = "TruckInventory.png";
+            InventoryTab.Location = new Point(4, 41);
+            InventoryTab.Name = "InventoryTab";
+            InventoryTab.Size = new Size(708, 382);
+            InventoryTab.TabIndex = 4;
+            InventoryTab.Text = "Inventory";
+            InventoryTab.UseVisualStyleBackColor = true;
+            // 
+            // inventorySystemControl1
+            // 
+            inventorySystemControl1.Dock = DockStyle.Fill;
+            inventorySystemControl1.Location = new Point(0, 0);
+            inventorySystemControl1.Name = "inventorySystemControl1";
+            inventorySystemControl1.Size = new Size(708, 382);
+            inventorySystemControl1.TabIndex = 0;
+            // 
             // Settings
             // 
             Settings.Controls.Add(settingsContentPanel);
@@ -163,6 +187,7 @@ namespace Coffee.Kiosk
             AdminHamburgerIcons.Images.SetKeyName(1, "user-management-svgrepo-com.png");
             AdminHamburgerIcons.Images.SetKeyName(2, "CART (1)(1).png");
             AdminHamburgerIcons.Images.SetKeyName(3, "settings-5670.png");
+            AdminHamburgerIcons.Images.SetKeyName(4, "TruckInventory.png");
             // 
             // AdminControlForm
             // 
@@ -183,6 +208,7 @@ namespace Coffee.Kiosk
             DashBoard.ResumeLayout(false);
             tabAccounts.ResumeLayout(false);
             Kiosk.ResumeLayout(false);
+            InventoryTab.ResumeLayout(false);
             Settings.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -200,5 +226,8 @@ namespace Coffee.Kiosk
         private Panel AccountsContentPanel;
         private CMS.Forms.AccountsTab.NewEmployeeView newEmployeeView1;
         private Panel settingsContentPanel;
+        private TabPage InventoryTab;
+        private TabPage tabPage1;
+        private CMS.Forms.InventoryTab.InventorySystemControl inventorySystemControl1;
     }
 }

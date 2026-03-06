@@ -29,21 +29,20 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditModifierOption));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             tipButton3 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
             tipButton2 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
@@ -61,6 +60,7 @@
             tipButton5 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
             guna2TextBox3 = new Guna.UI2.WinForms.Guna2TextBox();
             label5 = new Label();
+            label3 = new Label();
             SuspendLayout();
             // 
             // guna2BorderlessForm1
@@ -80,7 +80,7 @@
             tipButton3.Name = "tipButton3";
             tipButton3.Size = new Size(40, 40);
             tipButton3.TabIndex = 42;
-            tipButton3.TipText = resources.GetString("tipButton3.TipText");
+            tipButton3.TipText = "Select an item, Ingredient, etc... this option uses.";
             // 
             // tipButton2
             // 
@@ -89,7 +89,7 @@
             tipButton2.Name = "tipButton2";
             tipButton2.Size = new Size(40, 40);
             tipButton2.TabIndex = 41;
-            tipButton2.TipText = "Makes it so users can't proceed without\r\nselecting an option first.";
+            tipButton2.TipText = "Doesn't open Child Groups.\r\nEx use case.\r\n    Sugar Type:\r\n           No Sugar ( doesn't open Sugar Level)\r\n           Stevia \r\n           Brown Sugar";
             // 
             // TriggersChildSwitch
             // 
@@ -120,7 +120,7 @@
             // ParentGroupSelection
             // 
             ParentGroupSelection.BackColor = Color.Transparent;
-            ParentGroupSelection.CustomizableEdges = customizableEdges15;
+            ParentGroupSelection.CustomizableEdges = customizableEdges11;
             ParentGroupSelection.DrawMode = DrawMode.OwnerDrawFixed;
             ParentGroupSelection.DropDownStyle = ComboBoxStyle.DropDownList;
             ParentGroupSelection.FocusedColor = Color.FromArgb(94, 148, 255);
@@ -131,7 +131,7 @@
             ParentGroupSelection.Items.AddRange(new object[] { "None" });
             ParentGroupSelection.Location = new Point(31, 290);
             ParentGroupSelection.Name = "ParentGroupSelection";
-            ParentGroupSelection.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            ParentGroupSelection.ShadowDecoration.CustomizableEdges = customizableEdges12;
             ParentGroupSelection.Size = new Size(352, 36);
             ParentGroupSelection.StartIndex = 0;
             ParentGroupSelection.TabIndex = 35;
@@ -139,7 +139,7 @@
             // CancelBtn
             // 
             CancelBtn.BorderRadius = 10;
-            CancelBtn.CustomizableEdges = customizableEdges17;
+            CancelBtn.CustomizableEdges = customizableEdges3;
             CancelBtn.DisabledState.BorderColor = Color.DarkGray;
             CancelBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             CancelBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -149,7 +149,7 @@
             CancelBtn.ForeColor = Color.DimGray;
             CancelBtn.Location = new Point(163, 447);
             CancelBtn.Name = "CancelBtn";
-            CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges4;
             CancelBtn.Size = new Size(127, 49);
             CancelBtn.TabIndex = 34;
             CancelBtn.Text = "Cancel";
@@ -158,7 +158,7 @@
             // SaveBtn
             // 
             SaveBtn.BorderRadius = 10;
-            SaveBtn.CustomizableEdges = customizableEdges19;
+            SaveBtn.CustomizableEdges = customizableEdges1;
             SaveBtn.DisabledState.BorderColor = Color.DarkGray;
             SaveBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             SaveBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -167,7 +167,7 @@
             SaveBtn.ForeColor = Color.White;
             SaveBtn.Location = new Point(296, 447);
             SaveBtn.Name = "SaveBtn";
-            SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges2;
             SaveBtn.Size = new Size(127, 49);
             SaveBtn.TabIndex = 33;
             SaveBtn.Text = "Save";
@@ -186,7 +186,7 @@
             // 
             // OptionName
             // 
-            OptionName.CustomizableEdges = customizableEdges21;
+            OptionName.CustomizableEdges = customizableEdges13;
             OptionName.DefaultText = "";
             OptionName.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             OptionName.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -201,7 +201,7 @@
             OptionName.Name = "OptionName";
             OptionName.PlaceholderText = "OptionPlaceHolderName";
             OptionName.SelectedText = "";
-            OptionName.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            OptionName.ShadowDecoration.CustomizableEdges = customizableEdges14;
             OptionName.Size = new Size(392, 52);
             OptionName.TabIndex = 31;
             // 
@@ -218,7 +218,7 @@
             // 
             // PriceTxtBox
             // 
-            PriceTxtBox.CustomizableEdges = customizableEdges23;
+            PriceTxtBox.CustomizableEdges = customizableEdges9;
             PriceTxtBox.DefaultText = "";
             PriceTxtBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             PriceTxtBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -233,7 +233,7 @@
             PriceTxtBox.Name = "PriceTxtBox";
             PriceTxtBox.PlaceholderText = "0.00";
             PriceTxtBox.SelectedText = "";
-            PriceTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            PriceTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges10;
             PriceTxtBox.Size = new Size(143, 52);
             PriceTxtBox.TabIndex = 45;
             // 
@@ -244,11 +244,11 @@
             tipButton4.Name = "tipButton4";
             tipButton4.Size = new Size(40, 40);
             tipButton4.TabIndex = 46;
-            tipButton4.TipText = "Makes it so users can't proceed without\r\nselecting an option first.";
+            tipButton4.TipText = "Sums option's Price to the total product price.\r\n";
             // 
             // guna2TextBox2
             // 
-            guna2TextBox2.CustomizableEdges = customizableEdges25;
+            guna2TextBox2.CustomizableEdges = customizableEdges7;
             guna2TextBox2.DefaultText = "";
             guna2TextBox2.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             guna2TextBox2.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -263,7 +263,7 @@
             guna2TextBox2.Name = "guna2TextBox2";
             guna2TextBox2.PlaceholderText = "Search";
             guna2TextBox2.SelectedText = "";
-            guna2TextBox2.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            guna2TextBox2.ShadowDecoration.CustomizableEdges = customizableEdges8;
             guna2TextBox2.Size = new Size(172, 31);
             guna2TextBox2.TabIndex = 47;
             // 
@@ -274,11 +274,11 @@
             tipButton5.Name = "tipButton5";
             tipButton5.Size = new Size(40, 40);
             tipButton5.TabIndex = 50;
-            tipButton5.TipText = "Makes it so users can't proceed without\r\nselecting an option first.";
+            tipButton5.TipText = "How much to subtract for the chosen Inventory Item.";
             // 
             // guna2TextBox3
             // 
-            guna2TextBox3.CustomizableEdges = customizableEdges27;
+            guna2TextBox3.CustomizableEdges = customizableEdges5;
             guna2TextBox3.DefaultText = "";
             guna2TextBox3.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             guna2TextBox3.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -293,7 +293,7 @@
             guna2TextBox3.Name = "guna2TextBox3";
             guna2TextBox3.PlaceholderText = "GroupPlaceHolderName";
             guna2TextBox3.SelectedText = "";
-            guna2TextBox3.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            guna2TextBox3.ShadowDecoration.CustomizableEdges = customizableEdges6;
             guna2TextBox3.Size = new Size(186, 40);
             guna2TextBox3.TabIndex = 49;
             // 
@@ -308,6 +308,15 @@
             label5.TabIndex = 48;
             label5.Text = "Amount to Subtract";
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(12, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(125, 20);
+            label3.TabIndex = 51;
+            label3.Text = "not functional yet";
+            // 
             // EditModifierOption
             // 
             AcceptButton = SaveBtn;
@@ -315,6 +324,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = CancelBtn;
             ClientSize = new Size(454, 508);
+            Controls.Add(label3);
             Controls.Add(tipButton5);
             Controls.Add(guna2TextBox3);
             Controls.Add(label5);
@@ -359,5 +369,6 @@
         private Label label5;
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox2;
         private UserControls.TipButton tipButton4;
+        private Label label3;
     }
 }

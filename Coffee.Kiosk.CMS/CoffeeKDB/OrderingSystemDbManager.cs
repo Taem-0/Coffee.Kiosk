@@ -209,6 +209,35 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
         }
 
+        internal static bool EditProduct(int productId, string name, decimal price, string imagePath)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"UPDATE product
+                                    SET Name = @name,
+                                        Price = @price,
+                                        ImagePath = @imagePath
+                                    WHERE ID = @id;
+                                        ";
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@price", price);
+                cmd.Parameters.AddWithValue("@imagePath", imagePath);
+                cmd.Parameters.AddWithValue("@id", productId);
+
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to update table product\n{ex.Message}");
+                return false;
+            }
+        }
+
         internal static void DeleteProduct(int productId)
         {
             try

@@ -221,20 +221,6 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
             //}
         }
 
-        private void ReloadCategories()
-        {
-            var scroll = flowCategory.VerticalScroll.Value;
-
-            categoryData = OrderingSystemDbManager.GetAllCategories();
-            LoadCategories();
-
-            flowCategory.VerticalScroll.Value = Math.Min(
-                scroll,
-                flowCategory.VerticalScroll.Maximum
-            );
-        }
-
-
         private void LoadProducts(int categoryId)
         {
             flowProduct.Controls.Clear();
@@ -321,7 +307,6 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls
 
             if (result == DialogResult.OK)
             {
-                //TODO
                 LoadProducts(selectedCategoryId.Value);
             }
             _parent.ShowDarkOverlay(false);

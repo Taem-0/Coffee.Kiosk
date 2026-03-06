@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditModifierGroup));
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             CancelBtn = new Guna.UI2.WinForms.Guna2Button();
@@ -68,7 +68,7 @@
             // CancelBtn
             // 
             CancelBtn.BorderRadius = 10;
-            CancelBtn.CustomizableEdges = customizableEdges3;
+            CancelBtn.CustomizableEdges = customizableEdges11;
             CancelBtn.DisabledState.BorderColor = Color.DarkGray;
             CancelBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             CancelBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -78,7 +78,7 @@
             CancelBtn.ForeColor = Color.DimGray;
             CancelBtn.Location = new Point(163, 342);
             CancelBtn.Name = "CancelBtn";
-            CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges12;
             CancelBtn.Size = new Size(127, 49);
             CancelBtn.TabIndex = 20;
             CancelBtn.Text = "Cancel";
@@ -87,7 +87,7 @@
             // SaveBtn
             // 
             SaveBtn.BorderRadius = 10;
-            SaveBtn.CustomizableEdges = customizableEdges1;
+            SaveBtn.CustomizableEdges = customizableEdges13;
             SaveBtn.DisabledState.BorderColor = Color.DarkGray;
             SaveBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             SaveBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -96,7 +96,7 @@
             SaveBtn.ForeColor = Color.White;
             SaveBtn.Location = new Point(296, 342);
             SaveBtn.Name = "SaveBtn";
-            SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges14;
             SaveBtn.Size = new Size(127, 49);
             SaveBtn.TabIndex = 19;
             SaveBtn.Text = "Save";
@@ -115,7 +115,7 @@
             // 
             // GroupName
             // 
-            GroupName.CustomizableEdges = customizableEdges9;
+            GroupName.CustomizableEdges = customizableEdges15;
             GroupName.DefaultText = "";
             GroupName.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             GroupName.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -130,14 +130,14 @@
             GroupName.Name = "GroupName";
             GroupName.PlaceholderText = "GroupPlaceHolderName";
             GroupName.SelectedText = "";
-            GroupName.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            GroupName.ShadowDecoration.CustomizableEdges = customizableEdges16;
             GroupName.Size = new Size(392, 52);
             GroupName.TabIndex = 17;
             // 
             // ParentGroupSelection
             // 
             ParentGroupSelection.BackColor = Color.Transparent;
-            ParentGroupSelection.CustomizableEdges = customizableEdges7;
+            ParentGroupSelection.CustomizableEdges = customizableEdges17;
             ParentGroupSelection.DrawMode = DrawMode.OwnerDrawFixed;
             ParentGroupSelection.DropDownStyle = ComboBoxStyle.DropDownList;
             ParentGroupSelection.FocusedColor = Color.FromArgb(94, 148, 255);
@@ -148,7 +148,7 @@
             ParentGroupSelection.Items.AddRange(new object[] { "None" });
             ParentGroupSelection.Location = new Point(31, 256);
             ParentGroupSelection.Name = "ParentGroupSelection";
-            ParentGroupSelection.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            ParentGroupSelection.ShadowDecoration.CustomizableEdges = customizableEdges18;
             ParentGroupSelection.Size = new Size(352, 36);
             ParentGroupSelection.StartIndex = 0;
             ParentGroupSelection.TabIndex = 21;
@@ -167,7 +167,7 @@
             // SelectionType
             // 
             SelectionType.BackColor = Color.Transparent;
-            SelectionType.CustomizableEdges = customizableEdges5;
+            SelectionType.CustomizableEdges = customizableEdges19;
             SelectionType.DrawMode = DrawMode.OwnerDrawFixed;
             SelectionType.DropDownStyle = ComboBoxStyle.DropDownList;
             SelectionType.FocusedColor = Color.FromArgb(94, 148, 255);
@@ -178,7 +178,7 @@
             SelectionType.Items.AddRange(new object[] { "Single", "Multiple" });
             SelectionType.Location = new Point(31, 170);
             SelectionType.Name = "SelectionType";
-            SelectionType.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            SelectionType.ShadowDecoration.CustomizableEdges = customizableEdges20;
             SelectionType.Size = new Size(156, 36);
             SelectionType.StartIndex = 0;
             SelectionType.TabIndex = 24;

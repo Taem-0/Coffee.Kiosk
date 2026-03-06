@@ -38,7 +38,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (_model.Id == null) return;
+            DeleteClicked?.Invoke(_model.Id.Value);
         }
     }
 }

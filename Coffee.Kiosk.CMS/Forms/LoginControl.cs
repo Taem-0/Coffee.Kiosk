@@ -20,9 +20,12 @@ namespace Coffee.Kiosk.CMS.Forms
         private readonly Color _beige = ColorTranslator.FromHtml("#cbb799");
         private readonly Color _background = ColorTranslator.FromHtml("#f5f5dc");
 
-        public LoginControl()
+        public LoginControl(Form parentForm)
         {
             InitializeComponent();
+
+            parentForm.AcceptButton = loginButton;
+
             ApplyLoginTheme();
 
             logoPictureBox.Parent = this;
@@ -158,6 +161,7 @@ namespace Coffee.Kiosk.CMS.Forms
 
             OnLoginSuccess?.Invoke(result.Employee);
         }
+
 
         private void hideButton_Click(object sender, EventArgs e)
         {
