@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Coffee.Kiosk.CMS.Models
 {
-    internal class InventorySystem
+    public class InventorySystem
     {
 
-        internal record Inventory(
+        public record Inventory(
             int? Id,
             string Name,
-            decimal Stock,
+            decimal Stocks,
             string Unit,
-            string ImagePath
+            string? ImagePath
             );
 
     }
