@@ -30,7 +30,7 @@ namespace Coffee.Kiosk.CMS.Forms.InventoryTab
         {
             if (inventoryScreen == null)
             {
-                inventoryScreen = new UserControls.InventoryScreen();
+                inventoryScreen = new UserControls.InventoryScreen(this);
             }
             UIhelp.CallControl(inventoryScreen, MainScreen);
         }
