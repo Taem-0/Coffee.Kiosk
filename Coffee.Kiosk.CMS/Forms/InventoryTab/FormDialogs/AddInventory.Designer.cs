@@ -31,14 +31,14 @@
             components = new System.ComponentModel.Container();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             label3 = new Label();
             CancelBtn = new Guna.UI2.WinForms.Guna2Button();
@@ -96,7 +96,7 @@
             // SaveBtn
             // 
             SaveBtn.BorderRadius = 10;
-            SaveBtn.CustomizableEdges = customizableEdges5;
+            SaveBtn.CustomizableEdges = customizableEdges1;
             SaveBtn.DisabledState.BorderColor = Color.DarkGray;
             SaveBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             SaveBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -105,7 +105,7 @@
             SaveBtn.ForeColor = Color.White;
             SaveBtn.Location = new Point(277, 454);
             SaveBtn.Name = "SaveBtn";
-            SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges2;
             SaveBtn.Size = new Size(127, 49);
             SaveBtn.TabIndex = 13;
             SaveBtn.Text = "Save";
@@ -203,7 +203,7 @@
             // 
             // UnitTxtBox
             // 
-            UnitTxtBox.CustomizableEdges = customizableEdges1;
+            UnitTxtBox.CustomizableEdges = customizableEdges5;
             UnitTxtBox.DefaultText = "";
             UnitTxtBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             UnitTxtBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -219,7 +219,7 @@
             UnitTxtBox.Name = "UnitTxtBox";
             UnitTxtBox.PlaceholderText = "mg";
             UnitTxtBox.SelectedText = "";
-            UnitTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            UnitTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges6;
             UnitTxtBox.Size = new Size(124, 41);
             UnitTxtBox.TabIndex = 16;
             // 
@@ -234,8 +234,10 @@
             // 
             // AddInventory
             // 
+            AcceptButton = SaveBtn;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = CancelBtn;
             ClientSize = new Size(413, 533);
             Controls.Add(tipButton1);
             Controls.Add(label4);
