@@ -476,6 +476,8 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
         }
         internal static bool UpdateModifierOption(Models.OrderingSystem.ModifierOption model)
         {
+            //MessageBox.Show($"{model.ToString()}");
+            if (model.Id == null) return false;
             try
             {
                 using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
@@ -495,7 +497,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@inventorySubtraction", model.InventorySubtraction);
                 cmd.Parameters.AddWithValue("@inventoryItemId", model.InventoryItemId);
                 cmd.Parameters.AddWithValue("@triggersChild", model.TriggersChild);
-                cmd.Parameters.AddWithValue("@id", model.Id);
+                cmd.Parameters.AddWithValue("@id", model.Id.Value);
 
                 cmd.ExecuteNonQuery();
                 return true;

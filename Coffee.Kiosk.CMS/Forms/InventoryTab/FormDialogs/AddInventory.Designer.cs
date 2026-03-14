@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             label3 = new Label();
             CancelBtn = new Guna.UI2.WinForms.Guna2Button();
@@ -68,7 +68,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.ControlDarkDark;
-            label3.Location = new Point(82, 211);
+            label3.Location = new Point(86, 215);
             label3.Name = "label3";
             label3.Size = new Size(250, 31);
             label3.TabIndex = 15;
@@ -77,7 +77,7 @@
             // CancelBtn
             // 
             CancelBtn.BorderRadius = 10;
-            CancelBtn.CustomizableEdges = customizableEdges3;
+            CancelBtn.CustomizableEdges = customizableEdges13;
             CancelBtn.DisabledState.BorderColor = Color.DarkGray;
             CancelBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             CancelBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -87,7 +87,7 @@
             CancelBtn.ForeColor = Color.DimGray;
             CancelBtn.Location = new Point(144, 454);
             CancelBtn.Name = "CancelBtn";
-            CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges14;
             CancelBtn.Size = new Size(127, 49);
             CancelBtn.TabIndex = 14;
             CancelBtn.Text = "Cancel";
@@ -96,7 +96,7 @@
             // SaveBtn
             // 
             SaveBtn.BorderRadius = 10;
-            SaveBtn.CustomizableEdges = customizableEdges1;
+            SaveBtn.CustomizableEdges = customizableEdges11;
             SaveBtn.DisabledState.BorderColor = Color.DarkGray;
             SaveBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             SaveBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -105,7 +105,7 @@
             SaveBtn.ForeColor = Color.White;
             SaveBtn.Location = new Point(277, 454);
             SaveBtn.Name = "SaveBtn";
-            SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges12;
             SaveBtn.Size = new Size(127, 49);
             SaveBtn.TabIndex = 13;
             SaveBtn.Text = "Save";
@@ -124,7 +124,7 @@
             // 
             // StockTxtBox
             // 
-            StockTxtBox.CustomizableEdges = customizableEdges7;
+            StockTxtBox.CustomizableEdges = customizableEdges17;
             StockTxtBox.DefaultText = "";
             StockTxtBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             StockTxtBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -139,7 +139,7 @@
             StockTxtBox.Name = "StockTxtBox";
             StockTxtBox.PlaceholderText = "100.00";
             StockTxtBox.SelectedText = "";
-            StockTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            StockTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges18;
             StockTxtBox.Size = new Size(259, 41);
             StockTxtBox.TabIndex = 11;
             // 
@@ -157,7 +157,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.default_icon;
-            pictureBox1.Location = new Point(104, 8);
+            pictureBox1.Location = new Point(108, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(200, 200);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -170,7 +170,7 @@
             // 
             // InventoryNameTxtBox
             // 
-            InventoryNameTxtBox.CustomizableEdges = customizableEdges9;
+            InventoryNameTxtBox.CustomizableEdges = customizableEdges19;
             InventoryNameTxtBox.DefaultText = "";
             InventoryNameTxtBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             InventoryNameTxtBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -186,7 +186,7 @@
             InventoryNameTxtBox.Name = "InventoryNameTxtBox";
             InventoryNameTxtBox.PlaceholderText = "ProductPlaceHolderName";
             InventoryNameTxtBox.SelectedText = "";
-            InventoryNameTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            InventoryNameTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges20;
             InventoryNameTxtBox.Size = new Size(392, 41);
             InventoryNameTxtBox.TabIndex = 8;
             // 
@@ -203,7 +203,8 @@
             // 
             // UnitTxtBox
             // 
-            UnitTxtBox.CustomizableEdges = customizableEdges5;
+            UnitTxtBox.CharacterCasing = CharacterCasing.Upper;
+            UnitTxtBox.CustomizableEdges = customizableEdges15;
             UnitTxtBox.DefaultText = "";
             UnitTxtBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             UnitTxtBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -219,7 +220,7 @@
             UnitTxtBox.Name = "UnitTxtBox";
             UnitTxtBox.PlaceholderText = "mg";
             UnitTxtBox.SelectedText = "";
-            UnitTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            UnitTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges16;
             UnitTxtBox.Size = new Size(124, 41);
             UnitTxtBox.TabIndex = 16;
             // 

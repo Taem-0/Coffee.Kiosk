@@ -13,7 +13,15 @@ namespace Coffee.Kiosk.CMS.Forms.InventoryTab.FormDialogs
 {
     public partial class AddInventory : Form
     {
-        string _imagePath = string.Empty;
+        private string _name = String.Empty;
+        private decimal _stocks = 0.00m;
+        private string _unit = String.Empty;
+        private string _imagePath = "../../../Resources/default_icon.png";
+        public string InventoryName => _name;
+        public decimal Stocks => _stocks;
+        public string Unit => _unit;
+        public string ImagePath => _imagePath;
+
         public AddInventory()
         {
             InitializeComponent();
@@ -51,6 +59,10 @@ namespace Coffee.Kiosk.CMS.Forms.InventoryTab.FormDialogs
                 MessageBox.Show(string.Join("\n", errors)); 
                 return;
             }
+
+            _name = name;
+            _stocks = parsedStock;
+            _unit = unit;
 
             DialogResult = DialogResult.OK;
             this.Close();

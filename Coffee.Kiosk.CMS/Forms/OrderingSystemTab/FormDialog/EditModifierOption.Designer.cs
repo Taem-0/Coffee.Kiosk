@@ -48,7 +48,7 @@
             tipButton2 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
             TriggersChildSwitch = new MaterialSkin.Controls.MaterialSwitch();
             label2 = new Label();
-            ParentGroupSelection = new Guna.UI2.WinForms.Guna2ComboBox();
+            InventoryItemSelection = new Guna.UI2.WinForms.Guna2ComboBox();
             CancelBtn = new Guna.UI2.WinForms.Guna2Button();
             SaveBtn = new Guna.UI2.WinForms.Guna2Button();
             label1 = new Label();
@@ -56,11 +56,12 @@
             label4 = new Label();
             PriceTxtBox = new Guna.UI2.WinForms.Guna2TextBox();
             tipButton4 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
-            guna2TextBox2 = new Guna.UI2.WinForms.Guna2TextBox();
+            InventorySearchTxtBox = new Guna.UI2.WinForms.Guna2TextBox();
             tipButton5 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
             guna2TextBox3 = new Guna.UI2.WinForms.Guna2TextBox();
             label5 = new Label();
-            label3 = new Label();
+            tipButton1 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
+            SubtractFromParentSwitch = new MaterialSkin.Controls.MaterialSwitch();
             SuspendLayout();
             // 
             // guna2BorderlessForm1
@@ -76,7 +77,7 @@
             // tipButton3
             // 
             tipButton3.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            tipButton3.Location = new Point(383, 290);
+            tipButton3.Location = new Point(386, 286);
             tipButton3.Name = "tipButton3";
             tipButton3.Size = new Size(40, 40);
             tipButton3.TabIndex = 42;
@@ -117,24 +118,25 @@
             label2.TabIndex = 36;
             label2.Text = "Inventory Item";
             // 
-            // ParentGroupSelection
+            // InventoryItemSelection
             // 
-            ParentGroupSelection.BackColor = Color.Transparent;
-            ParentGroupSelection.CustomizableEdges = customizableEdges11;
-            ParentGroupSelection.DrawMode = DrawMode.OwnerDrawFixed;
-            ParentGroupSelection.DropDownStyle = ComboBoxStyle.DropDownList;
-            ParentGroupSelection.FocusedColor = Color.FromArgb(94, 148, 255);
-            ParentGroupSelection.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            ParentGroupSelection.Font = new Font("Segoe UI", 13F);
-            ParentGroupSelection.ForeColor = Color.FromArgb(68, 88, 112);
-            ParentGroupSelection.ItemHeight = 30;
-            ParentGroupSelection.Items.AddRange(new object[] { "None" });
-            ParentGroupSelection.Location = new Point(31, 290);
-            ParentGroupSelection.Name = "ParentGroupSelection";
-            ParentGroupSelection.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            ParentGroupSelection.Size = new Size(352, 36);
-            ParentGroupSelection.StartIndex = 0;
-            ParentGroupSelection.TabIndex = 35;
+            InventoryItemSelection.BackColor = Color.Transparent;
+            InventoryItemSelection.CustomizableEdges = customizableEdges11;
+            InventoryItemSelection.DrawMode = DrawMode.OwnerDrawFixed;
+            InventoryItemSelection.DropDownStyle = ComboBoxStyle.DropDownList;
+            InventoryItemSelection.FocusedColor = Color.FromArgb(94, 148, 255);
+            InventoryItemSelection.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            InventoryItemSelection.Font = new Font("Segoe UI", 13F);
+            InventoryItemSelection.ForeColor = Color.FromArgb(68, 88, 112);
+            InventoryItemSelection.ItemHeight = 30;
+            InventoryItemSelection.Items.AddRange(new object[] { "None" });
+            InventoryItemSelection.Location = new Point(31, 290);
+            InventoryItemSelection.Name = "InventoryItemSelection";
+            InventoryItemSelection.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            InventoryItemSelection.Size = new Size(352, 36);
+            InventoryItemSelection.StartIndex = 0;
+            InventoryItemSelection.TabIndex = 35;
+            InventoryItemSelection.SelectedIndexChanged += InventoryItemSelection_SelectedIndexChanged;
             // 
             // CancelBtn
             // 
@@ -147,7 +149,7 @@
             CancelBtn.FillColor = Color.FromArgb(224, 224, 224);
             CancelBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             CancelBtn.ForeColor = Color.DimGray;
-            CancelBtn.Location = new Point(163, 447);
+            CancelBtn.Location = new Point(163, 481);
             CancelBtn.Name = "CancelBtn";
             CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges4;
             CancelBtn.Size = new Size(127, 49);
@@ -165,7 +167,7 @@
             SaveBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             SaveBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             SaveBtn.ForeColor = Color.White;
-            SaveBtn.Location = new Point(296, 447);
+            SaveBtn.Location = new Point(296, 481);
             SaveBtn.Name = "SaveBtn";
             SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges2;
             SaveBtn.Size = new Size(127, 49);
@@ -246,35 +248,37 @@
             tipButton4.TabIndex = 46;
             tipButton4.TipText = "Sums option's Price to the total product price.\r\n";
             // 
-            // guna2TextBox2
+            // InventorySearchTxtBox
             // 
-            guna2TextBox2.CustomizableEdges = customizableEdges7;
-            guna2TextBox2.DefaultText = "";
-            guna2TextBox2.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            guna2TextBox2.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            guna2TextBox2.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            guna2TextBox2.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            guna2TextBox2.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            guna2TextBox2.Font = new Font("Segoe UI", 13F);
-            guna2TextBox2.ForeColor = Color.Black;
-            guna2TextBox2.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            guna2TextBox2.Location = new Point(211, 256);
-            guna2TextBox2.Margin = new Padding(4, 6, 4, 6);
-            guna2TextBox2.Name = "guna2TextBox2";
-            guna2TextBox2.PlaceholderText = "Search";
-            guna2TextBox2.SelectedText = "";
-            guna2TextBox2.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2TextBox2.Size = new Size(172, 31);
-            guna2TextBox2.TabIndex = 47;
+            InventorySearchTxtBox.CustomizableEdges = customizableEdges7;
+            InventorySearchTxtBox.DefaultText = "";
+            InventorySearchTxtBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            InventorySearchTxtBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            InventorySearchTxtBox.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            InventorySearchTxtBox.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            InventorySearchTxtBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            InventorySearchTxtBox.Font = new Font("Segoe UI", 13F);
+            InventorySearchTxtBox.ForeColor = Color.Black;
+            InventorySearchTxtBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            InventorySearchTxtBox.Location = new Point(211, 256);
+            InventorySearchTxtBox.Margin = new Padding(4, 6, 4, 6);
+            InventorySearchTxtBox.Name = "InventorySearchTxtBox";
+            InventorySearchTxtBox.PlaceholderText = "Search";
+            InventorySearchTxtBox.SelectedText = "";
+            InventorySearchTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            InventorySearchTxtBox.Size = new Size(172, 31);
+            InventorySearchTxtBox.TabIndex = 47;
+            InventorySearchTxtBox.TextChanged += InventorySearchTxtBox_TextChanged;
             // 
             // tipButton5
             // 
             tipButton5.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            tipButton5.Location = new Point(219, 375);
+            tipButton5.Location = new Point(317, 381);
             tipButton5.Name = "tipButton5";
             tipButton5.Size = new Size(40, 40);
             tipButton5.TabIndex = 50;
             tipButton5.TipText = "How much to subtract for the chosen Inventory Item.";
+            tipButton5.Load += tipButton5_Load;
             // 
             // guna2TextBox3
             // 
@@ -288,13 +292,13 @@
             guna2TextBox3.Font = new Font("Segoe UI", 13F);
             guna2TextBox3.ForeColor = Color.Black;
             guna2TextBox3.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            guna2TextBox3.Location = new Point(31, 375);
+            guna2TextBox3.Location = new Point(112, 384);
             guna2TextBox3.Margin = new Padding(4, 6, 4, 6);
             guna2TextBox3.Name = "guna2TextBox3";
-            guna2TextBox3.PlaceholderText = "GroupPlaceHolderName";
+            guna2TextBox3.PlaceholderText = "123.23";
             guna2TextBox3.SelectedText = "";
             guna2TextBox3.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2TextBox3.Size = new Size(186, 40);
+            guna2TextBox3.Size = new Size(198, 40);
             guna2TextBox3.TabIndex = 49;
             // 
             // label5
@@ -302,20 +306,35 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12.5F, FontStyle.Bold);
             label5.ForeColor = SystemColors.ControlDarkDark;
-            label5.Location = new Point(31, 338);
+            label5.Location = new Point(112, 344);
             label5.Name = "label5";
             label5.Size = new Size(210, 30);
             label5.TabIndex = 48;
             label5.Text = "Amount to Subtract";
             // 
-            // label3
+            // tipButton1
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(12, 9);
-            label3.Name = "label3";
-            label3.Size = new Size(125, 20);
-            label3.TabIndex = 51;
-            label3.Text = "not functional yet";
+            tipButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tipButton1.Location = new Point(313, 430);
+            tipButton1.Name = "tipButton1";
+            tipButton1.Size = new Size(40, 40);
+            tipButton1.TabIndex = 52;
+            tipButton1.TipText = "Also subtracts from this parent's modifier group \r\nselected inventory item.";
+            // 
+            // SubtractFromParentSwitch
+            // 
+            SubtractFromParentSwitch.AutoSize = true;
+            SubtractFromParentSwitch.Depth = 0;
+            SubtractFromParentSwitch.Location = new Point(105, 430);
+            SubtractFromParentSwitch.Margin = new Padding(0);
+            SubtractFromParentSwitch.MouseLocation = new Point(-1, -1);
+            SubtractFromParentSwitch.MouseState = MaterialSkin.MouseState.HOVER;
+            SubtractFromParentSwitch.Name = "SubtractFromParentSwitch";
+            SubtractFromParentSwitch.Ripple = true;
+            SubtractFromParentSwitch.Size = new Size(205, 37);
+            SubtractFromParentSwitch.TabIndex = 51;
+            SubtractFromParentSwitch.Text = "Subtract from parent";
+            SubtractFromParentSwitch.UseVisualStyleBackColor = true;
             // 
             // EditModifierOption
             // 
@@ -323,12 +342,13 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = CancelBtn;
-            ClientSize = new Size(454, 508);
-            Controls.Add(label3);
+            ClientSize = new Size(454, 542);
+            Controls.Add(tipButton1);
+            Controls.Add(SubtractFromParentSwitch);
             Controls.Add(tipButton5);
             Controls.Add(guna2TextBox3);
             Controls.Add(label5);
-            Controls.Add(guna2TextBox2);
+            Controls.Add(InventorySearchTxtBox);
             Controls.Add(tipButton4);
             Controls.Add(PriceTxtBox);
             Controls.Add(label4);
@@ -336,7 +356,7 @@
             Controls.Add(tipButton2);
             Controls.Add(TriggersChildSwitch);
             Controls.Add(label2);
-            Controls.Add(ParentGroupSelection);
+            Controls.Add(InventoryItemSelection);
             Controls.Add(CancelBtn);
             Controls.Add(SaveBtn);
             Controls.Add(label1);
@@ -357,7 +377,7 @@
         private UserControls.TipButton tipButton2;
         private MaterialSkin.Controls.MaterialSwitch TriggersChildSwitch;
         private Label label2;
-        private Guna.UI2.WinForms.Guna2ComboBox ParentGroupSelection;
+        private Guna.UI2.WinForms.Guna2ComboBox InventoryItemSelection;
         private Guna.UI2.WinForms.Guna2Button CancelBtn;
         private Guna.UI2.WinForms.Guna2Button SaveBtn;
         private Label label1;
@@ -367,8 +387,9 @@
         private UserControls.TipButton tipButton5;
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox3;
         private Label label5;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox2;
+        private Guna.UI2.WinForms.Guna2TextBox InventorySearchTxtBox;
         private UserControls.TipButton tipButton4;
-        private Label label3;
+        private UserControls.TipButton tipButton1;
+        private MaterialSkin.Controls.MaterialSwitch SubtractFromParentSwitch;
     }
 }
