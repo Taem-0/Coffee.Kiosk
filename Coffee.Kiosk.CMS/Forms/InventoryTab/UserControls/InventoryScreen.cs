@@ -34,6 +34,16 @@ namespace Coffee.Kiosk.CMS.Forms.InventoryTab.UserControls
 
             _searchTimer.Interval = 100;
             _searchTimer.Tick += SearchTimer_Tick;
+
+            _showAsTables = DisplayAsTableCheckBox.Checked;
+            if (_showAsTables)
+            {
+                ShowInventoryAsTables();
+            }
+            else
+            {
+                ShowInventoryAsCards();
+            }
         }
 
         private void AddMoreButton_Click(object sender, EventArgs e)

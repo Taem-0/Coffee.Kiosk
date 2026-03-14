@@ -84,10 +84,12 @@
             // DisplayAsTableCheckBox
             // 
             DisplayAsTableCheckBox.AutoSize = true;
+            DisplayAsTableCheckBox.Checked = true;
             DisplayAsTableCheckBox.CheckedState.BorderColor = Color.FromArgb(94, 148, 255);
             DisplayAsTableCheckBox.CheckedState.BorderRadius = 0;
             DisplayAsTableCheckBox.CheckedState.BorderThickness = 0;
             DisplayAsTableCheckBox.CheckedState.FillColor = Color.FromArgb(94, 148, 255);
+            DisplayAsTableCheckBox.CheckState = CheckState.Checked;
             DisplayAsTableCheckBox.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             DisplayAsTableCheckBox.Location = new Point(466, 46);
             DisplayAsTableCheckBox.Name = "DisplayAsTableCheckBox";

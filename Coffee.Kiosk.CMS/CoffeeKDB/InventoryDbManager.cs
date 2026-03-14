@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Coffee.Kiosk.CMS.Models.InventorySystem;
 
 namespace Coffee.Kiosk.CMS.CoffeeKDB
 {
@@ -122,7 +123,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 return false;
             }
         }
-        internal static bool DeleteInventory(int invetoryId)
+        internal static bool DeleteInventory(int inventoryId)
         {
             try
             {
@@ -132,37 +133,103 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 using var cmd = conn.CreateCommand();
                 cmd.CommandText = @"DELETE FROM inventory_item
                                     WHERE ID = @id;";
-                cmd.Parameters.AddWithValue("@id", invetoryId);
+                cmd.Parameters.AddWithValue("@id", inventoryId);
 
                 cmd.ExecuteNonQuery();
                 return true;
             }
             catch (MySqlException ex)
             {
-                if (ex.Number == 1451)
+                if (ex.Number == 1451) // foreign key constraint fails
                 {
-                    MessageBox.Show($"""
-                        Cannot delete this inventory item because one or more modifier options are using it.
-                        List of products with modifier options using this item:
+                    var usageList = GetProductsUsingInventoryItem(inventoryId);
+                    if (usageList.Count == 0)
+                    {
+                        MessageBox.Show("Cannot perform this operation: the inventory item is referenced by other records.");
+                    }
+                    else
+                    {
+                        var sb = new StringBuilder();
+                        sb.AppendLine("This inventory item is currently used by the following modifier options:");
+                        sb.AppendLine();
 
-                        """);
-                        
+                        foreach (var usage in usageList)
+                        {
+                            sb.AppendLine($"Product: {usage.ProductName}");
+                            sb.AppendLine($"  Group: {usage.ModifierGroupName}");
+                            sb.AppendLine($"    Option: {usage.ModifierOptionName}");
+                            sb.AppendLine();
+                        }
+
+                        MessageBox.Show(sb.ToString(), "Action Not Allowed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
                     return false;
                 }
                 else
                 {
-                    MessageBox.Show($"Failed to delete inventory item: {ex.Message}");
+                    MessageBox.Show($"Failed to perform the operation: {ex.Message}");
                     return false;
                 }
             }
         }
 
-        internal static List<Models.OrderingSystem.ProductData> GetProductsUsingInventoryItem(int inventoryId)
-        {
-            List<Models.OrderingSystem.ProductData> result = new();
+        public record InventoryUsageInfo(
+            int ProductId,
+            string ProductName,
+            int ModifierGroupId,
+            string ModifierGroupName,
+            int ModifierOptionId,
+            string ModifierOptionName,
+            int? InventoryItemId
+        );
 
-            List<Models.OrderingSystem.ModifierOption> modifierOptions = new();
-            List<Models.OrderingSystem.ModifierGroup> modifierGroup = new();
+        internal static List<InventoryUsageInfo> GetProductsUsingInventoryItem(int inventoryId)
+        {
+            var result = new List<InventoryUsageInfo>();
+
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"
+            SELECT 
+                p.Id AS ProductId,
+                p.Name AS ProductName,
+                mg.Id AS ModifierGroupId,
+                mg.Name AS ModifierGroupName,
+                mo.Id AS ModifierOptionId,
+                mo.Name AS ModifierOptionName,
+                mo.InventoryItemId
+            FROM modifier_option mo
+            INNER JOIN modifier_group mg ON mo.GroupId = mg.Id
+            INNER JOIN product p ON mg.ProductId = p.Id
+            WHERE mo.InventoryItemId = @inventoryId;
+        ";
+                cmd.Parameters.AddWithValue("@inventoryId", inventoryId);
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    result.Add(new InventoryUsageInfo(
+                        reader.GetInt32("ProductId"),
+                        reader.GetString("ProductName"),
+                        reader.GetInt32("ModifierGroupId"),
+                        reader.GetString("ModifierGroupName"),
+                        reader.GetInt32("ModifierOptionId"),
+                        reader.GetString("ModifierOptionName"),
+                        reader.IsDBNull(reader.GetOrdinal("InventoryItemId"))
+                            ? null
+                            : reader.GetInt32("InventoryItemId")
+                    ));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to retrieve products using this inventory item:\n{ex.Message}");
+            }
 
             return result;
         }
