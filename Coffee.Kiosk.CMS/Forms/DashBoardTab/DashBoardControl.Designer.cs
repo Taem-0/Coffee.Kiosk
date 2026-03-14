@@ -417,6 +417,7 @@
             guna2PictureBox3.Size = new Size(120, 120);
             guna2PictureBox3.TabIndex = 8;
             guna2PictureBox3.TabStop = false;
+            guna2PictureBox3.Click += guna2PictureBox3_Click;
             // 
             // label6
             // 

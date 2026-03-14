@@ -64,21 +64,11 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
         {
             if (!string.IsNullOrWhiteSpace(_selectedImagePath) && File.Exists(_selectedImagePath))
             {
-                try
-                {
-                    using var img = Image.FromFile(_selectedImagePath);
-                    guna2CirclePictureBox1.Image = new Bitmap(img);
-                    guna2CirclePictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-                }
-                catch
-                {
-                    //SetDefaultProfileImage();
-                }
-            }
-            else
-            {
-                //SetDefaultProfileImage();
-            }
+
+                using var img = Image.FromFile(_selectedImagePath);
+                guna2CirclePictureBox1.Image = new Bitmap(img);
+                guna2CirclePictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            } 
         }
 
 
