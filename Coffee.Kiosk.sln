@@ -5,13 +5,13 @@ VisualStudioVersion = 17.14.36804.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Kiosk.CMS", "Coffee.Kiosk.CMS\Coffee.Kiosk.CMS.csproj", "{52F805F8-0DA2-D9A6-048A-CF5AFF04B08E}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Coffee.Kiosk.Cashier", "Coffee.Kiosk.Cashier\Coffee.Kiosk.Cashier.vbproj", "{D24397F3-D7BD-8B94-DA83-D87B09B3A6A8}"
-EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Coffee.Kiosk.OrderStatusDisplaySystem", "Coffee.Kiosk.OrderStatusDisplaySystem\Coffee.Kiosk.OrderStatusDisplaySystem.vbproj", "{76FE26CC-E7C1-383F-F5BA-668B7A59B155}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Kiosk.OrderingSystem", "Coffee.Kiosk.OrderingSystem\Coffee.Kiosk.OrderingSystem.csproj", "{CF38C665-C120-4F4D-9923-192971A8380A}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Coffee.Kiosk.KitchenMS", "Coffee.Kiosk.KitchenMS\Coffee.Kiosk.KitchenMS.vbproj", "{1EEC9369-DD8E-431A-8D83-F5FC884081E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Kiosk.Cashier", "Cashier\Coffee.Kiosk.Cashier.csproj", "{A90B2958-FBA7-40CB-B5DD-B8FBA9CB6479}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,6 @@ Global
 		{52F805F8-0DA2-D9A6-048A-CF5AFF04B08E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52F805F8-0DA2-D9A6-048A-CF5AFF04B08E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52F805F8-0DA2-D9A6-048A-CF5AFF04B08E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D24397F3-D7BD-8B94-DA83-D87B09B3A6A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D24397F3-D7BD-8B94-DA83-D87B09B3A6A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D24397F3-D7BD-8B94-DA83-D87B09B3A6A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D24397F3-D7BD-8B94-DA83-D87B09B3A6A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{76FE26CC-E7C1-383F-F5BA-668B7A59B155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{76FE26CC-E7C1-383F-F5BA-668B7A59B155}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76FE26CC-E7C1-383F-F5BA-668B7A59B155}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{1EEC9369-DD8E-431A-8D83-F5FC884081E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EEC9369-DD8E-431A-8D83-F5FC884081E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EEC9369-DD8E-431A-8D83-F5FC884081E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A90B2958-FBA7-40CB-B5DD-B8FBA9CB6479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A90B2958-FBA7-40CB-B5DD-B8FBA9CB6479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A90B2958-FBA7-40CB-B5DD-B8FBA9CB6479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A90B2958-FBA7-40CB-B5DD-B8FBA9CB6479}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
