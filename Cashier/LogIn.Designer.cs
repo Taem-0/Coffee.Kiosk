@@ -28,16 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.FromArgb(111, 77, 56);
-            panel1.Location = new Point(0, -2);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(271, 1083);
-            panel1.TabIndex = 0;
             // 
             // LogIn
             // 
@@ -45,7 +36,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Beige;
             ClientSize = new Size(1920, 1080);
-            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "LogIn";
             StartPosition = FormStartPosition.CenterScreen;
@@ -54,7 +44,5 @@
         }
 
         #endregion
-
-        private Panel panel1;
     }
 }
