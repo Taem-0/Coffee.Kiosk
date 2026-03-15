@@ -16,5 +16,10 @@ namespace Coffee.Kiosk.Cashier
         {
             InitializeComponent();
         }
+
+        private void flpCategories_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

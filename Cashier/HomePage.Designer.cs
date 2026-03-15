@@ -28,33 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomePage));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlTopBar = new Panel();
+            btnLogout = new Guna.UI2.WinForms.Guna2Button();
             lblClock = new Label();
             lblCashier = new Label();
             lnlBrand = new Label();
             picLogo = new PictureBox();
-            btnLogout = new Guna.UI2.WinForms.Guna2Button();
             pnlContainer = new Panel();
+            tmrClock = new System.Windows.Forms.Timer(components);
             pnlTopBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             SuspendLayout();
             // 
             // pnlTopBar
             // 
-            pnlTopBar.Anchor = AnchorStyles.Top;
             pnlTopBar.BackColor = Color.FromArgb(107, 77, 58);
             pnlTopBar.Controls.Add(btnLogout);
             pnlTopBar.Controls.Add(lblClock);
             pnlTopBar.Controls.Add(lblCashier);
             pnlTopBar.Controls.Add(lnlBrand);
             pnlTopBar.Controls.Add(picLogo);
-            pnlTopBar.Location = new Point(-1, -1);
+            pnlTopBar.Dock = DockStyle.Top;
+            pnlTopBar.Location = new Point(0, 0);
             pnlTopBar.Name = "pnlTopBar";
-            pnlTopBar.Size = new Size(1929, 79);
+            pnlTopBar.Size = new Size(1920, 79);
             pnlTopBar.TabIndex = 0;
+            // 
+            // btnLogout
+            // 
+            btnLogout.BackColor = Color.FromArgb(111, 77, 56);
+            btnLogout.BorderRadius = 10;
+            btnLogout.CustomizableEdges = customizableEdges1;
+            btnLogout.DisabledState.BorderColor = Color.DarkGray;
+            btnLogout.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnLogout.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnLogout.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnLogout.FillColor = Color.FromArgb(212, 184, 150);
+            btnLogout.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = Color.FromArgb(59, 35, 20);
+            btnLogout.Location = new Point(1771, 17);
+            btnLogout.Name = "btnLogout";
+            btnLogout.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnLogout.Size = new Size(131, 39);
+            btnLogout.TabIndex = 6;
+            btnLogout.Text = "Logout";
             // 
             // lblClock
             // 
@@ -101,32 +122,20 @@
             picLogo.TabIndex = 2;
             picLogo.TabStop = false;
             // 
-            // btnLogout
-            // 
-            btnLogout.BackColor = Color.FromArgb(111, 77, 56);
-            btnLogout.BorderRadius = 10;
-            btnLogout.CustomizableEdges = customizableEdges3;
-            btnLogout.DisabledState.BorderColor = Color.DarkGray;
-            btnLogout.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnLogout.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnLogout.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnLogout.FillColor = Color.FromArgb(212, 184, 150);
-            btnLogout.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLogout.ForeColor = Color.FromArgb(59, 35, 20);
-            btnLogout.Location = new Point(1771, 17);
-            btnLogout.Name = "btnLogout";
-            btnLogout.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnLogout.Size = new Size(131, 39);
-            btnLogout.TabIndex = 6;
-            btnLogout.Text = "Logout";
-            // 
             // pnlContainer
             // 
             pnlContainer.BackColor = Color.FromArgb(250, 246, 243);
-            pnlContainer.Location = new Point(-1, 78);
+            pnlContainer.Dock = DockStyle.Fill;
+            pnlContainer.Location = new Point(0, 79);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(1921, 1002);
+            pnlContainer.Size = new Size(1920, 1001);
             pnlContainer.TabIndex = 1;
+            // 
+            // tmrClock
+            // 
+            tmrClock.Enabled = true;
+            tmrClock.Interval = 1000;
+            tmrClock.Tick += tmrClock_Tick;
             // 
             // HomePage
             // 
@@ -156,5 +165,6 @@
         private Label lblClock;
         private Guna.UI2.WinForms.Guna2Button btnLogout;
         private Panel pnlContainer;
+        private System.Windows.Forms.Timer tmrClock;
     }
 }

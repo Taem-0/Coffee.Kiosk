@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace Coffee.Kiosk.Cashier
 {
-    public partial class HomePage : Form
+    public partial class UC_MenuCard : UserControl
     {
-        public HomePage()
+        public UC_MenuCard()
         {
             InitializeComponent();
-        }
-
-        private void tmrClock_Tick(object sender, EventArgs e)
-        {
-            DateTime.Now.ToString("hh:mm tt");
         }
     }
 }
