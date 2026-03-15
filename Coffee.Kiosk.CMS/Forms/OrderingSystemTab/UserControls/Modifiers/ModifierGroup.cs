@@ -116,7 +116,6 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.Modifiers
             var result = dialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                OrderingSystemDbManager.UpdateModifierOption(model);
                 LoadOptions();
             }
         }

@@ -1,4 +1,5 @@
-﻿using Coffee.Kiosk.CMS.Forms.InventoryTab.FormDialogs;
+﻿using Coffee.Kiosk.CMS.CoffeeKDB;
+using Coffee.Kiosk.CMS.Forms.InventoryTab.FormDialogs;
 using Coffee.Kiosk.CMS.Forms.InventoryTab.UserControls.InventoryAsCards;
 using Coffee.Kiosk.CMS.Helpers;
 using Guna.UI2.WinForms;
@@ -16,7 +17,6 @@ namespace Coffee.Kiosk.CMS.Forms.InventoryTab.UserControls
 {
     public partial class InventoryScreen : UserControl
     {
-        private InventoryAsTables? inventoryAsTables = new InventoryAsTables();
         private InventoryAsCardsFlow? inventoryAsCards = new InventoryAsCardsFlow();
 
         bool _showAsTables = true;
@@ -24,14 +24,26 @@ namespace Coffee.Kiosk.CMS.Forms.InventoryTab.UserControls
 
         private System.Windows.Forms.Timer _searchTimer = new System.Windows.Forms.Timer();
         InventorySystemControl _parentControl;
+        private InventoryAsTables? inventoryAsTables;
 
         public InventoryScreen(InventorySystemControl parentControl)
         {
             InitializeComponent();
             _parentControl = parentControl;
+            inventoryAsTables = new InventoryAsTables(parentControl);
 
-            _searchTimer.Interval = 500;
+            _searchTimer.Interval = 100;
             _searchTimer.Tick += SearchTimer_Tick;
+
+            _showAsTables = DisplayAsTableCheckBox.Checked;
+            if (_showAsTables)
+            {
+                ShowInventoryAsTables();
+            }
+            else
+            {
+                ShowInventoryAsCards();
+            }
         }
 
         private void AddMoreButton_Click(object sender, EventArgs e)
@@ -41,6 +53,13 @@ namespace Coffee.Kiosk.CMS.Forms.InventoryTab.UserControls
             var result = form.ShowDialog();
             if (result == DialogResult.OK)
             {
+                int newInventoryId = InventoryDbManager.AddInventory(new Models.InventorySystem.Inventory(
+                    null,
+                    form.InventoryName,
+                    form.Stocks,
+                    form.Unit,
+                    form.ImagePath
+                    ));
                 SearchInventory();
             }
             _parentControl.ShowDarkOverlay(false);
@@ -61,7 +80,7 @@ namespace Coffee.Kiosk.CMS.Forms.InventoryTab.UserControls
 
         private void ShowInventoryAsTables()
         {
-            inventoryAsTables ??= new InventoryAsTables();
+            inventoryAsTables ??= new InventoryAsTables(_parentControl);
             UIhelp.CallControl(inventoryAsTables, InventoryPanel);
         }
 
@@ -73,8 +92,7 @@ namespace Coffee.Kiosk.CMS.Forms.InventoryTab.UserControls
 
         private void SearchInventory()
         {
-
-            if (inventoryAsTables == null) return;
+            if (inventoryAsTables == null || inventoryAsCards == null) return;
             if (_showAsTables)
             {
                 inventoryAsTables.SearchTable(_search);

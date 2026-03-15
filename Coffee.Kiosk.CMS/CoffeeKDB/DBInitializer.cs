@@ -98,6 +98,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 InventorySubtraction Decimal(10, 2) DEFAULT 0,
                 InventoryItemId INT,
                 TriggersChild BOOLEAN NOT NULL DEFAULT TRUE,
+                SubtractFromParent BOOLEAN NOT NULL DEFAULT TRUE,
                 SortBy INT,
                 FOREIGN KEY (GroupId) REFERENCES modifier_group(ID) ON DELETE CASCADE,
                 FOREIGN KEY (InventoryItemId) REFERENCES inventory_item(ID)

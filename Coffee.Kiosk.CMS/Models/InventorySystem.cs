@@ -15,7 +15,13 @@ namespace Coffee.Kiosk.CMS.Models
             decimal Stocks,
             string Unit,
             string? ImagePath
-            );
+            )
+            {
+                public string Name { get; set; } = Name;
+                public decimal Stocks { get; set; } = Stocks;
+                public string Unit { get; set; } = Unit;
+                public string? ImagePath { get; set; } = ImagePath;
+            }
 
     }
 }
