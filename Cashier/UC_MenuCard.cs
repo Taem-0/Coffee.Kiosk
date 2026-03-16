@@ -23,15 +23,15 @@ namespace Coffee.Kiosk.Cashier
         public UC_MenuCard(MenuItemModel item) : this()
         {
             Item = item;
-
             lblItemName.Text = item.ItemName;
             lblCategory.Text = item.Category;
             label1.Text = $"₱{item.Price:N2}";
 
-            foreach (Control c in this.Controls)
-                c.Click += Card_Click;
+            // ✅ FIX: Wire click ONLY once on the top-level control.
+            // Removed the foreach loop over child controls and the
+            // separate guna2Panel1.Click — those caused the event to
+            // fire 3–4 times per click, creating duplicate orders.
             this.Click += Card_Click;
-            guna2Panel1.Click += Card_Click;
         }
 
         private void Card_Click(object? sender, EventArgs e)
