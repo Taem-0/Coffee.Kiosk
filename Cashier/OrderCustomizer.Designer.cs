@@ -53,7 +53,7 @@
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new Size(562, 56);
             pnlHeader.TabIndex = 0;
-            pnlHeader.Paint += pnlHeader_Paint;
+
             // 
             // btnClose
             // 
@@ -68,7 +68,6 @@
             btnClose.Text = "X";
             btnClose.TextAlign = ContentAlignment.TopCenter;
             btnClose.UseVisualStyleBackColor = false;
-            btnClose.Click += btnClose_Click;
             // 
             // lblCat
             // 
@@ -80,7 +79,6 @@
             lblCat.Size = new Size(62, 17);
             lblCat.TabIndex = 1;
             lblCat.Text = "category";
-            lblCat.Click += lblCat_Click;
             // 
             // lblName
             // 
@@ -92,7 +90,6 @@
             lblName.Size = new Size(68, 28);
             lblName.TabIndex = 0;
             lblName.Text = "Name";
-            lblName.Click += lblName_Click;
             // 
             // pnlFooter
             // 
@@ -104,7 +101,6 @@
             pnlFooter.Name = "pnlFooter";
             pnlFooter.Size = new Size(562, 60);
             pnlFooter.TabIndex = 1;
-            pnlFooter.Paint += pnlFooter_Paint;
             // 
             // lblTotalPrice
             // 
@@ -116,7 +112,6 @@
             lblTotalPrice.Size = new Size(67, 31);
             lblTotalPrice.TabIndex = 1;
             lblTotalPrice.Text = "Total";
-            lblTotalPrice.Click += lblTotalPrice_Click;
             // 
             // btnAdd
             // 
@@ -135,7 +130,6 @@
             btnAdd.Size = new Size(160, 40);
             btnAdd.TabIndex = 0;
             btnAdd.Text = "Add to Order";
-            btnAdd.Click += btnAdd_Click;
             // 
             // pnlBody
             // 
@@ -146,7 +140,6 @@
             pnlBody.Padding = new Padding(16, 12, 16, 12);
             pnlBody.Size = new Size(562, 524);
             pnlBody.TabIndex = 2;
-            pnlBody.Paint += pnlBody_Paint;
             // 
             // OrderCustomizer
             // 
