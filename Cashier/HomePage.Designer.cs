@@ -76,6 +76,7 @@
             btnLogout.Size = new Size(131, 39);
             btnLogout.TabIndex = 6;
             btnLogout.Text = "Logout";
+            btnLogout.Click += btnLogout_Click;
             // 
             // lblClock
             // 
@@ -88,6 +89,7 @@
             lblClock.TabIndex = 5;
             lblClock.Text = "Time In";
             lblClock.TextAlign = ContentAlignment.TopCenter;
+            lblClock.Click += lblClock_Click;
             // 
             // lblCashier
             // 
@@ -99,6 +101,7 @@
             lblCashier.Size = new Size(273, 35);
             lblCashier.TabIndex = 4;
             lblCashier.Text = "Cashier Staff -";
+            lblCashier.Click += lblCashier_Click;
             // 
             // lnlBrand
             // 

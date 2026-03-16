@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Coffee.Kiosk.Cashier
+{
+    public static class CustomizerConfig
+    {
+        public static Dictionary<string, decimal> GetSizes(MenuItemModel item)
+        {
+            if (item.Category == "Drinks")
+            {
+                decimal b = item.Price;
+                return new()
+                {
+                    { "Small",  b      },
+                    { "Medium", b + 10 },
+                    { "Large",  b + 20 }
+                };
+            }
+            return new() { { "Regular", item.Price } };
+        }
+
+        public static Dictionary<string, decimal> GetDrinkAddOns()
+        {
+            return new()
+            {
+                { "Espresso shot", 39 },
+                { "Oat milk",      49 },
+                { "Coffee jelly",  30 },
+                { "Whipped cream", 49 },
+                { "Cream cheese",  30 },
+                { "Pearl",         10 },
+                { "Nata",          15 },
+                { "Sauce",         30 },
+                { "Cinnamon",      39 },
+            };
+        }
+
+        public static Dictionary<string, decimal> GetFoodAddOns()
+        {
+            return new()
+            {
+                { "Extra rice",  30 },
+                { "Extra egg",   20 },
+                { "Extra sauce", 30 },
+            };
+        }
+
+        public static Dictionary<string, decimal> GetBreakfastOptions(decimal basePrice)
+        {
+            return new()
+            {
+                { "Rice",       basePrice      },
+                { "Fried rice", basePrice + 5  },
+                { "Pancake",    basePrice + 10 },
+                { "Bread",      basePrice + 10 },
+            };
+        }
+
+        public static bool ShowServeAs(string cat) => cat == "Drinks";
+        public static bool ShowBeans(string cat) => cat == "Drinks";
+        public static bool ShowMilk(string cat) => cat == "Drinks";
+        public static bool ShowIceLevel(string cat) => cat == "Drinks";
+        public static bool ShowSugarLevel(string cat) => cat == "Drinks";
+        public static bool ShowDrinkAddOns(string cat) => cat == "Drinks";
+        public static bool ShowBreakfastOptions(string cat) => cat == "Foods";
+        public static bool ShowFoodAddOns(string cat) => cat is "Foods" or "Snacks";
+    }
+}

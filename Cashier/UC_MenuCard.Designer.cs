@@ -31,10 +31,10 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            picItem = new PictureBox();
-            lblItemName = new Label();
-            lblCategory = new Label();
             label1 = new Label();
+            lblCategory = new Label();
+            lblItemName = new Label();
+            picItem = new PictureBox();
             guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picItem).BeginInit();
             SuspendLayout();
@@ -57,30 +57,19 @@
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2Panel1.Size = new Size(150, 140);
             guna2Panel1.TabIndex = 0;
+            guna2Panel1.Paint += guna2Panel1_Paint;
             // 
-            // picItem
+            // label1
             // 
-            picItem.BackColor = Color.Linen;
-            picItem.BackgroundImageLayout = ImageLayout.None;
-            picItem.Dock = DockStyle.Top;
-            picItem.Location = new Point(0, 0);
-            picItem.Name = "picItem";
-            picItem.Size = new Size(150, 60);
-            picItem.SizeMode = PictureBoxSizeMode.Zoom;
-            picItem.TabIndex = 0;
-            picItem.TabStop = false;
-            // 
-            // lblItemName
-            // 
-            lblItemName.AutoSize = true;
-            lblItemName.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblItemName.ForeColor = Color.FromArgb(44, 34, 24);
-            lblItemName.Location = new Point(3, 63);
-            lblItemName.Name = "lblItemName";
-            lblItemName.Padding = new Padding(6, 4, 6, 0);
-            lblItemName.Size = new Size(107, 24);
-            lblItemName.TabIndex = 1;
-            lblItemName.Text = "Order Name";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(3, 110);
+            label1.Name = "label1";
+            label1.Padding = new Padding(6, 0, 6, 4);
+            label1.Size = new Size(61, 27);
+            label1.TabIndex = 3;
+            label1.Text = "Price";
+            label1.Click += label1_Click;
             // 
             // lblCategory
             // 
@@ -93,17 +82,33 @@
             lblCategory.Size = new Size(76, 17);
             lblCategory.TabIndex = 2;
             lblCategory.Text = "Category";
+            lblCategory.Click += lblCategory_Click;
             // 
-            // label1
+            // lblItemName
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(3, 110);
-            label1.Name = "label1";
-            label1.Padding = new Padding(6, 0, 6, 4);
-            label1.Size = new Size(61, 27);
-            label1.TabIndex = 3;
-            label1.Text = "Price";
+            lblItemName.AutoSize = true;
+            lblItemName.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblItemName.ForeColor = Color.FromArgb(44, 34, 24);
+            lblItemName.Location = new Point(3, 63);
+            lblItemName.Name = "lblItemName";
+            lblItemName.Padding = new Padding(6, 4, 6, 0);
+            lblItemName.Size = new Size(107, 24);
+            lblItemName.TabIndex = 1;
+            lblItemName.Text = "Order Name";
+            lblItemName.Click += lblItemName_Click;
+            // 
+            // picItem
+            // 
+            picItem.BackColor = Color.Linen;
+            picItem.BackgroundImageLayout = ImageLayout.None;
+            picItem.Dock = DockStyle.Top;
+            picItem.Location = new Point(0, 0);
+            picItem.Name = "picItem";
+            picItem.Size = new Size(150, 60);
+            picItem.SizeMode = PictureBoxSizeMode.Zoom;
+            picItem.TabIndex = 0;
+            picItem.TabStop = false;
+            picItem.Click += picItem_Click;
             // 
             // UC_MenuCard
             // 
