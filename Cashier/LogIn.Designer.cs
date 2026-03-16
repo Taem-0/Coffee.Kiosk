@@ -29,43 +29,43 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogIn));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            pictureBox1 = new PictureBox();
-            label1 = new Label();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            picLogo = new PictureBox();
+            lblBrand = new Label();
             txtUsername = new Guna.UI2.WinForms.Guna2TextBox();
             label2 = new Label();
             btnLogin = new Guna.UI2.WinForms.Guna2Button();
             txtPassword = new Guna.UI2.WinForms.Guna2TextBox();
             lblError = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             SuspendLayout();
             // 
-            // pictureBox1
+            // picLogo
             // 
-            pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
-            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox1.Location = new Point(628, 288);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(147, 115);
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
+            picLogo.BackgroundImage = (Image)resources.GetObject("picLogo.BackgroundImage");
+            picLogo.BackgroundImageLayout = ImageLayout.Zoom;
+            picLogo.Location = new Point(628, 288);
+            picLogo.Name = "picLogo";
+            picLogo.Size = new Size(147, 115);
+            picLogo.TabIndex = 1;
+            picLogo.TabStop = false;
             // 
-            // label1
+            // lblBrand
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(760, 293);
-            label1.Name = "label1";
-            label1.Size = new Size(589, 106);
-            label1.TabIndex = 2;
-            label1.Text = "CAFÉ FILIPINO";
+            lblBrand.AutoSize = true;
+            lblBrand.BackColor = Color.Transparent;
+            lblBrand.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblBrand.ForeColor = Color.White;
+            lblBrand.Location = new Point(760, 293);
+            lblBrand.Name = "lblBrand";
+            lblBrand.Size = new Size(589, 106);
+            lblBrand.TabIndex = 2;
+            lblBrand.Text = "CAFÉ FILIPINO";
             // 
             // txtUsername
             // 
@@ -73,7 +73,7 @@
             txtUsername.BorderColor = Color.FromArgb(107, 79, 58);
             txtUsername.BorderRadius = 20;
             txtUsername.BorderThickness = 3;
-            txtUsername.CustomizableEdges = customizableEdges7;
+            txtUsername.CustomizableEdges = customizableEdges1;
             txtUsername.DefaultText = "";
             txtUsername.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             txtUsername.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -89,9 +89,10 @@
             txtUsername.Name = "txtUsername";
             txtUsername.PlaceholderText = "Username";
             txtUsername.SelectedText = "";
-            txtUsername.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            txtUsername.ShadowDecoration.CustomizableEdges = customizableEdges2;
             txtUsername.Size = new Size(620, 64);
             txtUsername.TabIndex = 3;
+            txtUsername.TextChanged += txtUsername_TextChanged;
             // 
             // label2
             // 
@@ -106,7 +107,7 @@
             // btnLogin
             // 
             btnLogin.BorderRadius = 20;
-            btnLogin.CustomizableEdges = customizableEdges9;
+            btnLogin.CustomizableEdges = customizableEdges3;
             btnLogin.DisabledState.BorderColor = Color.DarkGray;
             btnLogin.DisabledState.CustomBorderColor = Color.DarkGray;
             btnLogin.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -114,12 +115,13 @@
             btnLogin.FillColor = Color.FromArgb(107, 79, 58);
             btnLogin.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(823, 716);
+            btnLogin.Location = new Point(823, 720);
             btnLogin.Name = "btnLogin";
-            btnLogin.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnLogin.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnLogin.Size = new Size(315, 56);
             btnLogin.TabIndex = 6;
             btnLogin.Text = "Login";
+            btnLogin.Click += btnLogin_Click;
             // 
             // txtPassword
             // 
@@ -127,7 +129,7 @@
             txtPassword.BorderColor = Color.FromArgb(107, 79, 58);
             txtPassword.BorderRadius = 20;
             txtPassword.BorderThickness = 3;
-            txtPassword.CustomizableEdges = customizableEdges11;
+            txtPassword.CustomizableEdges = customizableEdges5;
             txtPassword.DefaultText = "";
             txtPassword.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             txtPassword.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -143,10 +145,11 @@
             txtPassword.Name = "txtPassword";
             txtPassword.PlaceholderText = "Password";
             txtPassword.SelectedText = "";
-            txtPassword.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            txtPassword.ShadowDecoration.CustomizableEdges = customizableEdges6;
             txtPassword.Size = new Size(620, 64);
             txtPassword.TabIndex = 7;
             txtPassword.UseSystemPasswordChar = true;
+            txtPassword.TextChanged += txtPassword_TextChanged;
             // 
             // lblError
             // 
@@ -172,20 +175,20 @@
             Controls.Add(btnLogin);
             Controls.Add(label2);
             Controls.Add(txtUsername);
-            Controls.Add(label1);
-            Controls.Add(pictureBox1);
+            Controls.Add(lblBrand);
+            Controls.Add(picLogo);
             FormBorderStyle = FormBorderStyle.None;
             Name = "LogIn";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Log In";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private PictureBox pictureBox1;
-        private Label label1;
+        private PictureBox picLogo;
+        private Label lblBrand;
         private Guna.UI2.WinForms.Guna2TextBox txtUsername;
         private Label label2;
         private Guna.UI2.WinForms.Guna2Button btnLogin;

@@ -35,8 +35,8 @@
             btnMinus = new Guna.UI2.WinForms.Guna2Button();
             lblItemName = new Label();
             lblQty = new Label();
-            btnPlus = new Guna.UI2.WinForms.Guna2Button();
             lblSubtotal = new Label();
+            btnPlus = new Guna.UI2.WinForms.Guna2Button();
             SuspendLayout();
             // 
             // btnMinus
@@ -48,33 +48,52 @@
             btnMinus.DisabledState.CustomBorderColor = Color.DarkGray;
             btnMinus.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             btnMinus.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnMinus.FillColor = Color.FromArgb(107, 79, 58);
+            btnMinus.FillColor = Color.FromArgb(111, 77, 56);
             btnMinus.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnMinus.ForeColor = Color.White;
-            btnMinus.Location = new Point(192, 6);
+            btnMinus.Location = new Point(117, 6);
             btnMinus.Name = "btnMinus";
             btnMinus.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnMinus.Size = new Size(22, 22);
+            btnMinus.Size = new Size(30, 22);
             btnMinus.TabIndex = 0;
             btnMinus.Text = "-";
+            btnMinus.Click += btnMinus_Click;
             // 
             // lblItemName
             // 
             lblItemName.AutoSize = true;
-            lblItemName.Location = new Point(6, 7);
+            lblItemName.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblItemName.ForeColor = Color.FromArgb(44, 34, 24);
+            lblItemName.Location = new Point(6, 8);
             lblItemName.Name = "lblItemName";
-            lblItemName.Size = new Size(39, 20);
+            lblItemName.Size = new Size(42, 20);
             lblItemName.TabIndex = 1;
             lblItemName.Text = "Item";
+            lblItemName.Click += lblItemName_Click;
             // 
             // lblQty
             // 
             lblQty.AutoSize = true;
-            lblQty.Location = new Point(224, 7);
+            lblQty.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblQty.ForeColor = Color.FromArgb(44, 34, 24);
+            lblQty.Location = new Point(155, 7);
             lblQty.Name = "lblQty";
-            lblQty.Size = new Size(32, 20);
+            lblQty.Size = new Size(34, 20);
             lblQty.TabIndex = 2;
             lblQty.Text = "Qty";
+            lblQty.Click += lblQty_Click;
+            // 
+            // lblSubtotal
+            // 
+            lblSubtotal.AutoSize = true;
+            lblSubtotal.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblSubtotal.ForeColor = Color.FromArgb(44, 34, 24);
+            lblSubtotal.Location = new Point(235, 7);
+            lblSubtotal.Name = "lblSubtotal";
+            lblSubtotal.Size = new Size(43, 20);
+            lblSubtotal.TabIndex = 4;
+            lblSubtotal.Text = "Price";
+            lblSubtotal.Click += lblSubtotal_Click;
             // 
             // btnPlus
             // 
@@ -85,38 +104,30 @@
             btnPlus.DisabledState.CustomBorderColor = Color.DarkGray;
             btnPlus.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             btnPlus.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnPlus.FillColor = Color.FromArgb(107, 79, 58);
+            btnPlus.FillColor = Color.FromArgb(111, 77, 56);
             btnPlus.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnPlus.ForeColor = Color.White;
-            btnPlus.Location = new Point(265, 6);
+            btnPlus.Location = new Point(195, 6);
             btnPlus.Name = "btnPlus";
             btnPlus.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnPlus.Size = new Size(22, 22);
-            btnPlus.TabIndex = 3;
+            btnPlus.Size = new Size(30, 22);
+            btnPlus.TabIndex = 5;
             btnPlus.Text = "+";
-            btnPlus.Click += guna2Button1_Click;
-            // 
-            // lblSubtotal
-            // 
-            lblSubtotal.AutoSize = true;
-            lblSubtotal.Location = new Point(304, 7);
-            lblSubtotal.Name = "lblSubtotal";
-            lblSubtotal.Size = new Size(41, 20);
-            lblSubtotal.TabIndex = 4;
-            lblSubtotal.Text = "Price";
+            btnPlus.Click += btnPlus_Click;
             // 
             // UC_OrderRow
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
-            Controls.Add(lblSubtotal);
+            BackColor = Color.FromArgb(212, 184, 150);
             Controls.Add(btnPlus);
+            Controls.Add(lblSubtotal);
             Controls.Add(lblQty);
             Controls.Add(lblItemName);
             Controls.Add(btnMinus);
             Name = "UC_OrderRow";
-            Size = new Size(372, 34);
+            Size = new Size(288, 34);
+            Load += UC_OrderRow_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -126,7 +137,7 @@
         private Guna.UI2.WinForms.Guna2Button btnMinus;
         private Label lblItemName;
         private Label lblQty;
-        private Guna.UI2.WinForms.Guna2Button btnPlus;
         private Label lblSubtotal;
+        private Guna.UI2.WinForms.Guna2Button btnPlus;
     }
 }
