@@ -18,10 +18,12 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         private int _seconds;
 
         int _orderNumber;
-        public ReceiptScreen()
+        public ReceiptScreen(int customerId)
         {
             InitializeComponent();
             CompanyLogo.Image = UI_Images.logoImage;
+
+            OrderNumberLbl.Text = customerId.ToString();
         }
 
         public void SetOrderNumber(int orderNumber)

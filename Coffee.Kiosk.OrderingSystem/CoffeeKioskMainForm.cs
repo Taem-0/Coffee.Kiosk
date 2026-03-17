@@ -268,13 +268,20 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private async void ShowReceiptScreen(Models.Orders.TypeOfPayment typeOfPayment)
         {
+            if (currentOrder == null) return;
+
+            int customerId = Sql.Queries.AddCustomerOrder(currentOrder);
+            bool success = Sql.Queries.AddCustomerOrderItem(currentOrder, customerId);
+
+            if (!success) MessageBox.Show("uhh something went wrong");
+
             int countdown = 10;
             _idleTimer.Stop();
             if (typeOfPayment == Models.Orders.TypeOfPayment.Cash)
             {
                 if (receiptScreen == null)
                 {
-                    receiptScreen = new ReceiptScreen();
+                    receiptScreen = new ReceiptScreen(customerId);
                     receiptScreen.ResetRequested += ShowThankYouScreen;
                 }
                 UI_Handling.loadUserControl(mainPanel, receiptScreen);
@@ -292,7 +299,8 @@ namespace Coffee.Kiosk.OrderingSystem
                 await Task.Delay(3000);
                 receiptGcashScreen.StartResetCountdown(countdown);
             }
-            QPdfGen.GenerateReceiptPdf(currentOrder!, "Kiosk_Receipt.pdf");
+
+            QPdfGen.GenerateReceiptPdf(currentOrder, "Kiosk_Receipt.pdf", customerId);
         }
 
         private void ShowThankYouScreen()

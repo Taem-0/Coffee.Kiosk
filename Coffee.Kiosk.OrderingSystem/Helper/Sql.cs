@@ -35,29 +35,23 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 Password_Reset_Requested BOOLEAN NOT NULL DEFAULT 0
             );",
 
-            @"CREATE TABLE IF NOT EXISTS theme (
+            @"CREATE TABLE IF NOT EXISTS shop (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
-                Is_Default BOOLEAN NOT NULL DEFAULT 1,
+                ShopName VARCHAR(100) NOT NULL,
+                ThemeMode ENUM('default', 'custom') NOT NULL DEFAULT 'default',
                 Primary_Color VARCHAR(10) NOT NULL,
                 DarkPrimary_Color VARCHAR(10) NOT NULL,
                 Secondary_Color VARCHAR(10) NOT NULL,
                 Background_Color VARCHAR(10) NOT NULL,
-                Accent_Color VARCHAR(10) NOT NULL
+                Accent_Color VARCHAR(10) NOT NULL,
+                LogoPath VARCHAR(255) NULL
             );",
 
-            @"INSERT INTO theme (
-                Is_Default,
-                Primary_Color,
-                DarkPrimary_Color,
-                Secondary_Color,
-                Background_Color,
-                Accent_Color
+            @"INSERT INTO shop (
+                ShopName, ThemeMode, Primary_Color, DarkPrimary_Color, Secondary_Color, Background_Color, Accent_Color
             )
-            SELECT 1, '#6F4D38', '#3D211A', '#A07856', '#F5F5DC', '#CBB799'
-            WHERE NOT EXISTS 
-            (
-                SELECT 1 FROM theme
-            );",
+            SELECT 'My Coffee Shop', 'default', '#6F4D38', '#3D211A', '#A07856', '#F5F5DC', '#CBB799'
+            WHERE NOT EXISTS (SELECT 1 FROM shop);",
 
 
             // inventory
@@ -65,7 +59,8 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) UNIQUE NOT NULL,
                 Stock Decimal(10, 2) NOT NULL,
-                Unit VARCHAR(255) NOT NULL
+                Unit VARCHAR(255) NOT NULL,
+                ImagePath VARCHAR(255)
             );",
 
 
@@ -106,6 +101,7 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 InventorySubtraction Decimal(10, 2) DEFAULT 0,
                 InventoryItemId INT,
                 TriggersChild BOOLEAN NOT NULL DEFAULT TRUE,
+                SubtractFromParent BOOLEAN NOT NULL DEFAULT TRUE,
                 SortBy INT,
                 FOREIGN KEY (GroupId) REFERENCES modifier_group(ID) ON DELETE CASCADE,
                 FOREIGN KEY (InventoryItemId) REFERENCES inventory_item(ID)
@@ -394,5 +390,119 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
         //    return result;
         //}
 
+
+
+
+        internal static int AddCustomerOrder(Models.Orders order)
+        {
+            decimal subTotal = order.Items.Sum(i => i.ProductPrice * i.Quantity);
+
+            using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+            conn.Open();
+
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = """
+                INSERT INTO customer_orders (OrderType, Status, TotalAmount)
+                VALUES (@orderType, @status, @totalAmount);
+            """;
+            cmd.Parameters.AddWithValue("@orderType", order.Type.ToString());
+            cmd.Parameters.AddWithValue("@status", "Pending");
+            cmd.Parameters.AddWithValue("@totalAmount", subTotal);
+
+            cmd.ExecuteNonQuery();
+            return (int)cmd.LastInsertedId;
+        }
+
+        internal static bool AddCustomerOrderItem(Models.Orders order, int customerOrderId)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+                conn.Open();
+
+                foreach (var item in order.Items)
+                {
+                    using var cmd = conn.CreateCommand();
+                    cmd.CommandText = """
+                        INSERT INTO customer_order_item 
+                            (CustomerOrderId, ProductId, ProductName, BasePrice, UnitPrice, Quantity)
+                        VALUES 
+                            (@orderId, @productId, @productName, @basePrice, @unitPrice, @quantity);
+                    """;
+
+                    cmd.Parameters.AddWithValue("@orderId", customerOrderId);
+                    cmd.Parameters.AddWithValue("@productId", item.ProductId);
+                    cmd.Parameters.AddWithValue("@productName", item.ProductName);
+                    cmd.Parameters.AddWithValue("@basePrice", item.BasePrice);
+                    cmd.Parameters.AddWithValue("@unitPrice", item.ProductPrice);
+                    cmd.Parameters.AddWithValue("@quantity", item.Quantity);
+
+                    cmd.ExecuteNonQuery();
+
+                    int itemId = (int)cmd.LastInsertedId;
+                    bool modSuccess = AddCustomerOrderItemModifier(item, itemId, conn);
+                    if (!modSuccess) return false;
+                }
+                    return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private static bool AddCustomerOrderItemModifier(
+            Models.Orders.OrderItem item,
+            int customerOrderItemId,
+            MySqlConnection conn)
+        {
+            try
+            {
+                foreach (var groupEntry in item.SelectedModifierOptions)
+                {
+                    int groupId = groupEntry.Key;
+
+                    var group = (
+                        from g in Models.Product.modifierGroups
+                        where g.Id == groupId
+                        select g
+                    ).First();
+
+                    foreach (var optionId in groupEntry.Value)
+                    {
+                        var option = (
+                            from o in Models.Product.modifierOption
+                            where o.Id == optionId
+                            select o
+                        ).First();
+
+                        using var cmd = conn.CreateCommand();
+                        cmd.CommandText = """
+                    INSERT INTO customer_order_item_modifier
+                        (CustomerOrderItemId, ModifierGroupId, ModifierOptionId,
+                         ModifierGroupName, ModifierOptionName, PriceDelta)
+                    VALUES
+                        (@itemId, @groupId, @optionId,
+                         @groupName, @optionName, @priceDelta);
+                """;
+
+                        cmd.Parameters.AddWithValue("@itemId", customerOrderItemId);
+                        cmd.Parameters.AddWithValue("@groupId", group.Id);
+                        cmd.Parameters.AddWithValue("@optionId", option.Id);
+                        cmd.Parameters.AddWithValue("@groupName", group.Name);
+                        cmd.Parameters.AddWithValue("@optionName", option.Name);
+                        cmd.Parameters.AddWithValue("@priceDelta", option.PriceDelta);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
