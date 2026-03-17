@@ -52,7 +52,7 @@ namespace Coffee.Kiosk.Cashier
                 Width = 285,
                 Height = 16,
                 Location = new Point(6, 24),
-                Font = new Font("Poppins", 7f),
+                Font = new Font("Segoe UI", 7f),
                 ForeColor = Color.FromArgb(150, 120, 90),
                 BackColor = Color.Transparent
             };

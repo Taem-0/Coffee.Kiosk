@@ -8,12 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-
 namespace Coffee.Kiosk.Cashier
 {
     public partial class UC_Payment : UserControl
@@ -65,7 +59,7 @@ namespace Coffee.Kiosk.Cashier
                 {
                     Text = display,
                     ForeColor = Color.FromArgb(107, 79, 58),
-                    Font = new Font("Poppins", 9f),
+                    Font = new Font("Segoe UI", 9f),
                     AutoSize = false,
                     Width = pnlSummary.Width - 110,
                     Height = rowH,
@@ -76,7 +70,7 @@ namespace Coffee.Kiosk.Cashier
                 {
                     Text = $"₱{item.Subtotal:N2}",
                     ForeColor = Color.FromArgb(59, 35, 20),
-                    Font = new Font("Poppins", 9f, FontStyle.Bold),
+                    Font = new Font("Segoe UI", 9f, FontStyle.Bold),
                     AutoSize = false,
                     Width = 90,
                     Height = rowH,
@@ -103,7 +97,7 @@ namespace Coffee.Kiosk.Cashier
             {
                 Text = $"Total:   ₱{_total:N2}",
                 ForeColor = Color.FromArgb(59, 35, 20),
-                Font = new Font("Poppins", 10f, FontStyle.Bold),
+                Font = new Font("Segoe UI", 10f, FontStyle.Bold),
                 AutoSize = false,
                 Width = pnlSummary.Width - 20,
                 Height = 26,
@@ -143,8 +137,7 @@ namespace Coffee.Kiosk.Cashier
         private void guna2Button5_Click(object sender, EventArgs e)
         { guna2TextBox1.Text = _total.ToString("N2"); CalcChange(); }
 
-        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
-            => CalcChange();
+        private void guna2TextBox1_TextChanged(object sender, EventArgs e) => CalcChange();
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
