@@ -13,10 +13,12 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
     public class QPdfGen : IDocument
     {
         private readonly Orders _order;
+        private readonly int _customerId;
 
-        public QPdfGen(Orders order)
+        public QPdfGen(Orders order, int customerId)
         {
             _order = order;
+            _customerId = customerId;
         }
 
         public void Compose(IDocumentContainer container)
@@ -30,7 +32,7 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
                 page.Content().Column(col =>
                 {
                     //col.Item().Text("=========================================================").AlignCenter();
-                    col.Item().PaddingVertical(7).Background(Colors.Black).Text($"67").FontSize(48).Bold().FontColor(Colors.White).AlignCenter();
+                    col.Item().PaddingVertical(7).Background(Colors.Black).Text($"{_customerId}").FontSize(48).Bold().FontColor(Colors.White).AlignCenter();
 
                     col.Item().PaddingVertical(5).Text(new String('=', 34)).AlignCenter();
                     col.Item().Text("Cafe Filipino").AlignCenter();
@@ -81,7 +83,7 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
                     //col.Item().PaddingVertical(5).LineHorizontal(1);
                     col.Item().PaddingVertical(5).Text(new String('=', 34)).AlignCenter();
 
-                    var subtotal = _order.Items.Sum(i => i.ProductPrice * i.Quantity);
+                    decimal subtotal = _order.Items.Sum(i => i.ProductPrice * i.Quantity);
                     col.Item().Text($"TOTAL: ₱{subtotal:0.00}");
                     col.Item().Text($"Payment: {_order.paymentType}");
 
@@ -95,7 +97,7 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
 
 
-        public static void GenerateReceiptPdf(Orders order, string basePath)
+        public static void GenerateReceiptPdf(Orders order, string basePath, int customerId)
         {
             if (order == null) return;
 
@@ -119,7 +121,7 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
                 counter++;
             }
 
-            var pdf = new QPdfGen(order);
+            var pdf = new QPdfGen(order, customerId);
             pdf.GeneratePdf(fullPath);
         }
 
