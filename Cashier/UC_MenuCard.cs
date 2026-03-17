@@ -15,6 +15,8 @@ namespace Coffee.Kiosk.Cashier
         public MenuItemModel Item { get; private set; } = new();
         public event EventHandler<OrderItemModel>? ItemSelected;
 
+        private bool _isProcessing = false;
+
         public UC_MenuCard()
         {
             InitializeComponent();
@@ -23,32 +25,44 @@ namespace Coffee.Kiosk.Cashier
         public UC_MenuCard(MenuItemModel item) : this()
         {
             Item = item;
+
             lblItemName.Text = item.ItemName;
             lblCategory.Text = item.Category;
             label1.Text = $"₱{item.Price:N2}";
 
-            // ✅ FIX: Wire click ONLY once on the top-level control.
-            // Removed the foreach loop over child controls and the
-            // separate guna2Panel1.Click — those caused the event to
-            // fire 3–4 times per click, creating duplicate orders.
+            guna2Panel1.Click += Card_Click;
+            picItem.Click += Card_Click;
+            lblItemName.Click += Card_Click;
+            lblCategory.Click += Card_Click;
+            label1.Click += Card_Click;
             this.Click += Card_Click;
         }
 
         private void Card_Click(object? sender, EventArgs e)
         {
-            var screen = Screen.FromControl(this).WorkingArea;
-            var screenPos = this.PointToScreen(new Point(this.Width + 4, 0));
+            if (_isProcessing) return;
+            _isProcessing = true;
 
-            if (screenPos.X + 500 > screen.Right)
-                screenPos.X = screen.Right - 504;
-            if (screenPos.Y + 640 > screen.Bottom)
-                screenPos.Y = screen.Bottom - 644;
-
-            var customizer = new OrderCustomizer(Item, screenPos);
-            if (customizer.ShowDialog() == DialogResult.OK
-                && customizer.Result != null)
+            try
             {
-                ItemSelected?.Invoke(this, customizer.Result);
+                var screen = Screen.FromControl(this).WorkingArea;
+                var screenPos = this.PointToScreen(new Point(this.Width + 4, 0));
+
+                if (screenPos.X + 500 > screen.Right)
+                    screenPos.X = screen.Right - 504;
+                if (screenPos.Y + 640 > screen.Bottom)
+                    screenPos.Y = screen.Bottom - 644;
+
+                var customizer = new OrderCustomizer(Item, screenPos);
+                if (customizer.ShowDialog() == DialogResult.OK
+                    && customizer.Result != null)
+                {
+                    ItemSelected?.Invoke(this, customizer.Result);
+                }
+            }
+            finally
+            {
+                _isProcessing = false;
             }
         }
 
@@ -60,6 +74,11 @@ namespace Coffee.Kiosk.Cashier
             guna2Panel1.BorderColor = selected
                 ? Color.FromArgb(107, 79, 58)
                 : Color.FromArgb(212, 184, 150);
+        }
+
+        public void UpdatePrice(decimal price)
+        {
+            label1.Text = $"₱{price:N2}";
         }
 
         private void picItem_Click(object sender, EventArgs e) { }

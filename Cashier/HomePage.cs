@@ -35,7 +35,6 @@ namespace Coffee.Kiosk.Cashier
         }
 
         private void lblCashier_Click(object sender, EventArgs e) { }
-
         private void lblClock_Click(object sender, EventArgs e) { }
 
         private void btnLogout_Click(object sender, EventArgs e)

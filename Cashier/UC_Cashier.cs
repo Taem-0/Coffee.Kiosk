@@ -8,12 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-
 namespace Coffee.Kiosk.Cashier
 {
     public partial class UC_Cashier : UserControl
@@ -23,98 +17,80 @@ namespace Coffee.Kiosk.Cashier
 
         private readonly List<MenuItemModel> _menu = new()
         {
-            // ── DRINKS ──────────────────────────────────────
-            new(){ItemID=1,  ItemName="Caffe Americano",         Category="Drinks", Price=119},
-            new(){ItemID=2,  ItemName="Caffe Latte",             Category="Drinks", Price=129},
-            new(){ItemID=3,  ItemName="Vanilla Cream",           Category="Drinks", Price=149},
-            new(){ItemID=4,  ItemName="Cappuccino",              Category="Drinks", Price=129},
-            new(){ItemID=5,  ItemName="Spanish Latte",           Category="Drinks", Price=149},
-            new(){ItemID=6,  ItemName="Dark Coffee Mocha",       Category="Drinks", Price=149},
-            new(){ItemID=7,  ItemName="Caramel Machiatto",       Category="Drinks", Price=149},
-            new(){ItemID=8,  ItemName="White Choco Mocha",       Category="Drinks", Price=139},
-            new(){ItemID=9,  ItemName="Dirty Matcha Latte",      Category="Drinks", Price=139},
-            new(){ItemID=10, ItemName="Caffe Americano Iced",    Category="Drinks", Price=109},
-            new(){ItemID=11, ItemName="Caffe Latte Iced",        Category="Drinks", Price=129},
-            new(){ItemID=12, ItemName="Vanilla Cream Iced",      Category="Drinks", Price=119},
-            new(){ItemID=13, ItemName="Cappuccino Iced",         Category="Drinks", Price=129},
-            new(){ItemID=14, ItemName="Spanish Latte Iced",      Category="Drinks", Price=129},
-            new(){ItemID=15, ItemName="Dark Coffee Mocha Iced",  Category="Drinks", Price=139},
-            new(){ItemID=16, ItemName="Caramel Machiatto Iced",  Category="Drinks", Price=139},
-            new(){ItemID=17, ItemName="White Choco Mocha Iced",  Category="Drinks", Price=139},
-            new(){ItemID=18, ItemName="Dirty Matcha Latte Iced", Category="Drinks", Price=139},
-            new(){ItemID=19, ItemName="Biscoff Caffe Latte",     Category="Drinks", Price=149},
-            new(){ItemID=20, ItemName="Caramel Hot",             Category="Drinks", Price=139},
-            new(){ItemID=21, ItemName="Salted Caramel Hot",      Category="Drinks", Price=139},
-            new(){ItemID=22, ItemName="Dark Chocolate Hot",      Category="Drinks", Price=139},
-            new(){ItemID=23, ItemName="White Chocolate Hot",     Category="Drinks", Price=139},
-            new(){ItemID=24, ItemName="Matcha Latte Hot",        Category="Drinks", Price=149},
-            new(){ItemID=25, ItemName="Caramel Iced",            Category="Drinks", Price=139},
-            new(){ItemID=26, ItemName="Salted Caramel Iced",     Category="Drinks", Price=139},
-            new(){ItemID=27, ItemName="Dark Chocolate Iced",     Category="Drinks", Price=139},
-            new(){ItemID=28, ItemName="White Chocolate Iced",    Category="Drinks", Price=139},
-            new(){ItemID=29, ItemName="Matcha Latte Iced",       Category="Drinks", Price=149},
-            new(){ItemID=30, ItemName="Biscoff Latte",           Category="Drinks", Price=159},
-            new(){ItemID=31, ItemName="Strawberry Matcha",       Category="Drinks", Price=159},
-            new(){ItemID=32, ItemName="Ube Latte",               Category="Drinks", Price=159},
-            new(){ItemID=33, ItemName="Coffee Frappe",           Category="Drinks", Price=139},
-            new(){ItemID=34, ItemName="Coffee Caramel Frappe",   Category="Drinks", Price=139},
-            new(){ItemID=35, ItemName="Matcha Frappe",           Category="Drinks", Price=139},
-            new(){ItemID=36, ItemName="Nutella Frappe",          Category="Drinks", Price=139},
-            new(){ItemID=37, ItemName="Milky Milo Frappe",       Category="Drinks", Price=179},
-            new(){ItemID=38, ItemName="Lotus Biscoff Frappe",    Category="Drinks", Price=180},
-            new(){ItemID=39, ItemName="Pearl Milk Tea",          Category="Drinks", Price=99},
-            new(){ItemID=40, ItemName="Wintermelon",             Category="Drinks", Price=89},
-            new(){ItemID=41, ItemName="Okinawa",                 Category="Drinks", Price=99},
-            new(){ItemID=42, ItemName="Taro",                    Category="Drinks", Price=99},
-            new(){ItemID=43, ItemName="Matcha Milk Tea",         Category="Drinks", Price=99},
-            new(){ItemID=44, ItemName="Dark Choco Milk Tea",     Category="Drinks", Price=99},
-            new(){ItemID=45, ItemName="Cookies and Cream",       Category="Drinks", Price=99},
-            new(){ItemID=46, ItemName="Strawberry Milk Tea",     Category="Drinks", Price=99},
-            new(){ItemID=47, ItemName="Grapes Fruit Tea",        Category="Drinks", Price=89},
-            new(){ItemID=48, ItemName="Mango Fruit Tea",         Category="Drinks", Price=89},
-            new(){ItemID=49, ItemName="Lemon Fruit Tea",         Category="Drinks", Price=89},
-            new(){ItemID=50, ItemName="Lychee Fruit Tea",        Category="Drinks", Price=89},
-            new(){ItemID=51, ItemName="Passionfruit Tea",        Category="Drinks", Price=89},
-            new(){ItemID=52, ItemName="Strawberry Fruit Tea",    Category="Drinks", Price=89},
-            new(){ItemID=53, ItemName="Blueberry Fruit Tea",     Category="Drinks", Price=89},
-            new(){ItemID=54, ItemName="Green Tea",               Category="Drinks", Price=69},
-            new(){ItemID=55, ItemName="Black Tea",               Category="Drinks", Price=69},
-            new(){ItemID=56, ItemName="Nutella Ferrero",         Category="Drinks", Price=179},
-            new(){ItemID=57, ItemName="Nutella Kitkat",          Category="Drinks", Price=179},
-            new(){ItemID=58, ItemName="Nutella Cadbury",         Category="Drinks", Price=179},
-            new(){ItemID=59, ItemName="Strawberry Meiji",        Category="Drinks", Price=179},
-            new(){ItemID=60, ItemName="Strawberry Chocolatier",  Category="Drinks", Price=179},
-            new(){ItemID=61, ItemName="Butterscotch Biscoff",    Category="Drinks", Price=189},
-            new(){ItemID=62, ItemName="Classic Affogato",        Category="Drinks", Price=149},
-            new(){ItemID=63, ItemName="Caramel Affogato",        Category="Drinks", Price=159},
-            new(){ItemID=64, ItemName="Chocolate Affogato",      Category="Drinks", Price=159},
-            // ── PASTRY ──────────────────────────────────────
-            new(){ItemID=65, ItemName="Strawberry Waffle",       Category="Pastry", Price=89},
-            new(){ItemID=66, ItemName="Choco Oreo Waffle",       Category="Pastry", Price=89},
-            new(){ItemID=67, ItemName="Caramel Biscoff Waffle",  Category="Pastry", Price=99},
-            // ── SNACKS ──────────────────────────────────────
-            new(){ItemID=68, ItemName="Special Cheese Sticks",   Category="Snacks", Price=49},
-            new(){ItemID=69, ItemName="Regular Fries",           Category="Snacks", Price=69},
-            new(){ItemID=70, ItemName="Special Potato Fries",    Category="Snacks", Price=99},
-            new(){ItemID=71, ItemName="Corndog",                 Category="Snacks", Price=69},
-            new(){ItemID=72, ItemName="Hotdog Sandwich",         Category="Snacks", Price=98},
-            new(){ItemID=73, ItemName="Chicken Fingers",         Category="Snacks", Price=59},
-            // ── FOODS ───────────────────────────────────────
-            new(){ItemID=74, ItemName="Bacon",                   Category="Foods",  Price=159},
-            new(){ItemID=75, ItemName="Tocino",                  Category="Foods",  Price=129},
-            new(){ItemID=76, ItemName="Jumbo Sausage",           Category="Foods",  Price=129},
-            new(){ItemID=77, ItemName="Cheesy Sausage",          Category="Foods",  Price=139},
-            new(){ItemID=78, ItemName="Corned Beef",             Category="Foods",  Price=139},
-            new(){ItemID=79, ItemName="Lumpiang Shanghai",       Category="Foods",  Price=129},
-            new(){ItemID=80, ItemName="Chicken Fingers BF",      Category="Foods",  Price=139},
-            new(){ItemID=81, ItemName="Bangus",                  Category="Foods",  Price=139},
-            new(){ItemID=82, ItemName="Porkchop",                Category="Foods",  Price=159},
-            new(){ItemID=83, ItemName="Special Burger",          Category="Foods",  Price=129},
-            new(){ItemID=84, ItemName="Bacon Burger",            Category="Foods",  Price=189},
-            new(){ItemID=85, ItemName="Chicken Burger",          Category="Foods",  Price=109},
-            new(){ItemID=86, ItemName="Aloha Burger",            Category="Foods",  Price=109},
-            new(){ItemID=87, ItemName="Jalapeno Burger",         Category="Foods",  Price=149},
-            new(){ItemID=88, ItemName="Overload Burger",         Category="Foods",  Price=199},
+            new(){ItemID=1,  ItemName="Caffe Americano",        Category="Drinks", Price=119},
+            new(){ItemID=2,  ItemName="Caffe Latte",            Category="Drinks", Price=129},
+            new(){ItemID=3,  ItemName="Vanilla Cream",          Category="Drinks", Price=149},
+            new(){ItemID=4,  ItemName="Cappuccino",             Category="Drinks", Price=129},
+            new(){ItemID=5,  ItemName="Spanish Latte",          Category="Drinks", Price=149},
+            new(){ItemID=6,  ItemName="Dark Coffee Mocha",      Category="Drinks", Price=149},
+            new(){ItemID=7,  ItemName="Caramel Machiatto",      Category="Drinks", Price=149},
+            new(){ItemID=8,  ItemName="White Choco Mocha",      Category="Drinks", Price=139},
+            new(){ItemID=9,  ItemName="Dirty Matcha Latte",     Category="Drinks", Price=139},
+            new(){ItemID=10, ItemName="Biscoff Caffe Latte",    Category="Drinks", Price=149},
+            new(){ItemID=11, ItemName="Caramel",                Category="Drinks", Price=139},
+            new(){ItemID=12, ItemName="Salted Caramel",         Category="Drinks", Price=139},
+            new(){ItemID=13, ItemName="Dark Chocolate",         Category="Drinks", Price=139},
+            new(){ItemID=14, ItemName="White Chocolate",        Category="Drinks", Price=139},
+            new(){ItemID=15, ItemName="Matcha Latte",           Category="Drinks", Price=149},
+            new(){ItemID=16, ItemName="Biscoff Latte",          Category="Drinks", Price=159},
+            new(){ItemID=17, ItemName="Strawberry Matcha",      Category="Drinks", Price=159},
+            new(){ItemID=18, ItemName="Ube Latte",              Category="Drinks", Price=159},
+            new(){ItemID=19, ItemName="Coffee Frappe",          Category="Drinks", Price=139},
+            new(){ItemID=20, ItemName="Coffee Caramel Frappe",  Category="Drinks", Price=139},
+            new(){ItemID=21, ItemName="Matcha Frappe",          Category="Drinks", Price=139},
+            new(){ItemID=22, ItemName="Nutella Frappe",         Category="Drinks", Price=139},
+            new(){ItemID=23, ItemName="Milky Milo Frappe",      Category="Drinks", Price=179},
+            new(){ItemID=24, ItemName="Lotus Biscoff Frappe",   Category="Drinks", Price=180},
+            new(){ItemID=25, ItemName="Pearl Milk Tea",         Category="Drinks", Price=99},
+            new(){ItemID=26, ItemName="Wintermelon",            Category="Drinks", Price=89},
+            new(){ItemID=27, ItemName="Okinawa",                Category="Drinks", Price=99},
+            new(){ItemID=28, ItemName="Taro",                   Category="Drinks", Price=99},
+            new(){ItemID=29, ItemName="Matcha Milk Tea",        Category="Drinks", Price=99},
+            new(){ItemID=30, ItemName="Dark Choco Milk Tea",    Category="Drinks", Price=99},
+            new(){ItemID=31, ItemName="Cookies and Cream",      Category="Drinks", Price=99},
+            new(){ItemID=32, ItemName="Strawberry Milk Tea",    Category="Drinks", Price=99},
+            new(){ItemID=33, ItemName="Grapes Fruit Tea",       Category="Drinks", Price=89},
+            new(){ItemID=34, ItemName="Mango Fruit Tea",        Category="Drinks", Price=89},
+            new(){ItemID=35, ItemName="Lemon Fruit Tea",        Category="Drinks", Price=89},
+            new(){ItemID=36, ItemName="Lychee Fruit Tea",       Category="Drinks", Price=89},
+            new(){ItemID=37, ItemName="Passionfruit Tea",       Category="Drinks", Price=89},
+            new(){ItemID=38, ItemName="Strawberry Fruit Tea",   Category="Drinks", Price=89},
+            new(){ItemID=39, ItemName="Blueberry Fruit Tea",    Category="Drinks", Price=89},
+            new(){ItemID=40, ItemName="Green Tea",              Category="Drinks", Price=69},
+            new(){ItemID=41, ItemName="Black Tea",              Category="Drinks", Price=69},
+            new(){ItemID=42, ItemName="Nutella Ferrero",        Category="Drinks", Price=179},
+            new(){ItemID=43, ItemName="Nutella Kitkat",         Category="Drinks", Price=179},
+            new(){ItemID=44, ItemName="Nutella Cadbury",        Category="Drinks", Price=179},
+            new(){ItemID=45, ItemName="Strawberry Meiji",       Category="Drinks", Price=179},
+            new(){ItemID=46, ItemName="Strawberry Chocolatier", Category="Drinks", Price=179},
+            new(){ItemID=47, ItemName="Butterscotch Biscoff",   Category="Drinks", Price=189},
+            new(){ItemID=48, ItemName="Classic Affogato",       Category="Drinks", Price=149},
+            new(){ItemID=49, ItemName="Caramel Affogato",       Category="Drinks", Price=159},
+            new(){ItemID=50, ItemName="Chocolate Affogato",     Category="Drinks", Price=159},
+            new(){ItemID=51, ItemName="Strawberry Waffle",      Category="Pastry", Price=89},
+            new(){ItemID=52, ItemName="Choco Oreo Waffle",      Category="Pastry", Price=89},
+            new(){ItemID=53, ItemName="Caramel Biscoff Waffle", Category="Pastry", Price=99},
+            new(){ItemID=54, ItemName="Special Cheese Sticks",  Category="Snacks", Price=49},
+            new(){ItemID=55, ItemName="Regular Fries",          Category="Snacks", Price=69},
+            new(){ItemID=56, ItemName="Special Potato Fries",   Category="Snacks", Price=99},
+            new(){ItemID=57, ItemName="Corndog",                Category="Snacks", Price=69},
+            new(){ItemID=58, ItemName="Hotdog Sandwich",        Category="Snacks", Price=98},
+            new(){ItemID=59, ItemName="Chicken Fingers",        Category="Snacks", Price=59},
+            new(){ItemID=60, ItemName="Bacon",                  Category="Foods",  Price=159},
+            new(){ItemID=61, ItemName="Tocino",                 Category="Foods",  Price=129},
+            new(){ItemID=62, ItemName="Jumbo Sausage",          Category="Foods",  Price=129},
+            new(){ItemID=63, ItemName="Cheesy Sausage",         Category="Foods",  Price=139},
+            new(){ItemID=64, ItemName="Corned Beef",            Category="Foods",  Price=139},
+            new(){ItemID=65, ItemName="Lumpiang Shanghai",      Category="Foods",  Price=129},
+            new(){ItemID=66, ItemName="Chicken Fingers BF",     Category="Foods",  Price=139},
+            new(){ItemID=67, ItemName="Bangus",                 Category="Foods",  Price=139},
+            new(){ItemID=68, ItemName="Porkchop",               Category="Foods",  Price=159},
+            new(){ItemID=69, ItemName="Special Burger",         Category="Foods",  Price=129},
+            new(){ItemID=70, ItemName="Bacon Burger",           Category="Foods",  Price=189},
+            new(){ItemID=71, ItemName="Chicken Burger",         Category="Foods",  Price=109},
+            new(){ItemID=72, ItemName="Aloha Burger",           Category="Foods",  Price=109},
+            new(){ItemID=73, ItemName="Jalapeno Burger",        Category="Foods",  Price=149},
+            new(){ItemID=74, ItemName="Overload Burger",        Category="Foods",  Price=199},
         };
 
         public UC_Cashier()
@@ -152,7 +128,7 @@ namespace Coffee.Kiosk.Cashier
                                      ? Color.White
                                      : Color.FromArgb(107, 79, 58),
                     BorderColor = Color.FromArgb(107, 79, 58),
-                    Font = new Font("Poppins", 8f),
+                    Font = new Font("Segoe UI", 8f),
                     Margin = new Padding(0, 0, 6, 0),
                     Tag = cat
                 };
@@ -169,12 +145,8 @@ namespace Coffee.Kiosk.Cashier
             foreach (Guna.UI2.WinForms.Guna2Button b in flpCategories.Controls)
             {
                 bool active = b.Tag?.ToString() == _activeCategory;
-                b.FillColor = active
-                                 ? Color.FromArgb(107, 79, 58)
-                                 : Color.Transparent;
-                b.ForeColor = active
-                                 ? Color.White
-                                 : Color.FromArgb(107, 79, 58);
+                b.FillColor = active ? Color.FromArgb(107, 79, 58) : Color.Transparent;
+                b.ForeColor = active ? Color.White : Color.FromArgb(107, 79, 58);
             }
             FilterMenu();
         }
@@ -204,8 +176,7 @@ namespace Coffee.Kiosk.Cashier
             }
         }
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-            => FilterMenu();
+        private void txtSearch_TextChanged(object sender, EventArgs e) => FilterMenu();
 
         private void Card_ItemSelected(object? sender, OrderItemModel orderItem)
         {
@@ -252,8 +223,7 @@ namespace Coffee.Kiosk.Cashier
                 .OfType<UC_OrderRow>()
                 .FirstOrDefault(r =>
                     r.OrderItem.Item.ItemID == orderItem.Item.ItemID &&
-                    r.OrderItem.Customization.Summary() ==
-                        orderItem.Customization.Summary());
+                    r.OrderItem.Customization.Summary() == orderItem.Customization.Summary());
             row?.RefreshRow();
         }
 
@@ -265,15 +235,13 @@ namespace Coffee.Kiosk.Cashier
                 .OfType<UC_OrderRow>()
                 .FirstOrDefault(r =>
                     r.OrderItem.Item.ItemID == orderItem.Item.ItemID &&
-                    r.OrderItem.Customization.Summary() ==
-                        orderItem.Customization.Summary());
+                    r.OrderItem.Customization.Summary() == orderItem.Customization.Summary());
             if (row != null) pnlOrderItems.Controls.Remove(row);
 
             var card = flpMenuGrid.Controls
                 .OfType<UC_MenuCard>()
                 .FirstOrDefault(c => c.Item.ItemID == orderItem.Item.ItemID);
-            if (card != null &&
-                !_cart.Any(c => c.Item.ItemID == orderItem.Item.ItemID))
+            if (card != null && !_cart.Any(c => c.Item.ItemID == orderItem.Item.ItemID))
                 card.SetSelected(false);
 
             UpdateTotals();

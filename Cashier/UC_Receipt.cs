@@ -38,21 +38,16 @@ namespace Coffee.Kiosk.Cashier
             pnlReceipt.Controls.Clear();
             int y = 12;
 
-            AddReceiptLine("CAFÉ FILIPINO",
-                bold: true, ref y, centered: true, size: 13);
-            AddReceiptLine("123 Espresso St., Quezon City",
-                bold: false, ref y, centered: true, size: 8);
-            AddReceiptLine("",
-                bold: false, ref y);
+            AddReceiptLine("CAFÉ FILIPINO", true, ref y, centered: true, size: 13);
+            AddReceiptLine("123 Espresso St., QC", false, ref y, centered: true, size: 8);
+            AddReceiptLine("", false, ref y);
             AddReceiptLine(
-                $"Order #{SessionManager.OrderNumber:D3}  ·  " +
-                $"{DateTime.Now:MMM dd, yyyy  hh:mm tt}",
-                bold: false, ref y, centered: true, size: 8);
+                $"Order #{SessionManager.OrderNumber:D3}  ·  {DateTime.Now:MMM dd, yyyy  hh:mm tt}",
+                false, ref y, centered: true, size: 8);
             AddReceiptLine(
                 $"Cashier: {SessionManager.CurrentUser.Username}",
-                bold: false, ref y, centered: true, size: 8);
-            AddReceiptLine(new string('-', 38),
-                bold: false, ref y, size: 8);
+                false, ref y, centered: true, size: 8);
+            AddReceiptLine(new string('-', 38), false, ref y, size: 8);
 
             foreach (var item in _cart)
             {
@@ -62,24 +57,16 @@ namespace Coffee.Kiosk.Cashier
 
                 string summary = item.Customization.Summary();
                 if (!string.IsNullOrEmpty(summary))
-                    AddReceiptLine($"  {summary}",
-                        bold: false, ref y, size: 7, muted: true);
+                    AddReceiptLine($"  {summary}", false, ref y, size: 7, muted: true);
             }
 
-            AddReceiptLine(new string('-', 38),
-                bold: false, ref y, size: 8);
-            AddTwoColLine("TOTAL", $"₱{_total:N2}",
-                ref y, bold: true, size: 11);
-            AddReceiptLine(new string('-', 38),
-                bold: false, ref y, size: 8);
-            AddTwoColLine("Cash Tendered", $"₱{_cash:N2}",
-                ref y, muted: true);
-            AddTwoColLine("Change", $"₱{_change:N2}",
-                ref y, muted: true);
-            AddReceiptLine(new string('-', 38),
-                bold: false, ref y, size: 8);
-            AddReceiptLine("Thank you for visiting!",
-                bold: false, ref y, centered: true, size: 8);
+            AddReceiptLine(new string('-', 38), false, ref y, size: 8);
+            AddTwoColLine("TOTAL", $"₱{_total:N2}", ref y, bold: true, size: 11);
+            AddReceiptLine(new string('-', 38), false, ref y, size: 8);
+            AddTwoColLine("Cash Tendered", $"₱{_cash:N2}", ref y, muted: true);
+            AddTwoColLine("Change", $"₱{_change:N2}", ref y, muted: true);
+            AddReceiptLine(new string('-', 38), false, ref y, size: 8);
+            AddReceiptLine("Thank you for visiting!", false, ref y, centered: true, size: 8);
 
             pnlReceipt.Height = y + 20;
         }
@@ -163,8 +150,7 @@ namespace Coffee.Kiosk.Cashier
             g.DrawString("CAFÉ FILIPINO", bold, brush, x, y); y += lh;
             g.DrawString("123 Espresso St.", small, brush, x, y); y += lh;
             g.DrawString(
-                $"Order #{SessionManager.OrderNumber:D3}" +
-                $"  {DateTime.Now:MM/dd/yy hh:mm tt}",
+                $"Order #{SessionManager.OrderNumber:D3}  {DateTime.Now:MM/dd/yy hh:mm tt}",
                 small, brush, x, y); y += lh;
             g.DrawString(
                 $"Cashier: {SessionManager.CurrentUser.Username}",

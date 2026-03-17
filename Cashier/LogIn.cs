@@ -28,7 +28,6 @@ namespace Cashier
         }
 
         private void txtUsername_TextChanged(object sender, EventArgs e) { }
-
         private void txtPassword_TextChanged(object sender, EventArgs e) { }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -52,7 +51,6 @@ namespace Cashier
                     Username = user,
                     Role = user == "admin" ? "Admin" : "Cashier"
                 };
-
                 var home = new Coffee.Kiosk.Cashier.HomePage();
                 home.Show();
                 this.Hide();

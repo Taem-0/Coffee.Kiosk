@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlHeader = new Panel();
             btnClose = new Button();
             lblCat = new Label();
@@ -53,7 +53,6 @@
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new Size(562, 56);
             pnlHeader.TabIndex = 0;
-
             // 
             // btnClose
             // 
@@ -116,7 +115,7 @@
             // btnAdd
             // 
             btnAdd.BorderRadius = 8;
-            btnAdd.CustomizableEdges = customizableEdges1;
+            btnAdd.CustomizableEdges = customizableEdges5;
             btnAdd.DisabledState.BorderColor = Color.DarkGray;
             btnAdd.DisabledState.CustomBorderColor = Color.DarkGray;
             btnAdd.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -126,7 +125,7 @@
             btnAdd.ForeColor = Color.White;
             btnAdd.Location = new Point(380, 10);
             btnAdd.Name = "btnAdd";
-            btnAdd.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnAdd.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnAdd.Size = new Size(160, 40);
             btnAdd.TabIndex = 0;
             btnAdd.Text = "Add to Order";
@@ -137,7 +136,7 @@
             pnlBody.Dock = DockStyle.Fill;
             pnlBody.Location = new Point(0, 56);
             pnlBody.Name = "pnlBody";
-            pnlBody.Padding = new Padding(16, 12, 16, 12);
+            pnlBody.Padding = new Padding(12, 8, 12, 8);
             pnlBody.Size = new Size(562, 524);
             pnlBody.TabIndex = 2;
             // 
@@ -156,7 +155,6 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
             Text = "OrderCustomizer";
-            TopMost = true;
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
             pnlFooter.ResumeLayout(false);
