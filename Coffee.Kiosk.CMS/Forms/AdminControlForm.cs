@@ -38,6 +38,7 @@ namespace Coffee.Kiosk
             InitializeComponent();
 
             _currentEmployee = employee;
+            AuditLogsDb._employee = employee;
 
             this.Text = $"Logged in as: {employee.FirstName} {employee.LastName}";
 
