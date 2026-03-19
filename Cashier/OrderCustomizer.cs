@@ -37,11 +37,11 @@ namespace Coffee.Kiosk.Cashier
         {
             InitializeComponent();
 
-            this.TopMost = false;
-
             _item = item;
             _basePrice = item.Price;
-            this.Location = location;
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.TopMost = true;
 
             this.KeyPreview = true;
             this.KeyDown += (s, e) =>
@@ -53,7 +53,7 @@ namespace Coffee.Kiosk.Cashier
                 }
             };
 
-            BuildUI();
+            this.Shown += (s, e) => BuildUI();
         }
 
         private void BuildUI()
@@ -64,9 +64,11 @@ namespace Coffee.Kiosk.Cashier
 
             pnlBody.Controls.Clear();
             pnlBody.AutoScroll = true;
-            pnlBody.Padding = new Padding(12, 8, 12, 8);
+            pnlBody.PerformLayout();
+            this.PerformLayout();
 
-            int y = 0;
+            int w = pnlBody.ClientSize.Width - 8;
+            int y = 4;
 
             if (CustomizerConfig.ShowServeAs(_item.Category))
             {
@@ -171,7 +173,7 @@ namespace Coffee.Kiosk.Cashier
             {
                 Multiline = true,
                 Height = 52,
-                Width = pnlBody.ClientSize.Width - 10,
+                Width = w,
                 Location = new Point(0, y),
                 BorderStyle = BorderStyle.FixedSingle,
                 BackColor = Color.FromArgb(250, 246, 243),
@@ -188,81 +190,101 @@ namespace Coffee.Kiosk.Cashier
 
         private void AddSectionLabel(string text, ref int y)
         {
-            var lbl = new Label
+            int w = pnlBody.ClientSize.Width - 8;
+            pnlBody.Controls.Add(new Label
             {
                 Text = text.ToUpper(),
                 Font = new Font("Segoe UI", 7f, FontStyle.Bold),
                 ForeColor = Color.FromArgb(166, 124, 91),
                 AutoSize = false,
-                Width = pnlBody.ClientSize.Width - 10,
+                Width = w,
                 Height = 18,
                 Location = new Point(0, y),
                 BackColor = Color.Transparent
-            };
-            pnlBody.Controls.Add(lbl);
+            });
             y += 22;
         }
 
         private void AddPillGroup(string[] options, string defaultVal,
             ref int y, Action<string> onSelect)
         {
+            int w = pnlBody.ClientSize.Width - 8;
+            var pills = new List<Guna.UI2.WinForms.Guna2Button>();
+
             var flp = new FlowLayoutPanel
             {
-                AutoSize = true,
+                AutoSize = false,
                 Location = new Point(0, y),
                 FlowDirection = FlowDirection.LeftToRight,
                 WrapContents = true,
                 BackColor = Color.Transparent,
-                Width = pnlBody.ClientSize.Width - 10
+                Width = w,
+                Height = 80
             };
 
             foreach (var opt in options)
             {
-                string capturedOpt = opt;
+                string captured = opt;
+                bool isDefault = opt == defaultVal;
+                int btnW = Math.Max(90, opt.Length * 9 + 20);
+
                 var btn = new Guna.UI2.WinForms.Guna2Button
                 {
                     Text = opt,
                     AutoSize = false,
-                    Size = new Size(opt.Length > 12 ? 150 : 110, 30),
-                    BorderRadius = 15,
-                    FillColor = opt == defaultVal
-                                     ? Color.FromArgb(107, 79, 58) : Color.White,
-                    ForeColor = opt == defaultVal
-                                     ? Color.White : Color.FromArgb(107, 79, 58),
+                    Size = new Size(btnW, 32),
+                    BorderRadius = 16,
+                    FillColor = isDefault ? Color.FromArgb(107, 79, 58) : Color.White,
+                    ForeColor = isDefault ? Color.White : Color.FromArgb(107, 79, 58),
                     BorderColor = Color.FromArgb(107, 79, 58),
                     Font = new Font("Segoe UI", 8f),
                     Margin = new Padding(0, 0, 6, 6),
                     Tag = opt
                 };
+
                 btn.Click += (s, e) =>
                 {
-                    foreach (Guna.UI2.WinForms.Guna2Button b in flp.Controls)
+                    foreach (var p in pills)
                     {
-                        bool active = b.Tag?.ToString() == capturedOpt;
-                        b.FillColor = active ? Color.FromArgb(107, 79, 58) : Color.White;
-                        b.ForeColor = active ? Color.White : Color.FromArgb(107, 79, 58);
+                        bool active = p.Tag?.ToString() == captured;
+                        p.FillColor = active ? Color.FromArgb(107, 79, 58) : Color.White;
+                        p.ForeColor = active ? Color.White : Color.FromArgb(107, 79, 58);
                     }
-                    onSelect(capturedOpt);
+                    onSelect(captured);
                 };
+
+                pills.Add(btn);
                 flp.Controls.Add(btn);
             }
 
             pnlBody.Controls.Add(flp);
             flp.PerformLayout();
-            y += flp.PreferredSize.Height + 10;
+
+            int rows = 1, rowW = 0;
+            foreach (Guna.UI2.WinForms.Guna2Button b in flp.Controls)
+            {
+                rowW += b.Width + 6;
+                if (rowW > w) { rows++; rowW = b.Width + 6; }
+            }
+            flp.Height = rows * 38 + 4;
+            y += flp.Height + 8;
         }
 
         private void AddPillGroupWithPrice(Dictionary<string, decimal> options,
             string defaultKey, ref int y, Action<string, decimal> onSelect)
         {
+            int w = pnlBody.ClientSize.Width - 8;
+            var pills = new List<Guna.UI2.WinForms.Guna2Button>();
+
             var flp = new FlowLayoutPanel
             {
-                AutoSize = true,
+                AutoSize = false,
                 Location = new Point(0, y),
                 FlowDirection = FlowDirection.LeftToRight,
                 WrapContents = true,
                 BackColor = Color.Transparent,
-                Width = pnlBody.ClientSize.Width - 10
+                Width = w,
+                Height = 80
             };
 
             foreach (var opt in options)
@@ -270,64 +292,75 @@ namespace Coffee.Kiosk.Cashier
                 string capturedKey = opt.Key;
                 decimal capturedVal = opt.Value;
                 string label = $"{opt.Key} — ₱{opt.Value:N0}";
+                bool isDefault = opt.Key == defaultKey;
+                int btnW = Math.Max(120, label.Length * 8 + 20);
 
                 var btn = new Guna.UI2.WinForms.Guna2Button
                 {
                     Text = label,
                     AutoSize = false,
-                    Size = new Size(label.Length > 16 ? 170 : 140, 30),
-                    BorderRadius = 15,
-                    FillColor = opt.Key == defaultKey
-                                     ? Color.FromArgb(107, 79, 58) : Color.White,
-                    ForeColor = opt.Key == defaultKey
-                                     ? Color.White : Color.FromArgb(107, 79, 58),
+                    Size = new Size(btnW, 32),
+                    BorderRadius = 16,
+                    FillColor = isDefault ? Color.FromArgb(107, 79, 58) : Color.White,
+                    ForeColor = isDefault ? Color.White : Color.FromArgb(107, 79, 58),
                     BorderColor = Color.FromArgb(107, 79, 58),
                     Font = new Font("Segoe UI", 8f),
                     Margin = new Padding(0, 0, 6, 6),
                     Tag = opt.Key
                 };
+
                 btn.Click += (s, e) =>
                 {
-                    foreach (Guna.UI2.WinForms.Guna2Button b in flp.Controls)
+                    foreach (var p in pills)
                     {
-                        bool active = b.Tag?.ToString() == capturedKey;
-                        b.FillColor = active ? Color.FromArgb(107, 79, 58) : Color.White;
-                        b.ForeColor = active ? Color.White : Color.FromArgb(107, 79, 58);
+                        bool active = p.Tag?.ToString() == capturedKey;
+                        p.FillColor = active ? Color.FromArgb(107, 79, 58) : Color.White;
+                        p.ForeColor = active ? Color.White : Color.FromArgb(107, 79, 58);
                     }
                     onSelect(capturedKey, capturedVal);
                 };
+
+                pills.Add(btn);
                 flp.Controls.Add(btn);
             }
 
             pnlBody.Controls.Add(flp);
             flp.PerformLayout();
-            y += flp.PreferredSize.Height + 10;
+
+            int rows = 1, rowW = 0;
+            foreach (Guna.UI2.WinForms.Guna2Button b in flp.Controls)
+            {
+                rowW += b.Width + 6;
+                if (rowW > w) { rows++; rowW = b.Width + 6; }
+            }
+            flp.Height = rows * 38 + 4;
+            y += flp.Height + 8;
         }
 
         private void AddAddonRow(string name, decimal price, ref int y)
         {
+            int w = pnlBody.ClientSize.Width - 8;
             var row = new Panel
             {
                 Height = 36,
-                Width = pnlBody.ClientSize.Width - 10,
+                Width = w,
                 Location = new Point(0, y),
                 BackColor = Color.FromArgb(250, 246, 243)
             };
 
-            var lbl = new Label
+            row.Controls.Add(new Label
             {
                 Text = name,
                 Font = new Font("Segoe UI", 9f),
                 ForeColor = Color.FromArgb(44, 34, 24),
                 AutoSize = false,
-                Width = 220,
+                Width = w - 100,
                 Height = 36,
                 Location = new Point(8, 0),
                 TextAlign = ContentAlignment.MiddleLeft,
                 BackColor = Color.Transparent
-            };
-
-            var lblPrice = new Label
+            });
+            row.Controls.Add(new Label
             {
                 Text = $"+₱{price:N0}",
                 Font = new Font("Segoe UI", 9f),
@@ -335,20 +368,19 @@ namespace Coffee.Kiosk.Cashier
                 AutoSize = false,
                 Width = 60,
                 Height = 36,
-                Location = new Point(232, 0),
+                Location = new Point(w - 90, 0),
                 TextAlign = ContentAlignment.MiddleCenter,
                 BackColor = Color.Transparent
-            };
+            });
 
             bool isOn = false;
             var chk = new Panel
             {
                 Size = new Size(22, 22),
-                Location = new Point(row.Width - 30, 7),
+                Location = new Point(w - 28, 7),
                 BackColor = Color.White,
                 Cursor = Cursors.Hand
             };
-
             chk.Paint += (s, e) =>
             {
                 var g = e.Graphics;
@@ -361,14 +393,14 @@ namespace Coffee.Kiosk.Cashier
                         StartCap = System.Drawing.Drawing2D.LineCap.Round,
                         EndCap = System.Drawing.Drawing2D.LineCap.Round
                     };
-                    g.DrawLines(pen, new[] { new Point(4, 11), new Point(9, 16), new Point(18, 6) });
+                    g.DrawLines(pen,
+                        new[] { new Point(4, 11), new Point(9, 16), new Point(18, 6) });
                 }
                 else
                 {
                     g.DrawRectangle(new Pen(Color.FromArgb(212, 184, 150)), 0, 0, 21, 21);
                 }
             };
-
             chk.Click += (s, e) =>
             {
                 isOn = !isOn;
@@ -379,7 +411,7 @@ namespace Coffee.Kiosk.Cashier
                 UpdateTotal();
             };
 
-            row.Controls.AddRange(new Control[] { lbl, lblPrice, chk });
+            row.Controls.Add(chk);
             pnlBody.Controls.Add(row);
             y += 42;
         }
@@ -389,22 +421,25 @@ namespace Coffee.Kiosk.Cashier
             var row = new Panel
             {
                 Height = 44,
-                Width = pnlBody.ClientSize.Width - 10,
+                Width = pnlBody.ClientSize.Width - 8,
                 Location = new Point(0, y),
                 BackColor = Color.Transparent
             };
 
-            var btnMinus = new Guna.UI2.WinForms.Guna2Button
+            // ── USE REGULAR WINFORMS BUTTON — always visible, no Guna issues ──
+            var btnMinus = new Button
             {
-                Text = "-",
-                Size = new Size(32, 32),
-                Location = new Point(0, 6),
-                BorderRadius = 6,
-                FillColor = Color.FromArgb(250, 246, 243),
+                Text = "−",
+                Size = new Size(34, 34),
+                Location = new Point(0, 5),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.FromArgb(240, 225, 210),
                 ForeColor = Color.FromArgb(107, 79, 58),
-                BorderColor = Color.FromArgb(212, 184, 150),
-                Font = new Font("Microsoft Sans Serif", 13f, FontStyle.Bold)
+                Font = new Font("Arial", 14f, FontStyle.Bold),
+                Cursor = Cursors.Hand
             };
+            btnMinus.FlatAppearance.BorderColor = Color.FromArgb(107, 79, 58);
+            btnMinus.FlatAppearance.BorderSize = 1;
 
             _lblQty = new Label
             {
@@ -413,29 +448,30 @@ namespace Coffee.Kiosk.Cashier
                 ForeColor = Color.FromArgb(59, 35, 20),
                 AutoSize = false,
                 Width = 36,
-                Height = 32,
-                Location = new Point(38, 6),
+                Height = 34,
+                Location = new Point(40, 5),
                 TextAlign = ContentAlignment.MiddleCenter,
                 BackColor = Color.Transparent
             };
 
-            var btnPlus = new Guna.UI2.WinForms.Guna2Button
+            var btnPlus = new Button
             {
                 Text = "+",
-                Size = new Size(32, 32),
-                Location = new Point(80, 6),
-                BorderRadius = 6,
-                FillColor = Color.FromArgb(250, 246, 243),
-                ForeColor = Color.FromArgb(107, 79, 58),
-                BorderColor = Color.FromArgb(212, 184, 150),
-                Font = new Font("Microsoft Sans Serif", 13f, FontStyle.Bold)
+                Size = new Size(34, 34),
+                Location = new Point(82, 5),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.FromArgb(107, 79, 58),
+                ForeColor = Color.White,
+                Font = new Font("Arial", 14f, FontStyle.Bold),
+                Cursor = Cursors.Hand
             };
+            btnPlus.FlatAppearance.BorderColor = Color.FromArgb(107, 79, 58);
+            btnPlus.FlatAppearance.BorderSize = 1;
 
             btnMinus.Click += (s, e) =>
             {
                 if (_qty > 1) { _qty--; _lblQty.Text = _qty.ToString(); UpdateTotal(); }
             };
-
             btnPlus.Click += (s, e) =>
             {
                 _qty++; _lblQty.Text = _qty.ToString(); UpdateTotal();
@@ -459,20 +495,6 @@ namespace Coffee.Kiosk.Cashier
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            var customization = new OrderCustomization
-            {
-                ServeAs = _serveAs,
-                Size = _size,
-                Beans = _beans,
-                Milk = _milk,
-                IceLevel = _iceLevel,
-                SugarLevel = _sugarLevel,
-                ServedWith = _servedWith,
-                Notes = _txtNotes?.Text.Trim() ?? "",
-                AddOns = new List<string>(_selectedAddOns),
-                AddOnsTotal = _addOnsTotal
-            };
-
             Result = new OrderItemModel
             {
                 Item = new MenuItemModel
@@ -483,9 +505,20 @@ namespace Coffee.Kiosk.Cashier
                     Price = _basePrice
                 },
                 Quantity = _qty,
-                Customization = customization
+                Customization = new OrderCustomization
+                {
+                    ServeAs = _serveAs,
+                    Size = _size,
+                    Beans = _beans,
+                    Milk = _milk,
+                    IceLevel = _iceLevel,
+                    SugarLevel = _sugarLevel,
+                    ServedWith = _servedWith,
+                    Notes = _txtNotes?.Text.Trim() ?? "",
+                    AddOns = new List<string>(_selectedAddOns),
+                    AddOnsTotal = _addOnsTotal
+                }
             };
-
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

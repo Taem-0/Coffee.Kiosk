@@ -23,42 +23,36 @@ namespace Coffee.Kiosk.Cashier
             return new() { { "Regular", item.Price } };
         }
 
-        public static Dictionary<string, decimal> GetDrinkAddOns()
+        public static Dictionary<string, decimal> GetDrinkAddOns() => new()
         {
-            return new()
-            {
-                { "Espresso shot", 39 },
-                { "Oat milk",      49 },
-                { "Coffee jelly",  30 },
-                { "Whipped cream", 49 },
-                { "Cream cheese",  30 },
-                { "Pearl",         10 },
-                { "Nata",          15 },
-                { "Sauce",         30 },
-                { "Cinnamon",      39 },
-            };
-        }
+            { "Espresso shot", 39 },
+            { "Oat milk",      49 },
+            { "Coffee jelly",  30 },
+            { "Whipped cream", 49 },
+            { "Cream cheese",  30 },
+            { "Pearl",         10 },
+            { "Nata",          15 },
+            { "Sauce",         30 },
+            { "Cinnamon",      39 },
+        };
 
-        public static Dictionary<string, decimal> GetFoodAddOns()
-        {
-            return new()
-            {
-                { "Extra rice",  30 },
-                { "Extra egg",   20 },
-                { "Extra sauce", 30 },
-            };
-        }
 
-        public static Dictionary<string, decimal> GetBreakfastOptions(decimal basePrice)
+        public static Dictionary<string, decimal> GetFoodAddOns() => new()
+        
         {
-            return new()
-            {
-                { "Rice",       basePrice      },
-                { "Fried rice", basePrice + 5  },
-                { "Pancake",    basePrice + 10 },
-                { "Bread",      basePrice + 10 },
-            };
-        }
+            { "Extra rice",  30 },
+            { "Extra egg",   20 },
+            { "Extra sauce", 30 },
+        };
+
+
+        public static Dictionary<string, decimal> GetBreakfastOptions(decimal basePrice) => new()
+        {
+            { "Rice",       basePrice      },
+            { "Fried rice", basePrice + 5  },
+            { "Pancake",    basePrice + 10 },
+            { "Bread",      basePrice + 10 },
+        };
 
         public static bool ShowServeAs(string cat) => cat == "Drinks";
         public static bool ShowBeans(string cat) => cat == "Drinks";

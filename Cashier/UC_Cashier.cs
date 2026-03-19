@@ -97,7 +97,8 @@ namespace Coffee.Kiosk.Cashier
         {
             InitializeComponent();
 
-            pnlOrderItems.Padding = new Padding(6, 6, 6, 6);
+            pnlOrderItems.AutoScroll = true;
+            pnlOrderItems.Padding = new Padding(4, 4, 4, 4);
             flpMenuGrid.Padding = new Padding(6, 6, 6, 6);
             flpCategories.AutoScroll = false;
             flpCategories.WrapContents = false;
@@ -122,11 +123,9 @@ namespace Coffee.Kiosk.Cashier
                     Size = new Size(cat.Length > 6 ? 100 : 80, 32),
                     BorderRadius = 16,
                     FillColor = cat == "All"
-                                     ? Color.FromArgb(107, 79, 58)
-                                     : Color.Transparent,
+                                   ? Color.FromArgb(107, 79, 58) : Color.Transparent,
                     ForeColor = cat == "All"
-                                     ? Color.White
-                                     : Color.FromArgb(107, 79, 58),
+                                   ? Color.White : Color.FromArgb(107, 79, 58),
                     BorderColor = Color.FromArgb(107, 79, 58),
                     Font = new Font("Segoe UI", 8f),
                     Margin = new Padding(0, 0, 6, 0),
@@ -166,10 +165,7 @@ namespace Coffee.Kiosk.Cashier
             flpMenuGrid.Controls.Clear();
             foreach (var item in items)
             {
-                var card = new UC_MenuCard(item)
-                {
-                    Margin = new Padding(6, 6, 6, 6)
-                };
+                var card = new UC_MenuCard(item) { Margin = new Padding(6, 6, 6, 6) };
                 card.SetSelected(_cart.Any(c => c.Item.ItemID == item.ItemID));
                 card.ItemSelected += Card_ItemSelected;
                 flpMenuGrid.Controls.Add(card);
@@ -201,20 +197,21 @@ namespace Coffee.Kiosk.Cashier
 
         private void AddOrderRow(OrderItemModel orderItem)
         {
-            var row = new UC_OrderRow(orderItem)
-            {
-                Width = pnlOrderItems.Width - 16,
-                Margin = new Padding(0, 0, 0, 4)
-            };
+            var row = new UC_OrderRow(orderItem);
+
+            row.Margin = new Padding(0, 0, 0, 2);
+
             row.QuantityIncreased += (s, e) => UpdateTotals();
             row.QuantityDecreased += (s, e) =>
             {
-                if (orderItem.Quantity == 0)
-                    RemoveFromCart(orderItem);
-                else
-                    UpdateTotals();
+                if (orderItem.Quantity == 0) RemoveFromCart(orderItem);
+                else UpdateTotals();
             };
+
             pnlOrderItems.Controls.Add(row);
+
+            pnlOrderItems.PerformLayout();
+            pnlOrderItems.Invalidate();
         }
 
         private void RefreshOrderRow(OrderItemModel orderItem)
