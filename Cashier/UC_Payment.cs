@@ -347,5 +347,10 @@ namespace Coffee.Kiosk.Cashier
         private void lblCashTend_Click(object sender, EventArgs e) { }
         private void pnlPayRight_Paint(object sender, PaintEventArgs e) { }
         private void lblTotalAmt_Click(object sender, EventArgs e) { }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

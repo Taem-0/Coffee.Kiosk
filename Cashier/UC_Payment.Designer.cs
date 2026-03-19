@@ -32,6 +32,12 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -42,18 +48,16 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlPayRight = new Panel();
             btnBack = new Guna.UI2.WinForms.Guna2Button();
             btnConfirm = new Guna.UI2.WinForms.Guna2Button();
             lblChangeAmt = new Label();
             lblTotalAmt = new Label();
             pnlPayLeft = new Panel();
+            btnMaya = new Guna.UI2.WinForms.Guna2Button();
+            btnGcash = new Guna.UI2.WinForms.Guna2Button();
+            btnCash = new Guna.UI2.WinForms.Guna2Button();
+            lblPaymethod = new Label();
             guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             lblCashTend = new Label();
             lblQuick = new Label();
@@ -63,10 +67,8 @@
             guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             lblSummary = new Label();
             pnlSummary = new Panel();
-            lblPaymethod = new Label();
-            btnCash = new Guna.UI2.WinForms.Guna2Button();
-            btnGcash = new Guna.UI2.WinForms.Guna2Button();
-            btnMaya = new Guna.UI2.WinForms.Guna2Button();
+            lblTotal = new Label();
+            lblChanging = new Label();
             pnlPayRight.SuspendLayout();
             pnlPayLeft.SuspendLayout();
             SuspendLayout();
@@ -74,6 +76,8 @@
             // pnlPayRight
             // 
             pnlPayRight.BackColor = Color.White;
+            pnlPayRight.Controls.Add(lblChanging);
+            pnlPayRight.Controls.Add(lblTotal);
             pnlPayRight.Controls.Add(btnBack);
             pnlPayRight.Controls.Add(btnConfirm);
             pnlPayRight.Controls.Add(lblChangeAmt);
@@ -95,12 +99,12 @@
             btnBack.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             btnBack.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             btnBack.FillColor = Color.FromArgb(107, 77, 58);
-            btnBack.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBack.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
             btnBack.ForeColor = Color.White;
-            btnBack.Location = new Point(86, 911);
+            btnBack.Location = new Point(113, 897);
             btnBack.Name = "btnBack";
             btnBack.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnBack.Size = new Size(326, 52);
+            btnBack.Size = new Size(383, 66);
             btnBack.TabIndex = 3;
             btnBack.Text = "⬅️ Back to Order";
             btnBack.Click += btnBack_Click;
@@ -115,12 +119,12 @@
             btnConfirm.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             btnConfirm.Enabled = false;
             btnConfirm.FillColor = Color.FromArgb(107, 77, 58);
-            btnConfirm.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnConfirm.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
             btnConfirm.ForeColor = Color.White;
-            btnConfirm.Location = new Point(86, 819);
+            btnConfirm.Location = new Point(113, 805);
             btnConfirm.Name = "btnConfirm";
             btnConfirm.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnConfirm.Size = new Size(326, 52);
+            btnConfirm.Size = new Size(383, 66);
             btnConfirm.TabIndex = 2;
             btnConfirm.Text = "Confirm Payment";
             btnConfirm.Click += btnConfirm_Click;
@@ -131,11 +135,11 @@
             lblChangeAmt.BackColor = Color.Transparent;
             lblChangeAmt.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold);
             lblChangeAmt.ForeColor = Color.FromArgb(111, 77, 56);
-            lblChangeAmt.Location = new Point(46, 268);
+            lblChangeAmt.Location = new Point(130, 378);
             lblChangeAmt.Name = "lblChangeAmt";
-            lblChangeAmt.Size = new Size(148, 46);
+            lblChangeAmt.Size = new Size(95, 46);
             lblChangeAmt.TabIndex = 1;
-            lblChangeAmt.Text = "Change:";
+            lblChangeAmt.Text = "sukli";
             lblChangeAmt.Click += lblChangeAmt_Click;
             // 
             // lblTotalAmt
@@ -144,11 +148,11 @@
             lblTotalAmt.BackColor = Color.Transparent;
             lblTotalAmt.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold);
             lblTotalAmt.ForeColor = Color.FromArgb(111, 77, 56);
-            lblTotalAmt.Location = new Point(46, 46);
+            lblTotalAmt.Location = new Point(130, 151);
             lblTotalAmt.Name = "lblTotalAmt";
-            lblTotalAmt.Size = new Size(181, 46);
+            lblTotalAmt.Size = new Size(162, 46);
             lblTotalAmt.TabIndex = 0;
-            lblTotalAmt.Text = "Total Due:";
+            lblTotalAmt.Text = "nagastos";
             lblTotalAmt.Click += lblTotalAmt_Click;
             // 
             // pnlPayLeft
@@ -172,6 +176,77 @@
             pnlPayLeft.Size = new Size(1320, 1001);
             pnlPayLeft.TabIndex = 1;
             pnlPayLeft.Paint += pnlPayLeft_Paint;
+            // 
+            // btnMaya
+            // 
+            btnMaya.BorderColor = Color.FromArgb(212, 184, 150);
+            btnMaya.BorderRadius = 10;
+            btnMaya.BorderThickness = 3;
+            btnMaya.CustomizableEdges = customizableEdges5;
+            btnMaya.DisabledState.BorderColor = Color.DarkGray;
+            btnMaya.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnMaya.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnMaya.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnMaya.FillColor = Color.FromArgb(64, 0, 0);
+            btnMaya.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnMaya.ForeColor = Color.White;
+            btnMaya.Location = new Point(527, 118);
+            btnMaya.Name = "btnMaya";
+            btnMaya.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnMaya.Size = new Size(167, 52);
+            btnMaya.TabIndex = 13;
+            btnMaya.Text = "Maya";
+            // 
+            // btnGcash
+            // 
+            btnGcash.BorderColor = Color.FromArgb(212, 184, 150);
+            btnGcash.BorderRadius = 10;
+            btnGcash.BorderThickness = 3;
+            btnGcash.CustomizableEdges = customizableEdges7;
+            btnGcash.DisabledState.BorderColor = Color.DarkGray;
+            btnGcash.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnGcash.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnGcash.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnGcash.FillColor = Color.FromArgb(64, 0, 0);
+            btnGcash.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGcash.ForeColor = Color.White;
+            btnGcash.Location = new Point(298, 118);
+            btnGcash.Name = "btnGcash";
+            btnGcash.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnGcash.Size = new Size(167, 52);
+            btnGcash.TabIndex = 12;
+            btnGcash.Text = "GCash";
+            // 
+            // btnCash
+            // 
+            btnCash.BorderColor = Color.FromArgb(212, 184, 150);
+            btnCash.BorderRadius = 10;
+            btnCash.BorderThickness = 3;
+            btnCash.CustomizableEdges = customizableEdges9;
+            btnCash.DisabledState.BorderColor = Color.DarkGray;
+            btnCash.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnCash.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnCash.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnCash.FillColor = Color.FromArgb(64, 0, 0);
+            btnCash.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCash.ForeColor = Color.White;
+            btnCash.Location = new Point(69, 118);
+            btnCash.Name = "btnCash";
+            btnCash.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnCash.Size = new Size(167, 52);
+            btnCash.TabIndex = 11;
+            btnCash.Text = "Cash";
+            // 
+            // lblPaymethod
+            // 
+            lblPaymethod.AutoSize = true;
+            lblPaymethod.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
+            lblPaymethod.ForeColor = Color.FromArgb(111, 77, 56);
+            lblPaymethod.Location = new Point(47, 46);
+            lblPaymethod.Name = "lblPaymethod";
+            lblPaymethod.Size = new Size(244, 38);
+            lblPaymethod.TabIndex = 10;
+            lblPaymethod.Text = "Payment Method";
             // 
             // guna2TextBox1
             // 
@@ -327,76 +402,30 @@
             pnlSummary.TabIndex = 0;
             pnlSummary.Paint += pnlSummary_Paint;
             // 
-            // lblPaymethod
+            // lblTotal
             // 
-            lblPaymethod.AutoSize = true;
-            lblPaymethod.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
-            lblPaymethod.ForeColor = Color.FromArgb(111, 77, 56);
-            lblPaymethod.Location = new Point(47, 46);
-            lblPaymethod.Name = "lblPaymethod";
-            lblPaymethod.Size = new Size(244, 38);
-            lblPaymethod.TabIndex = 10;
-            lblPaymethod.Text = "Payment Method";
+            lblTotal.AutoSize = true;
+            lblTotal.BackColor = Color.Transparent;
+            lblTotal.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold);
+            lblTotal.ForeColor = Color.FromArgb(111, 77, 56);
+            lblTotal.Location = new Point(46, 57);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(181, 46);
+            lblTotal.TabIndex = 4;
+            lblTotal.Text = "Total Due:";
             // 
-            // btnCash
+            // lblChanging
             // 
-            btnCash.BorderColor = Color.FromArgb(212, 184, 150);
-            btnCash.BorderRadius = 10;
-            btnCash.BorderThickness = 3;
-            btnCash.CustomizableEdges = customizableEdges9;
-            btnCash.DisabledState.BorderColor = Color.DarkGray;
-            btnCash.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnCash.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnCash.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnCash.FillColor = Color.FromArgb(64, 0, 0);
-            btnCash.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCash.ForeColor = Color.White;
-            btnCash.Location = new Point(69, 118);
-            btnCash.Name = "btnCash";
-            btnCash.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            btnCash.Size = new Size(167, 52);
-            btnCash.TabIndex = 11;
-            btnCash.Text = "Cash";
-            // 
-            // btnGcash
-            // 
-            btnGcash.BorderColor = Color.FromArgb(212, 184, 150);
-            btnGcash.BorderRadius = 10;
-            btnGcash.BorderThickness = 3;
-            btnGcash.CustomizableEdges = customizableEdges7;
-            btnGcash.DisabledState.BorderColor = Color.DarkGray;
-            btnGcash.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnGcash.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnGcash.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnGcash.FillColor = Color.FromArgb(64, 0, 0);
-            btnGcash.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnGcash.ForeColor = Color.White;
-            btnGcash.Location = new Point(298, 118);
-            btnGcash.Name = "btnGcash";
-            btnGcash.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            btnGcash.Size = new Size(167, 52);
-            btnGcash.TabIndex = 12;
-            btnGcash.Text = "GCash";
-            // 
-            // btnMaya
-            // 
-            btnMaya.BorderColor = Color.FromArgb(212, 184, 150);
-            btnMaya.BorderRadius = 10;
-            btnMaya.BorderThickness = 3;
-            btnMaya.CustomizableEdges = customizableEdges5;
-            btnMaya.DisabledState.BorderColor = Color.DarkGray;
-            btnMaya.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnMaya.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnMaya.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnMaya.FillColor = Color.FromArgb(64, 0, 0);
-            btnMaya.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnMaya.ForeColor = Color.White;
-            btnMaya.Location = new Point(527, 118);
-            btnMaya.Name = "btnMaya";
-            btnMaya.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnMaya.Size = new Size(167, 52);
-            btnMaya.TabIndex = 13;
-            btnMaya.Text = "Maya";
+            lblChanging.AutoSize = true;
+            lblChanging.BackColor = Color.Transparent;
+            lblChanging.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold);
+            lblChanging.ForeColor = Color.FromArgb(111, 77, 56);
+            lblChanging.Location = new Point(46, 286);
+            lblChanging.Name = "lblChanging";
+            lblChanging.Size = new Size(148, 46);
+            lblChanging.TabIndex = 5;
+            lblChanging.Text = "Change:";
+            lblChanging.Click += label1_Click;
             // 
             // UC_Payment
             // 
@@ -436,5 +465,7 @@
         private Label lblPaymethod;
         private Guna.UI2.WinForms.Guna2Button btnMaya;
         private Guna.UI2.WinForms.Guna2Button btnGcash;
+        private Label lblChanging;
+        private Label lblTotal;
     }
 }
