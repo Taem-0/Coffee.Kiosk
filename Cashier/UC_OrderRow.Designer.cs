@@ -51,10 +51,10 @@
             btnMinus.FillColor = Color.FromArgb(111, 77, 56);
             btnMinus.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnMinus.ForeColor = Color.White;
-            btnMinus.Location = new Point(117, 6);
+            btnMinus.Location = new Point(112, 6);
             btnMinus.Name = "btnMinus";
             btnMinus.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnMinus.Size = new Size(30, 22);
+            btnMinus.Size = new Size(43, 34);
             btnMinus.TabIndex = 0;
             btnMinus.Text = "-";
             btnMinus.Click += btnMinus_Click;
@@ -64,7 +64,7 @@
             lblItemName.AutoSize = true;
             lblItemName.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblItemName.ForeColor = Color.FromArgb(44, 34, 24);
-            lblItemName.Location = new Point(6, 8);
+            lblItemName.Location = new Point(11, 11);
             lblItemName.Name = "lblItemName";
             lblItemName.Size = new Size(42, 20);
             lblItemName.TabIndex = 1;
@@ -76,7 +76,7 @@
             lblQty.AutoSize = true;
             lblQty.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblQty.ForeColor = Color.FromArgb(44, 34, 24);
-            lblQty.Location = new Point(155, 7);
+            lblQty.Location = new Point(161, 10);
             lblQty.Name = "lblQty";
             lblQty.Size = new Size(34, 20);
             lblQty.TabIndex = 2;
@@ -88,7 +88,7 @@
             lblSubtotal.AutoSize = true;
             lblSubtotal.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblSubtotal.ForeColor = Color.FromArgb(44, 34, 24);
-            lblSubtotal.Location = new Point(235, 7);
+            lblSubtotal.Location = new Point(244, 10);
             lblSubtotal.Name = "lblSubtotal";
             lblSubtotal.Size = new Size(43, 20);
             lblSubtotal.TabIndex = 4;
@@ -107,10 +107,10 @@
             btnPlus.FillColor = Color.FromArgb(111, 77, 56);
             btnPlus.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnPlus.ForeColor = Color.White;
-            btnPlus.Location = new Point(195, 6);
+            btnPlus.Location = new Point(198, 6);
             btnPlus.Name = "btnPlus";
             btnPlus.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnPlus.Size = new Size(30, 22);
+            btnPlus.Size = new Size(39, 34);
             btnPlus.TabIndex = 5;
             btnPlus.Text = "+";
             btnPlus.Click += btnPlus_Click;
@@ -126,7 +126,7 @@
             Controls.Add(lblItemName);
             Controls.Add(btnMinus);
             Name = "UC_OrderRow";
-            Size = new Size(288, 34);
+            Size = new Size(300, 52);
             Load += UC_OrderRow_Load;
             ResumeLayout(false);
             PerformLayout();

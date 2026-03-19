@@ -14,25 +14,16 @@ namespace Coffee.Kiosk.Cashier
     {
         private List<OrderItemModel> _cart = new();
         private decimal _total = 0;
+        private string _paymentMethod = "Cash";
+        private Panel? _pnlEWallet;
 
-        public UC_Payment()
-        {
-            InitializeComponent();
-        }
+        public UC_Payment() { InitializeComponent(); }
 
         public UC_Payment(List<OrderItemModel> cart, decimal total) : this()
         {
             _cart = cart;
             _total = total;
 
-            this.Enabled = true;
-            pnlPayLeft.Enabled = true;
-            pnlPayRight.Enabled = true;
-            guna2TextBox1.Enabled = true;
-            guna2Button2.Enabled = true;
-            guna2Button3.Enabled = true;
-            guna2Button4.Enabled = true;
-            guna2Button5.Enabled = true;
             btnConfirm.Enabled = false;
             btnBack.Enabled = true;
 
@@ -40,6 +31,31 @@ namespace Coffee.Kiosk.Cashier
             lblChangeAmt.Text = "₱0.00";
 
             LoadSummary();
+
+            btnCash.Click += (s, e) => SetPaymentMethod("Cash");
+            btnGcash.Click += (s, e) => SetPaymentMethod("GCash");
+            btnMaya.Click += (s, e) => SetPaymentMethod("Maya");
+
+            var brown = Color.FromArgb(107, 79, 58);
+            var green = Color.FromArgb(0, 119, 60);
+            var blue = Color.FromArgb(0, 90, 180);
+
+            btnCash.FillColor = Color.White;
+            btnCash.ForeColor = brown;
+            btnCash.BorderColor = brown;
+            btnCash.BorderRadius = 8;
+
+            btnGcash.FillColor = Color.White;
+            btnGcash.ForeColor = green;
+            btnGcash.BorderColor = green;
+            btnGcash.BorderRadius = 8;
+
+            btnMaya.FillColor = Color.White;
+            btnMaya.ForeColor = blue;
+            btnMaya.BorderColor = blue;
+            btnMaya.BorderRadius = 8;
+
+            SetPaymentMethod("Cash");
         }
 
         private void LoadSummary()
@@ -55,7 +71,7 @@ namespace Coffee.Kiosk.Cashier
                     : $"{item.Item.ItemName}  x{item.Quantity}\n  {summary}";
                 int rowH = string.IsNullOrEmpty(summary) ? 24 : 40;
 
-                var row = new Label
+                pnlSummary.Controls.Add(new Label
                 {
                     Text = display,
                     ForeColor = Color.FromArgb(107, 79, 58),
@@ -64,9 +80,8 @@ namespace Coffee.Kiosk.Cashier
                     Width = pnlSummary.Width - 110,
                     Height = rowH,
                     Location = new Point(10, y)
-                };
-
-                var rowPrice = new Label
+                });
+                pnlSummary.Controls.Add(new Label
                 {
                     Text = $"₱{item.Subtotal:N2}",
                     ForeColor = Color.FromArgb(59, 35, 20),
@@ -76,24 +91,20 @@ namespace Coffee.Kiosk.Cashier
                     Height = rowH,
                     Location = new Point(pnlSummary.Width - 106, y),
                     TextAlign = ContentAlignment.MiddleRight
-                };
-
-                pnlSummary.Controls.Add(row);
-                pnlSummary.Controls.Add(rowPrice);
+                });
                 y += rowH + 4;
             }
 
-            var divider = new Label
+            pnlSummary.Controls.Add(new Label
             {
                 BorderStyle = BorderStyle.Fixed3D,
                 Height = 2,
                 Width = pnlSummary.Width - 20,
                 Location = new Point(10, y + 4)
-            };
-            pnlSummary.Controls.Add(divider);
+            });
             y += 14;
 
-            var lblTot = new Label
+            pnlSummary.Controls.Add(new Label
             {
                 Text = $"Total:   ₱{_total:N2}",
                 ForeColor = Color.FromArgb(59, 35, 20),
@@ -102,8 +113,87 @@ namespace Coffee.Kiosk.Cashier
                 Width = pnlSummary.Width - 20,
                 Height = 26,
                 Location = new Point(10, y)
+            });
+        }
+
+        private void SetPaymentMethod(string method)
+        {
+            _paymentMethod = method;
+
+            var brown = Color.FromArgb(107, 79, 58);
+            var green = Color.FromArgb(0, 119, 60);
+            var blue = Color.FromArgb(0, 90, 180);
+
+            btnCash.FillColor = Color.White; btnCash.ForeColor = brown; btnCash.BorderColor = brown;
+            btnGcash.FillColor = Color.White; btnGcash.ForeColor = green; btnGcash.BorderColor = green;
+            btnMaya.FillColor = Color.White; btnMaya.ForeColor = blue; btnMaya.BorderColor = blue;
+
+            switch (method)
+            {
+                case "Cash":
+                    btnCash.FillColor = brown;
+                    btnCash.ForeColor = Color.White;
+                    pnlPayLeft.Visible = true;
+                    HideEWalletInfo();
+                    guna2TextBox1.Text = "";
+                    lblChangeAmt.Text = "₱0.00";
+                    btnConfirm.Enabled = false;
+                    break;
+
+                case "GCash":
+                    btnGcash.FillColor = green;
+                    btnGcash.ForeColor = Color.White;
+                    pnlPayLeft.Visible = false;
+                    lblChangeAmt.Text = "N/A";
+                    btnConfirm.Enabled = true;
+                    ShowEWalletInfo("GCash", "0917-123-4567", green);
+                    break;
+
+                case "Maya":
+                    btnMaya.FillColor = blue;
+                    btnMaya.ForeColor = Color.White;
+                    pnlPayLeft.Visible = false;
+                    lblChangeAmt.Text = "N/A";
+                    btnConfirm.Enabled = true;
+                    ShowEWalletInfo("Maya", "0912-765-4321", blue);
+                    break;
+            }
+        }
+
+        private void ShowEWalletInfo(string method, string number, Color color)
+        {
+            HideEWalletInfo();
+            _pnlEWallet = new Panel
+            {
+                Width = pnlPayLeft.Width,
+                Height = 160,
+                Location = pnlPayLeft.Location,
+                BackColor = Color.FromArgb(245, 250, 255),
+                BorderStyle = BorderStyle.FixedSingle
             };
-            pnlSummary.Controls.Add(lblTot);
+
+            var lblNote = new Label { Text = "  Ask customer to show screenshot before confirming.", Font = new Font("Segoe UI", 8f, FontStyle.Italic), ForeColor = Color.Gray, Dock = DockStyle.Top, Height = 22 };
+            var lblAmt = new Label { Text = $"  Amount:  ₱{_total:N2}", Font = new Font("Segoe UI", 11f, FontStyle.Bold), ForeColor = color, Dock = DockStyle.Top, Height = 30 };
+            var lblAcc = new Label { Text = "  Account:  Café Filipino", Font = new Font("Segoe UI", 10f), ForeColor = Color.FromArgb(44, 34, 24), Dock = DockStyle.Top, Height = 26 };
+            var lblNum = new Label { Text = $"  Send to:  {number}", Font = new Font("Segoe UI", 10f), ForeColor = Color.FromArgb(44, 34, 24), Dock = DockStyle.Top, Height = 26 };
+            var lblTitle = new Label { Text = $"  {method} Payment", Font = new Font("Segoe UI", 12f, FontStyle.Bold), ForeColor = color, Dock = DockStyle.Top, Height = 36, TextAlign = ContentAlignment.MiddleLeft };
+
+            _pnlEWallet.Controls.Add(lblNote);
+            _pnlEWallet.Controls.Add(lblAmt);
+            _pnlEWallet.Controls.Add(lblAcc);
+            _pnlEWallet.Controls.Add(lblNum);
+            _pnlEWallet.Controls.Add(lblTitle);
+
+            pnlPayLeft.Parent!.Controls.Add(_pnlEWallet);
+            _pnlEWallet.BringToFront();
+        }
+
+        private void HideEWalletInfo()
+        {
+            if (_pnlEWallet == null) return;
+            _pnlEWallet.Parent?.Controls.Remove(_pnlEWallet);
+            _pnlEWallet.Dispose();
+            _pnlEWallet = null;
         }
 
         private void CalcChange()
@@ -113,8 +203,7 @@ namespace Coffee.Kiosk.Cashier
                 decimal change = cash - _total;
                 lblChangeAmt.Text = $"₱{Math.Abs(change):N2}";
                 lblChangeAmt.ForeColor = change >= 0
-                    ? Color.FromArgb(46, 125, 82)
-                    : Color.FromArgb(192, 96, 122);
+                    ? Color.FromArgb(46, 125, 82) : Color.FromArgb(192, 96, 122);
                 btnConfirm.Enabled = change >= 0;
             }
             else
@@ -141,15 +230,112 @@ namespace Coffee.Kiosk.Cashier
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (!decimal.TryParse(guna2TextBox1.Text, out decimal cash)) return;
-            decimal change = cash - _total;
+            if (!decimal.TryParse(guna2TextBox1.Text, out decimal cash))
+                cash = _total;
+
+            decimal change = _paymentMethod == "Cash" ? cash - _total : 0;
+
+            if (_paymentMethod != "Cash")
+            {
+                var ok = MessageBox.Show(
+                    $"Confirm {_paymentMethod} payment of ₱{_total:N2}?\n\nCustomer has shown the screenshot?",
+                    $"Confirm {_paymentMethod}",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (ok != DialogResult.Yes) return;
+            }
+
+            /* UNCOMMENT WHEN DATABASE IS READY =================================
+ 
+            var outOfStock = InventoryManager.CheckStockAvailability(_cart);
+            if (outOfStock.Count > 0)
+            {
+                MessageBox.Show(
+                    "Cannot complete order — insufficient stock:\n\n"
+                    + string.Join("\n", outOfStock),
+                    "Out of Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+ 
+            long orderId = SaveOrderToDatabase(cash, change);
+            InventoryManager.SubtractInventory(orderId, _cart);
+            SendToKitchen(orderId);
+ 
+            END UNCOMMENT ===================================================*/
+
             SessionManager.OrderNumber++;
             var receipt = new UC_Receipt(_cart, _total, cash, change);
             ((HomePage)this.ParentForm!).LoadControl(receipt);
         }
 
+        /* UNCOMMENT WHEN DATABASE IS READY =====================================
+ 
+        private long SaveOrderToDatabase(decimal cash, decimal change)
+        {
+            using var conn = DBHelper.GetConnection();
+            conn.Open();
+            using var tx = conn.BeginTransaction();
+ 
+            var cmd = new MySql.Data.MySqlClient.MySqlCommand(@"
+                INSERT INTO orders
+                    (order_type, payment_method, total_amount,
+                     cash_given, change_amount, status, created_at)
+                VALUES ('cashier', @method, @total, @cash, @change, 'paid', NOW())",
+                conn, tx);
+            cmd.Parameters.AddWithValue("@method", _paymentMethod);
+            cmd.Parameters.AddWithValue("@total",  _total);
+            cmd.Parameters.AddWithValue("@cash",   cash);
+            cmd.Parameters.AddWithValue("@change", change);
+            cmd.ExecuteNonQuery();
+            long orderId = cmd.LastInsertedId;
+ 
+            foreach (var item in _cart)
+            {
+                var cmdI = new MySql.Data.MySqlClient.MySqlCommand(@"
+                    INSERT INTO order_items
+                        (order_id, menu_item_id, product_name,
+                         quantity, size, notes, price)
+                    VALUES (@oid, @mid, @name, @qty, @size, @notes, @price)",
+                    conn, tx);
+                cmdI.Parameters.AddWithValue("@oid",   orderId);
+                cmdI.Parameters.AddWithValue("@mid",   item.Item.ItemID);
+                cmdI.Parameters.AddWithValue("@name",  item.Item.ItemName);
+                cmdI.Parameters.AddWithValue("@qty",   item.Quantity);
+                cmdI.Parameters.AddWithValue("@size",  item.Customization.Size);
+                cmdI.Parameters.AddWithValue("@notes", item.Customization.Notes);
+                cmdI.Parameters.AddWithValue("@price",
+                    item.Item.Price + item.Customization.AddOnsTotal);
+                cmdI.ExecuteNonQuery();
+            }
+ 
+            tx.Commit();
+            return orderId;
+        }
+ 
+        private void SendToKitchen(long orderId)
+        {
+            using var conn = DBHelper.GetConnection();
+            conn.Open();
+            foreach (var item in _cart)
+            {
+                var cmd = new MySql.Data.MySqlClient.MySqlCommand(@"
+                    INSERT INTO kitchen_queue
+                        (order_id, item_name, quantity, size, notes, status, created_at)
+                    VALUES (@oid, @name, @qty, @size, @notes, 'pending', NOW())",
+                    conn);
+                cmd.Parameters.AddWithValue("@oid",   orderId);
+                cmd.Parameters.AddWithValue("@name",  item.Item.ItemName);
+                cmd.Parameters.AddWithValue("@qty",   item.Quantity);
+                cmd.Parameters.AddWithValue("@size",  item.Customization.Size);
+                cmd.Parameters.AddWithValue("@notes", item.Customization.Summary());
+                cmd.ExecuteNonQuery();
+            }
+        }
+ 
+        END UNCOMMENT =======================================================*/
+
         private void btnBack_Click(object sender, EventArgs e)
         {
+            HideEWalletInfo();
             ((HomePage)this.ParentForm!).LoadControl(new UC_Cashier());
         }
 

@@ -13,48 +13,53 @@ namespace Coffee.Kiosk.Cashier
     public partial class UC_OrderRow : UserControl
     {
         public OrderItemModel OrderItem { get; private set; } = new();
-
         public event EventHandler? QuantityIncreased;
         public event EventHandler? QuantityDecreased;
 
-        public UC_OrderRow()
-        {
-            InitializeComponent();
-        }
+        public UC_OrderRow() { InitializeComponent(); }
 
         public UC_OrderRow(OrderItemModel orderItem) : this()
         {
             OrderItem = orderItem;
 
-            btnMinus.Text = "-";
-            btnPlus.Text = "+";
-            btnMinus.Font = new Font("Microsoft Sans Serif", 11f, FontStyle.Bold);
-            btnPlus.Font = new Font("Microsoft Sans Serif", 11f, FontStyle.Bold);
-
+            this.Dock = DockStyle.Top;
             this.Height = 52;
-            lblItemName.Location = new Point(6, 4);
-            lblItemName.Size = new Size(140, 18);
-            btnMinus.Location = new Point(152, 14);
-            btnMinus.Size = new Size(22, 22);
-            lblQty.Location = new Point(178, 16);
-            lblQty.Size = new Size(22, 18);
+            this.BackColor = Color.FromArgb(248, 244, 240);
+
+            btnMinus.Text = "-";
+            btnMinus.Font = new Font("Arial", 13f, FontStyle.Bold);
+            btnMinus.FillColor = Color.FromArgb(240, 225, 210);
+            btnMinus.ForeColor = Color.FromArgb(107, 79, 58);
+            btnMinus.BorderColor = Color.FromArgb(107, 79, 58);
+            btnMinus.BorderThickness = 1;
+
+            btnPlus.Text = "+";
+            btnPlus.Font = new Font("Arial", 13f, FontStyle.Bold);
+            btnPlus.FillColor = Color.FromArgb(107, 79, 58);
+            btnPlus.ForeColor = Color.White;
+            btnPlus.BorderColor = Color.FromArgb(107, 79, 58);
+            btnPlus.BorderThickness = 1;
+
+            lblItemName.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
+            lblItemName.ForeColor = Color.FromArgb(44, 34, 24);
+            lblItemName.AutoSize = false;
+
+            lblQty.Font = new Font("Segoe UI", 10f, FontStyle.Bold);
+            lblQty.ForeColor = Color.FromArgb(59, 35, 20);
             lblQty.TextAlign = ContentAlignment.MiddleCenter;
-            btnPlus.Location = new Point(204, 14);
-            btnPlus.Size = new Size(22, 22);
-            lblSubtotal.Location = new Point(230, 14);
-            lblSubtotal.Size = new Size(60, 22);
+
+            lblSubtotal.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
+            lblSubtotal.ForeColor = Color.FromArgb(59, 35, 20);
             lblSubtotal.TextAlign = ContentAlignment.MiddleRight;
 
             var lblCustom = new Label
             {
                 Name = "lblCustomSummary",
                 AutoSize = false,
-                Width = 285,
-                Height = 16,
-                Location = new Point(6, 24),
                 Font = new Font("Segoe UI", 7f),
                 ForeColor = Color.FromArgb(150, 120, 90),
-                BackColor = Color.Transparent
+                BackColor = Color.Transparent,
+                Visible = false
             };
             this.Controls.Add(lblCustom);
 
@@ -73,6 +78,12 @@ namespace Coffee.Kiosk.Cashier
                 string summary = OrderItem.Customization.Summary();
                 lblCustom.Text = summary;
                 lblCustom.Visible = !string.IsNullOrEmpty(summary);
+
+                lblCustom.Location = new Point(
+                    lblItemName.Left,
+                    lblItemName.Bottom + 2);
+                lblCustom.Width = lblItemName.Width;
+                lblCustom.Height = 14;
             }
         }
 

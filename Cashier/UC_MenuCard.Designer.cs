@@ -55,7 +55,7 @@
             guna2Panel1.Location = new Point(0, 0);
             guna2Panel1.Name = "guna2Panel1";
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Panel1.Size = new Size(150, 140);
+            guna2Panel1.Size = new Size(167, 140);
             guna2Panel1.TabIndex = 0;
             guna2Panel1.Paint += guna2Panel1_Paint;
             // 
@@ -104,7 +104,7 @@
             picItem.Dock = DockStyle.Top;
             picItem.Location = new Point(0, 0);
             picItem.Name = "picItem";
-            picItem.Size = new Size(150, 60);
+            picItem.Size = new Size(167, 60);
             picItem.SizeMode = PictureBoxSizeMode.Zoom;
             picItem.TabIndex = 0;
             picItem.TabStop = false;
@@ -117,7 +117,7 @@
             BackColor = Color.Transparent;
             Controls.Add(guna2Panel1);
             Name = "UC_MenuCard";
-            Size = new Size(150, 140);
+            Size = new Size(167, 140);
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picItem).EndInit();

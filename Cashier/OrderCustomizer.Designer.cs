@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlHeader = new Panel();
             btnClose = new Button();
             lblCat = new Label();
@@ -67,6 +67,7 @@
             btnClose.Text = "X";
             btnClose.TextAlign = ContentAlignment.TopCenter;
             btnClose.UseVisualStyleBackColor = false;
+            btnClose.Click += btnClose_Click;
             // 
             // lblCat
             // 
@@ -115,7 +116,7 @@
             // btnAdd
             // 
             btnAdd.BorderRadius = 8;
-            btnAdd.CustomizableEdges = customizableEdges5;
+            btnAdd.CustomizableEdges = customizableEdges1;
             btnAdd.DisabledState.BorderColor = Color.DarkGray;
             btnAdd.DisabledState.CustomBorderColor = Color.DarkGray;
             btnAdd.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -125,10 +126,11 @@
             btnAdd.ForeColor = Color.White;
             btnAdd.Location = new Point(380, 10);
             btnAdd.Name = "btnAdd";
-            btnAdd.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnAdd.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnAdd.Size = new Size(160, 40);
             btnAdd.TabIndex = 0;
             btnAdd.Text = "Add to Order";
+            btnAdd.Click += btnAdd_Click;
             // 
             // pnlBody
             // 
