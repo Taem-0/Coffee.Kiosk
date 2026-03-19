@@ -47,6 +47,20 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
                 conn.Open();
 
+                using var oldValueCmd = conn.CreateCommand();
+                oldValueCmd.CommandText = "SELECT Name FROM category WHERE ID = @id";
+                oldValueCmd.Parameters.AddWithValue("@id", categoryId);
+
+                string? oldName = null;
+
+                using (var reader = oldValueCmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        oldName = reader.GetString("Name");
+                    }
+                }
+
                 using var cmd = conn.CreateCommand();
                 cmd.CommandText = @"UPDATE category
                                     SET Name = @newName
@@ -55,11 +69,14 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@newName", newName);
                 cmd.Parameters.AddWithValue("@categoryId", categoryId);
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs("category", categoryId, AuditLogsDb.Action.UPDATE, 
+                    $"Category name changed from '{oldName}' to '{newName}"
+                    );
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"\033[1;31m{ex}\033[0m");
-                MessageBox.Show("failed to update categoryname");
+                MessageBox.Show($"failed to update categoryname\n{ex.Message}");
             }
         }
 
@@ -178,7 +195,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
             catch(Exception ex)
             {
-                Console.WriteLine($"Couldn't GetAllProductsCategory for : ${categoryId}");
                 MessageBox.Show($"${ex.Message}");
             }
             return result;
@@ -522,6 +538,86 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             catch(Exception ex)
             {
                 MessageBox.Show($"Failed to delete modifier_option\n{ex.Message}");
+            }
+        }
+
+        internal static List<Models.OrderingSystem.ProductRecipe> GetAllProductsRecipe(int productId)
+        {
+            var result = new List<Models.OrderingSystem.ProductRecipe>();
+
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"SELECT * FROM product_recipe WHERE ProductId = @productId";
+                cmd.Parameters.AddWithValue("@productId", productId);
+
+                using var row = cmd.ExecuteReader();
+                while (row.Read())
+                {
+                    result.Add(new Models.OrderingSystem.ProductRecipe
+                    {
+                        Id = row.GetInt32("ID"),
+                        ProductId = row.GetInt32("ProductId"),
+                        InventoryItemId = row.GetInt32("InventoryItemId"),
+                        InventorySubtraction = row.GetDecimal("InventorySubtraction")
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"${ex.Message}");
+            }
+            return result;
+        }
+
+        internal static int AddProductRecipe(int productId, Models.InventorySystem.Inventory inventoryItem)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"
+                INSERT INTO product_recipe (ProductId, InventoryItemId, InventorySubtraction)
+                VALUES (@productId, @inventoryItemId, @inventorySubtraction)
+                ;";
+                cmd.Parameters.AddWithValue("@productId", productId);
+                cmd.Parameters.AddWithValue("@inventoryItemId", inventoryItem.Id);
+                cmd.Parameters.AddWithValue("@inventorySubtraction", 1);
+
+                cmd.ExecuteNonQuery();
+                return (int)cmd.LastInsertedId;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"${ex.Message}");
+                return 0;
+            }
+        }
+        internal static bool DeleteProductRecipe(int productRecipeId)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"
+                DELETE FROM product_recipe WHERE ID = @productRecipeId;
+                ;";
+                cmd.Parameters.AddWithValue("productRecipeId", productRecipeId);
+
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"${ex.Message}");
+                return false;
             }
         }
     }

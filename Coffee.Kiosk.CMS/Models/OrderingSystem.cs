@@ -31,7 +31,7 @@ namespace Coffee.Kiosk.CMS.Models
             Multiple
         }
 
-        internal record ProductData(
+        public record ProductData(
             int Id,
             int CategoryId,
             string Name,
@@ -39,6 +39,14 @@ namespace Coffee.Kiosk.CMS.Models
             string ImagePath,
             bool IsCustomizable
         );
+
+        public record ProductRecipe
+        {
+            public int Id { get; set; }
+            public int ProductId { get; set; }
+            public int InventoryItemId { get; set; }
+            public decimal InventorySubtraction { get; set; }
+        };
 
         public record ModifierGroup(
             int Id,

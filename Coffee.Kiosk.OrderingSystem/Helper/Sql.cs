@@ -63,6 +63,23 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 ImagePath VARCHAR(255)
             );",
 
+            // logs
+            @"CREATE TABLE IF NOT EXISTS logs (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+
+                Table_Affected VARCHAR(50) NOT NULL,
+                Record_ID INT NOT NULL,
+
+                Action ENUM('INSERT','UPDATE','DELETE') NOT NULL,
+
+                Changed_By INT NOT NULL,
+                Changed_By_Name INT NOT NULL,
+
+                Old_Value TEXT NULL,
+                New_Value TEXT NULL,
+
+                Created_At DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+            );",
 
             // Ordering System
             @"CREATE TABLE IF NOT EXISTS category (

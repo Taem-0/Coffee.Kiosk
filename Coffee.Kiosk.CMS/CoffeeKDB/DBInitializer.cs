@@ -60,6 +60,22 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 ImagePath VARCHAR(255)
             );",
 
+            // logs
+            @"CREATE TABLE IF NOT EXISTS logs (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+
+                Table_Affected VARCHAR(50) NOT NULL,
+                Record_ID INT NOT NULL,
+
+                Action ENUM('INSERT','UPDATE','DELETE') NOT NULL,
+
+                Changed_By INT NOT NULL,
+                Changed_By_Name VARCHAR(67) NOT NULL,
+
+                Summary VARCHAR(255) NOT NULL,
+
+                Created_At DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+            );",
 
             // Ordering System
             @"CREATE TABLE IF NOT EXISTS category (
@@ -77,6 +93,14 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 ImagePath VARCHAR(255),
                 IsCustomizable BOOLEAN NOT NULL DEFAULT 0,
                 FOREIGN KEY (CategoryID) REFERENCES category(ID) ON DELETE CASCADE
+            );",
+
+            @"CREATE TABLE IF NOT EXISTS product_recipe (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                ProductId INT NOT NULL,
+                InventoryItemId INT NOT NULL,
+                InventorySubtraction DECIMAL(10,2) NOT NULL,
+                FOREIGN KEY (ProductId) REFERENCES product(ID) ON DELETE CASCADE
             );",
 
             @"CREATE TABLE IF NOT EXISTS modifier_group (
