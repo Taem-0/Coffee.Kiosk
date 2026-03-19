@@ -434,7 +434,7 @@
             BackColor = Color.FromArgb(250, 246, 243);
             Controls.Add(pnlPayLeft);
             Controls.Add(pnlPayRight);
-            Enabled = false;
+            Enabled = true;
             Name = "UC_Payment";
             Size = new Size(1920, 1001);
             pnlPayRight.ResumeLayout(false);
