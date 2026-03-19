@@ -30,6 +30,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
             _productRecipe = OrderingSystemDbManager.GetAllProductsRecipe(productId);
 
             LoadInventory();
+            LoadProductRecipe();
 
             _searchTimer.Interval = 250;
             _searchTimer.Tick += SearchTimer_Tick;
@@ -74,7 +75,8 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
 
             foreach (var recipe in _productRecipe)
             {
-
+                var productRecipe = new ProductRecipes(recipe);
+                flowLayoutPanel2.Controls.Add(productRecipe);
             }
         }
 
@@ -82,19 +84,24 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
         {
             if (recipeItemControl._model.Id == null) return;
             int inventoryId = recipeItemControl._model.Id.Value;
+
             if (recipeItemControl.IsSelected)
             {
                 if (_productRecipe.Any(r => r.InventoryItemId == inventoryId)) return;
 
                 int id = OrderingSystemDbManager.AddProductRecipe(_productId, recipeItemControl._model);
 
-                _productRecipe.Add(new Models.OrderingSystem.ProductRecipe
+                var newRecipe = new Models.OrderingSystem.ProductRecipe
                 {
                     Id = id,
                     ProductId = _productId,
                     InventoryItemId = inventoryId,
                     InventorySubtraction = 1
-                });
+                };
+
+                _productRecipe.Add(newRecipe);
+
+                UpdateProductRecipeControl(newRecipe, true);
             }
             else
             {
@@ -103,8 +110,36 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
                 if (recipe == null) return;
 
                 OrderingSystemDbManager.DeleteProductRecipe(recipe.Id);
-
                 _productRecipe.Remove(recipe);
+
+                UpdateProductRecipeControl(recipe, false);
+            }
+        }
+        private void UpdateProductRecipeControl(Models.OrderingSystem.ProductRecipe recipe, bool isSelected)
+        {
+            if (isSelected)
+            {
+                bool exists = flowLayoutPanel2.Controls
+                    .OfType<ProductRecipes>()
+                    .Any(c => c._model.Id == recipe.Id);
+
+                if (!exists)
+                {
+                    var productRecipeControl = new ProductRecipes(recipe);
+                    flowLayoutPanel2.Controls.Add(productRecipeControl);
+                }
+            }
+            else
+            {
+                var controlToRemove = flowLayoutPanel2.Controls
+                    .OfType<ProductRecipes>()
+                    .FirstOrDefault(c => c._model.Id == recipe.Id);
+
+                if (controlToRemove != null)
+                {
+                    flowLayoutPanel2.Controls.Remove(controlToRemove);
+                    controlToRemove.Dispose();
+                }
             }
         }
 
@@ -114,16 +149,16 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
             this.Close();
         }
 
-        private void CancelBtn_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
 
         private void SearchTxtBox_TextChanged(object sender, EventArgs e)
         {
             _searchTimer.Stop();
             _searchTimer.Start();
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            SearchTxtBox.Text = String.Empty;
         }
     }
 }

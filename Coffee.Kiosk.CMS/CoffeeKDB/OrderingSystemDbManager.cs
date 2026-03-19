@@ -620,5 +620,31 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 return false;
             }
         }
+
+        internal static bool UpdateProductRecipe(int id, decimal inventorySubtraction)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"
+                UPDATE product_recipe
+                SET InventorySubtraction = @inventorySubtraction
+                WHERE ID = @id
+                ;";
+                cmd.Parameters.AddWithValue("@inventorySubtraction", inventorySubtraction);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"${ex.Message}");
+                return false;
+            }
+        }
     }
 }
