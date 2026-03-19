@@ -1,5 +1,6 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
+using Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls;
 using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
 using System;
@@ -49,6 +50,13 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
             LoadCurrentEmployeeData();
 
+            //KioskLoad:
+
+
+            SwitchScreen(miniGetStartedScreen1);
+
+
+
         }
 
         #region ACCOUNT TAB
@@ -68,7 +76,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
                 using var img = Image.FromFile(_selectedImagePath);
                 guna2CirclePictureBox1.Image = new Bitmap(img);
                 guna2CirclePictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            } 
+            }
         }
 
 
@@ -294,6 +302,96 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
         #endregion
 
+        #region KIOSK TAB
+
+
+
+
+        private void LeftSlideButton_Click(object sender, EventArgs e)
+        {
+            if (miniGetStartedScreen1.Visible) 
+            {
+                SwitchScreen(miniThankYouScreen1);
+            }
+            else if (miniDineInTakeOut1.Visible)
+            {
+                SwitchScreen(miniGetStartedScreen1);
+            }
+            else if (miniHomePage1.Visible)
+            {
+                SwitchScreen(miniDineInTakeOut1);
+            }
+            else if (miniKioskMenu1.Visible)
+            {
+                SwitchScreen(miniHomePage1);
+            }
+            else if (miniModalScreen1.Visible)
+            {
+                SwitchScreen(miniKioskMenu1);
+            }
+            else if (miniViewOrder1.Visible)
+            {
+                SwitchScreen(miniModalScreen1);
+            }
+            else if (miniThankYouScreen1.Visible)
+            {
+                SwitchScreen(miniViewOrder1);
+            }
+        }
+
+        private void RightSlideButton_Click(object sender, EventArgs e)
+        {
+            if (miniGetStartedScreen1.Visible)
+            {
+                SwitchScreen(miniDineInTakeOut1);
+            }
+            else if (miniDineInTakeOut1.Visible)
+            {
+                SwitchScreen(miniHomePage1);
+            }
+            else if (miniHomePage1.Visible)
+            {
+                SwitchScreen(miniKioskMenu1);
+            }
+            else if (miniKioskMenu1.Visible) 
+            {
+                SwitchScreen(miniModalScreen1);
+            }
+            else if (miniModalScreen1.Visible) 
+            {
+                SwitchScreen(miniViewOrder1);
+            }
+            else if (miniViewOrder1.Visible)
+            {
+                SwitchScreen(miniThankYouScreen1);
+            }
+            else if (miniThankYouScreen1.Visible)
+            {
+                SwitchScreen(miniGetStartedScreen1);
+            }
+        }
+
+        private void SwitchScreen(UserControl targetScreen)
+        {
+            UserControl[] allScreens = {
+                miniGetStartedScreen1,
+                miniDineInTakeOut1,
+                miniHomePage1,
+                miniKioskMenu1,
+                miniModalScreen1,
+                miniViewOrder1,
+                miniThankYouScreen1
+            };
+
+            foreach (var screen in allScreens)
+            {
+                screen.Visible = (screen == targetScreen);
+            }
+
+            targetScreen.BringToFront();
+        }
+
+        #endregion
 
 
     }
