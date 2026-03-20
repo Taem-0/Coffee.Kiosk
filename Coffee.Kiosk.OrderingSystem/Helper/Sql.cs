@@ -419,12 +419,13 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
             using var cmd = conn.CreateCommand();
             cmd.CommandText = """
-                INSERT INTO customer_orders (OrderType, Status, TotalAmount)
-                VALUES (@orderType, @status, @totalAmount);
+                INSERT INTO customer_orders (OrderType, Status, TotalAmount, Payment)
+                VALUES (@orderType, @status, @totalAmount, @payment);
             """;
             cmd.Parameters.AddWithValue("@orderType", order.Type.ToString());
             cmd.Parameters.AddWithValue("@status", "Pending");
             cmd.Parameters.AddWithValue("@totalAmount", subTotal);
+            cmd.Parameters.AddWithValue("@payment", order.paymentType.ToString());
 
             cmd.ExecuteNonQuery();
             return (int)cmd.LastInsertedId;

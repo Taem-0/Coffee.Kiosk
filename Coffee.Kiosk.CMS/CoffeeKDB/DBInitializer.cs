@@ -144,6 +144,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 OrderType ENUM('DineIn','TakeOut') NOT NULL,
                 Status ENUM('Pending','Paid','Cancelled') NOT NULL DEFAULT 'Pending',
                 TotalAmount DECIMAL(10,2) NOT NULL,
+                Payment ENUM('Cash','Gcash') NOT NULL,
 
                 CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );",

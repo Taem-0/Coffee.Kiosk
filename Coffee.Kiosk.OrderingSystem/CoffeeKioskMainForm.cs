@@ -297,7 +297,7 @@ namespace Coffee.Kiosk.OrderingSystem
                 }
                 UI_Handling.loadUserControl(mainPanel, receiptGcashScreen);
                 await Task.Delay(3000);
-                receiptGcashScreen.StartResetCountdown(countdown);
+                receiptGcashScreen.StartResetCountdown(20);
             }
 
             QPdfGen.GenerateReceiptPdf(currentOrder, "Kiosk_Receipt.pdf", customerId);
@@ -353,8 +353,8 @@ namespace Coffee.Kiosk.OrderingSystem
         private void HideModalScreen()
         {
             modalOverlayPanel.Visible = false;
-            //modalScreen?.Dispose();
-            //modalScreen = null;
+            modalScreen?.Dispose();
+            modalScreen = null;
 
             kioskMenu?.KioskScrollPosFix();
         }
