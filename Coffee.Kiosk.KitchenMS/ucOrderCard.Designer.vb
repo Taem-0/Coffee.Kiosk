@@ -23,161 +23,151 @@ Partial Class ucOrderCard
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
-        Panel1 = New Panel()
-        Panel3 = New Panel()
-        btnFinish = New Button()
-        btnStart = New Button()
-        Panel2 = New Panel()
-        lblPlaceEat = New Label()
-        lblWaitTime = New Label()
-        lblTimeOrder = New Label()
-        lblOrderNumber = New Label()
-        lstBxOrder = New ListBox()
+        flpItems = New FlowLayoutPanel()
         tmrWait = New Timer(components)
-        Panel1.SuspendLayout()
-        Panel3.SuspendLayout()
-        Panel2.SuspendLayout()
+        lblOrderNumber = New Label()
+        lblOrderTime = New Label()
+        lblWaitTime = New Label()
+        lblOrderType = New Label()
+        btnAction = New RoundedButton()
+        pnlBody = New Panel()
+        pnlFooter = New Panel()
+        pnlHeader = New Panel()
+        pnlBody.SuspendLayout()
+        pnlFooter.SuspendLayout()
+        pnlHeader.SuspendLayout()
         SuspendLayout()
         ' 
-        ' Panel1
+        ' flpItems
         ' 
-        Panel1.BackColor = Color.White
-        Panel1.BorderStyle = BorderStyle.FixedSingle
-        Panel1.Controls.Add(Panel3)
-        Panel1.Controls.Add(Panel2)
-        Panel1.Controls.Add(lstBxOrder)
-        Panel1.Location = New Point(0, 0)
-        Panel1.Name = "Panel1"
-        Panel1.Size = New Size(345, 530)
-        Panel1.TabIndex = 5
+        flpItems.AutoScroll = True
+        flpItems.BackColor = Color.White
+        flpItems.Location = New Point(1, 3)
+        flpItems.Name = "flpItems"
+        flpItems.Size = New Size(339, 368)
+        flpItems.TabIndex = 2
         ' 
-        ' Panel3
+        ' tmrWait
         ' 
-        Panel3.BackColor = Color.FromArgb(CByte(160), CByte(120), CByte(86))
-        Panel3.BorderStyle = BorderStyle.FixedSingle
-        Panel3.Controls.Add(btnFinish)
-        Panel3.Controls.Add(btnStart)
-        Panel3.Location = New Point(-1, 459)
-        Panel3.Name = "Panel3"
-        Panel3.Size = New Size(345, 69)
-        Panel3.TabIndex = 1
-        ' 
-        ' btnFinish
-        ' 
-        btnFinish.BackColor = Color.White
-        btnFinish.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnFinish.Location = New Point(191, 14)
-        btnFinish.Name = "btnFinish"
-        btnFinish.Size = New Size(123, 39)
-        btnFinish.TabIndex = 1
-        btnFinish.Text = "COMPLETE"
-        btnFinish.UseVisualStyleBackColor = False
-        ' 
-        ' btnStart
-        ' 
-        btnStart.BackColor = Color.White
-        btnStart.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnStart.Location = New Point(32, 14)
-        btnStart.Name = "btnStart"
-        btnStart.Size = New Size(123, 39)
-        btnStart.TabIndex = 0
-        btnStart.Text = "START"
-        btnStart.UseVisualStyleBackColor = False
-        ' 
-        ' Panel2
-        ' 
-        Panel2.BackColor = Color.FromArgb(CByte(160), CByte(120), CByte(86))
-        Panel2.BorderStyle = BorderStyle.FixedSingle
-        Panel2.Controls.Add(lblPlaceEat)
-        Panel2.Controls.Add(lblWaitTime)
-        Panel2.Controls.Add(lblTimeOrder)
-        Panel2.Controls.Add(lblOrderNumber)
-        Panel2.Location = New Point(-1, -1)
-        Panel2.Name = "Panel2"
-        Panel2.Size = New Size(345, 69)
-        Panel2.TabIndex = 0
-        ' 
-        ' lblPlaceEat
-        ' 
-        lblPlaceEat.AutoSize = True
-        lblPlaceEat.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblPlaceEat.ForeColor = Color.White
-        lblPlaceEat.Location = New Point(258, 8)
-        lblPlaceEat.Name = "lblPlaceEat"
-        lblPlaceEat.Size = New Size(67, 23)
-        lblPlaceEat.TabIndex = 3
-        lblPlaceEat.Text = "Dine In"
-        ' 
-        ' lblWaitTime
-        ' 
-        lblWaitTime.AutoSize = True
-        lblWaitTime.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblWaitTime.ForeColor = Color.White
-        lblWaitTime.Location = New Point(269, 35)
-        lblWaitTime.Name = "lblWaitTime"
-        lblWaitTime.Size = New Size(50, 23)
-        lblWaitTime.TabIndex = 2
-        lblWaitTime.Text = "Time"
-        ' 
-        ' lblTimeOrder
-        ' 
-        lblTimeOrder.AutoSize = True
-        lblTimeOrder.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblTimeOrder.ForeColor = Color.White
-        lblTimeOrder.Location = New Point(13, 35)
-        lblTimeOrder.Name = "lblTimeOrder"
-        lblTimeOrder.Size = New Size(50, 23)
-        lblTimeOrder.TabIndex = 1
-        lblTimeOrder.Text = "Time"
+        tmrWait.Interval = 1000
         ' 
         ' lblOrderNumber
         ' 
         lblOrderNumber.AutoSize = True
         lblOrderNumber.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblOrderNumber.ForeColor = Color.White
-        lblOrderNumber.Location = New Point(11, 8)
+        lblOrderNumber.Location = New Point(9, 13)
         lblOrderNumber.Name = "lblOrderNumber"
         lblOrderNumber.Size = New Size(72, 23)
         lblOrderNumber.TabIndex = 0
         lblOrderNumber.Text = "Order #"
         ' 
-        ' lstBxOrder
+        ' lblOrderTime
         ' 
-        lstBxOrder.BorderStyle = BorderStyle.None
-        lstBxOrder.FormattingEnabled = True
-        lstBxOrder.Location = New Point(0, 74)
-        lstBxOrder.Name = "lstBxOrder"
-        lstBxOrder.Size = New Size(341, 380)
-        lstBxOrder.TabIndex = 2
+        lblOrderTime.AutoSize = True
+        lblOrderTime.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblOrderTime.ForeColor = Color.White
+        lblOrderTime.Location = New Point(11, 40)
+        lblOrderTime.Name = "lblOrderTime"
+        lblOrderTime.Size = New Size(159, 23)
+        lblOrderTime.TabIndex = 1
+        lblOrderTime.Text = "Time Order Placed"
         ' 
-        ' tmrWait
+        ' lblWaitTime
         ' 
-        tmrWait.Interval = 1000
+        lblWaitTime.AutoSize = True
+        lblWaitTime.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblWaitTime.ForeColor = Color.White
+        lblWaitTime.Location = New Point(267, 40)
+        lblWaitTime.Name = "lblWaitTime"
+        lblWaitTime.Size = New Size(67, 23)
+        lblWaitTime.TabIndex = 2
+        lblWaitTime.Text = "WTime"
+        ' 
+        ' lblOrderType
+        ' 
+        lblOrderType.AutoSize = True
+        lblOrderType.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblOrderType.ForeColor = Color.White
+        lblOrderType.Location = New Point(256, 13)
+        lblOrderType.Name = "lblOrderType"
+        lblOrderType.Size = New Size(67, 23)
+        lblOrderType.TabIndex = 3
+        lblOrderType.Text = "Dine In"
+        ' 
+        ' btnAction
+        ' 
+        btnAction.BackColor = Color.White
+        btnAction.BorderColor = Color.FromArgb(CByte(92), CByte(51), CByte(23))
+        btnAction.BorderSize = 2
+        btnAction.CornerRadius = 10
+        btnAction.FlatAppearance.BorderColor = Color.FromArgb(CByte(0), CByte(255), CByte(255), CByte(255))
+        btnAction.FlatAppearance.BorderSize = 0
+        btnAction.FlatStyle = FlatStyle.Flat
+        btnAction.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnAction.Location = New Point(12, 16)
+        btnAction.Name = "btnAction"
+        btnAction.Size = New Size(323, 47)
+        btnAction.TabIndex = 0
+        btnAction.Text = "Start"
+        btnAction.UseVisualStyleBackColor = False
+        ' 
+        ' pnlBody
+        ' 
+        pnlBody.BackColor = Color.White
+        pnlBody.BorderStyle = BorderStyle.FixedSingle
+        pnlBody.Controls.Add(pnlFooter)
+        pnlBody.Controls.Add(flpItems)
+        pnlBody.Location = New Point(0, 76)
+        pnlBody.Name = "pnlBody"
+        pnlBody.Size = New Size(345, 459)
+        pnlBody.TabIndex = 5
+        ' 
+        ' pnlFooter
+        ' 
+        pnlFooter.BackColor = Color.White
+        pnlFooter.Controls.Add(btnAction)
+        pnlFooter.Location = New Point(-1, 376)
+        pnlFooter.Name = "pnlFooter"
+        pnlFooter.Size = New Size(347, 81)
+        pnlFooter.TabIndex = 3
+        ' 
+        ' pnlHeader
+        ' 
+        pnlHeader.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        pnlHeader.BackColor = Color.DimGray
+        pnlHeader.Controls.Add(lblOrderType)
+        pnlHeader.Controls.Add(lblOrderTime)
+        pnlHeader.Controls.Add(lblWaitTime)
+        pnlHeader.Controls.Add(lblOrderNumber)
+        pnlHeader.Location = New Point(0, 0)
+        pnlHeader.Name = "pnlHeader"
+        pnlHeader.Size = New Size(345, 77)
+        pnlHeader.TabIndex = 0
         ' 
         ' ucOrderCard
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        Controls.Add(Panel1)
+        Controls.Add(pnlHeader)
+        Controls.Add(pnlBody)
         Name = "ucOrderCard"
         Size = New Size(345, 530)
-        Panel1.ResumeLayout(False)
-        Panel3.ResumeLayout(False)
-        Panel2.ResumeLayout(False)
-        Panel2.PerformLayout()
+        pnlBody.ResumeLayout(False)
+        pnlFooter.ResumeLayout(False)
+        pnlHeader.ResumeLayout(False)
+        pnlHeader.PerformLayout()
         ResumeLayout(False)
     End Sub
-
-    Friend WithEvents Panel1 As Panel
-    Friend WithEvents Panel3 As Panel
-    Friend WithEvents Panel2 As Panel
-    Friend WithEvents btnFinish As Button
-    Friend WithEvents btnStart As Button
-    Friend WithEvents lblOrderNumber As Label
-    Friend WithEvents lblTimeOrder As Label
-    Friend WithEvents lblPlaceEat As Label
-    Friend WithEvents lblWaitTime As Label
     Friend WithEvents tmrWait As Timer
-    Friend WithEvents lstBxOrder As ListBox
+    Friend WithEvents flpItems As FlowLayoutPanel
+    Friend WithEvents lblOrderType As Label
+    Friend WithEvents lblWaitTime As Label
+    Friend WithEvents lblOrderTime As Label
+    Friend WithEvents lblOrderNumber As Label
+    Friend WithEvents btnAction As RoundedButton
+    Friend WithEvents pnlBody As Panel
+    Friend WithEvents pnlHeader As Panel
+    Friend WithEvents pnlFooter As Panel
 
 End Class
