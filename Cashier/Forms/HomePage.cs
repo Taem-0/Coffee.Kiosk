@@ -37,7 +37,6 @@ namespace Coffee.Kiosk.Cashier
             pnlContainer.Controls.Add(uc);
         }
 
-        // ── Red badge on top of btnBell ──────────────────────────────────────
         private void SetupBadge()
         {
             _lblBadge.AutoSize = false;
@@ -49,7 +48,6 @@ namespace Coffee.Kiosk.Cashier
             _lblBadge.TextAlign = ContentAlignment.MiddleCenter;
             _lblBadge.Visible = false;
 
-            // Add to same parent panel as btnBell
             btnBell.Parent!.Controls.Add(_lblBadge);
             _lblBadge.BringToFront();
 
@@ -70,7 +68,6 @@ namespace Coffee.Kiosk.Cashier
             }
         }
 
-        // ── Kiosk orders popup panel ─────────────────────────────────────────
         private void SetupKioskPanel()
         {
             _kioskPanel.Size = new Size(340, 480);
@@ -86,7 +83,6 @@ namespace Coffee.Kiosk.Cashier
             _kioskPanel.BringToFront();
         }
 
-        // ── Bell button click — show/hide the panel ──────────────────────────
         private void btnBell_Click(object sender, EventArgs e)
         {
             _kioskPanel.Visible = !_kioskPanel.Visible;
@@ -94,7 +90,6 @@ namespace Coffee.Kiosk.Cashier
                 _kioskPanel.ReloadOrders();
         }
 
-        // ── Load a kiosk order into the payment screen ───────────────────────
         private void LoadKioskOrderIntoPayment(int orderId)
         {
             _kioskPanel.Visible = false;
@@ -122,7 +117,6 @@ namespace Coffee.Kiosk.Cashier
                 return;
             }
 
-            // Convert kiosk items to cashier cart
             var cart = items.Select(ki => new OrderItemModel
             {
                 Item = new MenuItemModel
@@ -139,12 +133,10 @@ namespace Coffee.Kiosk.Cashier
 
             decimal total = summary?.TotalAmount ?? cart.Sum(c => c.Subtotal);
 
-            // Open payment screen — passes the kiosk order ID so it gets marked Paid
             var payment = new UC_Payment(cart, total, orderId);
             LoadControl(payment);
         }
 
-        // ── Poll every 15 seconds to refresh the badge ───────────────────────
         private void SetupPollTimer()
         {
             _pollTimer.Interval = 15_000;
@@ -152,13 +144,11 @@ namespace Coffee.Kiosk.Cashier
             _pollTimer.Start();
         }
 
-        // ── Clock ────────────────────────────────────────────────────────────
         private void tmrClock_Tick(object sender, EventArgs e)
         {
             lblClock.Text = DateTime.Now.ToString("hh:mm tt");
         }
 
-        // ── Logout ───────────────────────────────────────────────────────────
         private void btnLogout_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show(

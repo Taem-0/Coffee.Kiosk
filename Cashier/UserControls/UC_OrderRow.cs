@@ -22,7 +22,6 @@ namespace Coffee.Kiosk.Cashier
             this.BackColor = Color.FromArgb(248, 244, 240);
             this.Padding = new Padding(8, 4, 8, 4);
 
-            // ── Styling existing designer controls ──────────────────────────
             btnMinus.Text = "−";
             btnMinus.Font = new Font("Arial", 12f, FontStyle.Bold);
             btnMinus.FillColor = Color.FromArgb(240, 225, 210);
@@ -52,7 +51,6 @@ namespace Coffee.Kiosk.Cashier
             lblSubtotal.ForeColor = Color.FromArgb(59, 35, 20);
             lblSubtotal.TextAlign = ContentAlignment.MiddleRight;
 
-            // ── Custom summary label ────────────────────────────────────────
             var lblCustom = new Label
             {
                 Name = "lblCustomSummary",
@@ -71,20 +69,17 @@ namespace Coffee.Kiosk.Cashier
             RefreshRow();
         }
 
-        // ── All layout calculated here so nothing gets cut off ───────────────
         private void LayoutControls()
         {
             int w = this.ClientSize.Width;
             int h = this.ClientSize.Height;
 
-            // Right side: price + qty controls
             int priceW = 74;
             int btnW = 28;
             int btnH = 28;
             int qtyW = 28;
             int rightGap = 6;
 
-            // Position from right edge inward
             int priceX = w - priceW - 4;
             int plusX = priceX - rightGap - btnW;
             int qtyX = plusX - qtyW;
@@ -98,7 +93,6 @@ namespace Coffee.Kiosk.Cashier
             btnPlus.SetBounds(plusX, btnY, btnW, btnH);
             lblSubtotal.SetBounds(priceX, priceY, priceW, btnH);
 
-            // Left side: item name + customization summary
             int nameW = minusX - 10;
 
             var lblCustom = this.Controls["lblCustomSummary"] as Label;
@@ -128,7 +122,6 @@ namespace Coffee.Kiosk.Cashier
                 lblCustom.Text = summary;
                 lblCustom.Visible = !string.IsNullOrEmpty(summary);
 
-                // Expand row height if there's a customization summary
                 this.Height = string.IsNullOrEmpty(summary) ? 56 : 68;
             }
 

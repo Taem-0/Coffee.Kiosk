@@ -18,7 +18,6 @@ namespace Coffee.Kiosk.Cashier
         private int _qty = 1;
         private List<ModifierGroupModel> _groups = new();
 
-        // Tracks selected options: groupId → list of selected (optionId, name, priceDelta)
         private Dictionary<int, List<(int Id, string Name, decimal Price)>> _selected = new();
 
         private Label _lblQty = new();
@@ -62,7 +61,6 @@ namespace Coffee.Kiosk.Cashier
             int w = pnlBody.ClientSize.Width - pnlBody.Padding.Horizontal - 4;
             int y = 4;
 
-            // ── Load modifiers from DB ───────────────────────────────────────
             try
             {
                 _groups = KioskOrderDbManager.GetProductModifiers(_item.ItemID);
@@ -72,7 +70,6 @@ namespace Coffee.Kiosk.Cashier
                 _groups = new List<ModifierGroupModel>();
             }
 
-            // ── Build a section for each modifier group ──────────────────────
             foreach (var group in _groups)
             {
                 _selected[group.GroupId] = new List<(int, string, decimal)>();
@@ -89,11 +86,9 @@ namespace Coffee.Kiosk.Cashier
                     AddMultiSelectGroup(group, ref y, w);
             }
 
-            // ── Quantity ─────────────────────────────────────────────────────
             AddSectionLabel("Quantity", ref y, w, false);
             AddQtyRow(ref y, w);
 
-            // ── Special instructions ─────────────────────────────────────────
             AddSectionLabel("Special instructions (optional)", ref y, w, false);
             _txtNotes = new TextBox
             {
@@ -114,7 +109,6 @@ namespace Coffee.Kiosk.Cashier
             UpdateTotal();
         }
 
-        // ── Section label ────────────────────────────────────────────────────
         private void AddSectionLabel(string text, ref int y, int w, bool required)
         {
             pnlBody.Controls.Add(new Label
@@ -133,7 +127,6 @@ namespace Coffee.Kiosk.Cashier
             y += 22;
         }
 
-        // ── Single select (radio-style pills) ────────────────────────────────
         private void AddSingleSelectGroup(ModifierGroupModel group, ref int y, int w)
         {
             if (group.Options.Count == 0) return;
@@ -150,7 +143,6 @@ namespace Coffee.Kiosk.Cashier
                 Height = 80
             };
 
-            // Auto-select first option if required
             if (group.Required && group.Options.Count > 0)
             {
                 var first = group.Options[0];
@@ -182,9 +174,7 @@ namespace Coffee.Kiosk.Cashier
 
                 btn.Click += (s, e) =>
                 {
-                    // Deselect all in this group
                     _selected[group.GroupId].Clear();
-                    // Select this one
                     _selected[group.GroupId].Add((capturedOpt.OptionId, capturedOpt.Name, capturedOpt.PriceDelta));
 
                     foreach (var p in pills)
@@ -213,7 +203,6 @@ namespace Coffee.Kiosk.Cashier
             y += flp.Height + 8;
         }
 
-        // ── Multi select (checkbox-style rows) ───────────────────────────────
         private void AddMultiSelectGroup(ModifierGroupModel group, ref int y, int w)
         {
             foreach (var opt in group.Options)
@@ -300,7 +289,6 @@ namespace Coffee.Kiosk.Cashier
             }
         }
 
-        // ── Quantity row ─────────────────────────────────────────────────────
         private void AddQtyRow(ref int y, int w)
         {
             var row = new Panel
@@ -362,7 +350,6 @@ namespace Coffee.Kiosk.Cashier
             y += 52;
         }
 
-        // ── Recalculate total from selected modifiers ────────────────────────
         private void UpdateTotal()
         {
             _modifiersTotal = _selected.Values
@@ -372,10 +359,8 @@ namespace Coffee.Kiosk.Cashier
             lblTotalPrice.Text = $"₱{(_basePrice + _modifiersTotal) * _qty:N2}";
         }
 
-        // ── Add to Order ─────────────────────────────────────────────────────
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            // Check required groups are filled
             foreach (var group in _groups.Where(g => g.Required))
             {
                 if (!_selected.ContainsKey(group.GroupId) || _selected[group.GroupId].Count == 0)
@@ -386,7 +371,6 @@ namespace Coffee.Kiosk.Cashier
                 }
             }
 
-            // Build customization summary from selected modifiers
             var modifierParts = _selected.Values
                 .SelectMany(v => v)
                 .Select(x => x.Name)

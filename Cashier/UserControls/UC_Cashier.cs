@@ -30,7 +30,6 @@ namespace Coffee.Kiosk.Cashier
             UpdateTotals();
         }
 
-        // ── Pull products from CoffeeKioskDB ─────────────────────────────────
         private void LoadMenuFromDatabase()
         {
             try
@@ -50,7 +49,6 @@ namespace Coffee.Kiosk.Cashier
             LoadMenuCards(_menu);
         }
 
-        // ── Category filter buttons ───────────────────────────────────────────
         private void LoadCategories()
         {
             flpCategories.Controls.Clear();
@@ -129,7 +127,6 @@ namespace Coffee.Kiosk.Cashier
 
         private void txtSearch_TextChanged(object sender, EventArgs e) => FilterMenu();
 
-        // ── Cart management ───────────────────────────────────────────────────
         private void Card_ItemSelected(object? sender, OrderItemModel orderItem)
         {
             var existing = _cart.FirstOrDefault(c =>

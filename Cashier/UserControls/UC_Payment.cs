@@ -14,18 +14,15 @@ namespace Coffee.Kiosk.Cashier
         private string _paymentMethod = "Cash";
         private Panel? _pnlEWallet;
 
-        // 0 = regular cashier order; >0 = came from kiosk
         private int _kioskOrderId = 0;
 
         public UC_Payment() { InitializeComponent(); }
 
-        // Regular cashier order (no kiosk ID)
         public UC_Payment(List<OrderItemModel> cart, decimal total) : this()
         {
             Init(cart, total, 0);
         }
 
-        // Kiosk order — needs to be marked Paid in the DB on confirm
         public UC_Payment(List<OrderItemModel> cart, decimal total, int kioskOrderId) : this()
         {
             Init(cart, total, kioskOrderId);
@@ -57,7 +54,6 @@ namespace Coffee.Kiosk.Cashier
             btnGcash.FillColor = Color.White; btnGcash.ForeColor = green; btnGcash.BorderColor = green; btnGcash.BorderRadius = 8;
             btnMaya.FillColor = Color.White; btnMaya.ForeColor = blue; btnMaya.BorderColor = blue; btnMaya.BorderRadius = 8;
 
-            // Kiosk orders default to GCash (customer already paid at kiosk)
             SetPaymentMethod(_kioskOrderId > 0 ? "GCash" : "Cash");
         }
 
@@ -230,7 +226,6 @@ namespace Coffee.Kiosk.Cashier
 
             decimal change = _paymentMethod == "Cash" ? cash - _total : 0;
 
-            // GCash / Maya — confirm screenshot
             if (_paymentMethod != "Cash")
             {
                 var ok = MessageBox.Show(
@@ -240,7 +235,6 @@ namespace Coffee.Kiosk.Cashier
                 if (ok != DialogResult.Yes) return;
             }
 
-            // If this came from the kiosk, mark it Paid in the DB
             if (_kioskOrderId > 0)
             {
                 try

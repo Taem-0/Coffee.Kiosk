@@ -8,7 +8,6 @@ namespace Coffee.Kiosk.Cashier.UserControls
 {
     public partial class UC_KioskOrders : UserControl
     {
-        // Fired when cashier clicks an order card or types an order ID
         public event Action<int>? OrderSelected;
 
         private static readonly Color Brown = Color.FromArgb(107, 79, 58);
@@ -29,7 +28,6 @@ namespace Coffee.Kiosk.Cashier.UserControls
             this.BackColor = LightCream;
             this.BorderStyle = BorderStyle.FixedSingle;
 
-            // ── Header ──────────────────────────────────────────────────────
             var pnlHeader = new Panel
             {
                 Dock = DockStyle.Top,
@@ -48,7 +46,6 @@ namespace Coffee.Kiosk.Cashier.UserControls
             };
             pnlHeader.Controls.Add(lblTitle);
 
-            // ── Search bar ──────────────────────────────────────────────────
             var pnlSearch = new Panel
             {
                 Dock = DockStyle.Top,
@@ -83,7 +80,6 @@ namespace Coffee.Kiosk.Cashier.UserControls
             pnlSearch.Controls.Add(_txtOrderId);
             pnlSearch.Controls.Add(btnSearch);
 
-            // ── Scrollable order list ───────────────────────────────────────
             _pnlList = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
@@ -103,16 +99,13 @@ namespace Coffee.Kiosk.Cashier.UserControls
             };
             _pnlList.Controls.Add(_lblEmpty);
 
-            // Add in reverse order because DockStyle.Top stacks bottom-up
             this.Controls.Add(_pnlList);
             this.Controls.Add(pnlSearch);
             this.Controls.Add(pnlHeader);
         }
 
-        // ── Call this to reload the list from the database ──────────────────
         public void ReloadOrders()
         {
-            // Remove old cards but keep _lblEmpty
             for (int i = _pnlList.Controls.Count - 1; i >= 0; i--)
                 if (_pnlList.Controls[i] != _lblEmpty)
                     _pnlList.Controls.RemoveAt(i);
@@ -133,7 +126,6 @@ namespace Coffee.Kiosk.Cashier.UserControls
                 _pnlList.Controls.Add(BuildOrderCard(order));
         }
 
-        // ── Build one clickable order card ──────────────────────────────────
         private Panel BuildOrderCard(KioskOrderSummary order)
         {
             var card = new Panel
@@ -189,7 +181,6 @@ namespace Coffee.Kiosk.Cashier.UserControls
             return card;
         }
 
-        // ── Manual order ID entry ───────────────────────────────────────────
         private void BtnSearch_Click(object? sender, EventArgs e)
         {
             if (int.TryParse(_txtOrderId.Text.Trim(), out int id))

@@ -14,9 +14,6 @@ using DrawingPoint = System.Drawing.Point;
 
 namespace Coffee.Kiosk.Cashier
 {
-    // ─────────────────────────────────────────────────────────────────────────
-    // QuestPDF receipt document
-    // ─────────────────────────────────────────────────────────────────────────
     public class CashierReceiptDoc : IDocument
     {
         private readonly List<OrderItemModel> _cart;
@@ -54,7 +51,6 @@ namespace Coffee.Kiosk.Cashier
 
                 page.Content().Column(col =>
                 {
-                    // ── Header ────────────────────────────────────────────────
                     col.Item().PaddingVertical(3)
                         .Text(new string('=', 34)).AlignCenter();
 
@@ -73,7 +69,6 @@ namespace Coffee.Kiosk.Cashier
                     col.Item().PaddingVertical(3)
                         .Text(new string('=', 34)).AlignCenter();
 
-                    // ── Order info ────────────────────────────────────────────
                     col.Item()
                         .Text($"ORDER #{_orderNumber:D3}")
                         .FontSize(11).Bold().AlignCenter();
@@ -89,7 +84,6 @@ namespace Coffee.Kiosk.Cashier
                     col.Item().PaddingVertical(3)
                         .Text(new string('-', 34)).AlignCenter();
 
-                    // ── Items ─────────────────────────────────────────────────
                     foreach (var item in _cart)
                     {
                         col.Item().Column(itemCol =>
@@ -118,7 +112,6 @@ namespace Coffee.Kiosk.Cashier
                     col.Item().PaddingVertical(2)
                         .Text(new string('-', 34)).AlignCenter();
 
-                    // ── Total ─────────────────────────────────────────────────
                     col.Item().Row(row =>
                     {
                         row.RelativeItem()
@@ -130,7 +123,6 @@ namespace Coffee.Kiosk.Cashier
                     col.Item().PaddingVertical(3)
                         .Text(new string('-', 34)).AlignCenter();
 
-                    // ── Payment ───────────────────────────────────────────────
                     col.Item().Row(row =>
                     {
                         row.RelativeItem().Text("Payment").FontSize(8);
@@ -157,7 +149,6 @@ namespace Coffee.Kiosk.Cashier
                     col.Item().PaddingVertical(4)
                         .Text(new string('=', 34)).AlignCenter();
 
-                    // ── Footer ────────────────────────────────────────────────
                     col.Item().PaddingTop(4)
                         .Text("Thank you for visiting!").Bold().AlignCenter();
                     col.Item()
@@ -169,7 +160,6 @@ namespace Coffee.Kiosk.Cashier
             });
         }
 
-        // ── Save PDF ──────────────────────────────────────────────────────────
         public static string Save(
             List<OrderItemModel> cart,
             decimal total, decimal cash, decimal change,
@@ -180,7 +170,6 @@ namespace Coffee.Kiosk.Cashier
             string dir = @"C:\Images\Receipts";
             Directory.CreateDirectory(dir);
 
-            // Simple incrementing name: CashierReceipt1.pdf, CashierReceipt2.pdf, etc.
             int counter = 1;
             string path;
             do
@@ -197,9 +186,6 @@ namespace Coffee.Kiosk.Cashier
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // UserControl
-    // ─────────────────────────────────────────────────────────────────────────
     public partial class UC_Receipt : UserControl
     {
         private List<OrderItemModel> _cart = new();
@@ -244,7 +230,6 @@ namespace Coffee.Kiosk.Cashier
             BuildPreview();
         }
 
-        // ── On-screen preview ─────────────────────────────────────────────────
         private void BuildPreview()
         {
             pnlReceipt.Controls.Clear();
@@ -257,7 +242,7 @@ namespace Coffee.Kiosk.Cashier
 
             C("─────────────────────────────────────", new DrawingFont("Courier New", 7f), MutedBrown, w, x, ref y);
             C("CAFÉ FILIPINO", new DrawingFont("Segoe UI", 15f, FontStyle.Bold), Brown, w, x, ref y);
-            C("123 Espresso St., Quezon City", new DrawingFont("Segoe UI", 7.5f), MutedBrown, w, x, ref y);
+            C("2J ELJ AND SON COMMERCIAL BLDG RV5 PH1 CONGRESSIONAL RD BAGUMBONG CALOOCAN CITY", new DrawingFont("Segoe UI", 7.5f), MutedBrown, w, x, ref y);
             C("Tel: (02) 8123-4567", new DrawingFont("Segoe UI", 7.5f), MutedBrown, w, x, ref y);
             y += 4;
             C("─────────────────────────────────────", new DrawingFont("Courier New", 7f), MutedBrown, w, x, ref y);
@@ -310,7 +295,6 @@ namespace Coffee.Kiosk.Cashier
             pnlReceipt.Height = y + 20;
         }
 
-        // ── Layout helpers ────────────────────────────────────────────────────
         void C(string t, DrawingFont f, DrawingColor c, int w, int x, ref int y)
         {
             var l = new Label { Text = t, Font = f, ForeColor = c, AutoSize = false, Width = w, Height = (int)f.GetHeight() + 8, Location = new DrawingPoint(x, y), TextAlign = ContentAlignment.MiddleCenter, BackColor = DrawingColor.Transparent };
@@ -334,7 +318,6 @@ namespace Coffee.Kiosk.Cashier
             pnlReceipt.Controls.Add(l); y += 14;
         }
 
-        // ── Buttons ───────────────────────────────────────────────────────────
         private void btnPrintReceipt_Click(object sender, EventArgs e)
         {
             if (_pdfPath != null && File.Exists(_pdfPath))
