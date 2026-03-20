@@ -12,19 +12,35 @@
         lblItemName.Text = item.ItemName
         lblQuantity.Text = "x" & item.Quantity
 
-        ' show customizations as small text below item name
         If item.Customizations IsNot Nothing AndAlso item.Customizations.Count > 0 Then
-            lblCustomizations.Text = String.Join("  |  ", item.Customizations)
+            lblCustomizations.Text = String.Join(" | ", item.Customizations)
             lblCustomizations.Visible = True
+            lblCustomizations.BringToFront()
+            lblCustomizations.AutoSize = False
+            lblCustomizations.Width = Me.Width - 20
+
+            ' auto calculate height based on text wrapping
+            Dim g As Graphics = lblCustomizations.CreateGraphics()
+            Dim textSize As SizeF = g.MeasureString(
+        lblCustomizations.Text,
+        lblCustomizations.Font,
+        lblCustomizations.Width
+    )
+            lblCustomizations.Height = CInt(textSize.Height) + 5
+            g.Dispose()
+
+            ' resize the whole ucOrderItem to fit content
+            Me.Height = lblCustomizations.Top + lblCustomizations.Height + 10
+
         Else
             lblCustomizations.Text = ""
             lblCustomizations.Visible = False
-        End If
 
-        ' default state
+            ' shrink back to default height when no customizations
+            Me.Height = lblItemName.Top + lblItemName.Height + 10
+        End If
         SetNormalState()
     End Sub
-
     ' -------------------------------------------------------
     ' STEP B: click anywhere to toggle finished state
     ' -------------------------------------------------------
@@ -74,6 +90,8 @@
         lblCustomizations.ForeColor = Color.FromArgb(0, 0, 0)
         lblCustomizations.Font = New Font(lblCustomizations.Font, FontStyle.Strikeout)
     End Sub
+
+
     ' -------------------------------------------------------
     ' STEP E: lets ucOrderCard check if this item is done
     ' -------------------------------------------------------

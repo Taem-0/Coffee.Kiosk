@@ -208,11 +208,15 @@
             btnAction.BackColor = Color.White
             btnAction.ForeColor = Color.Black
             btnAction.BorderColor = Color.Black
-            ' pnlHeader.BackColor = Color.FromArgb(33, 176, 23)  ' green on start
+            ' pnlHeader.BackColor = Color.FromArgb(33, 176, 23)
             tmrWait.Start()
         Else
             ' second click — COMPLETE
             tmrWait.Stop()
+
+            ' update status in DB to Completed — stops it from reappearing
+            DatabaseHelper.UpdateOrderStatus(_orderId, "Completed")
+
             RaiseEvent OnOrderCompleted(Me, _orderId)
         End If
     End Sub
@@ -284,4 +288,12 @@
             btnAction.ForeColor = Color.FromArgb(30, 100, 50)
         End If
     End Sub
+
+    ' expose OrderId so frmKitchenDisplay can find the card
+    Public ReadOnly Property OrderId As Integer
+        Get
+            Return _orderId
+        End Get
+    End Property
+
 End Class

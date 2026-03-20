@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="materialskin.2" Version="2.3.1" />
+    <PackageReference Include="MySql.Data" Version="9.6.0" />
   </ItemGroup>
 
   <ItemGroup>

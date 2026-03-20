@@ -53,16 +53,18 @@ Partial Class ucOrderItem
         lblCustomizations.BackColor = Color.Transparent
         lblCustomizations.Location = New Point(20, 40)
         lblCustomizations.Name = "lblCustomizations"
-        lblCustomizations.Size = New Size(66, 25)
+        lblCustomizations.Size = New Size(96, 20)
         lblCustomizations.TabIndex = 2
         lblCustomizations.Text = "Arabica I 50 I"
         ' 
         ' Panel1
         ' 
+        Panel1.BackColor = Color.FromArgb(CByte(64), CByte(64), CByte(64))
         Panel1.BorderStyle = BorderStyle.FixedSingle
-        Panel1.Location = New Point(22, 97)
+        Panel1.Dock = DockStyle.Bottom
+        Panel1.Location = New Point(0, 106)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(289, 125)
+        Panel1.Size = New Size(333, 1)
         Panel1.TabIndex = 3
         ' 
         ' ucOrderItem
@@ -75,7 +77,7 @@ Partial Class ucOrderItem
         Controls.Add(lblItemName)
         Controls.Add(lblQuantity)
         Name = "ucOrderItem"
-        Size = New Size(333, 99)
+        Size = New Size(333, 107)
         ResumeLayout(False)
         PerformLayout()
     End Sub
