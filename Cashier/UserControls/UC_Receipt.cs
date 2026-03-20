@@ -1,12 +1,7 @@
-﻿using System;
+﻿using Coffee.Kiosk.Cashier.ModelClassHelper;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Coffee.Kiosk.Cashier
@@ -18,10 +13,7 @@ namespace Coffee.Kiosk.Cashier
         private decimal _cash = 0;
         private decimal _change = 0;
 
-        public UC_Receipt()
-        {
-            InitializeComponent();
-        }
+        public UC_Receipt() { InitializeComponent(); }
 
         public UC_Receipt(List<OrderItemModel> cart, decimal total,
                           decimal cash, decimal change) : this()
@@ -77,18 +69,13 @@ namespace Coffee.Kiosk.Cashier
             var lbl = new Label
             {
                 Text = text,
-                Font = new Font("Courier New", size,
-                    bold ? FontStyle.Bold : FontStyle.Regular),
-                ForeColor = muted
-                    ? Color.FromArgb(150, 120, 90)
-                    : Color.FromArgb(44, 34, 24),
+                Font = new Font("Courier New", size, bold ? FontStyle.Bold : FontStyle.Regular),
+                ForeColor = muted ? Color.FromArgb(150, 120, 90) : Color.FromArgb(44, 34, 24),
                 AutoSize = false,
                 Width = pnlReceipt.Width - 24,
                 Height = string.IsNullOrEmpty(text) ? 8 : size + 10,
                 Location = new Point(12, y),
-                TextAlign = centered
-                    ? ContentAlignment.MiddleCenter
-                    : ContentAlignment.MiddleLeft
+                TextAlign = centered ? ContentAlignment.MiddleCenter : ContentAlignment.MiddleLeft
             };
             pnlReceipt.Controls.Add(lbl);
             y += lbl.Height + 2;
@@ -97,14 +84,11 @@ namespace Coffee.Kiosk.Cashier
         private void AddTwoColLine(string left, string right, ref int y,
             bool muted = false, bool bold = false, int size = 9)
         {
-            var color = muted
-                ? Color.FromArgb(150, 120, 90)
-                : Color.FromArgb(44, 34, 24);
-            var font = new Font("Courier New", size,
-                bold ? FontStyle.Bold : FontStyle.Regular);
+            var color = muted ? Color.FromArgb(150, 120, 90) : Color.FromArgb(44, 34, 24);
+            var font = new Font("Courier New", size, bold ? FontStyle.Bold : FontStyle.Regular);
             int w = pnlReceipt.Width - 24;
 
-            var lblL = new Label
+            pnlReceipt.Controls.Add(new Label
             {
                 Text = left,
                 Font = font,
@@ -114,8 +98,8 @@ namespace Coffee.Kiosk.Cashier
                 Height = size + 10,
                 Location = new Point(12, y),
                 TextAlign = ContentAlignment.MiddleLeft
-            };
-            var lblR = new Label
+            });
+            pnlReceipt.Controls.Add(new Label
             {
                 Text = right,
                 Font = font,
@@ -125,9 +109,7 @@ namespace Coffee.Kiosk.Cashier
                 Height = size + 10,
                 Location = new Point(12 + w / 2, y),
                 TextAlign = ContentAlignment.MiddleRight
-            };
-            pnlReceipt.Controls.Add(lblL);
-            pnlReceipt.Controls.Add(lblR);
+            });
             y += size + 12;
         }
 

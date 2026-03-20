@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Coffee.Kiosk.Cashier
+namespace Coffee.Kiosk.Cashier.ModelClassHelper
 {
     public static class CustomizerConfig
     {
@@ -13,12 +9,7 @@ namespace Coffee.Kiosk.Cashier
             if (item.Category == "Drinks")
             {
                 decimal b = item.Price;
-                return new()
-                {
-                    { "Small",  b      },
-                    { "Medium", b + 10 },
-                    { "Large",  b + 20 }
-                };
+                return new() { { "Small", b }, { "Medium", b + 10 }, { "Large", b + 20 } };
             }
             return new() { { "Regular", item.Price } };
         }
@@ -36,15 +27,12 @@ namespace Coffee.Kiosk.Cashier
             { "Cinnamon",      39 },
         };
 
-
         public static Dictionary<string, decimal> GetFoodAddOns() => new()
-        
         {
             { "Extra rice",  30 },
             { "Extra egg",   20 },
             { "Extra sauce", 30 },
         };
-
 
         public static Dictionary<string, decimal> GetBreakfastOptions(decimal basePrice) => new()
         {

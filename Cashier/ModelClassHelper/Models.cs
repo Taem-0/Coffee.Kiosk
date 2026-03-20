@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Coffee.Kiosk.Cashier
+namespace Coffee.Kiosk.Cashier.ModelClassHelper
 {
     public class UserModel
     {
@@ -55,7 +51,6 @@ namespace Coffee.Kiosk.Cashier
         public MenuItemModel Item { get; set; } = new();
         public int Quantity { get; set; }
         public OrderCustomization Customization { get; set; } = new();
-        public decimal Subtotal =>
-            (Item.Price + Customization.AddOnsTotal) * Quantity;
+        public decimal Subtotal => (Item.Price + Customization.AddOnsTotal) * Quantity;
     }
 }

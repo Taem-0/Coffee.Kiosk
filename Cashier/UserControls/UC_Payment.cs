@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Coffee.Kiosk.Cashier.CashierDBHelper;
+using Coffee.Kiosk.Cashier.ModelClassHelper;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Coffee.Kiosk.Cashier
@@ -17,12 +14,28 @@ namespace Coffee.Kiosk.Cashier
         private string _paymentMethod = "Cash";
         private Panel? _pnlEWallet;
 
+        // 0 = regular cashier order; >0 = came from kiosk
+        private int _kioskOrderId = 0;
+
         public UC_Payment() { InitializeComponent(); }
 
+        // Regular cashier order (no kiosk ID)
         public UC_Payment(List<OrderItemModel> cart, decimal total) : this()
+        {
+            Init(cart, total, 0);
+        }
+
+        // Kiosk order — needs to be marked Paid in the DB on confirm
+        public UC_Payment(List<OrderItemModel> cart, decimal total, int kioskOrderId) : this()
+        {
+            Init(cart, total, kioskOrderId);
+        }
+
+        private void Init(List<OrderItemModel> cart, decimal total, int kioskOrderId)
         {
             _cart = cart;
             _total = total;
+            _kioskOrderId = kioskOrderId;
 
             btnConfirm.Enabled = false;
             btnBack.Enabled = true;
@@ -40,22 +53,12 @@ namespace Coffee.Kiosk.Cashier
             var green = Color.FromArgb(0, 119, 60);
             var blue = Color.FromArgb(0, 90, 180);
 
-            btnCash.FillColor = Color.White;
-            btnCash.ForeColor = brown;
-            btnCash.BorderColor = brown;
-            btnCash.BorderRadius = 8;
+            btnCash.FillColor = Color.White; btnCash.ForeColor = brown; btnCash.BorderColor = brown; btnCash.BorderRadius = 8;
+            btnGcash.FillColor = Color.White; btnGcash.ForeColor = green; btnGcash.BorderColor = green; btnGcash.BorderRadius = 8;
+            btnMaya.FillColor = Color.White; btnMaya.ForeColor = blue; btnMaya.BorderColor = blue; btnMaya.BorderRadius = 8;
 
-            btnGcash.FillColor = Color.White;
-            btnGcash.ForeColor = green;
-            btnGcash.BorderColor = green;
-            btnGcash.BorderRadius = 8;
-
-            btnMaya.FillColor = Color.White;
-            btnMaya.ForeColor = blue;
-            btnMaya.BorderColor = blue;
-            btnMaya.BorderRadius = 8;
-
-            SetPaymentMethod("Cash");
+            // Kiosk orders default to GCash (customer already paid at kiosk)
+            SetPaymentMethod(_kioskOrderId > 0 ? "GCash" : "Cash");
         }
 
         private void LoadSummary()
@@ -214,18 +217,10 @@ namespace Coffee.Kiosk.Cashier
             }
         }
 
-        private void guna2Button2_Click(object sender, EventArgs e)
-        { guna2TextBox1.Text = "100"; CalcChange(); }
-
-        private void guna2Button3_Click(object sender, EventArgs e)
-        { guna2TextBox1.Text = "500"; CalcChange(); }
-
-        private void guna2Button4_Click(object sender, EventArgs e)
-        { guna2TextBox1.Text = "1000"; CalcChange(); }
-
-        private void guna2Button5_Click(object sender, EventArgs e)
-        { guna2TextBox1.Text = _total.ToString("N2"); CalcChange(); }
-
+        private void guna2Button2_Click(object sender, EventArgs e) { guna2TextBox1.Text = "100"; CalcChange(); }
+        private void guna2Button3_Click(object sender, EventArgs e) { guna2TextBox1.Text = "500"; CalcChange(); }
+        private void guna2Button4_Click(object sender, EventArgs e) { guna2TextBox1.Text = "1000"; CalcChange(); }
+        private void guna2Button5_Click(object sender, EventArgs e) { guna2TextBox1.Text = _total.ToString("N2"); CalcChange(); }
         private void guna2TextBox1_TextChanged(object sender, EventArgs e) => CalcChange();
 
         private void btnConfirm_Click(object sender, EventArgs e)
@@ -235,6 +230,7 @@ namespace Coffee.Kiosk.Cashier
 
             decimal change = _paymentMethod == "Cash" ? cash - _total : 0;
 
+            // GCash / Maya — confirm screenshot
             if (_paymentMethod != "Cash")
             {
                 var ok = MessageBox.Show(
@@ -244,94 +240,25 @@ namespace Coffee.Kiosk.Cashier
                 if (ok != DialogResult.Yes) return;
             }
 
-            /* UNCOMMENT WHEN DATABASE IS READY =================================
- 
-            var outOfStock = InventoryManager.CheckStockAvailability(_cart);
-            if (outOfStock.Count > 0)
+            // If this came from the kiosk, mark it Paid in the DB
+            if (_kioskOrderId > 0)
             {
-                MessageBox.Show(
-                    "Cannot complete order — insufficient stock:\n\n"
-                    + string.Join("\n", outOfStock),
-                    "Out of Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                try
+                {
+                    KioskOrderDbManager.MarkOrderPaid(_kioskOrderId);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        $"Payment confirmed but could not update order status:\n{ex.Message}",
+                        "DB Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
- 
-            long orderId = SaveOrderToDatabase(cash, change);
-            InventoryManager.SubtractInventory(orderId, _cart);
-            SendToKitchen(orderId);
- 
-            END UNCOMMENT ===================================================*/
 
             SessionManager.OrderNumber++;
             var receipt = new UC_Receipt(_cart, _total, cash, change);
             ((HomePage)this.ParentForm!).LoadControl(receipt);
         }
-
-        /* UNCOMMENT WHEN DATABASE IS READY =====================================
- 
-        private long SaveOrderToDatabase(decimal cash, decimal change)
-        {
-            using var conn = DBHelper.GetConnection();
-            conn.Open();
-            using var tx = conn.BeginTransaction();
- 
-            var cmd = new MySql.Data.MySqlClient.MySqlCommand(@"
-                INSERT INTO orders
-                    (order_type, payment_method, total_amount,
-                     cash_given, change_amount, status, created_at)
-                VALUES ('cashier', @method, @total, @cash, @change, 'paid', NOW())",
-                conn, tx);
-            cmd.Parameters.AddWithValue("@method", _paymentMethod);
-            cmd.Parameters.AddWithValue("@total",  _total);
-            cmd.Parameters.AddWithValue("@cash",   cash);
-            cmd.Parameters.AddWithValue("@change", change);
-            cmd.ExecuteNonQuery();
-            long orderId = cmd.LastInsertedId;
- 
-            foreach (var item in _cart)
-            {
-                var cmdI = new MySql.Data.MySqlClient.MySqlCommand(@"
-                    INSERT INTO order_items
-                        (order_id, menu_item_id, product_name,
-                         quantity, size, notes, price)
-                    VALUES (@oid, @mid, @name, @qty, @size, @notes, @price)",
-                    conn, tx);
-                cmdI.Parameters.AddWithValue("@oid",   orderId);
-                cmdI.Parameters.AddWithValue("@mid",   item.Item.ItemID);
-                cmdI.Parameters.AddWithValue("@name",  item.Item.ItemName);
-                cmdI.Parameters.AddWithValue("@qty",   item.Quantity);
-                cmdI.Parameters.AddWithValue("@size",  item.Customization.Size);
-                cmdI.Parameters.AddWithValue("@notes", item.Customization.Notes);
-                cmdI.Parameters.AddWithValue("@price",
-                    item.Item.Price + item.Customization.AddOnsTotal);
-                cmdI.ExecuteNonQuery();
-            }
- 
-            tx.Commit();
-            return orderId;
-        }
- 
-        private void SendToKitchen(long orderId)
-        {
-            using var conn = DBHelper.GetConnection();
-            conn.Open();
-            foreach (var item in _cart)
-            {
-                var cmd = new MySql.Data.MySqlClient.MySqlCommand(@"
-                    INSERT INTO kitchen_queue
-                        (order_id, item_name, quantity, size, notes, status, created_at)
-                    VALUES (@oid, @name, @qty, @size, @notes, 'pending', NOW())",
-                    conn);
-                cmd.Parameters.AddWithValue("@oid",   orderId);
-                cmd.Parameters.AddWithValue("@name",  item.Item.ItemName);
-                cmd.Parameters.AddWithValue("@qty",   item.Quantity);
-                cmd.Parameters.AddWithValue("@size",  item.Customization.Size);
-                cmd.Parameters.AddWithValue("@notes", item.Customization.Summary());
-                cmd.ExecuteNonQuery();
-            }
-        }
- 
-        END UNCOMMENT =======================================================*/
 
         private void btnBack_Click(object sender, EventArgs e)
         {
@@ -347,10 +274,6 @@ namespace Coffee.Kiosk.Cashier
         private void lblCashTend_Click(object sender, EventArgs e) { }
         private void pnlPayRight_Paint(object sender, PaintEventArgs e) { }
         private void lblTotalAmt_Click(object sender, EventArgs e) { }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void label1_Click(object sender, EventArgs e) { }
     }
 }
