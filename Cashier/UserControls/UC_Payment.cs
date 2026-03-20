@@ -256,7 +256,7 @@ namespace Coffee.Kiosk.Cashier
             }
 
             SessionManager.OrderNumber++;
-            var receipt = new UC_Receipt(_cart, _total, cash, change);
+            var receipt = new UC_Receipt(_cart, _total, cash, change, _paymentMethod);
             ((HomePage)this.ParentForm!).LoadControl(receipt);
         }
 
