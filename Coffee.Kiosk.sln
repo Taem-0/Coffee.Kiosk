@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kioskV2", "kioskV2\kioskV2.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Kiosk.Cashier", "Cashier\Coffee.Kiosk.Cashier.csproj", "{A3105C5E-008A-C7BD-4245-5D4825F63676}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Kiosk.OrderStatusDisplaySystem", "Coffee.Kiosk.OrderStatusDisplaySystem\Coffee.Kiosk.OrderStatusDisplaySystem.csproj", "{2307F32D-5204-4F67-8935-1215368EBE9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Kiosk.OrderStatusDisplay", "Coffee.Kiosk.OrderStatusDisplay\Coffee.Kiosk.OrderStatusDisplay.csproj", "{87567B6E-380C-48B6-81E2-B416081B4A94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +41,10 @@ Global
 		{A3105C5E-008A-C7BD-4245-5D4825F63676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3105C5E-008A-C7BD-4245-5D4825F63676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3105C5E-008A-C7BD-4245-5D4825F63676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87567B6E-380C-48B6-81E2-B416081B4A94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87567B6E-380C-48B6-81E2-B416081B4A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87567B6E-380C-48B6-81E2-B416081B4A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87567B6E-380C-48B6-81E2-B416081B4A94}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2307F32D-5204-4F67-8935-1215368EBE9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2307F32D-5204-4F67-8935-1215368EBE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2307F32D-5204-4F67-8935-1215368EBE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,4 +1,4 @@
-﻿namespace Coffee.Kiosk.OrderStatusDisplaySystem
+﻿namespace Coffee.Kiosk.OrderStatusDisplay
 {
     partial class Form1
     {

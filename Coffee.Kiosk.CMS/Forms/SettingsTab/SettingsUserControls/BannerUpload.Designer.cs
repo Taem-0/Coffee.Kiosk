@@ -96,7 +96,6 @@
             saveButton.Size = new Size(195, 68);
             saveButton.TabIndex = 11;
             saveButton.Text = "Save";
-            saveButton.Click += saveButton_Click_1;
             // 
             // bannersFlowLayout
             // 

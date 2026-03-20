@@ -19,13 +19,12 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
         private readonly ShopController _themeController;
         private string? _selectedImagePath;
         private Cyotek.Windows.Forms.ColorPickerDialog colorPickerDialog1 = new Cyotek.Windows.Forms.ColorPickerDialog();
-
+            
 
         public SettingsView(AccountController controller, ShopController themeController, KioskController kioskController, Employee currentEmployee)
         {
             InitializeComponent();
 
-            bannerUpload1.Initialize(kioskController);
 
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
             _themeController = themeController ?? throw new ArgumentNullException(nameof(themeController));
@@ -57,6 +56,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
             //KioskLoad:
 
+            bannerUpload1.Initialize(kioskController);
 
             SwitchScreen(miniGetStartedScreen1);
 
@@ -398,14 +398,12 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
         #endregion
 
-            targetScreen.BringToFront();
         }
 
 
 
         
 
-        #endregion
 
-    }
+    
 }
