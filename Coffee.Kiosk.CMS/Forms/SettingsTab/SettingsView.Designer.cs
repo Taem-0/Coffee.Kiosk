@@ -117,6 +117,23 @@
             guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             label10 = new Label();
             label7 = new Label();
+            kioskTab = new TabPage();
+            guna2vScrollBar3 = new Guna.UI2.WinForms.Guna2VScrollBar();
+            kioskSettingsPanel = new Panel();
+            label19 = new Label();
+            bannerUpload1 = new Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls.BannerUpload();
+            miniKioskPanel = new Guna.UI2.WinForms.Guna2Panel();
+            miniThankYouScreen1 = new Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls.MiniThankYouScreen();
+            miniViewOrder1 = new Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls.MiniViewOrder();
+            miniModalScreen1 = new Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls.MiniModalScreen();
+            miniKioskMenu1 = new Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls.MiniKioskMenu();
+            miniHomePage1 = new Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls.MiniHomePage();
+            miniDineInTakeOut1 = new Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls.MiniDineInTakeOut();
+            RightSlideButton = new Guna.UI2.WinForms.Guna2TileButton();
+            LeftSlideButton = new Guna.UI2.WinForms.Guna2TileButton();
+            miniGetStartedScreen1 = new Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls.MiniGetStartedScreen();
+            guna2vScrollBar2 = new Guna.UI2.WinForms.Guna2VScrollBar();
+            guna2Transition1 = new Guna.UI2.WinForms.Guna2Transition();
             settingsTabControl.SuspendLayout();
             accountTab.SuspendLayout();
             mainPanel.SuspendLayout();
@@ -202,7 +219,7 @@
             guna2vScrollBar1.InUpdate = false;
             guna2vScrollBar1.LargeChange = 751;
             guna2vScrollBar1.Location = new Point(1832, 10);
-            guna2vScrollBar1.Maximum = 757;
+            guna2vScrollBar1.Maximum = 783;
             guna2vScrollBar1.Name = "guna2vScrollBar1";
             guna2vScrollBar1.Padding = new Padding(10, 10, 0, 10);
             guna2vScrollBar1.ScrollbarSize = 16;
@@ -235,7 +252,7 @@
             guna2Panel3.Name = "guna2Panel3";
             guna2Panel3.Padding = new Padding(10);
             guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2Panel3.Size = new Size(1462, 237);
+            guna2Panel3.Size = new Size(1179, 237);
             guna2Panel3.TabIndex = 4;
             // 
             // tableLayoutPanel2
@@ -256,7 +273,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.51064F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 36.17021F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new Size(1442, 217);
+            tableLayoutPanel2.Size = new Size(1159, 217);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // requestResetButton
@@ -270,7 +287,7 @@
             requestResetButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             requestResetButton.Font = new Font("Segoe UI", 9F);
             requestResetButton.ForeColor = Color.White;
-            requestResetButton.Location = new Point(1317, 37);
+            requestResetButton.Location = new Point(1034, 37);
             requestResetButton.Name = "requestResetButton";
             requestResetButton.ShadowDecoration.CustomizableEdges = customizableEdges4;
             requestResetButton.Size = new Size(112, 40);
@@ -294,7 +311,7 @@
             label11.Anchor = AnchorStyles.None;
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.Location = new Point(381, 42);
+            label11.Location = new Point(297, 42);
             label11.Name = "label11";
             label11.Size = new Size(105, 30);
             label11.TabIndex = 10;
@@ -311,7 +328,7 @@
             logoutButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             logoutButton.Font = new Font("Segoe UI", 9F);
             logoutButton.ForeColor = Color.White;
-            logoutButton.Location = new Point(1317, 128);
+            logoutButton.Location = new Point(1034, 128);
             logoutButton.Name = "logoutButton";
             logoutButton.ShadowDecoration.CustomizableEdges = customizableEdges6;
             logoutButton.Size = new Size(112, 55);
@@ -350,7 +367,7 @@
             guna2Panel2.Name = "guna2Panel2";
             guna2Panel2.Padding = new Padding(10);
             guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges17;
-            guna2Panel2.Size = new Size(1462, 355);
+            guna2Panel2.Size = new Size(1179, 355);
             guna2Panel2.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -379,7 +396,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 21.5873013F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 18.0952377F));
-            tableLayoutPanel1.Size = new Size(1442, 335);
+            tableLayoutPanel1.Size = new Size(1159, 335);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // changeNameButton
@@ -393,7 +410,7 @@
             changeNameButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             changeNameButton.Font = new Font("Segoe UI", 9F);
             changeNameButton.ForeColor = Color.White;
-            changeNameButton.Location = new Point(1317, 151);
+            changeNameButton.Location = new Point(1034, 151);
             changeNameButton.Name = "changeNameButton";
             changeNameButton.ShadowDecoration.CustomizableEdges = customizableEdges10;
             changeNameButton.Size = new Size(112, 40);
@@ -411,7 +428,7 @@
             pfpChangeButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             pfpChangeButton.Font = new Font("Segoe UI", 9F);
             pfpChangeButton.ForeColor = Color.White;
-            pfpChangeButton.Location = new Point(1317, 13);
+            pfpChangeButton.Location = new Point(1034, 13);
             pfpChangeButton.Name = "pfpChangeButton";
             pfpChangeButton.ShadowDecoration.CustomizableEdges = customizableEdges12;
             pfpChangeButton.Size = new Size(112, 49);
@@ -466,7 +483,7 @@
             // 
             guna2CirclePictureBox1.Anchor = AnchorStyles.None;
             guna2CirclePictureBox1.ImageRotate = 0F;
-            guna2CirclePictureBox1.Location = new Point(374, 13);
+            guna2CirclePictureBox1.Location = new Point(289, 13);
             guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
             guna2CirclePictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges13;
             guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
@@ -479,7 +496,7 @@
             fullNameLabel.Anchor = AnchorStyles.None;
             fullNameLabel.AutoSize = true;
             fullNameLabel.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            fullNameLabel.Location = new Point(377, 156);
+            fullNameLabel.Location = new Point(292, 156);
             fullNameLabel.Name = "fullNameLabel";
             fullNameLabel.Size = new Size(114, 30);
             fullNameLabel.TabIndex = 10;
@@ -490,7 +507,7 @@
             emailLabel.Anchor = AnchorStyles.None;
             emailLabel.AutoSize = true;
             emailLabel.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            emailLabel.Location = new Point(401, 222);
+            emailLabel.Location = new Point(316, 222);
             emailLabel.Name = "emailLabel";
             emailLabel.Size = new Size(66, 30);
             emailLabel.TabIndex = 11;
@@ -501,7 +518,7 @@
             phoneLabel.Anchor = AnchorStyles.None;
             phoneLabel.AutoSize = true;
             phoneLabel.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            phoneLabel.Location = new Point(395, 287);
+            phoneLabel.Location = new Point(311, 287);
             phoneLabel.Name = "phoneLabel";
             phoneLabel.Size = new Size(77, 30);
             phoneLabel.TabIndex = 12;
@@ -518,7 +535,7 @@
             changePhoneButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             changePhoneButton.Font = new Font("Segoe UI", 9F);
             changePhoneButton.ForeColor = Color.White;
-            changePhoneButton.Location = new Point(1317, 282);
+            changePhoneButton.Location = new Point(1034, 282);
             changePhoneButton.Name = "changePhoneButton";
             changePhoneButton.ShadowDecoration.CustomizableEdges = customizableEdges15;
             changePhoneButton.Size = new Size(112, 40);
@@ -528,9 +545,10 @@
             // companyTab
             // 
             companyTab.Controls.Add(companyPanel);
-            companyTab.Location = new Point(4, 74);
+            guna2Transition1.SetDecoration(companyTab, Guna.UI2.AnimatorNS.DecorationType.None);
+            companyTab.Location = new Point(4, 184);
             companyTab.Name = "companyTab";
-            companyTab.Size = new Size(1868, 771);
+            companyTab.Size = new Size(1868, 661);
             companyTab.TabIndex = 1;
             companyTab.Text = "Company";
             companyTab.UseVisualStyleBackColor = true;
@@ -560,7 +578,7 @@
             companyPanel.Location = new Point(0, 0);
             companyPanel.Name = "companyPanel";
             companyPanel.ShadowDecoration.CustomizableEdges = customizableEdges40;
-            companyPanel.Size = new Size(1868, 771);
+            companyPanel.Size = new Size(1868, 661);
             companyPanel.TabIndex = 0;
             // 
             // saveButton
@@ -849,6 +867,225 @@
             label7.TabIndex = 5;
             label7.Text = "Shop Preferences";
             // 
+            // kioskTab
+            // 
+            kioskTab.AutoScroll = true;
+            kioskTab.Controls.Add(guna2vScrollBar3);
+            kioskTab.Controls.Add(kioskSettingsPanel);
+            guna2Transition1.SetDecoration(kioskTab, Guna.UI2.AnimatorNS.DecorationType.None);
+            kioskTab.Location = new Point(4, 74);
+            kioskTab.Name = "kioskTab";
+            kioskTab.Padding = new Padding(10);
+            kioskTab.Size = new Size(1868, 771);
+            kioskTab.TabIndex = 2;
+            kioskTab.Text = "Kiosk";
+            kioskTab.UseVisualStyleBackColor = true;
+            // 
+            // guna2vScrollBar3
+            // 
+            guna2vScrollBar3.BindingContainer = kioskSettingsPanel;
+            guna2vScrollBar3.BorderRadius = 6;
+            guna2Transition1.SetDecoration(guna2vScrollBar3, Guna.UI2.AnimatorNS.DecorationType.None);
+            guna2vScrollBar3.FillOffset = new Padding(10, 10, 0, 10);
+            guna2vScrollBar3.InUpdate = false;
+            guna2vScrollBar3.LargeChange = 751;
+            guna2vScrollBar3.Location = new Point(1832, 10);
+            guna2vScrollBar3.Maximum = 1464;
+            guna2vScrollBar3.Name = "guna2vScrollBar3";
+            guna2vScrollBar3.Padding = new Padding(10, 10, 0, 10);
+            guna2vScrollBar3.ScrollbarSize = 16;
+            guna2vScrollBar3.Size = new Size(26, 751);
+            guna2vScrollBar3.SmallChange = 5;
+            guna2vScrollBar3.TabIndex = 6;
+            // 
+            // kioskSettingsPanel
+            // 
+            kioskSettingsPanel.AutoScroll = true;
+            kioskSettingsPanel.Controls.Add(label19);
+            kioskSettingsPanel.Controls.Add(bannerUpload1);
+            kioskSettingsPanel.Controls.Add(miniKioskPanel);
+            guna2Transition1.SetDecoration(kioskSettingsPanel, Guna.UI2.AnimatorNS.DecorationType.None);
+            kioskSettingsPanel.Dock = DockStyle.Fill;
+            kioskSettingsPanel.Location = new Point(10, 10);
+            kioskSettingsPanel.Name = "kioskSettingsPanel";
+            kioskSettingsPanel.Size = new Size(1848, 751);
+            kioskSettingsPanel.TabIndex = 1;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            guna2Transition1.SetDecoration(label19, Guna.UI2.AnimatorNS.DecorationType.None);
+            label19.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            label19.Location = new Point(41, 27);
+            label19.Name = "label19";
+            label19.Size = new Size(206, 41);
+            label19.TabIndex = 5;
+            label19.Text = "Kiosk Display";
+            // 
+            // bannerUpload1
+            // 
+            guna2Transition1.SetDecoration(bannerUpload1, Guna.UI2.AnimatorNS.DecorationType.None);
+            bannerUpload1.Location = new Point(148, 726);
+            bannerUpload1.Name = "bannerUpload1";
+            bannerUpload1.Size = new Size(1526, 739);
+            bannerUpload1.TabIndex = 6;
+            // 
+            // miniKioskPanel
+            // 
+            miniKioskPanel.Controls.Add(miniThankYouScreen1);
+            miniKioskPanel.Controls.Add(miniViewOrder1);
+            miniKioskPanel.Controls.Add(miniModalScreen1);
+            miniKioskPanel.Controls.Add(miniKioskMenu1);
+            miniKioskPanel.Controls.Add(miniHomePage1);
+            miniKioskPanel.Controls.Add(miniDineInTakeOut1);
+            miniKioskPanel.Controls.Add(RightSlideButton);
+            miniKioskPanel.Controls.Add(LeftSlideButton);
+            miniKioskPanel.Controls.Add(miniGetStartedScreen1);
+            miniKioskPanel.CustomizableEdges = customizableEdges45;
+            guna2Transition1.SetDecoration(miniKioskPanel, Guna.UI2.AnimatorNS.DecorationType.None);
+            miniKioskPanel.Location = new Point(148, 82);
+            miniKioskPanel.Name = "miniKioskPanel";
+            miniKioskPanel.ShadowDecoration.CustomizableEdges = customizableEdges46;
+            miniKioskPanel.Size = new Size(1526, 638);
+            miniKioskPanel.TabIndex = 0;
+            // 
+            // miniThankYouScreen1
+            // 
+            miniThankYouScreen1.BackColor = Color.DarkGray;
+            guna2Transition1.SetDecoration(miniThankYouScreen1, Guna.UI2.AnimatorNS.DecorationType.None);
+            miniThankYouScreen1.Location = new Point(587, 4);
+            miniThankYouScreen1.Name = "miniThankYouScreen1";
+            miniThankYouScreen1.Size = new Size(352, 626);
+            miniThankYouScreen1.TabIndex = 8;
+            // 
+            // miniViewOrder1
+            // 
+            miniViewOrder1.BackColor = Color.DarkGray;
+            guna2Transition1.SetDecoration(miniViewOrder1, Guna.UI2.AnimatorNS.DecorationType.None);
+            miniViewOrder1.Location = new Point(587, 4);
+            miniViewOrder1.Name = "miniViewOrder1";
+            miniViewOrder1.Size = new Size(352, 626);
+            miniViewOrder1.TabIndex = 7;
+            // 
+            // miniModalScreen1
+            // 
+            miniModalScreen1.BackColor = Color.DarkGray;
+            guna2Transition1.SetDecoration(miniModalScreen1, Guna.UI2.AnimatorNS.DecorationType.None);
+            miniModalScreen1.Location = new Point(587, 4);
+            miniModalScreen1.Name = "miniModalScreen1";
+            miniModalScreen1.Size = new Size(352, 626);
+            miniModalScreen1.TabIndex = 6;
+            // 
+            // miniKioskMenu1
+            // 
+            miniKioskMenu1.BackColor = Color.DarkGray;
+            guna2Transition1.SetDecoration(miniKioskMenu1, Guna.UI2.AnimatorNS.DecorationType.None);
+            miniKioskMenu1.Location = new Point(587, 4);
+            miniKioskMenu1.Name = "miniKioskMenu1";
+            miniKioskMenu1.Size = new Size(352, 626);
+            miniKioskMenu1.TabIndex = 5;
+            // 
+            // miniHomePage1
+            // 
+            miniHomePage1.BackColor = Color.DarkGray;
+            guna2Transition1.SetDecoration(miniHomePage1, Guna.UI2.AnimatorNS.DecorationType.None);
+            miniHomePage1.Location = new Point(587, 4);
+            miniHomePage1.Name = "miniHomePage1";
+            miniHomePage1.Size = new Size(352, 626);
+            miniHomePage1.TabIndex = 4;
+            // 
+            // miniDineInTakeOut1
+            // 
+            miniDineInTakeOut1.BackColor = Color.DarkGray;
+            guna2Transition1.SetDecoration(miniDineInTakeOut1, Guna.UI2.AnimatorNS.DecorationType.None);
+            miniDineInTakeOut1.Location = new Point(587, 3);
+            miniDineInTakeOut1.Name = "miniDineInTakeOut1";
+            miniDineInTakeOut1.Size = new Size(352, 626);
+            miniDineInTakeOut1.TabIndex = 3;
+            // 
+            // RightSlideButton
+            // 
+            RightSlideButton.CustomizableEdges = customizableEdges41;
+            guna2Transition1.SetDecoration(RightSlideButton, Guna.UI2.AnimatorNS.DecorationType.None);
+            RightSlideButton.DisabledState.BorderColor = Color.DarkGray;
+            RightSlideButton.DisabledState.CustomBorderColor = Color.DarkGray;
+            RightSlideButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            RightSlideButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            RightSlideButton.Font = new Font("Segoe UI", 9F);
+            RightSlideButton.ForeColor = Color.White;
+            RightSlideButton.Location = new Point(945, 4);
+            RightSlideButton.Name = "RightSlideButton";
+            RightSlideButton.ShadowDecoration.CustomizableEdges = customizableEdges42;
+            RightSlideButton.Size = new Size(270, 626);
+            RightSlideButton.TabIndex = 2;
+            RightSlideButton.Click += RightSlideButton_Click;
+            // 
+            // LeftSlideButton
+            // 
+            LeftSlideButton.CustomizableEdges = customizableEdges43;
+            guna2Transition1.SetDecoration(LeftSlideButton, Guna.UI2.AnimatorNS.DecorationType.None);
+            LeftSlideButton.DisabledState.BorderColor = Color.DarkGray;
+            LeftSlideButton.DisabledState.CustomBorderColor = Color.DarkGray;
+            LeftSlideButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            LeftSlideButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            LeftSlideButton.Font = new Font("Segoe UI", 9F);
+            LeftSlideButton.ForeColor = Color.White;
+            LeftSlideButton.Location = new Point(311, 4);
+            LeftSlideButton.Name = "LeftSlideButton";
+            LeftSlideButton.ShadowDecoration.CustomizableEdges = customizableEdges44;
+            LeftSlideButton.Size = new Size(270, 626);
+            LeftSlideButton.TabIndex = 1;
+            LeftSlideButton.Click += LeftSlideButton_Click;
+            // 
+            // miniGetStartedScreen1
+            // 
+            miniGetStartedScreen1.BackColor = Color.DarkGray;
+            guna2Transition1.SetDecoration(miniGetStartedScreen1, Guna.UI2.AnimatorNS.DecorationType.None);
+            miniGetStartedScreen1.Location = new Point(587, 3);
+            miniGetStartedScreen1.Name = "miniGetStartedScreen1";
+            miniGetStartedScreen1.Size = new Size(352, 626);
+            miniGetStartedScreen1.TabIndex = 0;
+            // 
+            // guna2vScrollBar2
+            // 
+            guna2vScrollBar2.BindingContainer = kioskSettingsPanel;
+            guna2vScrollBar2.BorderRadius = 6;
+            guna2Transition1.SetDecoration(guna2vScrollBar2, Guna.UI2.AnimatorNS.DecorationType.None);
+            guna2vScrollBar2.FillOffset = new Padding(10, 10, 0, 10);
+            guna2vScrollBar2.InUpdate = false;
+            guna2vScrollBar2.LargeChange = 751;
+            guna2vScrollBar2.Location = new Point(1832, 10);
+            guna2vScrollBar2.Maximum = 1464;
+            guna2vScrollBar2.Name = "guna2vScrollBar2";
+            guna2vScrollBar2.Padding = new Padding(10, 10, 0, 10);
+            guna2vScrollBar2.ScrollbarSize = 16;
+            guna2vScrollBar2.Size = new Size(26, 751);
+            guna2vScrollBar2.SmallChange = 5;
+            guna2vScrollBar2.TabIndex = 6;
+            // 
+            // guna2Transition1
+            // 
+            guna2Transition1.AnimationType = Guna.UI2.AnimatorNS.AnimationType.HorizSlide;
+            guna2Transition1.Cursor = null;
+            animation1.AnimateOnlyDifferences = true;
+            animation1.BlindCoeff = (PointF)resources.GetObject("animation1.BlindCoeff");
+            animation1.LeafCoeff = 0F;
+            animation1.MaxTime = 1F;
+            animation1.MinTime = 0F;
+            animation1.MosaicCoeff = (PointF)resources.GetObject("animation1.MosaicCoeff");
+            animation1.MosaicShift = (PointF)resources.GetObject("animation1.MosaicShift");
+            animation1.MosaicSize = 0;
+            animation1.Padding = new Padding(0);
+            animation1.RotateCoeff = 0F;
+            animation1.RotateLimit = 0F;
+            animation1.ScaleCoeff = (PointF)resources.GetObject("animation1.ScaleCoeff");
+            animation1.SlideCoeff = (PointF)resources.GetObject("animation1.SlideCoeff");
+            animation1.TimeCoeff = 0F;
+            animation1.TransparencyCoeff = 0F;
+            guna2Transition1.DefaultAnimation = animation1;
+            guna2Transition1.Interval = 1;
+            guna2Transition1.MaxAnimationTime = 500;
+            // 
             // SettingsView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -930,5 +1167,22 @@
         private Label label18;
         private Guna.UI2.WinForms.Guna2Button saveButton;
         private Guna.UI2.WinForms.Guna2Button logoutButton;
+        private TabPage kioskTab;
+        private Panel kioskSettingsPanel;
+        private Guna.UI2.WinForms.Guna2Panel miniKioskPanel;
+        private Label label19;
+        private SettingsUserControls.MiniGetStartedScreen miniGetStartedScreen1;
+        private Guna.UI2.WinForms.Guna2VScrollBar guna2vScrollBar2;
+        private Guna.UI2.WinForms.Guna2VScrollBar guna2vScrollBar3;
+        private Guna.UI2.WinForms.Guna2TileButton RightSlideButton;
+        private Guna.UI2.WinForms.Guna2TileButton LeftSlideButton;
+        private SettingsUserControls.MiniDineInTakeOut miniDineInTakeOut1;
+        private Guna.UI2.WinForms.Guna2Transition guna2Transition1;
+        private SettingsUserControls.MiniKioskMenu miniKioskMenu1;
+        private SettingsUserControls.MiniHomePage miniHomePage1;
+        private SettingsUserControls.MiniModalScreen miniModalScreen1;
+        private SettingsUserControls.MiniThankYouScreen miniThankYouScreen1;
+        private SettingsUserControls.MiniViewOrder miniViewOrder1;
+        private SettingsUserControls.BannerUpload bannerUpload1;
     }
 }

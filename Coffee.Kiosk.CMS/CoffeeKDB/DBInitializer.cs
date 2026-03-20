@@ -32,6 +32,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 Password_Reset_Requested BOOLEAN NOT NULL DEFAULT 0
             );",
 
+            @"CREATE TABLE IF NOT EXISTS kiosk_banners (
+                ID           INT AUTO_INCREMENT PRIMARY KEY,
+                FilePath     VARCHAR(255) NOT NULL DEFAULT '',
+                Placement    VARCHAR(100) NOT NULL,
+                DisplayOrder INT NOT NULL DEFAULT 0
+            );",
+
             @"CREATE TABLE IF NOT EXISTS shop (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 ShopName VARCHAR(100) NOT NULL,

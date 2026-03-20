@@ -11,6 +11,8 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 {
     public partial class SettingsView : UserControl
     {
+
+        private readonly KioskController _kioskController;
         private readonly AccountController _controller;
         private readonly Employee _currentEmployee;
         private readonly ShopController _themeController;
@@ -18,17 +20,20 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
         private Cyotek.Windows.Forms.ColorPickerDialog colorPickerDialog1 = new Cyotek.Windows.Forms.ColorPickerDialog();
 
 
-        public SettingsView(AccountController controller, ShopController themeController, Employee currentEmployee)
+        public SettingsView(AccountController controller, ShopController themeController, KioskController kioskController, Employee currentEmployee)
         {
             InitializeComponent();
 
+            bannerUpload1.Initialize(kioskController);
+
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
             _themeController = themeController ?? throw new ArgumentNullException(nameof(themeController));
+            _kioskController = kioskController ?? throw new ArgumentNullException(nameof(kioskController));
             _currentEmployee = currentEmployee ?? throw new ArgumentNullException(nameof(currentEmployee));
+
             _selectedImagePath = currentEmployee.ProfilePicturePath;
 
             var uiTheme = UIhelp.ThemeManager.BuildUITheme(_themeController);
-
             UIhelp.ThemeManager.ApplyTheme(this, uiTheme);
 
             primaryColorButton.FillColor = uiTheme.Primary;
@@ -49,6 +54,8 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
             LoadCurrentEmployeeData();
 
+
+            SwitchScreen(miniGetStartedScreen1);
         }
 
         #region ACCOUNT TAB
@@ -294,7 +301,98 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
         #endregion
 
+        #region KIOSK TAB
 
+
+        private void LeftSlideButton_Click(object sender, EventArgs e)
+        {
+            if (miniGetStartedScreen1.Visible)
+            {
+                SwitchScreen(miniThankYouScreen1);
+            }
+            else if (miniDineInTakeOut1.Visible)
+            {
+                SwitchScreen(miniGetStartedScreen1);
+            }
+            else if (miniHomePage1.Visible)
+            {
+                SwitchScreen(miniDineInTakeOut1);
+            }
+            else if (miniKioskMenu1.Visible)
+            {
+                SwitchScreen(miniHomePage1);
+            }
+            else if (miniModalScreen1.Visible)
+            {
+                SwitchScreen(miniKioskMenu1);
+            }
+            else if (miniViewOrder1.Visible)
+            {
+                SwitchScreen(miniModalScreen1);
+            }
+            else if (miniThankYouScreen1.Visible)
+            {
+                SwitchScreen(miniViewOrder1);
+            }
+        }
+
+        private void RightSlideButton_Click(object sender, EventArgs e)
+        {
+            if (miniGetStartedScreen1.Visible)
+            {
+                SwitchScreen(miniDineInTakeOut1);
+            }
+            else if (miniDineInTakeOut1.Visible)
+            {
+                SwitchScreen(miniHomePage1);
+            }
+            else if (miniHomePage1.Visible)
+            {
+                SwitchScreen(miniKioskMenu1);
+            }
+            else if (miniKioskMenu1.Visible)
+            {
+                SwitchScreen(miniModalScreen1);
+            }
+            else if (miniModalScreen1.Visible)
+            {
+                SwitchScreen(miniViewOrder1);
+            }
+            else if (miniViewOrder1.Visible)
+            {
+                SwitchScreen(miniThankYouScreen1);
+            }
+            else if (miniThankYouScreen1.Visible)
+            {
+                SwitchScreen(miniGetStartedScreen1);
+            }
+        }
+
+        private void SwitchScreen(UserControl targetScreen)
+        {
+            UserControl[] allScreens = {
+                miniGetStartedScreen1,
+                miniDineInTakeOut1,
+                miniHomePage1,
+                miniKioskMenu1,
+                miniModalScreen1,
+                miniViewOrder1,
+                miniThankYouScreen1
+            };
+
+            foreach (var screen in allScreens)
+            {
+                screen.Visible = (screen == targetScreen);
+            }
+
+            targetScreen.BringToFront();
+        }
+
+
+
+        
+
+        #endregion
 
     }
 }
