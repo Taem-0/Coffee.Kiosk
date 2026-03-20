@@ -2,6 +2,7 @@
 
 namespace Coffee.Kiosk.Cashier.CashierDBHelper
 {
+    // One row in the pending orders list
     public class KioskOrderSummary
     {
         public int OrderId { get; set; }
@@ -9,6 +10,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
         public decimal TotalAmount { get; set; }
     }
 
+    // One item inside a kiosk order
     public class KioskOrderItem
     {
         public string ProductName { get; set; } = "";
@@ -17,6 +19,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
         public List<string> Modifiers { get; set; } = new();
     }
 
+    // Modifier group (e.g. "Size", "Milk")
     public class ModifierGroupModel
     {
         public int GroupId { get; set; }
@@ -26,6 +29,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
         public List<ModifierOptionModel> Options { get; set; } = new();
     }
 
+    // One option inside a modifier group (e.g. "Small", "Oat milk")
     public class ModifierOptionModel
     {
         public int OptionId { get; set; }
@@ -35,6 +39,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
 
     public static class KioskOrderDbManager
     {
+        // Returns all Pending orders from the kiosk
         public static List<KioskOrderSummary> GetPendingOrders()
         {
             var list = new List<KioskOrderSummary>();
@@ -60,6 +65,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             return list;
         }
 
+        // Returns count of pending orders (for the bell badge)
         public static int GetPendingCount()
         {
             using var conn = CashierDBHelper.GetConnection();
@@ -69,12 +75,14 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             return Convert.ToInt32(cmd.ExecuteScalar());
         }
 
+        // Returns all items + modifiers for a given order ID
         public static List<KioskOrderItem> GetOrderItems(int orderId)
         {
             var items = new List<KioskOrderItem>();
             using var conn = CashierDBHelper.GetConnection();
             conn.Open();
 
+            // Get line items
             var cmdItems = new MySqlCommand(
                 "SELECT ID, ProductName, Quantity, UnitPrice " +
                 "FROM customer_order_item " +
@@ -97,6 +105,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
                 }
             }
 
+            // Get modifiers for each item
             foreach (var (id, item) in itemIds)
             {
                 var cmdMod = new MySqlCommand(
@@ -116,6 +125,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             return items;
         }
 
+        // Returns all products from the DB for the cashier menu
         public static List<Coffee.Kiosk.Cashier.ModelClassHelper.MenuItemModel> GetMenuItems()
         {
             var list = new List<Coffee.Kiosk.Cashier.ModelClassHelper.MenuItemModel>();
@@ -142,6 +152,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             return list;
         }
 
+        // Returns modifier groups + options for a product from the DB
         public static List<ModifierGroupModel> GetProductModifiers(int productId)
         {
             var groups = new List<ModifierGroupModel>();
@@ -196,6 +207,70 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             return groups;
         }
 
+        // Saves a cashier order to customer_orders (same table as kiosk)
+        public static int SaveCashierOrder(
+            List<Coffee.Kiosk.Cashier.ModelClassHelper.OrderItemModel> cart,
+            decimal totalAmount,
+            string orderType = "DineIn")
+        {
+            using var conn = CashierDBHelper.GetConnection();
+            conn.Open();
+            using var tx = conn.BeginTransaction();
+
+            try
+            {
+                // 1. Insert into customer_orders
+                var cmdOrder = new MySqlCommand(
+                    @"INSERT INTO customer_orders (OrderType, Status, TotalAmount, CreatedAt)
+                      VALUES (@orderType, 'Paid', @total, NOW())",
+                    conn, tx);
+                cmdOrder.Parameters.AddWithValue("@orderType", orderType);
+                cmdOrder.Parameters.AddWithValue("@total", totalAmount);
+                cmdOrder.ExecuteNonQuery();
+                int orderId = (int)cmdOrder.LastInsertedId;
+
+                // 2. Insert each item into customer_order_item
+                foreach (var item in cart)
+                {
+                    var cmdItem = new MySqlCommand(
+                        @"INSERT INTO customer_order_item
+                            (CustomerOrderId, ProductId, ProductName, BasePrice, UnitPrice, Quantity)
+                          VALUES (@orderId, @productId, @name, @base, @unit, @qty)",
+                        conn, tx);
+                    cmdItem.Parameters.AddWithValue("@orderId", orderId);
+                    cmdItem.Parameters.AddWithValue("@productId", item.Item.ItemID > 0 ? item.Item.ItemID : (object)DBNull.Value);
+                    cmdItem.Parameters.AddWithValue("@name", item.Item.ItemName);
+                    cmdItem.Parameters.AddWithValue("@base", item.Item.Price);
+                    cmdItem.Parameters.AddWithValue("@unit", item.Item.Price + item.Customization.AddOnsTotal);
+                    cmdItem.Parameters.AddWithValue("@qty", item.Quantity);
+                    cmdItem.ExecuteNonQuery();
+                    int itemId = (int)cmdItem.LastInsertedId;
+
+                    // 3. Insert modifiers if any
+                    foreach (var addon in item.Customization.AddOns)
+                    {
+                        var cmdMod = new MySqlCommand(
+                            @"INSERT INTO customer_order_item_modifier
+                                (CustomerOrderItemId, ModifierGroupName, ModifierOptionName, PriceDelta)
+                              VALUES (@itemId, 'Add-on', @name, 0)",
+                            conn, tx);
+                        cmdMod.Parameters.AddWithValue("@itemId", itemId);
+                        cmdMod.Parameters.AddWithValue("@name", addon);
+                        cmdMod.ExecuteNonQuery();
+                    }
+                }
+
+                tx.Commit();
+                return orderId;
+            }
+            catch
+            {
+                tx.Rollback();
+                throw;
+            }
+        }
+
+        // Marks an order as Paid after cashier confirms
         public static void MarkOrderPaid(int orderId)
         {
             using var conn = CashierDBHelper.GetConnection();
