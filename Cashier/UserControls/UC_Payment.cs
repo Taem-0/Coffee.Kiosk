@@ -248,6 +248,19 @@ namespace Coffee.Kiosk.Cashier
                         "DB Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+            else
+            {
+                try
+                {
+                    KioskOrderDbManager.SaveCashierOrder(_cart, _total);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        $"Payment confirmed but could not save order to database:\n{ex.Message}",
+                        "DB Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
 
             SessionManager.OrderNumber++;
             var receipt = new UC_Receipt(_cart, _total, cash, change, _paymentMethod);
