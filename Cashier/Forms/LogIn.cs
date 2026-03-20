@@ -34,7 +34,6 @@ namespace Cashier
             btnLogin.Location = new Point(cx - btnLogin.Width / 2, txtPassword.Bottom + 28);
         }
 
-        // ── Hash password the same way the CMS does (SHA-256 + salt) ────────
         private static string HashPassword(string password, string salt)
         {
             using var sha = SHA256.Create();
@@ -59,7 +58,6 @@ namespace Cashier
                 using var conn = CashierDBHelper.GetConnection();
                 conn.Open();
 
-                // Login using Email_Address (same as CMS)
                 var cmd = new MySqlCommand(
                     @"SELECT ID, First_Name, Last_Name, Role,
                              Password_Hash, Password_Salt, Is_First_Login
@@ -88,7 +86,6 @@ namespace Cashier
                 bool isFirstLogin = reader.GetBoolean("Is_First_Login");
                 reader.Close();
 
-                // Verify password
                 string enteredHash = HashPassword(pass, storedSalt);
                 if (enteredHash != storedHash)
                 {
@@ -99,7 +96,6 @@ namespace Cashier
                     return;
                 }
 
-                // If first login, prompt to change password
                 if (isFirstLogin)
                 {
                     ShowChangePasswordDialog(id, $"{firstName} {lastName}", role);
@@ -138,7 +134,6 @@ namespace Cashier
             {
                 try
                 {
-                    // Generate new salt and hash
                     string newSalt = Guid.NewGuid().ToString("N");
                     string newHash = HashPassword(newPass, newSalt);
 
@@ -201,7 +196,6 @@ namespace Cashier
             dlg.ShowDialog(this);
         }
 
-        // ── Shake animation ──────────────────────────────────────────────────
         private void ShakeControl(Control ctrl)
         {
             Point orig = ctrl.Location;
@@ -219,7 +213,6 @@ namespace Cashier
             }, null, 0, 30);
         }
 
-        // ── Keyboard shortcuts ───────────────────────────────────────────────
         private void txtUsername_KeyDown(object sender, KeyEventArgs e)
         { if (e.KeyCode == Keys.Enter) txtPassword.Focus(); }
 
