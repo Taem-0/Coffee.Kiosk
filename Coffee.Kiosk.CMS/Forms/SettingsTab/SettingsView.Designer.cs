@@ -235,7 +235,7 @@
             guna2vScrollBar1.InUpdate = false;
             guna2vScrollBar1.LargeChange = 751;
             guna2vScrollBar1.Location = new Point(1832, 10);
-            guna2vScrollBar1.Maximum = 757;
+            guna2vScrollBar1.Maximum = 783;
             guna2vScrollBar1.Name = "guna2vScrollBar1";
             guna2vScrollBar1.Padding = new Padding(10, 10, 0, 10);
             guna2vScrollBar1.ScrollbarSize = 16;
@@ -586,7 +586,7 @@
             guna2Transition1.SetDecoration(companyTab, Guna.UI2.AnimatorNS.DecorationType.None);
             companyTab.Location = new Point(4, 74);
             companyTab.Name = "companyTab";
-            companyTab.Size = new Size(1868, 771);
+            companyTab.Size = new Size(1868, 661);
             companyTab.TabIndex = 1;
             companyTab.Text = "Company";
             companyTab.UseVisualStyleBackColor = true;
@@ -617,7 +617,7 @@
             companyPanel.Location = new Point(0, 0);
             companyPanel.Name = "companyPanel";
             companyPanel.ShadowDecoration.CustomizableEdges = customizableEdges40;
-            companyPanel.Size = new Size(1868, 771);
+            companyPanel.Size = new Size(1868, 661);
             companyPanel.TabIndex = 0;
             // 
             // saveButton

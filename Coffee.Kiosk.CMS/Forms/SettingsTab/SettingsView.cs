@@ -12,6 +12,8 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 {
     public partial class SettingsView : UserControl
     {
+
+        private readonly KioskController _kioskController;
         private readonly AccountController _controller;
         private readonly Employee _currentEmployee;
         private readonly ShopController _themeController;
@@ -19,17 +21,20 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
         private Cyotek.Windows.Forms.ColorPickerDialog colorPickerDialog1 = new Cyotek.Windows.Forms.ColorPickerDialog();
 
 
-        public SettingsView(AccountController controller, ShopController themeController, Employee currentEmployee)
+        public SettingsView(AccountController controller, ShopController themeController, KioskController kioskController, Employee currentEmployee)
         {
             InitializeComponent();
 
+            bannerUpload1.Initialize(kioskController);
+
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
             _themeController = themeController ?? throw new ArgumentNullException(nameof(themeController));
+            _kioskController = kioskController ?? throw new ArgumentNullException(nameof(kioskController));
             _currentEmployee = currentEmployee ?? throw new ArgumentNullException(nameof(currentEmployee));
+
             _selectedImagePath = currentEmployee.ProfilePicturePath;
 
             var uiTheme = UIhelp.ThemeManager.BuildUITheme(_themeController);
-
             UIhelp.ThemeManager.ApplyTheme(this, uiTheme);
 
             primaryColorButton.FillColor = uiTheme.Primary;
@@ -393,6 +398,14 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
         #endregion
 
+            targetScreen.BringToFront();
+        }
+
+
+
+        
+
+        #endregion
 
     }
 }

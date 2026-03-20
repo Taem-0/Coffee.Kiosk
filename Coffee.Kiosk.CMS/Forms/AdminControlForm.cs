@@ -25,6 +25,7 @@ namespace Coffee.Kiosk
         private AccountsService service;
         private AccountController controller;
         private ShopController themeController;
+        private KioskController kioskController;
         private DashBoardControl dashBoardControl;
         private SettingsView settingsView;
 
@@ -58,6 +59,8 @@ namespace Coffee.Kiosk
             var dbManager = new AccountDBManager(configuration);
             var themeManager = new ShopDBManager(configuration);
             var themeService = new ShopService(themeManager);
+            var kioskManager = new KioskDBManager(configuration);
+            var kioskService = new KioskService(kioskManager);
 
             validator = new RegistrationValidation();
             updateValidation = new UpdateValidation();
@@ -65,6 +68,7 @@ namespace Coffee.Kiosk
             service = new AccountsService(dbManager);
             controller = new AccountController(validator, updateValidation, service, loginValidation);
             themeController = new ShopController(themeService);
+            kioskController = new KioskController(kioskService);
 
             _currentShop = themeController.GetShopSettings();
 
@@ -80,7 +84,7 @@ namespace Coffee.Kiosk
             dashBoardControl = new DashBoardControl(controller);
             dashBoardControl.ParentFormReference = this;
 
-            settingsView = new SettingsView(controller, themeController, _currentEmployee);
+            settingsView = new SettingsView(controller, themeController, kioskController, _currentEmployee);
         }
 
         private void Form1_Load(object sender, EventArgs e)

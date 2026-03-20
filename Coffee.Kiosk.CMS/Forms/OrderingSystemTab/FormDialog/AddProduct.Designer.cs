@@ -61,21 +61,22 @@
             ProductNameTxtBox.Font = new Font("Segoe UI", 9F);
             ProductNameTxtBox.ForeColor = Color.Black;
             ProductNameTxtBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            ProductNameTxtBox.Location = new Point(12, 304);
-            ProductNameTxtBox.Margin = new Padding(3, 4, 3, 4);
+            ProductNameTxtBox.Location = new Point(15, 380);
+            ProductNameTxtBox.Margin = new Padding(4, 5, 4, 5);
             ProductNameTxtBox.Name = "ProductNameTxtBox";
             ProductNameTxtBox.PlaceholderText = "ProductPlaceHolderName";
             ProductNameTxtBox.SelectedText = "";
             ProductNameTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            ProductNameTxtBox.Size = new Size(392, 41);
+            ProductNameTxtBox.Size = new Size(490, 51);
             ProductNameTxtBox.TabIndex = 0;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.default_icon;
-            pictureBox1.Location = new Point(104, 12);
+            pictureBox1.Location = new Point(130, 15);
+            pictureBox1.Margin = new Padding(4, 4, 4, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(200, 200);
+            pictureBox1.Size = new Size(250, 250);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
@@ -89,9 +90,10 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ControlDarkDark;
-            label1.Location = new Point(12, 269);
+            label1.Location = new Point(15, 336);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(77, 31);
+            label1.Size = new Size(95, 38);
             label1.TabIndex = 2;
             label1.Text = "Name";
             // 
@@ -100,9 +102,10 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ControlDarkDark;
-            label2.Location = new Point(12, 361);
+            label2.Location = new Point(15, 451);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(67, 31);
+            label2.Size = new Size(81, 38);
             label2.TabIndex = 4;
             label2.Text = "Price";
             // 
@@ -118,13 +121,13 @@
             PriceTxtBox.Font = new Font("Segoe UI", 9F);
             PriceTxtBox.ForeColor = Color.Black;
             PriceTxtBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            PriceTxtBox.Location = new Point(12, 396);
-            PriceTxtBox.Margin = new Padding(3, 4, 3, 4);
+            PriceTxtBox.Location = new Point(15, 495);
+            PriceTxtBox.Margin = new Padding(4, 5, 4, 5);
             PriceTxtBox.Name = "PriceTxtBox";
             PriceTxtBox.PlaceholderText = "100.00";
             PriceTxtBox.SelectedText = "";
             PriceTxtBox.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            PriceTxtBox.Size = new Size(392, 41);
+            PriceTxtBox.Size = new Size(490, 51);
             PriceTxtBox.TabIndex = 3;
             // 
             // SaveBtn
@@ -137,10 +140,11 @@
             SaveBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             SaveBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             SaveBtn.ForeColor = Color.White;
-            SaveBtn.Location = new Point(277, 458);
+            SaveBtn.Location = new Point(346, 572);
+            SaveBtn.Margin = new Padding(4, 4, 4, 4);
             SaveBtn.Name = "SaveBtn";
             SaveBtn.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            SaveBtn.Size = new Size(127, 49);
+            SaveBtn.Size = new Size(159, 61);
             SaveBtn.TabIndex = 5;
             SaveBtn.Text = "Save";
             SaveBtn.Click += SaveBtn_Click;
@@ -156,10 +160,11 @@
             CancelBtn.FillColor = Color.FromArgb(224, 224, 224);
             CancelBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             CancelBtn.ForeColor = Color.DimGray;
-            CancelBtn.Location = new Point(144, 458);
+            CancelBtn.Location = new Point(180, 572);
+            CancelBtn.Margin = new Padding(4, 4, 4, 4);
             CancelBtn.Name = "CancelBtn";
             CancelBtn.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            CancelBtn.Size = new Size(127, 49);
+            CancelBtn.Size = new Size(159, 61);
             CancelBtn.TabIndex = 6;
             CancelBtn.Text = "Cancel";
             CancelBtn.Click += CancelBtn_Click;
@@ -178,19 +183,20 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.ControlDarkDark;
-            label3.Location = new Point(82, 215);
+            label3.Location = new Point(102, 269);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(250, 31);
+            label3.Size = new Size(306, 38);
             label3.TabIndex = 7;
             label3.Text = "Click to change image";
             // 
             // AddProduct
             // 
             AcceptButton = SaveBtn;
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = CancelBtn;
-            ClientSize = new Size(413, 533);
+            ClientSize = new Size(516, 666);
             Controls.Add(label3);
             Controls.Add(CancelBtn);
             Controls.Add(SaveBtn);
@@ -200,6 +206,7 @@
             Controls.Add(pictureBox1);
             Controls.Add(ProductNameTxtBox);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 4, 4, 4);
             Name = "AddProduct";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
