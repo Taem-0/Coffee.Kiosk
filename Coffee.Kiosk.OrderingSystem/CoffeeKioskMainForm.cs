@@ -54,7 +54,6 @@ namespace Coffee.Kiosk.OrderingSystem
             //var materialSkinManager = MaterialSkinManager.Instance;
             //materialSkinManager.AddFormToManage(this);
             UI_ColorScheme.initializeMaterialSkinThemes();
-            UI_Images.loadLogoImage();
 
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
@@ -64,6 +63,8 @@ namespace Coffee.Kiosk.OrderingSystem
 
             Models.Category.LoadFromDataBase();
             Models.Product.LoadFromDataBase();
+            Models.UiAssets.LoadFromDatabase();
+            UI_Images.loadLogoImage();
 
             //Models.Category.LoadDummyData();
             //Models.Product.LoadDummyData();
@@ -170,8 +171,6 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowGetStartedScreen()
         {
-            Models.Category.LoadFromDataBase();
-            Models.Product.LoadFromDataBase();
             if (getStartedScreen == null)
             {
                 getStartedScreen = new GetStartedScreen();
@@ -184,9 +183,15 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowDineInTakeOutScreen()
         {
+            Models.Category.LoadFromDataBase();
+            Models.Product.LoadFromDataBase();
+            Models.UiAssets.LoadFromDatabase();
+            UI_Images.loadLogoImage();
+
             if (dineInTakeOut == null)
             {
                 dineInTakeOut = new DineInTakeOut();
+
 
                 dineInTakeOut.backButtonClicked += () =>
                 {
@@ -297,7 +302,7 @@ namespace Coffee.Kiosk.OrderingSystem
                 }
                 UI_Handling.loadUserControl(mainPanel, receiptGcashScreen);
                 await Task.Delay(3000);
-                receiptGcashScreen.StartResetCountdown(countdown);
+                receiptGcashScreen.StartResetCountdown(20);
             }
 
             QPdfGen.GenerateReceiptPdf(currentOrder, "Kiosk_Receipt.pdf", customerId);
@@ -353,8 +358,8 @@ namespace Coffee.Kiosk.OrderingSystem
         private void HideModalScreen()
         {
             modalOverlayPanel.Visible = false;
-            //modalScreen?.Dispose();
-            //modalScreen = null;
+            modalScreen?.Dispose();
+            modalScreen = null;
 
             kioskMenu?.KioskScrollPosFix();
         }

@@ -73,14 +73,15 @@
             flowLayoutPanel1.BackColor = Color.Transparent;
             flowLayoutPanel1.Location = new Point(6, 52);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(619, 501);
+            flowLayoutPanel1.Size = new Size(569, 501);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel2
             // 
+            flowLayoutPanel2.AutoScroll = true;
             flowLayoutPanel2.Location = new Point(3, 52);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(645, 495);
+            flowLayoutPanel2.Size = new Size(683, 495);
             flowLayoutPanel2.TabIndex = 1;
             // 
             // SearchTxtBox
@@ -123,7 +124,7 @@
             guna2Panel2.Location = new Point(14, 36);
             guna2Panel2.Name = "guna2Panel2";
             guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            guna2Panel2.Size = new Size(631, 563);
+            guna2Panel2.Size = new Size(581, 563);
             guna2Panel2.TabIndex = 51;
             // 
             // guna2Button1
@@ -178,10 +179,10 @@
             guna2Panel1.Controls.Add(flowLayoutPanel2);
             guna2Panel1.CustomizableEdges = customizableEdges3;
             guna2Panel1.FillColor = Color.White;
-            guna2Panel1.Location = new Point(651, 36);
+            guna2Panel1.Location = new Point(613, 36);
             guna2Panel1.Name = "guna2Panel1";
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2Panel1.Size = new Size(654, 563);
+            guna2Panel1.Size = new Size(692, 563);
             guna2Panel1.TabIndex = 52;
             // 
             // tipButton1
