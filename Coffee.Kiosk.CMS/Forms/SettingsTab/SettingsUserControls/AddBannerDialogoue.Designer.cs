@@ -50,7 +50,7 @@
             // 
             label19.AutoSize = true;
             label19.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
-            label19.Location = new Point(15, 18);
+            label19.Location = new Point(33, 18);
             label19.Name = "label19";
             label19.Size = new Size(296, 41);
             label19.TabIndex = 6;
@@ -60,7 +60,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
-            label1.Location = new Point(18, 339);
+            label1.Location = new Point(36, 339);
             label1.Name = "label1";
             label1.Size = new Size(138, 36);
             label1.TabIndex = 7;
@@ -78,7 +78,7 @@
             guna2ComboBox1.Font = new Font("Segoe UI", 10F);
             guna2ComboBox1.ForeColor = Color.FromArgb(68, 88, 112);
             guna2ComboBox1.ItemHeight = 30;
-            guna2ComboBox1.Location = new Point(24, 383);
+            guna2ComboBox1.Location = new Point(42, 383);
             guna2ComboBox1.Name = "guna2ComboBox1";
             guna2ComboBox1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2ComboBox1.Size = new Size(471, 36);
@@ -96,7 +96,7 @@
             guna2ComboBox2.Font = new Font("Segoe UI", 10F);
             guna2ComboBox2.ForeColor = Color.FromArgb(68, 88, 112);
             guna2ComboBox2.ItemHeight = 30;
-            guna2ComboBox2.Location = new Point(24, 486);
+            guna2ComboBox2.Location = new Point(42, 486);
             guna2ComboBox2.Name = "guna2ComboBox2";
             guna2ComboBox2.ShadowDecoration.CustomizableEdges = customizableEdges4;
             guna2ComboBox2.Size = new Size(471, 36);
@@ -106,7 +106,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
-            label2.Location = new Point(18, 442);
+            label2.Location = new Point(36, 442);
             label2.Name = "label2";
             label2.Size = new Size(190, 36);
             label2.TabIndex = 9;
@@ -122,19 +122,20 @@
             saveButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             saveButton.Font = new Font("Segoe UI", 9F);
             saveButton.ForeColor = Color.White;
-            saveButton.Location = new Point(354, 563);
+            saveButton.Location = new Point(372, 563);
             saveButton.Name = "saveButton";
             saveButton.ShadowDecoration.CustomizableEdges = customizableEdges6;
             saveButton.Size = new Size(141, 52);
             saveButton.TabIndex = 11;
             saveButton.Text = "Save";
+            saveButton.Click += saveButton_Click;
             // 
             // guna2PictureBox1
             // 
             guna2PictureBox1.BackColor = Color.Transparent;
             guna2PictureBox1.CustomizableEdges = customizableEdges7;
             guna2PictureBox1.ImageRotate = 0F;
-            guna2PictureBox1.Location = new Point(12, 87);
+            guna2PictureBox1.Location = new Point(30, 87);
             guna2PictureBox1.Name = "guna2PictureBox1";
             guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges8;
             guna2PictureBox1.Size = new Size(470, 220);
@@ -145,7 +146,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(494, 593);
+            ClientSize = new Size(542, 636);
             Controls.Add(guna2PictureBox1);
             Controls.Add(saveButton);
             Controls.Add(guna2ComboBox2);
@@ -154,6 +155,7 @@
             Controls.Add(label1);
             Controls.Add(label19);
             Name = "AddBannerDialogoue";
+            Load += AddBannerDialogoue_Load;
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

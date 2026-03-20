@@ -8,35 +8,25 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
 {
     public partial class AddBannerDialogoue : Form
     {
-        public KioskBanner Result { get; private set; }
-
+        public KioskBanner? Result { get; private set; }
         private string _selectedImagePath = string.Empty;
 
         public AddBannerDialogoue()
         {
             InitializeComponent();
-
-            // Populate placement options
             guna2ComboBox1.Items.AddRange(new object[] { "Home Page", "Starting Screen", "Top Banner" });
             guna2ComboBox1.SelectedIndex = 0;
-
-            // Populate order numbers
             for (int i = 1; i <= 20; i++)
                 guna2ComboBox2.Items.Add(i);
             guna2ComboBox2.SelectedIndex = 0;
-
-            // Make picture box clickable
             guna2PictureBox1.Click += PictureBox_Click;
             guna2PictureBox1.Cursor = Cursors.Hand;
-
-            saveButton.Click += SaveButton_Click;
         }
 
-        private void PictureBox_Click(object sender, EventArgs e)
+        private void PictureBox_Click(object? sender, EventArgs e)
         {
             using var ofd = new OpenFileDialog();
             ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.webp";
-
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 _selectedImagePath = ofd.FileName;
@@ -45,15 +35,13 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
             }
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
+        private void saveButton_Click(object sender, EventArgs e)
         {
-
             if (guna2ComboBox1.SelectedIndex < 0)
             {
                 MessageBox.Show("Please select a placement.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             if (guna2ComboBox2.SelectedIndex < 0)
             {
                 MessageBox.Show("Please select an order number.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -62,16 +50,16 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
 
             Result = new KioskBanner
             {
-                FilePath = _selectedImagePath,
-                Placement = guna2ComboBox1.SelectedItem.ToString(),
-                DisplayOrder = (int)guna2ComboBox2.SelectedItem
+                FilePath = _selectedImagePath ?? string.Empty,
+                Placement = guna2ComboBox1.SelectedItem?.ToString() ?? string.Empty,
+                DisplayOrder = Convert.ToInt32(guna2ComboBox2.SelectedItem)
             };
 
             DialogResult = DialogResult.OK;
             Close();
         }
 
-        private Image LoadImageNonLocking(string path)
+        private Image? LoadImageNonLocking(string path)
         {
             if (string.IsNullOrEmpty(path) || !File.Exists(path)) return null;
             try
@@ -84,5 +72,6 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
 
         private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e) { }
         private void label1_Click(object sender, EventArgs e) { }
+        private void AddBannerDialogoue_Load(object sender, EventArgs e) { }
     }
 }

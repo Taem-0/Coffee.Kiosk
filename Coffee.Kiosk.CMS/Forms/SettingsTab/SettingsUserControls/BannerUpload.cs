@@ -60,7 +60,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
             return card;
         }
 
-        private void ManagedSelection(object sender, EventArgs e)
+        private void ManagedSelection(object? sender, EventArgs e)
         {
             foreach (Control c in bannersFlowLayout.Controls)
             {
@@ -75,6 +75,8 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
 
             if (dialogue.ShowDialog() == DialogResult.OK)
             {
+                if (dialogue.Result == null) return;
+
                 try
                 {
                     _kioskController.AddBanner(dialogue.Result);
@@ -88,12 +90,8 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
             }
         }
 
-        private void saveButton_Click_1(object sender, EventArgs e)
-        {
-            // Saves now happen inside the dialogue
-        }
 
-        private Image LoadImageNonLocking(string path)
+        private Image? LoadImageNonLocking(string path)
         {
             if (string.IsNullOrEmpty(path) || !File.Exists(path)) return null;
             try
