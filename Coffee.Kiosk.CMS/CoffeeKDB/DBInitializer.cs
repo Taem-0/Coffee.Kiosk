@@ -174,7 +174,34 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 PriceDelta DECIMAL(10,2) NOT NULL,
 
                 FOREIGN KEY (CustomerOrderItemId) REFERENCES customer_order_item(ID) ON DELETE CASCADE
+                );",
+
+                @"CREATE TABLE IF NOT EXISTS cashier_order (
+                    ID              INT AUTO_INCREMENT PRIMARY KEY,
+                    AccountId       INT NOT NULL,
+                    OrderType       ENUM('DineIn','TakeOut','Cashier') NOT NULL DEFAULT 'Cashier',
+                    PaymentMethod   ENUM('Cash','GCash','Maya') NOT NULL DEFAULT 'Cash',
+                    TotalAmount     DECIMAL(10,2) NOT NULL,
+                    CashGiven       DECIMAL(10,2) NOT NULL DEFAULT 0,
+                    ChangeAmount    DECIMAL(10,2) NOT NULL DEFAULT 0,
+                    Status          ENUM('Paid','Voided') NOT NULL DEFAULT 'Paid',
+                    KioskOrderId    INT NULL,
+                    CreatedAt       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (AccountId) REFERENCES accounts(ID),
+                    FOREIGN KEY (KioskOrderId) REFERENCES customer_orders(ID) ON DELETE SET NULL
+                );",
+
+                @"CREATE TABLE IF NOT EXISTS cashier_order_item (
+                    ID              INT AUTO_INCREMENT PRIMARY KEY,
+                    CashierOrderId  INT NOT NULL,
+                    ProductName     VARCHAR(255) NOT NULL,
+                    Customization   VARCHAR(500) NOT NULL DEFAULT '',
+                    UnitPrice       DECIMAL(10,2) NOT NULL,
+                    Quantity        INT NOT NULL,
+                    Subtotal        DECIMAL(10,2) NOT NULL,
+                    FOREIGN KEY (CashierOrderId) REFERENCES cashier_order(ID) ON DELETE CASCADE
                 );"
+
         };
 
 

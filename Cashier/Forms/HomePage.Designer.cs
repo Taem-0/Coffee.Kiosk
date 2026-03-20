@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomePage));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlTopBar = new Panel();
             btnLogout = new Guna.UI2.WinForms.Guna2Button();
             lblClock = new Label();
@@ -40,6 +41,7 @@
             picLogo = new PictureBox();
             pnlContainer = new Panel();
             tmrClock = new System.Windows.Forms.Timer(components);
+            btnBell = new Guna.UI2.WinForms.Guna2CircleButton();
             pnlTopBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             SuspendLayout();
@@ -47,6 +49,7 @@
             // pnlTopBar
             // 
             pnlTopBar.BackColor = Color.FromArgb(107, 77, 58);
+            pnlTopBar.Controls.Add(btnBell);
             pnlTopBar.Controls.Add(btnLogout);
             pnlTopBar.Controls.Add(lblClock);
             pnlTopBar.Controls.Add(lblCashier);
@@ -62,7 +65,7 @@
             // 
             btnLogout.BackColor = Color.FromArgb(111, 77, 56);
             btnLogout.BorderRadius = 10;
-            btnLogout.CustomizableEdges = customizableEdges1;
+            btnLogout.CustomizableEdges = customizableEdges2;
             btnLogout.DisabledState.BorderColor = Color.DarkGray;
             btnLogout.DisabledState.CustomBorderColor = Color.DarkGray;
             btnLogout.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -72,7 +75,7 @@
             btnLogout.ForeColor = Color.FromArgb(59, 35, 20);
             btnLogout.Location = new Point(1771, 17);
             btnLogout.Name = "btnLogout";
-            btnLogout.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnLogout.ShadowDecoration.CustomizableEdges = customizableEdges3;
             btnLogout.Size = new Size(131, 39);
             btnLogout.TabIndex = 6;
             btnLogout.Text = "Logout";
@@ -140,6 +143,26 @@
             tmrClock.Interval = 1000;
             tmrClock.Tick += tmrClock_Tick;
             // 
+            // btnBell
+            // 
+            btnBell.BorderColor = Color.FromArgb(111, 77, 56);
+            btnBell.BorderThickness = 3;
+            btnBell.DisabledState.BorderColor = Color.DarkGray;
+            btnBell.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnBell.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnBell.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnBell.FillColor = Color.FromArgb(212, 184, 150);
+            btnBell.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBell.ForeColor = Color.FromArgb(111, 77, 56);
+            btnBell.Location = new Point(1253, 12);
+            btnBell.Name = "btnBell";
+            btnBell.ShadowDecoration.CustomizableEdges = customizableEdges1;
+            btnBell.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            btnBell.Size = new Size(55, 55);
+            btnBell.TabIndex = 7;
+            btnBell.Text = "🔔";
+            btnBell.Click += btnBell_Click;
+            // 
             // HomePage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -169,5 +192,6 @@
         private Guna.UI2.WinForms.Guna2Button btnLogout;
         private Panel pnlContainer;
         private System.Windows.Forms.Timer tmrClock;
+        private Guna.UI2.WinForms.Guna2CircleButton btnBell;
     }
 }
