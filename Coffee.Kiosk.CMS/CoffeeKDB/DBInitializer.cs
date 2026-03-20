@@ -142,7 +142,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 ID INT AUTO_INCREMENT PRIMARY KEY,
 
                 OrderType ENUM('DineIn','TakeOut') NOT NULL,
-                Status ENUM('Pending','Paid','Cancelled') NOT NULL DEFAULT 'Pending',
+                Status ENUM('Pending','Paid','Cancelled', 'Completed') NOT NULL DEFAULT 'Pending',
                 TotalAmount DECIMAL(10,2) NOT NULL,
                 Payment ENUM('Cash','Gcash') NOT NULL DEFAULT 'Cash',
 
