@@ -51,12 +51,6 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             e.Font = SystemFonts.MessageBoxFont;
         }
 
-        internal static void materialDrawer(MaterialForm e, MaterialTabControl materialControl, bool shown)
-        {
-            materialControl.Visible = shown;
-            e.FormStyle = shown ? MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_40 : MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_None; 
-            e.DrawerIsOpen = false;
-        }
         internal static void darkenOnHover(PaintEventArgs e, Rectangle stuffToHover, boxOrCircle shape)
         {
             using var brush = new SolidBrush(Color.FromArgb(67, Color.Black));
@@ -120,29 +114,6 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             if (heightDivideBy != 0) innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
         }
 
-        internal static void centerPanel(Form outerPanel, Panel innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
-        {
-            if (widthDivideBy != 0) innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;
-            if (heightDivideBy != 0) innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
-        }
-        internal static void centerPanel(Form outerPanel, Label innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
-        {
-            if (widthDivideBy != 0) innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;
-            if (heightDivideBy != 0) innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
-        }
-
-        internal static void centerPanel(
-            UserControl outerPanel,
-            Panel innerPanel,
-            int heightDivideBy = 2,
-            int widthDivideBy = 2,
-            bool alignTop = false,
-            bool alignBottom = false
-            )
-        {
-            if (widthDivideBy != 0) innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;
-            if (heightDivideBy != 0) innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
-        }
 
         internal static void centerPanel(Panel outerPanel, PictureBox innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
         {
@@ -150,11 +121,6 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
             if (heightDivideBy != 0) innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
         }
 
-        internal static void centerPanel(UserControl outerPanel, PictureBox innerPanel, int heightDivideBy = 2, int widthDivideBy = 2, bool alignTop = false, bool alignBottom = false)
-        {
-            if (widthDivideBy != 0) innerPanel.Left = alignBottom ? 0 : (outerPanel.ClientSize.Width - innerPanel.Width) / widthDivideBy;
-            if (heightDivideBy != 0) innerPanel.Top = alignTop ? 0 : (outerPanel.ClientSize.Height - innerPanel.Height) / heightDivideBy;
-        }
     }
 
     internal class UI_ColorScheme
@@ -182,12 +148,16 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
 
     internal class UI_Images
     {
-        // !!IMPORTANT!! CHANGE LATER FOR DATABASE 
-        private static string logoPath = "C:/Images/Logo.png";
         public static Image logoImage = Properties.Resources.default_icon;
 
         internal static void loadLogoImage()
         {
+            string logoPath = (
+                Models.UiAssets.shopData != null
+                ? Models.UiAssets.shopData.LogoPath
+                : ""
+                );
+
             if (File.Exists(logoPath))
                 logoImage = Image.FromFile(logoPath);
             else

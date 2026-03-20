@@ -522,5 +522,42 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 return false;
             }
         }
+
+
+        internal static Models.UiAssets.Shop? GetAssets()
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = """
+                SELECT * FROM shop;
+                """;
+
+                using var row = cmd.ExecuteReader();
+                if (row.Read())
+                {
+                    return new Models.UiAssets.Shop(
+                        row.GetString("ShopName"),
+                        row.GetString("ThemeMode"),
+                        row.GetString("Primary_Color"),
+                        row.GetString("DarkPrimary_Color"),
+                        row.GetString("Secondary_Color"),
+                        row.GetString("Background_Color"),
+                        row.GetString("Accent_Color"),
+                        row.IsDBNull(8) ? "" : row.GetString(8)
+                        );
+                }
+                return null;
+
+            }catch (Exception ex)
+            {
+                MessageBox.Show($"Error\n{ex.Message}");
+                return null;
+            }
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Bcpg;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -251,5 +252,31 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             modifierGroups = Sql.Queries.GetAllModifierGroups();
             modifierOption = Sql.Queries.GetAllModifierOptions();
         }
+
+
+
+    }
+
+
+    public class UiAssets
+    {
+        public record Shop (
+            string ShopName,
+            string ThemeMode,
+            string PrimaryColor,
+            string DarkPrimaryColor,
+            string SecondaryColor,
+            string BackogrundColor,
+            string AccentColor,
+            string LogoPath
+       );
+
+        public static Shop? shopData;
+
+        public static void LoadFromDatabase()
+        {
+            shopData = Sql.Queries.GetAssets();
+        }
+
     }
 }
