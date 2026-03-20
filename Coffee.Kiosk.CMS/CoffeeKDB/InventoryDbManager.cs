@@ -48,6 +48,43 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             return result;
         }
 
+        public static Models.InventorySystem.Inventory? GetInventoryById(int inventoryId)
+        {
+            Models.InventorySystem.Inventory? result = null;
+            try
+            {
+                using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"
+                    SELECT * FROM inventory_item
+                    WHERE ID = @inventoryId
+                    ;
+                    ";
+
+                cmd.Parameters.AddWithValue("@inventoryId", inventoryId);
+
+                using var row = cmd.ExecuteReader();
+                if (row.Read())
+                {
+                    result = new Models.InventorySystem.Inventory(
+                        row.GetInt32("ID"),
+                        row.GetString("Name"),
+                        row.GetDecimal("Stock"),
+                        row.GetString("Unit"),
+                        row.IsDBNull(4) ? "" : row.GetString("ImagePath")
+                        );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"failed to retrieve inventory\n{ex.Message}");
+            }
+            return result;
+        }
+
+
         internal static int AddInventory(Models.InventorySystem.Inventory model)
         {
             try
@@ -184,7 +221,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             int? InventoryItemId
         );
 
-        internal static List<InventoryUsageInfo> GetProductsUsingInventoryItem(int inventoryId)
+        private static List<InventoryUsageInfo> GetProductsUsingInventoryItem(int inventoryId)
         {
             var result = new List<InventoryUsageInfo>();
 
@@ -195,19 +232,19 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
 
                 using var cmd = conn.CreateCommand();
                 cmd.CommandText = @"
-            SELECT 
-                p.Id AS ProductId,
-                p.Name AS ProductName,
-                mg.Id AS ModifierGroupId,
-                mg.Name AS ModifierGroupName,
-                mo.Id AS ModifierOptionId,
-                mo.Name AS ModifierOptionName,
-                mo.InventoryItemId
-            FROM modifier_option mo
-            INNER JOIN modifier_group mg ON mo.GroupId = mg.Id
-            INNER JOIN product p ON mg.ProductId = p.Id
-            WHERE mo.InventoryItemId = @inventoryId;
-        ";
+                    SELECT 
+                        p.Id AS ProductId,
+                        p.Name AS ProductName,
+                        mg.Id AS ModifierGroupId,
+                        mg.Name AS ModifierGroupName,
+                        mo.Id AS ModifierOptionId,
+                        mo.Name AS ModifierOptionName,
+                        mo.InventoryItemId
+                    FROM modifier_option mo
+                    INNER JOIN modifier_group mg ON mo.GroupId = mg.Id
+                    INNER JOIN product p ON mg.ProductId = p.Id
+                    WHERE mo.InventoryItemId = @inventoryId;
+                ";
                 cmd.Parameters.AddWithValue("@inventoryId", inventoryId);
 
                 using var reader = cmd.ExecuteReader();

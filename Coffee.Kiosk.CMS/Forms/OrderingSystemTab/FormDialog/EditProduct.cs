@@ -20,7 +20,7 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
         //}
 
         //private List<UnsavedModifierGroup> _unsavedModifierGroups = new List<UnsavedModifierGroup>();
-        private List<Models.OrderingSystem.ModifierGroup> modifierGroups = new ();
+        private List<Models.OrderingSystem.ModifierGroup> modifierGroups = new();
 
         int _ProductId;
         string _ProductName = String.Empty;
@@ -116,9 +116,9 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
                 ));
 
             var newGroupControl = new ModifierGroup(modifierGroups.Last());
-                newGroupControl.EditClicked += EditModifierGroup;
-                newGroupControl.DeleteClicked += DeleteModifierGroup;
-            
+            newGroupControl.EditClicked += EditModifierGroup;
+            newGroupControl.DeleteClicked += DeleteModifierGroup;
+
             flowLayoutPanel1.Controls.Remove(addModifierGroupButton);
             flowLayoutPanel1.Controls.Add(newGroupControl);
             flowLayoutPanel1.Controls.Add(addModifierGroupButton);
@@ -212,6 +212,12 @@ namespace Coffee.Kiosk.CMS.Forms.OrderingSystemTab.FormDialog
         {
             if (!isHoveredPicture) return;
             UIhelp.darkenOnHover(e, pictureBox1.ClientRectangle, UIhelp.boxOrCircle.box);
+        }
+
+        private void AddRecipeBtn_Click(object sender, EventArgs e)
+        {
+            using var form = new AddRecipe(_ProductId);
+            var result = form.ShowDialog();
         }
     }
 }

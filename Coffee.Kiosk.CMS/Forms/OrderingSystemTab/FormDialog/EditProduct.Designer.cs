@@ -39,6 +39,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             tipButton1 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
             label4 = new Label();
@@ -52,6 +54,8 @@
             pictureBox1 = new PictureBox();
             ProductNameTxtBox = new Guna.UI2.WinForms.Guna2TextBox();
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
+            AddRecipeBtn = new Guna.UI2.WinForms.Guna2Button();
+            tipButton2 = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
             guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -240,12 +244,42 @@
             guna2BorderlessForm1.ResizeForm = false;
             guna2BorderlessForm1.TransparentWhileDrag = true;
             // 
+            // AddRecipeBtn
+            // 
+            AddRecipeBtn.BorderRadius = 10;
+            AddRecipeBtn.CustomizableEdges = customizableEdges11;
+            AddRecipeBtn.DisabledState.BorderColor = Color.DarkGray;
+            AddRecipeBtn.DisabledState.CustomBorderColor = Color.DarkGray;
+            AddRecipeBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            AddRecipeBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            AddRecipeBtn.FillColor = Color.Gainsboro;
+            AddRecipeBtn.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AddRecipeBtn.ForeColor = Color.DimGray;
+            AddRecipeBtn.Location = new Point(104, 458);
+            AddRecipeBtn.Name = "AddRecipeBtn";
+            AddRecipeBtn.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            AddRecipeBtn.Size = new Size(200, 49);
+            AddRecipeBtn.TabIndex = 19;
+            AddRecipeBtn.Text = "Add recipe";
+            AddRecipeBtn.Click += AddRecipeBtn_Click;
+            // 
+            // tipButton2
+            // 
+            tipButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tipButton2.Location = new Point(301, 458);
+            tipButton2.Name = "tipButton2";
+            tipButton2.Size = new Size(43, 49);
+            tipButton2.TabIndex = 20;
+            tipButton2.TipText = "Choose an inventory item will be subtracted\r\nwhen this product is ordered.";
+            // 
             // EditProduct
             // 
             AcceptButton = SaveBtn;
             AutoScaleMode = AutoScaleMode.None;
             CancelButton = CancelBtn;
             ClientSize = new Size(1400, 662);
+            Controls.Add(tipButton2);
+            Controls.Add(AddRecipeBtn);
             Controls.Add(guna2Panel1);
             Controls.Add(label3);
             Controls.Add(CancelBtn);
@@ -282,5 +316,7 @@
         private Guna.UI2.WinForms.Guna2TextBox ProductNameTxtBox;
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
         private UserControls.TipButton tipButton1;
+        private UserControls.TipButton tipButton2;
+        private Guna.UI2.WinForms.Guna2Button AddRecipeBtn;
     }
 }

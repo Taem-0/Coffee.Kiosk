@@ -1,5 +1,6 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
+using Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls;
 using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
 using System;
@@ -54,8 +55,13 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
             LoadCurrentEmployeeData();
 
+            //KioskLoad:
+
 
             SwitchScreen(miniGetStartedScreen1);
+
+
+
         }
 
         #region ACCOUNT TAB
@@ -75,7 +81,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
                 using var img = Image.FromFile(_selectedImagePath);
                 guna2CirclePictureBox1.Image = new Bitmap(img);
                 guna2CirclePictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            } 
+            }
         }
 
 
@@ -304,9 +310,11 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
         #region KIOSK TAB
 
 
+
+
         private void LeftSlideButton_Click(object sender, EventArgs e)
         {
-            if (miniGetStartedScreen1.Visible)
+            if (miniGetStartedScreen1.Visible) 
             {
                 SwitchScreen(miniThankYouScreen1);
             }
@@ -350,11 +358,11 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             {
                 SwitchScreen(miniKioskMenu1);
             }
-            else if (miniKioskMenu1.Visible)
+            else if (miniKioskMenu1.Visible) 
             {
                 SwitchScreen(miniModalScreen1);
             }
-            else if (miniModalScreen1.Visible)
+            else if (miniModalScreen1.Visible) 
             {
                 SwitchScreen(miniViewOrder1);
             }
@@ -384,6 +392,11 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             {
                 screen.Visible = (screen == targetScreen);
             }
+
+            targetScreen.BringToFront();
+        }
+
+        #endregion
 
             targetScreen.BringToFront();
         }

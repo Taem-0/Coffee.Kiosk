@@ -63,6 +63,23 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 ImagePath VARCHAR(255)
             );",
 
+            // logs
+            @"CREATE TABLE IF NOT EXISTS logs (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+
+                Table_Affected VARCHAR(50) NOT NULL,
+                Record_ID INT NOT NULL,
+
+                Action ENUM('INSERT','UPDATE','DELETE') NOT NULL,
+
+                Changed_By INT NOT NULL,
+                Changed_By_Name INT NOT NULL,
+
+                Old_Value TEXT NULL,
+                New_Value TEXT NULL,
+
+                Created_At DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+            );",
 
             // Ordering System
             @"CREATE TABLE IF NOT EXISTS category (
@@ -402,12 +419,13 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
             using var cmd = conn.CreateCommand();
             cmd.CommandText = """
-                INSERT INTO customer_orders (OrderType, Status, TotalAmount)
-                VALUES (@orderType, @status, @totalAmount);
+                INSERT INTO customer_orders (OrderType, Status, TotalAmount, Payment)
+                VALUES (@orderType, @status, @totalAmount, @payment);
             """;
             cmd.Parameters.AddWithValue("@orderType", order.Type.ToString());
             cmd.Parameters.AddWithValue("@status", "Pending");
             cmd.Parameters.AddWithValue("@totalAmount", subTotal);
+            cmd.Parameters.AddWithValue("@payment", order.paymentType.ToString());
 
             cmd.ExecuteNonQuery();
             return (int)cmd.LastInsertedId;
@@ -504,5 +522,42 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 return false;
             }
         }
+
+
+        internal static Models.UiAssets.Shop? GetAssets()
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = """
+                SELECT * FROM shop;
+                """;
+
+                using var row = cmd.ExecuteReader();
+                if (row.Read())
+                {
+                    return new Models.UiAssets.Shop(
+                        row.GetString("ShopName"),
+                        row.GetString("ThemeMode"),
+                        row.GetString("Primary_Color"),
+                        row.GetString("DarkPrimary_Color"),
+                        row.GetString("Secondary_Color"),
+                        row.GetString("Background_Color"),
+                        row.GetString("Accent_Color"),
+                        row.IsDBNull(8) ? "" : row.GetString(8)
+                        );
+                }
+                return null;
+
+            }catch (Exception ex)
+            {
+                MessageBox.Show($"Error\n{ex.Message}");
+                return null;
+            }
+        }
+
     }
 }

@@ -32,14 +32,12 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panel2 = new Panel();
             panel4 = new Panel();
-            label5 = new Label();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             label1 = new Label();
             pictureBox1 = new PictureBox();
             OrderNumberLbl = new Label();
             label2 = new Label();
             label4 = new Label();
-            label3 = new Label();
             panel3 = new Panel();
             panel8 = new Panel();
             CompanyLogo = new PictureBox();
@@ -68,24 +66,12 @@
             // 
             // panel4
             // 
-            panel4.Controls.Add(label5);
             panel4.Controls.Add(guna2Panel1);
             panel4.Controls.Add(label4);
-            panel4.Controls.Add(label3);
             panel4.Location = new Point(98, 3);
             panel4.Name = "panel4";
             panel4.Size = new Size(515, 545);
             panel4.TabIndex = 2;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(113, 452);
-            label5.Name = "label5";
-            label5.Size = new Size(199, 32);
-            label5.TabIndex = 3;
-            label5.Text = "placeholder text";
             // 
             // guna2Panel1
             // 
@@ -158,16 +144,6 @@
             label4.TabIndex = 2;
             label4.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(55, 420);
-            label3.Name = "label3";
-            label3.Size = new Size(199, 32);
-            label3.TabIndex = 1;
-            label3.Text = "placeholder text";
-            // 
             // panel3
             // 
             panel3.Controls.Add(panel8);
@@ -230,7 +206,6 @@
             Resize += ReceiptGcashScreen_Resize;
             panel2.ResumeLayout(false);
             panel4.ResumeLayout(false);
-            panel4.PerformLayout();
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -256,8 +231,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Panel panel1;
         private Panel panel4;
-        private Label label5;
         private Label label4;
-        private Label label3;
     }
 }
