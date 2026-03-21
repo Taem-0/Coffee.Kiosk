@@ -136,11 +136,10 @@
             // 
             // flpPay
             // 
-            flpPay.Dock = DockStyle.Fill;
             flpPay.FlowDirection = FlowDirection.TopDown;
-            flpPay.Location = new Point(0, 0);
+            flpPay.Location = new Point(0, 196);
             flpPay.Name = "flpPay";
-            flpPay.Size = new Size(609, 905);
+            flpPay.Size = new Size(609, 709);
             flpPay.TabIndex = 1;
             flpPay.WrapContents = false;
             // 
@@ -198,11 +197,10 @@
             // 
             // flpPrep
             // 
-            flpPrep.Dock = DockStyle.Fill;
             flpPrep.FlowDirection = FlowDirection.TopDown;
-            flpPrep.Location = new Point(0, 0);
+            flpPrep.Location = new Point(0, 196);
             flpPrep.Name = "flpPrep";
-            flpPrep.Size = new Size(609, 905);
+            flpPrep.Size = new Size(609, 709);
             flpPrep.TabIndex = 1;
             flpPrep.WrapContents = false;
             // 
@@ -260,11 +258,10 @@
             // 
             // flpPickup
             // 
-            flpPickup.Dock = DockStyle.Fill;
             flpPickup.FlowDirection = FlowDirection.TopDown;
-            flpPickup.Location = new Point(0, 0);
+            flpPickup.Location = new Point(0, 196);
             flpPickup.Name = "flpPickup";
-            flpPickup.Size = new Size(612, 905);
+            flpPickup.Size = new Size(612, 709);
             flpPickup.TabIndex = 1;
             flpPickup.WrapContents = false;
             // 
