@@ -21,13 +21,13 @@ namespace Coffee.Kiosk.Cashier
         private readonly decimal _cash;
         private readonly decimal _change;
         private readonly string _cashierName;
-        private readonly int _orderNumber;
+        private readonly string _orderNumber;
         private readonly string _paymentMethod;
 
         public CashierReceiptDoc(
             List<OrderItemModel> cart,
             decimal total, decimal cash, decimal change,
-            string cashierName, int orderNumber, string paymentMethod)
+            string cashierName, string orderNumber, string paymentMethod)
         {
             _cart = cart;
             _total = total;
@@ -70,7 +70,7 @@ namespace Coffee.Kiosk.Cashier
                         .Text(new string('=', 34)).AlignCenter();
 
                     col.Item()
-                        .Text($"ORDER #{_orderNumber:D3}")
+                        .Text($"ORDER #{_orderNumber}")
                         .FontSize(11).Bold().AlignCenter();
 
                     col.Item().PaddingTop(2)
@@ -163,7 +163,7 @@ namespace Coffee.Kiosk.Cashier
         public static string Save(
             List<OrderItemModel> cart,
             decimal total, decimal cash, decimal change,
-            string cashierName, int orderNumber, string paymentMethod)
+            string cashierName, string orderNumber, string paymentMethod)
         {
             QuestPDF.Settings.License = LicenseType.Community;
 
@@ -193,6 +193,7 @@ namespace Coffee.Kiosk.Cashier
         private decimal _cash = 0;
         private decimal _change = 0;
         private string _paymentMethod = "Cash";
+        private string _orderNumber = "";
         private string? _pdfPath = null;
 
         private static readonly DrawingColor Brown = DrawingColor.FromArgb(107, 79, 58);
@@ -204,20 +205,24 @@ namespace Coffee.Kiosk.Cashier
         public UC_Receipt(
             List<OrderItemModel> cart,
             decimal total, decimal cash, decimal change,
-            string paymentMethod = "Cash") : this()
+            string paymentMethod = "Cash",
+            string orderNumber = "") : this()
         {
             _cart = cart;
             _total = total;
             _cash = cash;
             _change = change;
             _paymentMethod = paymentMethod;
+            _orderNumber = string.IsNullOrEmpty(orderNumber)
+                ? $"C{SessionManager.OrderNumber:D3}"
+                : orderNumber;
 
             try
             {
                 _pdfPath = CashierReceiptDoc.Save(
                     cart, total, cash, change,
                     SessionManager.CurrentUser.Username,
-                    SessionManager.OrderNumber,
+                    _orderNumber,
                     paymentMethod);
             }
             catch (Exception ex)
@@ -247,7 +252,7 @@ namespace Coffee.Kiosk.Cashier
             C("─────────────────────────────────────", new DrawingFont("Courier New", 7f), MutedBrown, w, x, ref y);
             y += 4;
 
-            C($"ORDER #{SessionManager.OrderNumber:D3}", new DrawingFont("Segoe UI", 11f, FontStyle.Bold), DarkBrown, w, x, ref y);
+            C($"ORDER #{_orderNumber}", new DrawingFont("Segoe UI", 11f, FontStyle.Bold), DarkBrown, w, x, ref y);
             C(DateTime.Now.ToString("MMMM dd, yyyy   hh:mm tt"), new DrawingFont("Segoe UI", 8f), MutedBrown, w, x, ref y);
             C($"Cashier: {SessionManager.CurrentUser.Username}", new DrawingFont("Segoe UI", 8f), MutedBrown, w, x, ref y);
             y += 4;

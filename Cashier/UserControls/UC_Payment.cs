@@ -3,6 +3,7 @@ using Coffee.Kiosk.Cashier.ModelClassHelper;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using DBHelper = Coffee.Kiosk.Cashier.CashierDBHelper.CashierDBHelper;
 
@@ -221,8 +222,13 @@ namespace Coffee.Kiosk.Cashier
                 if (ok != DialogResult.Yes) return;
             }
 
+            string orderNumber;
+            string itemSummary = string.Join(", ", _cart.Select(c => c.Item.ItemName));
+
             if (_kioskOrderId > 0)
             {
+                orderNumber = _kioskOrderId.ToString("D3");
+
                 try { KioskOrderDbManager.MarkOrderPaid(_kioskOrderId); }
                 catch (Exception ex)
                 {
@@ -230,14 +236,32 @@ namespace Coffee.Kiosk.Cashier
                         $"Payment confirmed but could not update order status:\n{ex.Message}",
                         "DB Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+
+                try { DBHelper.MoveToDisplayPreparingQueue(orderNumber, itemSummary); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        $"Payment confirmed but could not update display:\n{ex.Message}",
+                        "DB Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
             {
+                orderNumber = $"C{SessionManager.OrderNumber:D3}";
+
                 try { KioskOrderDbManager.SaveCashierOrder(_cart, _total); }
                 catch (Exception ex)
                 {
                     MessageBox.Show(
                         $"Payment confirmed but could not save order to database:\n{ex.Message}",
+                        "DB Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                try { DBHelper.MoveToDisplayPreparingQueue(orderNumber, itemSummary); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        $"Payment confirmed but could not update display:\n{ex.Message}",
                         "DB Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
@@ -251,7 +275,7 @@ namespace Coffee.Kiosk.Cashier
             }
 
             SessionManager.OrderNumber++;
-            var receipt = new UC_Receipt(_cart, _total, cash, change, _paymentMethod);
+            var receipt = new UC_Receipt(_cart, _total, cash, change, _paymentMethod, orderNumber);
             ((HomePage)this.ParentForm!).LoadControl(receipt);
         }
 
