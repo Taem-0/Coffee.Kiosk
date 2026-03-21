@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-
-// ── uncomment when connecting to MySQL database ───────────
-// using MySql.Data.MySqlClient;
-// using Coffee.Kiosk.CMS.CoffeeKDB;
+using Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB;
 
 namespace Coffee.Kiosk.OrderStatusDisplay
 {
     public partial class Form1 : Form
     {
-        // ══════════════════════════════════════════════════════
-        //  DATABASE CONNECTION STRING
-        //  uncomment when ready to connect
-        // ══════════════════════════════════════════════════════
-        // private readonly string _connString =
-        //     DBhelper.connectionStringDatabase;
+        private readonly OrderDisplayDBManager _db = new OrderDisplayDBManager();
 
         // ── accent colors ─────────────────────────────────────
         static readonly Color BlueAccent = Color.FromArgb(59, 79, 212);
@@ -44,7 +36,6 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             WindowState = FormWindowState.Maximized;
 
             // ── FlowLayoutPanel settings ──────────────────────
-            // left=8 top=10 right=8 bottom=10 — inner breathing room
             flpPay.FlowDirection = FlowDirection.TopDown;
             flpPay.WrapContents = false;
             flpPay.AutoScroll = false;
@@ -59,6 +50,16 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             flpPickup.WrapContents = false;
             flpPickup.AutoScroll = false;
             flpPickup.Padding = new Padding(8, 10, 8, 10);
+
+            // ── auto-complete timer (every 30 seconds) ────────
+            var autoCompleteTimer = new System.Windows.Forms.Timer();
+            autoCompleteTimer.Interval = 30000;
+            autoCompleteTimer.Tick += (s, ev) =>
+            {
+                _db.AutoCompleteExpiredPickups();
+                LoadPickupOrders();
+            };
+            autoCompleteTimer.Start();
 
             // ── load cards on startup ─────────────────────────
             LoadPaymentOrders();
@@ -97,10 +98,8 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             card.SetCard(orderNum, itemName, badge,
                          accent, badgeBg, badgeFg, isPickup);
 
-            // fill full column width minus flp left+right padding (8+8=16) + small gap
             card.Width = flp.ClientSize.Width - flp.Padding.Left
-                                               - flp.Padding.Right
-                                               - 4;
+                                               - flp.Padding.Right - 4;
             card.Height = 75;
 
             flp.Controls.Add(card);
@@ -108,194 +107,100 @@ namespace Coffee.Kiosk.OrderStatusDisplay
 
         // ══════════════════════════════════════════════════════
         //  FUNCTION 1 — PLEASE PAY
-        //  Status = 'CashPayment' or 'GCashPayment'
+        //  Badge: Cash (blue) or GCash (purple)
         // ══════════════════════════════════════════════════════
         private void LoadPaymentOrders()
         {
             flpPay.Controls.Clear();
 
-            // ── HARDCODED TEST DATA ───────────────────────────
-            var orders = new[]
+            try
             {
-                new { OrderId = 41, ItemName = "Caramel Latte · Lg",  Status = "CashPayment"  },
-                new { OrderId = 42, ItemName = "Iced Mocha · Med",    Status = "GCashPayment" },
-                new { OrderId = 45, ItemName = "Americano · Sm",      Status = "CashPayment"  },
-            };
+                var orders = _db.GetPaymentQueue();
 
-            foreach (var order in orders)
-            {
-                string badge;
-                Color bgColor, fgColor;
-
-                if (order.Status == "GCashPayment")
+                foreach (var order in orders)
                 {
-                    badge = "GCash";
-                    bgColor = GCashBg;
-                    fgColor = GCashFg;
-                }
-                else
-                {
-                    badge = "Cash";
-                    bgColor = CashBg;
-                    fgColor = CashFg;
-                }
+                    string badge;
+                    Color bgColor, fgColor;
 
-                AddCard(flpPay,
-                    $"#{order.OrderId:D3}",
-                    order.ItemName,
-                    badge,
-                    BlueAccent,
-                    bgColor, fgColor);
+                    if (order.PaymentMethod == "Gcash")
+                    {
+                        badge = "GCash";
+                        bgColor = GCashBg;
+                        fgColor = GCashFg;
+                    }
+                    else
+                    {
+                        badge = "Cash";
+                        bgColor = CashBg;
+                        fgColor = CashFg;
+                    }
+
+                    AddCard(flpPay,
+                        order.OrderNumber ?? "",
+                        order.ItemName ?? "",
+                        badge,
+                        BlueAccent, bgColor, fgColor);
+                }
             }
-
-            // ══════════════════════════════════════════════════
-            //  DATABASE VERSION — uncomment when ready
-            //  comment out hardcoded block above first
-            // ══════════════════════════════════════════════════
-            // flpPay.Controls.Clear();
-            // string sql = @"
-            //     SELECT OrderId, ItemName, Status
-            //     FROM   Orders
-            //     WHERE  Status IN ('CashPayment','GCashPayment')
-            //     ORDER  BY OrderId";
-            // try
-            // {
-            //     using (var conn = DBhelper.CreateConnection(_connString))
-            //     using (var cmd  = new MySqlCommand(sql, conn))
-            //     using (var r    = cmd.ExecuteReader())
-            //     {
-            //         while (r.Read())
-            //         {
-            //             int    orderId = Convert.ToInt32(r["OrderId"]);
-            //             string item    = r["ItemName"].ToString();
-            //             string status  = r["Status"].ToString();
-            //             string badge;
-            //             Color  bgColor, fgColor;
-            //             if (status == "GCashPayment")
-            //             { badge = "GCash"; bgColor = GCashBg; fgColor = GCashFg; }
-            //             else
-            //             { badge = "Cash";  bgColor = CashBg;  fgColor = CashFg;  }
-            //             AddCard(flpPay,
-            //                 $"#{orderId:D3}", item, badge,
-            //                 BlueAccent, bgColor, fgColor);
-            //         }
-            //     }
-            // }
-            // catch (Exception ex)
-            // { MessageBox.Show("Pay error: " + ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Pay queue error: " + ex.Message);
+            }
         }
 
         // ══════════════════════════════════════════════════════
         //  FUNCTION 2 — BEING PREPARED
-        //  Status = 'Preparing'
+        //  Badge: always Brewing
         // ══════════════════════════════════════════════════════
         private void LoadPreparingOrders()
         {
             flpPrep.Controls.Clear();
 
-            // ── HARDCODED TEST DATA ───────────────────────────
-            var orders = new[]
+            try
             {
-                new { OrderId = 38, ItemName = "Flat White · Sm"   },
-                new { OrderId = 39, ItemName = "Matcha Latte · Lg" },
-                new { OrderId = 40, ItemName = "Cold Brew · Med"   },
-            };
+                var orders = _db.GetPreparingQueue();
 
-            foreach (var order in orders)
-            {
-                AddCard(flpPrep,
-                    $"#{order.OrderId:D3}",
-                    order.ItemName,
-                    "Brewing",
-                    AmberAccent,
-                    PrepBg, PrepFg);
+                foreach (var order in orders)
+                {
+                    AddCard(flpPrep,
+                        order.OrderNumber ?? "",
+                        order.ItemName ?? "",
+                        "Brewing",
+                        AmberAccent, PrepBg, PrepFg);
+                }
             }
-
-            // ══════════════════════════════════════════════════
-            //  DATABASE VERSION — uncomment when ready
-            //  comment out hardcoded block above first
-            // ══════════════════════════════════════════════════
-            // flpPrep.Controls.Clear();
-            // string sql = @"
-            //     SELECT OrderId, ItemName
-            //     FROM   Orders
-            //     WHERE  Status = 'Preparing'
-            //     ORDER  BY OrderId";
-            // try
-            // {
-            //     using (var conn = DBhelper.CreateConnection(_connString))
-            //     using (var cmd  = new MySqlCommand(sql, conn))
-            //     using (var r    = cmd.ExecuteReader())
-            //     {
-            //         while (r.Read())
-            //         {
-            //             int    orderId = Convert.ToInt32(r["OrderId"]);
-            //             string item    = r["ItemName"].ToString();
-            //             AddCard(flpPrep,
-            //                 $"#{orderId:D3}", item, "Brewing",
-            //                 AmberAccent, PrepBg, PrepFg);
-            //         }
-            //     }
-            // }
-            // catch (Exception ex)
-            // { MessageBox.Show("Prep error: " + ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Prep queue error: " + ex.Message);
+            }
         }
 
         // ══════════════════════════════════════════════════════
         //  FUNCTION 3 — READY FOR PICK-UP
-        //  Status = 'ReadyForPickup'
+        //  Badge: always Pick up
         // ══════════════════════════════════════════════════════
         private void LoadPickupOrders()
         {
             flpPickup.Controls.Clear();
 
-            // ── HARDCODED TEST DATA ───────────────────────────
-            var orders = new[]
+            try
             {
-                new { OrderId = 35, ItemName = "Cappuccino · Reg" },
-                new { OrderId = 36, ItemName = "Espresso · Dbl"   },
-            };
+                var orders = _db.GetPickupQueue();
 
-            foreach (var order in orders)
-            {
-                AddCard(flpPickup,
-                    $"#{order.OrderId:D3}",
-                    order.ItemName,
-                    "Pick up",
-                    GreenAccent,
-                    PickupBg, PickupFg,
-                    isPickup: true);
+                foreach (var order in orders)
+                {
+                    AddCard(flpPickup,
+                        order.OrderNumber ?? "",
+                        order.ItemName ?? "",
+                        "Pick up",
+                        GreenAccent, PickupBg, PickupFg,
+                        isPickup: true);
+                }
             }
-
-            // ══════════════════════════════════════════════════
-            //  DATABASE VERSION — uncomment when ready
-            //  comment out hardcoded block above first
-            // ══════════════════════════════════════════════════
-            // flpPickup.Controls.Clear();
-            // string sql = @"
-            //     SELECT OrderId, ItemName
-            //     FROM   Orders
-            //     WHERE  Status = 'ReadyForPickup'
-            //     ORDER  BY OrderId";
-            // try
-            // {
-            //     using (var conn = DBhelper.CreateConnection(_connString))
-            //     using (var cmd  = new MySqlCommand(sql, conn))
-            //     using (var r    = cmd.ExecuteReader())
-            //     {
-            //         while (r.Read())
-            //         {
-            //             int    orderId = Convert.ToInt32(r["OrderId"]);
-            //             string item    = r["ItemName"].ToString();
-            //             AddCard(flpPickup,
-            //                 $"#{orderId:D3}", item, "Pick up",
-            //                 GreenAccent, PickupBg, PickupFg,
-            //                 isPickup: true);
-            //         }
-            //     }
-            // }
-            // catch (Exception ex)
-            // { MessageBox.Show("Pickup error: " + ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Pickup queue error: " + ex.Message);
+            }
         }
     }
 }
