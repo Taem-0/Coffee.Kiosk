@@ -93,31 +93,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
         }
 
-        public void UpdateBanner(KioskBanner banner)
-        {
-            using var connection = DBhelper.CreateConnection(_connectionString);
-            if (connection.State != ConnectionState.Open)
-                connection.Open();
-
-            using var command = connection.CreateCommand();
-            try
-            {
-                command.CommandText = @"
-            UPDATE kiosk_banners 
-            SET FilePath = @FilePath, Placement = @Placement, DisplayOrder = @DisplayOrder
-            WHERE ID = @ID";
-                command.Parameters.AddWithValue("@FilePath", banner.FilePath ?? "");
-                command.Parameters.AddWithValue("@Placement", banner.Placement ?? "");
-                command.Parameters.AddWithValue("@DisplayOrder", banner.DisplayOrder);
-                command.Parameters.AddWithValue("@ID", banner.ID);
-                command.ExecuteNonQuery();
-            }
-            catch (MySqlException ex)
-            {
-                throw new Exception($"Database Error: {ex.Message}");
-            }
-        }
-
         public void DeleteBanner(int id)
         {
             using var connection = DBhelper.CreateConnection(_connectionString);

@@ -55,8 +55,6 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
                 : new BannerSelectHorizontal();
 
             card.BannerID = banner.ID;
-            card.Placement = banner.Placement;
-            card.DisplayOrder = banner.DisplayOrder;
             card.OnSelected += ManagedSelection;
             card.SetImage(LoadImageNonLocking(banner.FilePath), banner.FilePath);
             return card;
@@ -73,36 +71,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
 
         private void UploadTileButton_Click_1(object sender, EventArgs e)
         {
-            if (_kioskController == null) return;
-
-            // Check if a card is selected — edit mode
-            BannerSelectBase? selectedCard = null;
-            foreach (Control c in bannersFlowLayout.Controls)
-            {
-                if (c is BannerSelectBase card && card.IsSelected)
-                {
-                    selectedCard = card;
-                    break;
-                }
-            }
-
-            // Build the existing banner if editing
-            KioskBanner? existing = null;
-            if (selectedCard != null)
-            {
-                existing = new KioskBanner
-                {
-                    ID = selectedCard.BannerID,
-                    FilePath = selectedCard.CurrentImagePath ?? string.Empty,
-                    Placement = selectedCard.Placement,
-                    DisplayOrder = selectedCard.DisplayOrder
-                };
-            }
-
-            // Open dialogue in correct mode
-            using var dialogue = existing != null
-                ? new AddBannerDialogoue(existing)
-                : new AddBannerDialogoue();
+            using var dialogue = new AddBannerDialogoue();
 
             if (dialogue.ShowDialog() == DialogResult.OK)
             {
@@ -110,15 +79,9 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
 
                 try
                 {
-                    if (existing != null)
-                        _kioskController.UpdateBanner(dialogue.Result);
-                    else
-                        _kioskController.AddBanner(dialogue.Result);
-
+                    _kioskController.AddBanner(dialogue.Result);
                     RefreshCards();
-                    MessageBox.Show(
-                        existing != null ? "Banner updated!" : "Banner added!",
-                        "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Banner added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {

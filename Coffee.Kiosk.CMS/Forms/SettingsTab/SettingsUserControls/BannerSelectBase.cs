@@ -11,9 +11,6 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
         public int BannerID { get; set; }
         public string CurrentImagePath { get; private set; }
         public event EventHandler OnSelected;
-        // In BannerSelectBase
-        public string Placement { get; set; } = string.Empty;
-        public int DisplayOrder { get; set; }
         public Color SelectionColor { get; set; } = Color.DodgerBlue;
 
         private bool _isSelected;
