@@ -87,6 +87,32 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             catch { tx.Rollback(); throw; }
         }
 
+        public static void DeductInventoryForOrder(int orderId, MySqlConnection conn, MySqlTransaction tx)
+        {
+            string sql = @"
+                UPDATE inventory_item ii
+                INNER JOIN product_recipe pr ON pr.InventoryItemId = ii.ID
+                INNER JOIN customer_order_item coi ON coi.ProductId = pr.ProductId
+                SET ii.Stock = ii.Stock - (pr.InventorySubtraction * coi.Quantity)
+                WHERE coi.CustomerOrderId = @orderId;";
+            using var cmd = new MySqlCommand(sql, conn, tx);
+            cmd.Parameters.AddWithValue("@orderId", orderId);
+            cmd.ExecuteNonQuery();
+        }
+
+        public static void DeductInventoryForOrder(int orderId)
+        {
+            using var conn = GetConnection();
+            conn.Open();
+            using var tx = conn.BeginTransaction();
+            try
+            {
+                DeductInventoryForOrder(orderId, conn, tx);
+                tx.Commit();
+            }
+            catch { tx.Rollback(); throw; }
+        }
+
         public static void CancelExpiredKioskOrders(int minutesOld = 10)
         {
             using var conn = GetConnection();
