@@ -108,6 +108,7 @@ namespace Coffee.Kiosk.OrderingSystem
             if (homePage == null)
             {
                 homePage = new HomePage();
+                homePage.ProductClicked += OnProductClicked;
                 categoryPage[HOME_CATEGORY_ID] = homePage;
             }
             ShowPage(homePage);
@@ -121,6 +122,10 @@ namespace Coffee.Kiosk.OrderingSystem
                 categoryPageControl.ProductClicked += OnProductClicked;
                 page = categoryPageControl;
                 categoryPage[categoryId] = page;
+            }
+            else if (page is CategoryPage cp)
+            {
+                cp.LoadProduct();
             }
 
             ShowPage(page);

@@ -46,10 +46,10 @@
             // 
             pictureBox1.Dock = DockStyle.Top;
             pictureBox1.Image = Properties.Resources.Desain__Banner;
-            pictureBox1.Location = new Point(0, 309);
+            pictureBox1.Location = new Point(0, 364);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Padding = new Padding(17);
-            pictureBox1.Size = new Size(820, 257);
+            pictureBox1.Size = new Size(803, 300);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -61,7 +61,7 @@
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Padding = new Padding(17);
-            pictureBox2.Size = new Size(820, 245);
+            pictureBox2.Size = new Size(803, 300);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 0;
             pictureBox2.TabStop = false;
@@ -69,16 +69,16 @@
             // panel3
             // 
             panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(0, 245);
+            panel3.Location = new Point(0, 300);
             panel3.Name = "panel3";
-            panel3.Size = new Size(820, 64);
+            panel3.Size = new Size(803, 64);
             panel3.TabIndex = 3;
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.AutoSize = true;
             flowLayoutPanel1.Dock = DockStyle.Top;
-            flowLayoutPanel1.Location = new Point(0, 624);
+            flowLayoutPanel1.Location = new Point(0, 722);
             flowLayoutPanel1.MinimumSize = new Size(820, 160);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(820, 160);
@@ -103,9 +103,9 @@
             // 
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 566);
+            panel2.Location = new Point(0, 664);
             panel2.Name = "panel2";
-            panel2.Size = new Size(820, 58);
+            panel2.Size = new Size(803, 58);
             panel2.TabIndex = 5;
             // 
             // label1
