@@ -20,14 +20,40 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             DELETE 
         }
 
+        public enum Tables
+        {
+            ACCOUNTS,
+
+            INVENTORY_ITEM,
+
+            CATEGORY,
+            PRODUCT,
+            PRODUCT_RECIPE,
+            MODIFIER_GROUP,
+            MODIFIER_OPTION,
+            
+            CUSTOMER_ORDERS,
+            CUSTOMER_ORDER_ITEM,
+            CUSTOMER_ORDER_ITEM_MODIFIER,
+
+            KIOSK,
+            KIOSK_BANNERS,
+
+            SHOP
+        }
+
         internal static bool AddLogs(
-            string tableAffected,
+            Tables tableAffected,
             int recordId,
             Action action,
             string summary
             )
         {
-            if (_employee == null) return false;
+            if (_employee == null)
+            {
+                MessageBox.Show("Failed to auditLogs");
+                return false;
+            }
             try
             {
                 using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
@@ -39,7 +65,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 VALUES (@tableAffected, @recordId, @action, @changedBy, @changedByName, @summary)
                                     ;";
 
-                cmd.Parameters.AddWithValue("@tableAffected", tableAffected);
+                cmd.Parameters.AddWithValue("@tableAffected", tableAffected.ToString());
                 cmd.Parameters.AddWithValue("@recordId", recordId);
                 cmd.Parameters.AddWithValue("@action", action.ToString());
                 cmd.Parameters.AddWithValue("@changedBy", _employee.Id);

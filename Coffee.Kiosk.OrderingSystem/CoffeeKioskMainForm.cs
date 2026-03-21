@@ -1,6 +1,7 @@
 ﻿using Coffee.Kiosk.OrderingSystem.Forms;
 using Coffee.Kiosk.OrderingSystem.Helper;
 using Coffee.Kiosk.OrderingSystem.IdleTimer;
+using Coffee.Kiosk.OrderingSystem.Maintenance;
 using Coffee.Kiosk.OrderingSystem.Sql;
 using Coffee.Kiosk.OrderingSystem.UserControls;
 using Coffee.Kiosk.OrderingSystem.UserControls.PayOption;
@@ -20,7 +21,7 @@ namespace Coffee.Kiosk.OrderingSystem
 {
     public partial class CoffeeKioskMainForm : Form
     {
-        private const int IdleTimeoutSeconds = 10;
+        private const int IdleTimeoutSeconds = 60;
 
 
         public event Action<Models.Orders>? CartUpdated;
@@ -42,7 +43,15 @@ namespace Coffee.Kiosk.OrderingSystem
         private Guna.UI2.WinForms.Guna2Panel? idleOverlay;
         private bool _idleWarningShown;
         private IdleWarningScreen? idleWarning = new IdleWarningScreen();
-        
+
+
+        private Guna.UI2.WinForms.Guna2Panel? maintenanceOverlay;
+        private System.Windows.Forms.Timer _dbCheckTimer = new();
+        private int _dbCountdownSeconds = 10;
+        private bool _dbWarningShown = false;
+        private MaintenanceWarningScreen? maintenanceWarning = new MaintenanceWarningScreen();
+
+        private System.Windows.Forms.Timer _dbCountdownTimer = new();
 
         int screenHeight;
         Size modalScreenOriginalSize = new Size(720, 800);
@@ -73,13 +82,94 @@ namespace Coffee.Kiosk.OrderingSystem
             _idleTimer.Tick += IdleTimer_Tick;
 
             Application.AddMessageFilter(new IdleMessageFilter(ResetIdleTimer));
+
+            _dbCheckTimer.Interval = 2000; 
+            _dbCheckTimer.Tick += DbCheckTimer_Tick;
+            _dbCheckTimer.Start();
+
+            _dbCountdownTimer.Interval = 1000;
+            _dbCountdownTimer.Tick += DbCountdownTimer_Tick;
         }
 
+        private void DbCheckTimer_Tick(object? sender, EventArgs e)
+        {
+            if (_dbWarningShown) return;
+
+            if (Sql.Queries.CheckIfDatabaseChanged())
+            {
+                ShowMaintenanceWarning();
+            }
+        }
+        private void DbCountdownTimer_Tick(object? sender, EventArgs e)
+        {
+            maintenanceWarning?.SetTimerNumber(_dbCountdownSeconds);
+            _dbCountdownSeconds--;
+
+            if (_dbCountdownSeconds < 0)
+            {
+                _dbCountdownTimer.Stop();
+                ResetMaintenanceWarning();
+                FinishOrder();
+            }
+        }
+
+        private void ShowMaintenanceWarning()
+        {
+            if (_dbWarningShown) return;
+
+            _dbWarningShown = true;
+            _dbCountdownSeconds = 10;
+
+            maintenanceOverlay = new Guna.UI2.WinForms.Guna2Panel
+            {
+                Dock = DockStyle.Fill,
+                FillColor = Color.FromArgb(120, 0, 0, 0),
+                UseTransparentBackground = true,
+                Enabled = true
+            };
+
+            this.Controls.Add(maintenanceOverlay);
+            maintenanceOverlay.BringToFront();
+
+            maintenanceWarning ??= new MaintenanceWarningScreen();
+
+            maintenanceWarning.TopLevel = false;
+
+            this.Controls.Add(maintenanceWarning);
+            maintenanceWarning.BringToFront();
+
+            maintenanceWarning.Left = (this.ClientSize.Width - maintenanceWarning.Width) / 2;
+            maintenanceWarning.Top = (this.ClientSize.Height - maintenanceWarning.Height) / 2;
+
+            maintenanceWarning.Show();
+
+            _dbCheckTimer.Stop();
+            _dbCountdownTimer.Start();
+        }
+        private void ResetMaintenanceWarning()
+        {
+            if (!_dbWarningShown) return;
+
+            maintenanceWarning?.Hide();
+
+            if (maintenanceOverlay != null)
+            {
+                this.Controls.Remove(maintenanceOverlay);
+                maintenanceOverlay.Dispose();
+                maintenanceOverlay = null;
+            }
+
+            _dbWarningShown = false;
+            _dbCountdownSeconds = 10;
+
+            _dbCheckTimer.Start();
+        }
         private void IdleTimer_Tick(object? sender, EventArgs e)
         {
             _idleSeconds--;
 
             if (_idleSeconds <= IdleTimeoutSeconds / 2 && !_idleWarningShown) ShowIdleWarning();
+            //if (_idleSeconds <= IdleTimeoutSeconds && !_idleWarningShown) ShowIdleWarning();
 
             if (_idleWarningShown) idleWarning?.SetTimerNumber(_idleSeconds);
 
@@ -171,6 +261,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
         private void ShowGetStartedScreen()
         {
+            Models.AuditLogs.currentDateTime = DateTime.Now;
             if (getStartedScreen == null)
             {
                 getStartedScreen = new GetStartedScreen();
