@@ -36,6 +36,13 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 Password_Reset_Requested BOOLEAN NOT NULL DEFAULT 0
             );",
 
+            @"CREATE TABLE IF NOT EXISTS kiosk_banners (
+                ID           INT AUTO_INCREMENT PRIMARY KEY,
+                FilePath     VARCHAR(255) NOT NULL DEFAULT '',
+                Placement    VARCHAR(100) NOT NULL,
+                DisplayOrder INT NOT NULL DEFAULT 0
+            );",
+
             @"CREATE TABLE IF NOT EXISTS shop (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 ShopName VARCHAR(100) NOT NULL,
@@ -74,10 +81,9 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 Action ENUM('INSERT','UPDATE','DELETE') NOT NULL,
 
                 Changed_By INT NOT NULL,
-                Changed_By_Name INT NOT NULL,
+                Changed_By_Name VARCHAR(67) NOT NULL,
 
-                Old_Value TEXT NULL,
-                New_Value TEXT NULL,
+                Summary VARCHAR(255) NOT NULL,
 
                 Created_At DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
             );",
@@ -98,6 +104,14 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 ImagePath VARCHAR(255),
                 IsCustomizable BOOLEAN NOT NULL DEFAULT 0,
                 FOREIGN KEY (CategoryID) REFERENCES category(ID) ON DELETE CASCADE
+            );",
+
+            @"CREATE TABLE IF NOT EXISTS product_recipe (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                ProductId INT NOT NULL,
+                InventoryItemId INT NOT NULL,
+                InventorySubtraction DECIMAL(10,2) NOT NULL,
+                FOREIGN KEY (ProductId) REFERENCES product(ID) ON DELETE CASCADE
             );",
 
             @"CREATE TABLE IF NOT EXISTS modifier_group (
@@ -131,8 +145,9 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 ID INT AUTO_INCREMENT PRIMARY KEY,
 
                 OrderType ENUM('DineIn','TakeOut') NOT NULL,
-                Status ENUM('Pending','Paid','Cancelled') NOT NULL DEFAULT 'Pending',
+                Status ENUM('Pending','Paid','Cancelled', 'Completed') NOT NULL DEFAULT 'Pending',
                 TotalAmount DECIMAL(10,2) NOT NULL,
+                Payment ENUM('Cash','Gcash') NOT NULL DEFAULT 'Cash',
 
                 CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );",
@@ -163,54 +178,9 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 PriceDelta DECIMAL(10,2) NOT NULL,
 
                 FOREIGN KEY (CustomerOrderItemId) REFERENCES customer_order_item(ID) ON DELETE CASCADE
-                );"
+                );",
+
         };
-
-        // OrderSummary Json format :
-        //{
-        //  "items": [
-        //    {
-        //      "productId": 1,
-        //      "productName": "Americano",
-        //      "basePrice": 120.00,
-        //      "quantity": 2,
-        //      "modifiers": [
-        //        {
-        //          "groupId": 1,
-        //          "groupName": "Size",
-        //          "optionId": 2,
-        //          "optionName": "Large",
-        //          "priceDelta": 30.00
-        //        },
-        //        {
-        //          "groupId": 2,
-        //          "groupName": "Sugar",
-        //          "optionId": [5],
-        //          "optionName": "[Muscovado]",
-        //          "priceDelta": 3.00
-        //        }
-        //      ],
-        //      "itemTotal": 306.00
-        //    },
-        //      "productId": 2,
-        //      "productName": "Stuff",
-        //      "basePrice": 120.00,
-        //      "quantity": 1,
-        //      "modifiers": [
-        //        {
-        //          "groupId": 1,
-        //          "groupName": "Size",
-        //          "optionId": [2, 3],
-        //          "optionName": "[stuff1, stuff2]",
-        //          "priceDelta": 30.00
-        //        },
-        //      ],
-        //      "itemTotal": 306.00
-        //  ],
-        //  "subtotal": 306.00
-        //}
-
-                
 
         internal static void Init(IConfiguration configuration)
         {
@@ -579,9 +549,8 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
                 return result != null;
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show($"Error\n{ex.Message}");
                 return false;
             }
         }

@@ -13,7 +13,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
     {
 
         private static string[] tableCommands =
-{
+        {
             @"CREATE TABLE IF NOT EXISTS accounts (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 First_Name VARCHAR(100) NOT NULL,
@@ -58,11 +58,6 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 LogoPath VARCHAR(255) NULL
             );",
 
-            @"INSERT INTO shop (
-                ShopName, ThemeMode, Primary_Color, DarkPrimary_Color, Secondary_Color, Background_Color, Accent_Color
-            )
-            SELECT 'My Coffee Shop', 'default', '#6F4D38', '#3D211A', '#A07856', '#F5F5DC', '#CBB799'
-            WHERE NOT EXISTS (SELECT 1 FROM shop);",
 
 
             // inventory
@@ -183,37 +178,68 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 FOREIGN KEY (CustomerOrderItemId) REFERENCES customer_order_item(ID) ON DELETE CASCADE
                 );",
 
-            // Ordering Status Display
-
-          // PLEASE PAY column — badge: Cash or GCash
-            @"CREATE TABLE IF NOT EXISTS display_payment_queue (
-                ID            INT AUTO_INCREMENT PRIMARY KEY,
-                OrderNumber   VARCHAR(10)  NOT NULL,
-                ItemName      VARCHAR(255) NOT NULL,
-                PaymentMethod ENUM('Cash','Gcash') NOT NULL DEFAULT 'Cash',
-                CreatedAt     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-            );",
-
-            // BEING PREPARED column — badge: Brewing
-            @"CREATE TABLE IF NOT EXISTS display_preparing_queue (
-                ID          INT AUTO_INCREMENT PRIMARY KEY,
-                OrderNumber VARCHAR(10)  NOT NULL,
-                ItemName    VARCHAR(255) NOT NULL,
-                PaidAt      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-            );",
-
-             // READY FOR PICK-UP column — badge: Pick up
-            @"CREATE TABLE IF NOT EXISTS display_pickup_queue (
-                ID          INT AUTO_INCREMENT PRIMARY KEY,
-                OrderNumber VARCHAR(10)  NOT NULL,
-                ItemName    VARCHAR(255) NOT NULL,
-                ReadyAt     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                CompletedAt DATETIME NULL
-            );"
-
 
     };
 
+        private static string[] insertPresets =
+        {
+            // Insert shop first
+            @"INSERT INTO shop (ShopName, ThemeMode, Primary_Color, DarkPrimary_Color, Secondary_Color, Background_Color, Accent_Color)
+              SELECT 'My Coffee Shop', 'default', '#6F4D38', '#3D211A', '#A07856', '#F5F5DC', '#CBB799'
+              WHERE NOT EXISTS (SELECT 1 FROM shop);",
+
+            // Insert inventory items
+            @"INSERT INTO inventory_item (Name, Stock, Unit, ImagePath) VALUES
+              ('Small Cup', 100.00, 'PIECES', '../../../Resources/default_icon.png'),
+              ('Medium Cup', 100.00, 'PIECES', '../../../Resources/default_icon.png'),
+              ('Large Cup', 100.00, 'PIECES', '../../../Resources/default_icon.png'),
+              ('Brown Sugar', 300.00, 'GRAMS', '../../../Resources/default_icon.png'),
+              ('White Sugar', 300.00, 'GRAMS', '../../../Resources/default_icon.png'),
+              ('Espresso Beans', 300.00, 'GRAMS', '../../../Resources/default_icon.png'),
+              ('Cake 1', 60.00, 'PIECES', '../../../Resources/default_icon.png'),
+              ('Cake 2', 60.00, 'PIECES', '../../../Resources/default_icon.png'),
+              ('Donut 1', 60.00, 'PIECES', '../../../Resources/default_icon.png'),
+              ('Donut 2', 60.00, 'PIECES', '../../../Resources/default_icon.png'),
+              ('Milk', 1000.00, 'OUNCE', '../../../Resources/default_icon.png');",
+
+            // Insert categories
+            @"INSERT INTO category (Name, IconPath, IsShown) VALUES
+              ('Coffee', 'C:\\Images\\Kiosk\\Main menu\\COFFEE.png', 1),
+              ('Milk Tea', 'C:\\Images\\Kiosk\\Main menu\\MILKTEA.png', 1),
+              ('Pastry', 'C:\\Images\\Kiosk\\Main menu\\PASTRY.png', 1);",
+
+            // Insert products
+            @"INSERT INTO product (CategoryID, Name, Price, ImagePath, IsCustomizable) VALUES
+              (1, 'Americano', 120.00, 'C:\\Images\\Kiosk\\Coffee Product\\Americano.png', 0),
+              (1, 'Cafe Latte', 120.00, 'C:\\Images\\Kiosk\\Coffee Product\\Cafe Latte.png', 0);",
+
+            // Insert product recipes
+            @"INSERT INTO product_recipe (ProductId, InventoryItemId, InventorySubtraction) VALUES
+              (1, 5, 5.00),
+              (1, 6, 15.00),
+              (2, 5, 10.00),
+              (2, 6, 10.00);",
+
+            // Insert modifier groups
+            @"INSERT INTO modifier_group (ProductId, ParentGroupId, Name, SelectionType, Required) VALUES
+              (1, NULL, 'Size', 'Single', 1),
+              (1, NULL, 'Sugar Type', 'Single', 1),
+              (1, 2, 'Sugar Level', 'Single', 1),
+              (2, NULL, 'Size', 'Single', 0);",
+
+            // Insert modifier options
+            @"INSERT INTO modifier_option (GroupId, Name, PriceDelta, InventorySubtraction, InventoryItemId, TriggersChild, SubtractFromParent, SortBy) VALUES
+              (1,'Small',0.00,1.00,1,1,1,1),
+              (1,'Medium',15.00,1.00,2,1,1,2),
+              (1,'Large',25.00,1.00,3,1,1,3),
+              (2,'No Sugar',0.00,0.00,NULL,0,1,4),
+              (2,'White',5.00,0.00,5,1,1,5),
+              (2,'Brown',5.00,0.00,4,1,1,6),
+              (3,'25%',0.00,0.00,NULL,1,1,7),
+              (3,'50%',10.00,0.00,NULL,1,1,8),
+              (3,'75%',15.00,0.00,NULL,1,1,9),
+              (3,'100%',20.00,0.00,NULL,1,1,10);"      
+        };
 
 
         private readonly string _connectionString;
@@ -232,6 +258,38 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
 
             // 
             DBhelper.connectionStringDatabase = _connectionStringDatabase;
+        }
+
+        private void InsertPresets()
+        {
+            try
+            {
+                using var connection = DBhelper.CreateConnection(_connectionStringDatabase);
+
+                using var checkCmd = connection.CreateCommand();
+                checkCmd.CommandText = "SELECT COUNT(*) FROM shop";
+                var shopCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+                if (shopCount > 0)
+                {
+                    Console.WriteLine("Shop table already has data. Skipping preset inserts.");
+                    return;
+                }
+
+                foreach (var sql in insertPresets)
+                {
+                    using var cmd = connection.CreateCommand();
+                    cmd.CommandText = sql;
+                    cmd.ExecuteNonQuery();
+                }
+
+                Console.WriteLine("Preset data inserted successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inserting presets: {ex.Message}");
+                MessageBox.Show($"Failed to insert preset data: {ex.Message}");
+                throw;
+            }
         }
 
         public void CreateDataBase()
@@ -256,7 +314,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                         createTableCmd.CommandText = tableCommands[i];
                         createTableCmd.ExecuteNonQuery();
                     }
-
+                    InsertPresets();
                 }
             }
             catch (Exception ex)
