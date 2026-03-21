@@ -22,8 +22,7 @@
     Private Shared ReadOnly ColorBorderBrown As Color = Color.FromArgb(92, 51, 23)      ' #5C3317 same as header
     Private Shared ReadOnly ColorOrangeTimer As Color = Color.FromArgb(193, 127, 58)    ' #C17F3A warning orange
     Private Shared ReadOnly ColorRedTimer As Color = Color.FromArgb(192, 57, 43)        ' #C0392B urgent red
-    Private Shared ReadOnly ColorBadgeTakeout As Color = Color.FromArgb(193, 127, 58)   ' #C17F3A orange badge
-    Private Shared ReadOnly ColorBadgeDineIn As Color = Color.FromArgb(92, 51, 23)
+
 
     ' -------------------------------------------------------
     ' CONSTRUCTOR — add this right here
@@ -71,9 +70,12 @@
     footer:=ColorFooter,
     border:=ColorBorderBrown
 )
-
-        ' calculate total wait time — 5 mins per item
-        _totalWaitSeconds = order.Items.Count * 300
+        ' 5 mins per quantity instead of per item
+        Dim totalQuantity As Integer = 0
+        For Each item In order.Items
+            totalQuantity += item.Quantity
+        Next
+        _totalWaitSeconds = totalQuantity * 300
 
         ' calculate elapsed seconds since order was placed
         _elapsedSeconds = CInt((DateTime.Now - order.OrderTime).TotalSeconds)
@@ -208,19 +210,34 @@
             btnAction.BackColor = Color.White
             btnAction.ForeColor = Color.Black
             btnAction.BorderColor = Color.Black
-            ' pnlHeader.BackColor = Color.FromArgb(33, 176, 23)
+            '  pnlHeader.BackColor = Color.FromArgb(33, 176, 23)
             tmrWait.Start()
         Else
+            ' check if all items are finished
+            Dim allDone As Boolean = True
+            For Each ctrl As Control In flpItems.Controls
+                If TypeOf ctrl Is ucOrderItem Then
+                    Dim uc As ucOrderItem = DirectCast(ctrl, ucOrderItem)
+                    If Not uc.IsFinished Then
+                        allDone = False
+                        Exit For
+                    End If
+                End If
+            Next
+
+            If Not allDone Then
+                Using confirm As New frmConfirm()
+                    confirm.ShowDialog(Me)
+                    If Not confirm.UserConfirmed Then Return
+                End Using
+            End If
+
             ' second click — COMPLETE
             tmrWait.Stop()
-
-            ' update status in DB to Completed — stops it from reappearing
             DatabaseHelper.UpdateOrderStatus(_orderId, "Completed")
-
             RaiseEvent OnOrderCompleted(Me, _orderId)
         End If
     End Sub
-
     Private Sub ApplyRoundedCorners()
         Dim radius As Integer = 20
         Dim path As New Drawing2D.GraphicsPath()
@@ -251,12 +268,12 @@
     Private Sub btnAction_MouseEnter(sender As Object, e As EventArgs) Handles btnAction.MouseEnter
         If Not _isStarted Then
             ' Start button hover — light brown tint
-            btnAction.BackColor = Color.FromArgb(237, 217, 176)
-            btnAction.ForeColor = Color.FromArgb(92, 51, 23)
+            'btnAction.BackColor = Color.FromArgb(237, 217, 176)
+            'btnAction.ForeColor = Color.FromArgb(92, 51, 23)
         Else
             ' Complete button hover — light green tint
-            btnAction.BackColor = Color.FromArgb(200, 240, 210)
-            btnAction.ForeColor = Color.FromArgb(30, 100, 50)
+            'btnAction.BackColor = Color.FromArgb(200, 240, 210)
+            'btnAction.ForeColor = Color.FromArgb(30, 100, 50)
         End If
     End Sub
 
@@ -273,7 +290,7 @@
             btnAction.ForeColor = Color.White
         Else
             ' Complete button pressed — darker green
-            btnAction.BackColor = Color.FromArgb(40, 167, 69)
+            btnAction.BackColor = Color.FromArgb(92, 51, 23)
             btnAction.ForeColor = Color.White
         End If
     End Sub
@@ -281,13 +298,15 @@
     Private Sub btnAction_MouseUp(sender As Object, e As MouseEventArgs) Handles btnAction.MouseUp
         ' restore hover color after releasing click
         If Not _isStarted Then
-            btnAction.BackColor = Color.FromArgb(237, 217, 176)
-            btnAction.ForeColor = Color.FromArgb(92, 51, 23)
+            'btnAction.BackColor = Color.FromArgb(237, 217, 176)
+            'btnAction.ForeColor = Color.FromArgb(92, 51, 23)
         Else
-            btnAction.BackColor = Color.FromArgb(200, 240, 210)
-            btnAction.ForeColor = Color.FromArgb(30, 100, 50)
+            'btnAction.BackColor = Color.FromArgb(200, 240, 210)
+            'btnAction.ForeColor = Color.FromArgb(30, 100, 50)
         End If
     End Sub
+
+
 
     ' expose OrderId so frmKitchenDisplay can find the card
     Public ReadOnly Property OrderId As Integer

@@ -76,7 +76,7 @@
     End Sub
 
     Private Sub SetFinishedState()
-        Me.BackColor = Color.FromArgb(128, 224, 121)
+        Me.BackColor = Color.FromArgb(189, 187, 185)
 
         lblItemName.BackColor = Color.Transparent
         lblItemName.ForeColor = Color.FromArgb(0, 0, 0)
