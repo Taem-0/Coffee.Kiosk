@@ -1,4 +1,4 @@
-﻿using Coffee.Kiosk.Cashier.CashierDBHelper;
+﻿using DBHelper = Coffee.Kiosk.Cashier.CashierDBHelper.CashierDBHelper;
 using Coffee.Kiosk.Cashier.ModelClassHelper;
 using MySql.Data.MySqlClient;
 using System;
@@ -23,13 +23,13 @@ namespace Cashier
             int cx = this.ClientSize.Width / 2;
             int cy = this.ClientSize.Height / 2;
 
-            int logoRowW = picLogo.Width + 12 + lblBrand.Width;
-            picLogo.Location = new Point(cx - logoRowW / 2, cy - 150);
-            lblBrand.Location = new Point(
-                picLogo.Right + 12,
-                picLogo.Top + (picLogo.Height - lblBrand.Height) / 2);
+            int logoRowW = LogoPath.Width + 12 + ShopName.Width;
+            LogoPath.Location = new Point(cx - logoRowW / 2, cy - 150);
+            ShopName.Location = new Point(
+                LogoPath.Right + 12,
+                LogoPath.Top + (LogoPath.Height - ShopName.Height) / 2);
 
-            txtUsername.Location = new Point(cx - txtUsername.Width / 2, picLogo.Bottom + 40);
+            txtUsername.Location = new Point(cx - txtUsername.Width / 2, LogoPath.Bottom + 40);
             txtPassword.Location = new Point(cx - txtPassword.Width / 2, txtUsername.Bottom + 14);
             btnLogin.Location = new Point(cx - btnLogin.Width / 2, txtPassword.Bottom + 28);
         }
@@ -55,7 +55,7 @@ namespace Cashier
 
             try
             {
-                using var conn = CashierDBHelper.GetConnection();
+                using var conn = DBHelper.GetConnection();
                 conn.Open();
 
                 var cmd = new MySqlCommand(
@@ -121,7 +121,8 @@ namespace Cashier
                 Username = fullName,
                 Role = role
             };
-            SessionManager.OrderNumber = 1;
+            SessionManager.OrderNumber = DBHelper.GetNextOrderNumber();
+            SessionManager.ActiveSalesId = DBHelper.OpenShift(userId, fullName);
 
             var home = new Coffee.Kiosk.Cashier.HomePage();
             home.Show();
@@ -137,7 +138,7 @@ namespace Cashier
                     string newSalt = Guid.NewGuid().ToString("N");
                     string newHash = HashPassword(newPass, newSalt);
 
-                    using var conn = CashierDBHelper.GetConnection();
+                    using var conn = DBHelper.GetConnection();
                     conn.Open();
                     var cmd = new MySqlCommand(
                         "UPDATE accounts SET Password_Hash = @hash, Password_Salt = @salt, " +

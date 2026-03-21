@@ -1,4 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Coffee.Kiosk.CMS.Models;
+using Google.Protobuf.Collections;
+using MaterialSkin;
+using Microsoft.Extensions.Configuration;
+using MySqlX.XDevAPI.Relational;
+using System;
+using static Mysqlx.Expect.Open.Types.Condition.Types;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Coffee.Kiosk.CMS.CoffeeKDB
 {
@@ -174,10 +181,21 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 PriceDelta DECIMAL(10,2) NOT NULL,
 
                 FOREIGN KEY (CustomerOrderItemId) REFERENCES customer_order_item(ID) ON DELETE CASCADE
-                );"
+                );",
+
+                @"CREATE TABLE IF NOT EXISTS EmployeeSales (
+                SalesId       INT AUTO_INCREMENT PRIMARY KEY,
+                EmployeeId    INT          NOT NULL,
+                EmployeeName  VARCHAR(100) NOT NULL,
+                TotalSales    DECIMAL(10,2) NOT NULL DEFAULT 0,
+                ShiftDate     DATE         NOT NULL,
+                ShiftStart    DATETIME     NOT NULL,
+                ShiftEnd      DATETIME     NULL,
+                CreatedAt     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP
+            );"
 
 
-        };
+    };
 
 
 
