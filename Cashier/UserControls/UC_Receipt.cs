@@ -212,7 +212,6 @@ namespace Coffee.Kiosk.Cashier
             _change = change;
             _paymentMethod = paymentMethod;
 
-            // Generate PDF right away
             try
             {
                 _pdfPath = CashierReceiptDoc.Save(
