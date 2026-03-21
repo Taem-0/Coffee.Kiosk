@@ -11,6 +11,8 @@ Public Class frmKitchenDisplay
     ' -------------------------------------------------------
     Private Sub frmKitchenDisplay_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblTime.Text = Date.Now.ToString("HH:mm:ss")
+        tmrClock.Interval = 1000  ' every 1 second
+        tmrClock.Start()
         pnl1.BackColor = Color.FromArgb(92, 51, 23) 'Panel color
         lblTime.BackColor = Color.FromArgb(92, 51, 23)
         Timer1.Interval = 2000
@@ -165,6 +167,9 @@ Public Class frmKitchenDisplay
         '        ' --- END TEST DATA ---
     End Sub
 
+    Private Sub tmrClock_Tick(sender As Object, e As EventArgs) Handles tmrClock.Tick
+        lblTime.Text = Date.Now.ToString("HH:mm:ss")
+    End Sub
     ' -------------------------------------------------------
     ' STEP B: every 3 seconds, check DB for new paid orders
     ' -------------------------------------------------------
@@ -275,4 +280,7 @@ Public Class frmKitchenDisplay
         Next
     End Sub
 
+    Private Sub lblTime_Click(sender As Object, e As EventArgs) Handles lblTime.Click
+
+    End Sub
 End Class

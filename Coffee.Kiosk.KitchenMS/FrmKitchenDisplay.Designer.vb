@@ -34,6 +34,7 @@ Partial Class FrmKitchenDisplay
         PictureBox1 = New PictureBox()
         Panel2 = New Panel()
         Timer1 = New Timer(components)
+        tmrClock = New Timer(components)
         pnl1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -74,7 +75,7 @@ Partial Class FrmKitchenDisplay
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.ForeColor = Color.White
-        Label1.Location = New Point(1664, 11)
+        Label1.Location = New Point(1677, 11)
         Label1.Name = "Label1"
         Label1.Size = New Size(51, 20)
         Label1.TabIndex = 2
@@ -85,7 +86,7 @@ Partial Class FrmKitchenDisplay
         lblActiveOrders.AutoSize = True
         lblActiveOrders.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblActiveOrders.ForeColor = Color.White
-        lblActiveOrders.Location = New Point(1677, 20)
+        lblActiveOrders.Location = New Point(1686, 20)
         lblActiveOrders.Name = "lblActiveOrders"
         lblActiveOrders.Size = New Size(40, 46)
         lblActiveOrders.TabIndex = 5
@@ -112,6 +113,9 @@ Partial Class FrmKitchenDisplay
         Panel2.TabIndex = 6
         ' 
         ' Timer1
+        ' 
+        ' 
+        ' tmrClock
         ' 
         ' 
         ' FrmKitchenDisplay
@@ -144,5 +148,6 @@ Partial Class FrmKitchenDisplay
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents tmrClock As Timer
 
 End Class
