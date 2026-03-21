@@ -97,7 +97,6 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
                 }
             }
 
-            // Get modifiers for each item
             foreach (var (id, item) in itemIds)
             {
                 var cmdMod = new MySqlCommand(
@@ -117,7 +116,6 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             return items;
         }
 
-        // Returns all products from the DB for the cashier menu
         public static List<Coffee.Kiosk.Cashier.ModelClassHelper.MenuItemModel> GetMenuItems()
         {
             var list = new List<Coffee.Kiosk.Cashier.ModelClassHelper.MenuItemModel>();
@@ -247,6 +245,8 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
                     }
                 }
 
+                CashierDBHelper.DeductInventoryForOrder(orderId, conn, tx);
+
                 tx.Commit();
                 return orderId;
             }
@@ -261,10 +261,24 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
         {
             using var conn = CashierDBHelper.GetConnection();
             conn.Open();
-            var cmd = new MySqlCommand(
-                "UPDATE customer_orders SET Status = 'Paid' WHERE ID = @oid", conn);
-            cmd.Parameters.AddWithValue("@oid", orderId);
-            cmd.ExecuteNonQuery();
+            using var tx = conn.BeginTransaction();
+            try
+            {
+                var cmd = new MySqlCommand(
+                    "UPDATE customer_orders SET Status = 'Paid' WHERE ID = @oid",
+                    conn, tx);
+                cmd.Parameters.AddWithValue("@oid", orderId);
+                cmd.ExecuteNonQuery();
+
+                CashierDBHelper.DeductInventoryForOrder(orderId, conn, tx);
+
+                tx.Commit();
+            }
+            catch
+            {
+                tx.Rollback();
+                throw;
+            }
         }
     }
 }

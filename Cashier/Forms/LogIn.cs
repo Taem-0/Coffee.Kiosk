@@ -11,10 +11,30 @@ namespace Cashier
 {
     public partial class LogIn : Form
     {
+        private Button btnShowPass = new();
+
         public LogIn()
         {
             InitializeComponent();
-            this.Load += (s, e) => CenterControls();
+
+            btnShowPass.Size = new Size(28, 28);
+            btnShowPass.FlatStyle = FlatStyle.Flat;
+            btnShowPass.FlatAppearance.BorderSize = 0;
+            btnShowPass.BackColor = Color.Transparent;
+            btnShowPass.ForeColor = Color.FromArgb(107, 79, 58);
+            btnShowPass.Text = "👁";
+            btnShowPass.Font = new Font("Segoe UI", 11f);
+            btnShowPass.Cursor = Cursors.Hand;
+            btnShowPass.TabStop = false;
+            btnShowPass.MouseDown += (s, e) => txtPassword.UseSystemPasswordChar = false;
+            btnShowPass.MouseUp += (s, e) => txtPassword.UseSystemPasswordChar = true;
+            this.Controls.Add(btnShowPass);
+
+            this.Load += (s, e) =>
+            {
+                CenterControls();
+                btnShowPass.BringToFront();
+            };
             this.Resize += (s, e) => CenterControls();
         }
 
@@ -33,6 +53,9 @@ namespace Cashier
             txtPassword.Location = new Point(cx - txtPassword.Width / 2, txtUsername.Bottom + 14);
             btnLogin.Location = new Point(cx - btnLogin.Width / 2, txtPassword.Bottom + 28);
 
+            btnShowPass.Location = new Point(
+            txtPassword.Right - btnShowPass.Width - 6,
+            txtPassword.Top + (txtPassword.Height - btnShowPass.Height) / 2);
         }
 
         private static string HashPassword(string password, string salt)
@@ -215,8 +238,17 @@ namespace Cashier
             }, null, 0, 30);
         }
 
+        private void txtUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) txtPassword.Focus();
+        }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) btnLogin_Click(sender, e);
+        }
+
         private void txtUsername_TextChanged(object sender, EventArgs e) { }
         private void txtPassword_TextChanged(object sender, EventArgs e) { }
-
     }
 }
