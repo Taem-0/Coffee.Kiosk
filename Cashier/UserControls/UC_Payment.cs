@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using DBHelper = Coffee.Kiosk.Cashier.CashierDBHelper.CashierDBHelper;
 
 namespace Coffee.Kiosk.Cashier
 {
@@ -13,7 +14,6 @@ namespace Coffee.Kiosk.Cashier
         private decimal _total = 0;
         private string _paymentMethod = "Cash";
         private Panel? _pnlEWallet;
-
         private int _kioskOrderId = 0;
 
         public UC_Payment() { InitializeComponent(); }
@@ -44,15 +44,12 @@ namespace Coffee.Kiosk.Cashier
 
             btnCash.Click += (s, e) => SetPaymentMethod("Cash");
             btnGcash.Click += (s, e) => SetPaymentMethod("GCash");
-            btnMaya.Click += (s, e) => SetPaymentMethod("Maya");
 
             var brown = Color.FromArgb(107, 79, 58);
             var green = Color.FromArgb(0, 119, 60);
-            var blue = Color.FromArgb(0, 90, 180);
 
             btnCash.FillColor = Color.White; btnCash.ForeColor = brown; btnCash.BorderColor = brown; btnCash.BorderRadius = 8;
             btnGcash.FillColor = Color.White; btnGcash.ForeColor = green; btnGcash.BorderColor = green; btnGcash.BorderRadius = 8;
-            btnMaya.FillColor = Color.White; btnMaya.ForeColor = blue; btnMaya.BorderColor = blue; btnMaya.BorderRadius = 8;
 
             SetPaymentMethod(_kioskOrderId > 0 ? "GCash" : "Cash");
         }
@@ -121,11 +118,9 @@ namespace Coffee.Kiosk.Cashier
 
             var brown = Color.FromArgb(107, 79, 58);
             var green = Color.FromArgb(0, 119, 60);
-            var blue = Color.FromArgb(0, 90, 180);
 
             btnCash.FillColor = Color.White; btnCash.ForeColor = brown; btnCash.BorderColor = brown;
             btnGcash.FillColor = Color.White; btnGcash.ForeColor = green; btnGcash.BorderColor = green;
-            btnMaya.FillColor = Color.White; btnMaya.ForeColor = blue; btnMaya.BorderColor = blue;
 
             switch (method)
             {
@@ -146,15 +141,6 @@ namespace Coffee.Kiosk.Cashier
                     lblChangeAmt.Text = "N/A";
                     btnConfirm.Enabled = true;
                     ShowEWalletInfo("GCash", "0917-123-4567", green);
-                    break;
-
-                case "Maya":
-                    btnMaya.FillColor = blue;
-                    btnMaya.ForeColor = Color.White;
-                    pnlPayLeft.Visible = false;
-                    lblChangeAmt.Text = "N/A";
-                    btnConfirm.Enabled = true;
-                    ShowEWalletInfo("Maya", "0912-765-4321", blue);
                     break;
             }
         }
@@ -237,10 +223,7 @@ namespace Coffee.Kiosk.Cashier
 
             if (_kioskOrderId > 0)
             {
-                try
-                {
-                    KioskOrderDbManager.MarkOrderPaid(_kioskOrderId);
-                }
+                try { KioskOrderDbManager.MarkOrderPaid(_kioskOrderId); }
                 catch (Exception ex)
                 {
                     MessageBox.Show(
@@ -250,16 +233,21 @@ namespace Coffee.Kiosk.Cashier
             }
             else
             {
-                try
-                {
-                    KioskOrderDbManager.SaveCashierOrder(_cart, _total);
-                }
+                try { KioskOrderDbManager.SaveCashierOrder(_cart, _total); }
                 catch (Exception ex)
                 {
                     MessageBox.Show(
                         $"Payment confirmed but could not save order to database:\n{ex.Message}",
                         "DB Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+            }
+
+            try { DBHelper.AddToSales(SessionManager.ActiveSalesId, _total); }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Sale recorded but could not update employee sales:\n{ex.Message}",
+                    "DB Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             SessionManager.OrderNumber++;

@@ -1,4 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Coffee.Kiosk.CMS.Models;
+using Google.Protobuf.Collections;
+using MaterialSkin;
+using Microsoft.Extensions.Configuration;
+using MySqlX.XDevAPI.Relational;
+using System;
+using static Mysqlx.Expect.Open.Types.Condition.Types;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Coffee.Kiosk.CMS.CoffeeKDB
 {
@@ -205,7 +212,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             );"
 
 
-        };
+    };
 
 
 
