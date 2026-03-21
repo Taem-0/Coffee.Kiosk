@@ -1,12 +1,9 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
-using Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls;
+using System.IO;
 using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
-using System;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
+
 
 namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 {
@@ -19,7 +16,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
         private readonly ShopController _themeController;
         private string? _selectedImagePath;
         private Cyotek.Windows.Forms.ColorPickerDialog colorPickerDialog1 = new Cyotek.Windows.Forms.ColorPickerDialog();
-            
+
 
         public SettingsView(AccountController controller, ShopController themeController, KioskController kioskController, Employee currentEmployee)
         {
@@ -53,6 +50,8 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
                 : "Default";
 
             LoadCurrentEmployeeData();
+
+            LoadLogoImage(currentShop.LogoPath);
 
             //KioskLoad:
 
@@ -305,6 +304,41 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             UploadLogoContainer.FillColor = uiTheme.Background;
         }
 
+        private void uploadLogoButton_Click(object sender, EventArgs e)
+        {
+            using var ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.webp";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var shop = _themeController.GetShopSettings();
+                    shop.LogoPath = ofd.FileName;
+                    _themeController.UpdateShopSettings(shop);
+
+                    LoadLogoImage(ofd.FileName);
+                    MessageBox.Show("Logo updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to save logo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void LoadLogoImage(string? path)
+        {
+            if (string.IsNullOrEmpty(path) || !File.Exists(path)) return;
+            try
+            {
+                using var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                LogoPictureBox.Image = Image.FromStream(fs);
+                LogoPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            catch { }
+        }
+
         #endregion
 
         #region KIOSK TAB
@@ -314,7 +348,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
         private void LeftSlideButton_Click(object sender, EventArgs e)
         {
-            if (miniGetStartedScreen1.Visible) 
+            if (miniGetStartedScreen1.Visible)
             {
                 SwitchScreen(miniThankYouScreen1);
             }
@@ -358,11 +392,11 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             {
                 SwitchScreen(miniKioskMenu1);
             }
-            else if (miniKioskMenu1.Visible) 
+            else if (miniKioskMenu1.Visible)
             {
                 SwitchScreen(miniModalScreen1);
             }
-            else if (miniModalScreen1.Visible) 
+            else if (miniModalScreen1.Visible)
             {
                 SwitchScreen(miniViewOrder1);
             }
@@ -398,12 +432,13 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
         #endregion
 
-        }
-
-
-
         
+    }
 
 
-    
+
+
+
+
+
 }

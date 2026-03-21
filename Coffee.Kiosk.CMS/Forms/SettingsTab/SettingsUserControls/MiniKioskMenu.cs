@@ -16,5 +16,10 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
         {
             InitializeComponent();
         }
+
+        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

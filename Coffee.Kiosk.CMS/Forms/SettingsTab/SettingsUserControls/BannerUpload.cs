@@ -14,6 +14,8 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
         public BannerUpload()
         {
             InitializeComponent();
+
+            suggestedDimensionTip.BackColor = Color.Transparent;
         }
 
         public void Initialize(KioskController controller)
@@ -75,7 +77,8 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
         {
             if (_kioskController == null) return;
 
-            // Check if a card is selected — edit mode
+            var allBanners = _kioskController.GetAllBanners();
+
             BannerSelectBase? selectedCard = null;
             foreach (Control c in bannersFlowLayout.Controls)
             {
@@ -86,7 +89,6 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
                 }
             }
 
-            // Build the existing banner if editing
             KioskBanner? existing = null;
             if (selectedCard != null)
             {
@@ -99,10 +101,9 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
                 };
             }
 
-            // Open dialogue in correct mode
             using var dialogue = existing != null
-                ? new AddBannerDialogoue(existing)
-                : new AddBannerDialogoue();
+                ? new AddBannerDialogoue(existing, allBanners)
+                : new AddBannerDialogoue(allBanners);
 
             if (dialogue.ShowDialog() == DialogResult.OK)
             {
