@@ -174,7 +174,35 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 PriceDelta DECIMAL(10,2) NOT NULL,
 
                 FOREIGN KEY (CustomerOrderItemId) REFERENCES customer_order_item(ID) ON DELETE CASCADE
-                );"
+                );",
+
+            // Ordering Status Display
+
+          // PLEASE PAY column — badge: Cash or GCash
+            @"CREATE TABLE IF NOT EXISTS display_payment_queue (
+                ID            INT AUTO_INCREMENT PRIMARY KEY,
+                OrderNumber   VARCHAR(10)  NOT NULL,
+                ItemName      VARCHAR(255) NOT NULL,
+                PaymentMethod ENUM('Cash','Gcash') NOT NULL DEFAULT 'Cash',
+                CreatedAt     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+            );",
+
+            // BEING PREPARED column — badge: Brewing
+            @"CREATE TABLE IF NOT EXISTS display_preparing_queue (
+                ID          INT AUTO_INCREMENT PRIMARY KEY,
+                OrderNumber VARCHAR(10)  NOT NULL,
+                ItemName    VARCHAR(255) NOT NULL,
+                PaidAt      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+            );",
+
+             // READY FOR PICK-UP column — badge: Pick up
+            @"CREATE TABLE IF NOT EXISTS display_pickup_queue (
+                ID          INT AUTO_INCREMENT PRIMARY KEY,
+                OrderNumber VARCHAR(10)  NOT NULL,
+                ItemName    VARCHAR(255) NOT NULL,
+                ReadyAt     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                CompletedAt DATETIME NULL
+            );"
 
 
         };
