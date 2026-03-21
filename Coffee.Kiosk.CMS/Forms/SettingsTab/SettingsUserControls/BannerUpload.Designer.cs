@@ -37,6 +37,7 @@
             UploadTileButton = new Guna.UI2.WinForms.Guna2TileButton();
             saveButton = new Guna.UI2.WinForms.Guna2Button();
             bannersFlowLayout = new FlowLayoutPanel();
+            suggestedDimensionTip = new Coffee.Kiosk.CMS.Forms.OrderingSystemTab.UserControls.TipButton();
             SuspendLayout();
             // 
             // label20
@@ -106,10 +107,21 @@
             bannersFlowLayout.TabIndex = 12;
             bannersFlowLayout.WrapContents = false;
             // 
+            // suggestedDimensionTip
+            // 
+            suggestedDimensionTip.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            suggestedDimensionTip.BackColor = Color.Transparent;
+            suggestedDimensionTip.Location = new Point(373, 355);
+            suggestedDimensionTip.Name = "suggestedDimensionTip";
+            suggestedDimensionTip.Size = new Size(41, 40);
+            suggestedDimensionTip.TabIndex = 13;
+            suggestedDimensionTip.TipText = "Suggested Dimension: 16:9 \r\n(1280x720, 1600x900)";
+            // 
             // BannerUpload
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(suggestedDimensionTip);
             Controls.Add(saveButton);
             Controls.Add(UploadTileButton);
             Controls.Add(label1);
@@ -128,5 +140,6 @@
         private Guna.UI2.WinForms.Guna2TileButton UploadTileButton;
         private Guna.UI2.WinForms.Guna2Button saveButton;
         private FlowLayoutPanel bannersFlowLayout;
+        private OrderingSystemTab.UserControls.TipButton suggestedDimensionTip;
     }
 }

@@ -28,31 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            getStartedMiniPic = new Guna.UI2.WinForms.Guna2PictureBox();
+            ((System.ComponentModel.ISupportInitialize)getStartedMiniPic).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // getStartedMiniPic
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(152, 301);
-            label1.Name = "label1";
-            label1.Size = new Size(48, 25);
-            label1.TabIndex = 0;
-            label1.Text = "ONE";
+            getStartedMiniPic.CustomizableEdges = customizableEdges1;
+            getStartedMiniPic.Dock = DockStyle.Fill;
+            getStartedMiniPic.ImageRotate = 0F;
+            getStartedMiniPic.Location = new Point(0, 0);
+            getStartedMiniPic.Name = "getStartedMiniPic";
+            getStartedMiniPic.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            getStartedMiniPic.Size = new Size(352, 626);
+            getStartedMiniPic.TabIndex = 1;
+            getStartedMiniPic.TabStop = false;
             // 
             // MiniGetStartedScreen
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label1);
+            Controls.Add(getStartedMiniPic);
             Name = "MiniGetStartedScreen";
             Size = new Size(352, 626);
+            ((System.ComponentModel.ISupportInitialize)getStartedMiniPic).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
+        private Guna.UI2.WinForms.Guna2PictureBox getStartedMiniPic;
     }
 }
