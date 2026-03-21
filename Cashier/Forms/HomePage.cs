@@ -17,6 +17,7 @@ namespace Coffee.Kiosk.Cashier
         private Label _lblBadge = new();
         private UC_KioskOrders _kioskPanel = new();
         private System.Windows.Forms.Timer _pollTimer = new();
+        private System.Windows.Forms.Timer _cancelTimer = new();
 
         public HomePage()
         {
@@ -39,6 +40,7 @@ namespace Coffee.Kiosk.Cashier
             SetupBadge();
             SetupKioskPanel();
             SetupPollTimer();
+            SetupCancelTimer();
 
             LoadControl(new UC_Cashier());
         }
@@ -157,6 +159,18 @@ namespace Coffee.Kiosk.Cashier
             _pollTimer.Start();
         }
 
+        private void SetupCancelTimer()
+        {
+            _cancelTimer.Interval = 60_000;
+            _cancelTimer.Tick += (s, e) =>
+            {
+                try { DBHelper.CancelExpiredKioskOrders(10); }
+                catch { }
+                UpdateBadge();
+            };
+            _cancelTimer.Start();
+        }
+
         private void tmrClock_Tick(object sender, EventArgs e)
         {
             lblClock.Text = DateTime.Now.ToString("hh:mm tt");
@@ -171,6 +185,7 @@ namespace Coffee.Kiosk.Cashier
             if (result == DialogResult.Yes)
             {
                 _pollTimer.Stop();
+                _cancelTimer.Stop();
 
                 try { DBHelper.CloseShift(SessionManager.ActiveSalesId); }
                 catch { }

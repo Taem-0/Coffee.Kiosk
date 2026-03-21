@@ -32,6 +32,7 @@ namespace Cashier
             txtUsername.Location = new Point(cx - txtUsername.Width / 2, LogoPath.Bottom + 40);
             txtPassword.Location = new Point(cx - txtPassword.Width / 2, txtUsername.Bottom + 14);
             btnLogin.Location = new Point(cx - btnLogin.Width / 2, txtPassword.Bottom + 28);
+
         }
 
         private static string HashPassword(string password, string salt)
@@ -121,7 +122,7 @@ namespace Cashier
                 Username = fullName,
                 Role = role
             };
-            SessionManager.OrderNumber = DBHelper.GetNextOrderNumber();
+            SessionManager.OrderNumber = DBHelper.GetNextCashierOrderNumber();
             SessionManager.ActiveSalesId = DBHelper.OpenShift(userId, fullName);
 
             var home = new Coffee.Kiosk.Cashier.HomePage();
@@ -214,13 +215,8 @@ namespace Cashier
             }, null, 0, 30);
         }
 
-        private void txtUsername_KeyDown(object sender, KeyEventArgs e)
-        { if (e.KeyCode == Keys.Enter) txtPassword.Focus(); }
-
-        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
-        { if (e.KeyCode == Keys.Enter) btnLogin_Click(sender, e); }
-
         private void txtUsername_TextChanged(object sender, EventArgs e) { }
         private void txtPassword_TextChanged(object sender, EventArgs e) { }
+
     }
 }

@@ -51,13 +51,53 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             cmd.ExecuteNonQuery();
         }
 
-        public static int GetNextOrderNumber()
+        public static int GetNextCashierOrderNumber()
         {
             using var conn = GetConnection();
             conn.Open();
-            string sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM customer_orders;";
+            string sql = @"SELECT IFNULL(MAX(CAST(SUBSTRING(OrderNumber, 2) AS UNSIGNED)), 0) + 1
+                           FROM display_preparing_queue
+                           WHERE OrderNumber LIKE 'C%'";
             using var cmd = new MySqlCommand(sql, conn);
             return Convert.ToInt32(cmd.ExecuteScalar());
+        }
+
+        public static void MoveToDisplayPreparingQueue(string orderNumber, string itemName)
+        {
+            using var conn = GetConnection();
+            conn.Open();
+            using var tx = conn.BeginTransaction();
+            try
+            {
+                var del = new MySqlCommand(
+                    "DELETE FROM display_payment_queue WHERE OrderNumber = @num",
+                    conn, tx);
+                del.Parameters.AddWithValue("@num", orderNumber);
+                del.ExecuteNonQuery();
+
+                var ins = new MySqlCommand(
+                    "INSERT INTO display_preparing_queue (OrderNumber, ItemName) VALUES (@num, @item)",
+                    conn, tx);
+                ins.Parameters.AddWithValue("@num", orderNumber);
+                ins.Parameters.AddWithValue("@item", itemName);
+                ins.ExecuteNonQuery();
+
+                tx.Commit();
+            }
+            catch { tx.Rollback(); throw; }
+        }
+
+        public static void CancelExpiredKioskOrders(int minutesOld = 10)
+        {
+            using var conn = GetConnection();
+            conn.Open();
+            string sql = @"UPDATE customer_orders 
+                           SET Status = 'Cancelled'
+                           WHERE Status = 'Pending'
+                           AND TIMESTAMPDIFF(MINUTE, CreatedAt, NOW()) >= @minutes;";
+            using var cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@minutes", minutesOld);
+            cmd.ExecuteNonQuery();
         }
 
         public static (string ShopName, string? LogoPath) GetShopInfo()
