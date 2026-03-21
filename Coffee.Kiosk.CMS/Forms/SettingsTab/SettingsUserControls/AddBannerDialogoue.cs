@@ -10,17 +10,61 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
     {
         public KioskBanner? Result { get; private set; }
         private string _selectedImagePath = string.Empty;
+        private readonly KioskBanner? _existingBanner;
 
+        // Default constructor — Add mode
         public AddBannerDialogoue()
         {
             InitializeComponent();
-            guna2ComboBox1.Items.AddRange(new object[] { "Home Page", "Starting Screen", "Top Banner" });
-            guna2ComboBox1.SelectedIndex = 0;
+            SetupControls();
+        }
+
+        // Edit mode constructor
+        public AddBannerDialogoue(KioskBanner existing)
+        {
+            InitializeComponent();
+            _existingBanner = existing;
+            SetupControls();
+            PreFill(existing);
+        }
+
+        private void SetupControls()
+        {
+            placementSelection.Items.AddRange(new object[] { "Home Page", "Starting Screen", "Top Banner" });
+            placementSelection.SelectedIndex = 0;
+
             for (int i = 1; i <= 20; i++)
-                guna2ComboBox2.Items.Add(i);
-            guna2ComboBox2.SelectedIndex = 0;
-            guna2PictureBox1.Click += PictureBox_Click;
-            guna2PictureBox1.Cursor = Cursors.Hand;
+                orderSelection.Items.Add(i);
+            orderSelection.SelectedIndex = 0;
+
+            bannerPictureBox.Click += PictureBox_Click;
+            bannerPictureBox.Cursor = Cursors.Hand;
+
+            cancelBannerButton.Click += (s, e) => { DialogResult = DialogResult.Cancel; Close(); };
+            clearPictureButton.Click += (s, e) =>
+            {
+                _selectedImagePath = string.Empty;
+                bannerPictureBox.Image = null;
+            };
+        }
+
+        private void PreFill(KioskBanner banner)
+        {
+            // Set placement
+            int placementIndex = placementSelection.Items.IndexOf(banner.Placement);
+            if (placementIndex >= 0) placementSelection.SelectedIndex = placementIndex;
+
+            // Set order
+            int orderIndex = orderSelection.Items.IndexOf(banner.DisplayOrder);
+            if (orderIndex >= 0) orderSelection.SelectedIndex = orderIndex;
+
+            // Load existing image
+            if (!string.IsNullOrEmpty(banner.FilePath))
+            {
+                _selectedImagePath = banner.FilePath;
+                bannerPictureBox.Image = LoadImageNonLocking(banner.FilePath);
+                bannerPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            }
         }
 
         private void PictureBox_Click(object? sender, EventArgs e)
@@ -30,19 +74,19 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 _selectedImagePath = ofd.FileName;
-                guna2PictureBox1.Image = LoadImageNonLocking(_selectedImagePath);
-                guna2PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                bannerPictureBox.Image = LoadImageNonLocking(_selectedImagePath);
+                bannerPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            if (guna2ComboBox1.SelectedIndex < 0)
+            if (placementSelection.SelectedIndex < 0)
             {
                 MessageBox.Show("Please select a placement.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (guna2ComboBox2.SelectedIndex < 0)
+            if (orderSelection.SelectedIndex < 0)
             {
                 MessageBox.Show("Please select an order number.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -50,9 +94,10 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
 
             Result = new KioskBanner
             {
+                ID = _existingBanner?.ID ?? 0,
                 FilePath = _selectedImagePath ?? string.Empty,
-                Placement = guna2ComboBox1.SelectedItem?.ToString() ?? string.Empty,
-                DisplayOrder = Convert.ToInt32(guna2ComboBox2.SelectedItem)
+                Placement = placementSelection.SelectedItem?.ToString() ?? string.Empty,
+                DisplayOrder = Convert.ToInt32(orderSelection.SelectedItem)
             };
 
             DialogResult = DialogResult.OK;
