@@ -5,8 +5,10 @@ using Coffee.Kiosk.Cashier.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DBHelper = Coffee.Kiosk.Cashier.CashierDBHelper.CashierDBHelper;
 
 namespace Coffee.Kiosk.Cashier
 {
@@ -22,6 +24,17 @@ namespace Coffee.Kiosk.Cashier
             lblCashier.Text = $"Cashier Staff — {SessionManager.CurrentUser.Username}";
             lblClock.Text = DateTime.Now.ToString("hh:mm tt");
             tmrClock.Start();
+
+            try
+            {
+                (string shopName, string? logoPath) = DBHelper.GetShopInfo();
+                ShopName.Text = shopName;
+                this.Text = shopName;
+
+                if (!string.IsNullOrEmpty(logoPath) && File.Exists(logoPath))
+                    LogoPath.Image = Image.FromFile(logoPath);
+            }
+            catch { }
 
             SetupBadge();
             SetupKioskPanel();
@@ -158,6 +171,10 @@ namespace Coffee.Kiosk.Cashier
             if (result == DialogResult.Yes)
             {
                 _pollTimer.Stop();
+
+                try { DBHelper.CloseShift(SessionManager.ActiveSalesId); }
+                catch { }
+
                 new LogIn().Show();
                 this.Close();
             }
