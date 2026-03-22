@@ -558,7 +558,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
             Models.UiAssets.LoadFromDatabase();
             UI_Images.loadLogoImage();
-
+            getStartedScreen?.RefreshScreen();
             ShowGetStartedScreen();
         }
 

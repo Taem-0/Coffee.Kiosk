@@ -1,4 +1,5 @@
 ﻿using Coffee.Kiosk.OrderingSystem.Helper;
+using Coffee.Kiosk.OrderingSystem.UserControls.Reusables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -76,20 +77,34 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             _tickTurn = !_tickTurn;
         }
 
-        private void LoadProduct()
+        internal void LoadProduct()
         {
             flowLayoutPanel1.Controls.Clear();
             foreach (var product in Models.Product.productData)
             {
-                var productItem = new ProductItem(
-                    product.Id,
-                    product.CategoryId,
-                    product.Name,
-                    product.ImagePath,
-                    product.Price
-                    );
-                productItem.productClicked += OnProductClicked;
-                flowLayoutPanel1.Controls.Add(productItem);
+                if (Sql.Queries.IsProductAvailable(product.Id))
+                {
+                    var productItem = new ProductItem(
+                        product.Id,
+                        product.CategoryId,
+                        product.Name,
+                        product.ImagePath,
+                        product.Price
+                        );
+                    productItem.productClicked += OnProductClicked;
+
+                    flowLayoutPanel1.Controls.Add(productItem);
+                }else
+                {
+                    var unavailableItem = new UnavailableProduct(
+                        product.Id,
+                        product.CategoryId,
+                        product.Name,
+                        product.ImagePath,
+                        product.Price
+                        );
+                    flowLayoutPanel1.Controls.Add(unavailableItem);
+                }
             }
         }
 

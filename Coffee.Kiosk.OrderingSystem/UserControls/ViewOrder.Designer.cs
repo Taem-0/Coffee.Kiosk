@@ -228,7 +228,6 @@
             // 
             guna2Panel1.BackColor = Color.Transparent;
             guna2Panel1.BorderColor = Color.Silver;
-            guna2Panel1.BorderRadius = 17;
             guna2Panel1.BorderThickness = 3;
             guna2Panel1.Controls.Add(flowLayoutPanel1);
             guna2Panel1.CustomizableEdges = customizableEdges7;

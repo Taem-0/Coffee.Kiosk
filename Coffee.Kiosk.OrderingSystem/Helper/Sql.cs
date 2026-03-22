@@ -444,26 +444,72 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
         }
 
 
+        //internal static bool IsProductAvailable(int productId)
+        //{
+        //    try
+        //    {
+        //        using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+        //        conn.Open();
+
+        //        var cmd = conn.CreateCommand();
+        //        cmd.CommandText = @"
+        //            SELECT 1
+        //            FROM product_recipe pr
+        //            JOIN inventory_item i 
+        //                ON pr.InventoryItemId = i.ID
+        //            WHERE pr.ProductId = @productId
+        //              AND i.Stock < pr.InventorySubtraction
+        //            LIMIT 1;
+        //        ";
+
+        //        cmd.Parameters.AddWithValue("@productId", productId);
+
+        //        var result = cmd.ExecuteScalar();
+
+        //        return result == null;
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
         internal static bool IsProductAvailable(int productId)
         {
             try
             {
                 using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
                 conn.Open();
-
                 var cmd = conn.CreateCommand();
+                // crazy mofo what is this
                 cmd.CommandText = @"
                     SELECT 1
-                    FROM product_recipe pr
-                    JOIN inventory_item i 
-                        ON pr.InventoryItemId = i.ID
-                    WHERE pr.ProductId = @productId
-                      AND i.Stock < pr.InventorySubtraction
-                    LIMIT 1;
-                ";
+                    FROM product p
 
+                    LEFT JOIN (
+                        SELECT pr.ProductId
+                        FROM product_recipe pr
+                        JOIN inventory_item i ON pr.InventoryItemId = i.ID
+                        WHERE pr.ProductId = @productId
+                          AND i.Stock < pr.InventorySubtraction
+                        LIMIT 1
+                    ) recipe_fail ON recipe_fail.ProductId = p.ID
+
+                    LEFT JOIN (
+                        SELECT mg.ProductId
+                        FROM modifier_option mo
+                        JOIN modifier_group mg ON mo.GroupId = mg.ID
+                        JOIN inventory_item i ON mo.InventoryItemId = i.ID
+                        WHERE mg.ProductId = @productId
+                          AND mo.InventoryItemId IS NOT NULL
+                          AND i.Stock < mo.InventorySubtraction
+                        LIMIT 1
+                    ) modifier_fail ON modifier_fail.ProductId = p.ID
+
+                    WHERE p.ID = @productId
+                      AND (recipe_fail.ProductId IS NOT NULL 
+                        OR modifier_fail.ProductId IS NOT NULL);
+                "; 
                 cmd.Parameters.AddWithValue("@productId", productId);
-
                 var result = cmd.ExecuteScalar();
 
                 return result == null;
