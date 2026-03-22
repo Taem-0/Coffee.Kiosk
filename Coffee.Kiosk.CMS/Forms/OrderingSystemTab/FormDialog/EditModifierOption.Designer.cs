@@ -320,6 +320,7 @@
             tipButton1.Size = new Size(40, 40);
             tipButton1.TabIndex = 52;
             tipButton1.TipText = "Also subtracts from this parent's modifier group \r\nselected inventory item.";
+            tipButton1.Visible = false;
             // 
             // SubtractFromParentSwitch
             // 
@@ -335,6 +336,7 @@
             SubtractFromParentSwitch.TabIndex = 51;
             SubtractFromParentSwitch.Text = "Subtract from parent";
             SubtractFromParentSwitch.UseVisualStyleBackColor = true;
+            SubtractFromParentSwitch.Visible = false;
             // 
             // EditModifierOption
             // 
