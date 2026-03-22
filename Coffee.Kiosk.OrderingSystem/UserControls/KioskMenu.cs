@@ -30,6 +30,11 @@ namespace Coffee.Kiosk.OrderingSystem
         int currentCartCount = 0;
         string OrderType = String.Empty;
 
+
+        private List<Models.Ads.Banners> _topBanner = new();
+        private System.Windows.Forms.Timer _adTimer = new();
+        private int _topBannerIndex = 0;
+
         Point scrollPos;
 
         public KioskMenu(string orderType)
@@ -54,9 +59,9 @@ namespace Coffee.Kiosk.OrderingSystem
             <b>Total:</b> ₱
             """;
             LoadCategories();
+            LoadBanners();
             ShowHome();
         }
-
 
         protected override void OnHandleCreated(EventArgs e)
         {
@@ -66,6 +71,30 @@ namespace Coffee.Kiosk.OrderingSystem
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.UserPaint, true);
         }
+
+        private void LoadBanners()
+        {
+            _topBanner = Models.Ads.AdsBanners
+                .Where(b => b.AdPlacement == Models.Ads.AdPlacement.TOP_BANNER)
+                .OrderBy(b => b.DisplayOrder)
+                .ToList();
+
+            if (_topBanner.Count > 0)
+                TopBanner.Image = UI_Images.loadImageFromFile(_topBanner[0].FilePath);
+
+            if (_topBanner.Count > 1)
+            {
+                _adTimer.Interval = 5000;
+                _adTimer.Tick += AdTimer_Tick;
+                _adTimer.Start();
+            }
+        }
+        private void AdTimer_Tick(object? sender, EventArgs e)
+        {
+            _topBannerIndex = (_topBannerIndex + 1) % _topBanner.Count;
+            TopBanner.Image = UI_Images.loadImageFromFile(_topBanner[_topBannerIndex].FilePath);
+        }
+
         private void LoadCategories()
         {
             flowCategories.SuspendLayout();

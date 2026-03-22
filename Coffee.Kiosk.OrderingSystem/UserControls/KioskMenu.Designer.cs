@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KioskMenu));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             flowCategories = new FlowLayoutPanel();
             BottomPanel = new Panel();
             panel1 = new Panel();
@@ -46,14 +46,14 @@
             CartPicture = new PictureBox();
             StartOverBtn = new Guna.UI2.WinForms.Guna2Button();
             AdPanel = new Panel();
-            pictureBox1 = new PictureBox();
+            TopBanner = new PictureBox();
             ContentPanel = new Guna.UI2.WinForms.Guna2Panel();
             BottomPanel.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CartPicture).BeginInit();
             AdPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)TopBanner).BeginInit();
             SuspendLayout();
             // 
             // flowCategories
@@ -97,7 +97,7 @@
             // 
             checkOutBtn.Animated = true;
             checkOutBtn.BorderRadius = 17;
-            checkOutBtn.CustomizableEdges = customizableEdges1;
+            checkOutBtn.CustomizableEdges = customizableEdges8;
             checkOutBtn.DisabledState.BorderColor = Color.DarkGray;
             checkOutBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             checkOutBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -109,7 +109,7 @@
             checkOutBtn.Location = new Point(9, 61);
             checkOutBtn.Margin = new Padding(50);
             checkOutBtn.Name = "checkOutBtn";
-            checkOutBtn.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            checkOutBtn.ShadowDecoration.CustomizableEdges = customizableEdges9;
             checkOutBtn.Size = new Size(250, 56);
             checkOutBtn.TabIndex = 4;
             checkOutBtn.Text = "Proceed to Checkout";
@@ -148,7 +148,7 @@
             cartCounterButton.Location = new Point(84, 6);
             cartCounterButton.Margin = new Padding(0);
             cartCounterButton.Name = "cartCounterButton";
-            cartCounterButton.ShadowDecoration.CustomizableEdges = customizableEdges3;
+            cartCounterButton.ShadowDecoration.CustomizableEdges = customizableEdges10;
             cartCounterButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             cartCounterButton.Size = new Size(35, 35);
             cartCounterButton.TabIndex = 3;
@@ -175,7 +175,7 @@
             StartOverBtn.BorderColor = Color.Transparent;
             StartOverBtn.BorderRadius = 15;
             StartOverBtn.BorderThickness = 1;
-            StartOverBtn.CustomizableEdges = customizableEdges4;
+            StartOverBtn.CustomizableEdges = customizableEdges11;
             StartOverBtn.DisabledState.BorderColor = Color.DarkGray;
             StartOverBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             StartOverBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -188,7 +188,7 @@
             StartOverBtn.Location = new Point(0, 135);
             StartOverBtn.Name = "StartOverBtn";
             StartOverBtn.ShadowDecoration.BorderRadius = 17;
-            StartOverBtn.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            StartOverBtn.ShadowDecoration.CustomizableEdges = customizableEdges12;
             StartOverBtn.ShadowDecoration.Depth = 7;
             StartOverBtn.ShadowDecoration.Enabled = true;
             StartOverBtn.Size = new Size(116, 29);
@@ -198,36 +198,36 @@
             // 
             // AdPanel
             // 
-            AdPanel.Controls.Add(pictureBox1);
+            AdPanel.Controls.Add(TopBanner);
             AdPanel.Dock = DockStyle.Top;
             AdPanel.Location = new Point(0, 0);
             AdPanel.Name = "AdPanel";
             AdPanel.Size = new Size(673, 159);
             AdPanel.TabIndex = 2;
             // 
-            // pictureBox1
+            // TopBanner
             // 
-            pictureBox1.BackColor = Color.Sienna;
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Margin = new Padding(0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(673, 159);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
+            TopBanner.BackColor = Color.Sienna;
+            TopBanner.Dock = DockStyle.Fill;
+            TopBanner.Image = (Image)resources.GetObject("TopBanner.Image");
+            TopBanner.Location = new Point(0, 0);
+            TopBanner.Margin = new Padding(0);
+            TopBanner.Name = "TopBanner";
+            TopBanner.Size = new Size(673, 159);
+            TopBanner.SizeMode = PictureBoxSizeMode.StretchImage;
+            TopBanner.TabIndex = 1;
+            TopBanner.TabStop = false;
             // 
             // ContentPanel
             // 
             ContentPanel.AutoScroll = true;
             ContentPanel.BackColor = Color.SeaShell;
-            ContentPanel.CustomizableEdges = customizableEdges6;
+            ContentPanel.CustomizableEdges = customizableEdges13;
             ContentPanel.Dock = DockStyle.Fill;
             ContentPanel.Location = new Point(220, 159);
             ContentPanel.Name = "ContentPanel";
             ContentPanel.Padding = new Padding(3, 3, 3, 10);
-            ContentPanel.ShadowDecoration.CustomizableEdges = customizableEdges7;
+            ContentPanel.ShadowDecoration.CustomizableEdges = customizableEdges14;
             ContentPanel.Size = new Size(453, 358);
             ContentPanel.TabIndex = 3;
             // 
@@ -247,7 +247,7 @@
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)CartPicture).EndInit();
             AdPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)TopBanner).EndInit();
             ResumeLayout(false);
         }
 
@@ -257,7 +257,7 @@
         private Panel BottomPanel;
         //private Label StartOver_Button;
         private Panel AdPanel;
-        private PictureBox pictureBox1;
+        private PictureBox TopBanner;
         private PictureBox CartPicture;
         private Guna.UI2.WinForms.Guna2Panel ContentPanel;
         private Guna.UI2.WinForms.Guna2Button StartOverBtn;
