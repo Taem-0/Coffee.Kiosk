@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using DrawingColor = System.Drawing.Color;
 using DrawingFont = System.Drawing.Font;
@@ -23,11 +22,13 @@ namespace Coffee.Kiosk.Cashier
         private readonly string _cashierName;
         private readonly string _orderNumber;
         private readonly string _paymentMethod;
+        private readonly string _shopName;
 
         public CashierReceiptDoc(
             List<OrderItemModel> cart,
             decimal total, decimal cash, decimal change,
-            string cashierName, string orderNumber, string paymentMethod)
+            string cashierName, string orderNumber, string paymentMethod,
+            string shopName)
         {
             _cart = cart;
             _total = total;
@@ -36,6 +37,7 @@ namespace Coffee.Kiosk.Cashier
             _cashierName = cashierName;
             _orderNumber = orderNumber;
             _paymentMethod = paymentMethod;
+            _shopName = shopName;
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
@@ -55,16 +57,8 @@ namespace Coffee.Kiosk.Cashier
                         .Text(new string('=', 34)).AlignCenter();
 
                     col.Item()
-                        .Text("CAFÉ FILIPINO")
+                        .Text(_shopName.ToUpper())
                         .FontSize(14).Bold().AlignCenter();
-
-                    col.Item()
-                        .Text("123 Espresso St., Quezon City")
-                        .FontSize(7).AlignCenter();
-
-                    col.Item()
-                        .Text("Tel: (02) 8123-4567")
-                        .FontSize(7).AlignCenter();
 
                     col.Item().PaddingVertical(3)
                         .Text(new string('=', 34)).AlignCenter();
@@ -114,8 +108,7 @@ namespace Coffee.Kiosk.Cashier
 
                     col.Item().Row(row =>
                     {
-                        row.RelativeItem()
-                            .Text("TOTAL").FontSize(11).Bold();
+                        row.RelativeItem().Text("TOTAL").FontSize(11).Bold();
                         row.ConstantItem(70).AlignRight()
                             .Text($"₱{_total:N2}").FontSize(11).Bold();
                     });
@@ -163,7 +156,8 @@ namespace Coffee.Kiosk.Cashier
         public static string Save(
             List<OrderItemModel> cart,
             decimal total, decimal cash, decimal change,
-            string cashierName, string orderNumber, string paymentMethod)
+            string cashierName, string orderNumber, string paymentMethod,
+            string shopName)
         {
             QuestPDF.Settings.License = LicenseType.Community;
 
@@ -179,7 +173,7 @@ namespace Coffee.Kiosk.Cashier
             } while (File.Exists(path));
 
             new CashierReceiptDoc(cart, total, cash, change,
-                cashierName, orderNumber, paymentMethod)
+                cashierName, orderNumber, paymentMethod, shopName)
                 .GeneratePdf(path);
 
             return path;
@@ -196,10 +190,6 @@ namespace Coffee.Kiosk.Cashier
         private string _orderNumber = "";
         private string? _pdfPath = null;
 
-        private static readonly DrawingColor Brown = DrawingColor.FromArgb(107, 79, 58);
-        private static readonly DrawingColor DarkBrown = DrawingColor.FromArgb(59, 35, 20);
-        private static readonly DrawingColor MutedBrown = DrawingColor.FromArgb(160, 130, 100);
-
         public UC_Receipt() { InitializeComponent(); }
 
         public UC_Receipt(
@@ -208,6 +198,8 @@ namespace Coffee.Kiosk.Cashier
             string paymentMethod = "Cash",
             string orderNumber = "") : this()
         {
+            var theme = SessionManager.Theme;
+
             _cart = cart;
             _total = total;
             _cash = cash;
@@ -223,7 +215,8 @@ namespace Coffee.Kiosk.Cashier
                     cart, total, cash, change,
                     SessionManager.CurrentUser.Username,
                     _orderNumber,
-                    paymentMethod);
+                    paymentMethod,
+                    theme.ShopName);
             }
             catch (Exception ex)
             {
@@ -236,6 +229,12 @@ namespace Coffee.Kiosk.Cashier
 
         private void BuildPreview()
         {
+            var theme = SessionManager.Theme;
+
+            DrawingColor primaryColor = theme.PrimaryColor;
+            DrawingColor darkColor = theme.DarkPrimaryColor;
+            DrawingColor mutedColor = theme.AccentColor;
+
             pnlReceipt.Controls.Clear();
             pnlReceipt.BackColor = DrawingColor.White;
             pnlReceipt.AutoScroll = true;
@@ -244,17 +243,15 @@ namespace Coffee.Kiosk.Cashier
             int x = 20;
             int y = 20;
 
-            C("─────────────────────────────────────", new DrawingFont("Courier New", 7f), MutedBrown, w, x, ref y);
-            C("CAFÉ FILIPINO", new DrawingFont("Segoe UI", 15f, FontStyle.Bold), Brown, w, x, ref y);
-            C("2J ELJ AND SON COMMERCIAL BLDG RV5 PH1 CONGRESSIONAL RD BAGUMBONG CALOOCAN CITY", new DrawingFont("Segoe UI", 7.5f), MutedBrown, w, x, ref y);
-            C("Tel: (02) 8123-4567", new DrawingFont("Segoe UI", 7.5f), MutedBrown, w, x, ref y);
+            C("─────────────────────────────────────", new DrawingFont("Courier New", 7f), mutedColor, w, x, ref y);
+            C(theme.ShopName.ToUpper(), new DrawingFont("Segoe UI", 15f, System.Drawing.FontStyle.Bold), primaryColor, w, x, ref y);
             y += 4;
-            C("─────────────────────────────────────", new DrawingFont("Courier New", 7f), MutedBrown, w, x, ref y);
+            C("─────────────────────────────────────", new DrawingFont("Courier New", 7f), mutedColor, w, x, ref y);
             y += 4;
 
-            C($"ORDER #{_orderNumber}", new DrawingFont("Segoe UI", 11f, FontStyle.Bold), DarkBrown, w, x, ref y);
-            C(DateTime.Now.ToString("MMMM dd, yyyy   hh:mm tt"), new DrawingFont("Segoe UI", 8f), MutedBrown, w, x, ref y);
-            C($"Cashier: {SessionManager.CurrentUser.Username}", new DrawingFont("Segoe UI", 8f), MutedBrown, w, x, ref y);
+            C($"ORDER #{_orderNumber}", new DrawingFont("Segoe UI", 11f, System.Drawing.FontStyle.Bold), darkColor, w, x, ref y);
+            C(DateTime.Now.ToString("MMMM dd, yyyy   hh:mm tt"), new DrawingFont("Segoe UI", 8f), mutedColor, w, x, ref y);
+            C($"Cashier: {SessionManager.CurrentUser.Username}", new DrawingFont("Segoe UI", 8f), mutedColor, w, x, ref y);
             y += 4;
             D(x, w, ref y);
             y += 4;
@@ -262,38 +259,38 @@ namespace Coffee.Kiosk.Cashier
             foreach (var item in _cart)
             {
                 R($"{item.Item.ItemName}  x{item.Quantity}", $"₱{item.Subtotal:N2}",
-                    new DrawingFont("Segoe UI", 9f, FontStyle.Bold), DarkBrown, x, w, ref y);
+                    new DrawingFont("Segoe UI", 9f, System.Drawing.FontStyle.Bold), darkColor, x, w, ref y);
 
                 string s = item.Customization.Summary();
                 if (!string.IsNullOrEmpty(s))
-                    L($"  {s}", new DrawingFont("Segoe UI", 7.5f, FontStyle.Italic), MutedBrown, x + 8, w - 8, ref y);
+                    L($"  {s}", new DrawingFont("Segoe UI", 7.5f, System.Drawing.FontStyle.Italic), mutedColor, x + 8, w - 8, ref y);
                 y += 2;
             }
 
             y += 4; D(x, w, ref y); y += 4;
 
-            R("TOTAL", $"₱{_total:N2}", new DrawingFont("Segoe UI", 12f, FontStyle.Bold), Brown, x, w, ref y);
+            R("TOTAL", $"₱{_total:N2}", new DrawingFont("Segoe UI", 12f, System.Drawing.FontStyle.Bold), primaryColor, x, w, ref y);
             y += 4; D(x, w, ref y); y += 4;
 
-            R("Payment", _paymentMethod, new DrawingFont("Segoe UI", 8.5f), MutedBrown, x, w, ref y);
+            R("Payment", _paymentMethod, new DrawingFont("Segoe UI", 8.5f), mutedColor, x, w, ref y);
             if (_paymentMethod == "Cash")
             {
-                R("Cash Tendered", $"₱{_cash:N2}", new DrawingFont("Segoe UI", 8.5f), MutedBrown, x, w, ref y);
-                R("Change", $"₱{_change:N2}", new DrawingFont("Segoe UI", 8.5f), MutedBrown, x, w, ref y);
+                R("Cash Tendered", $"₱{_cash:N2}", new DrawingFont("Segoe UI", 8.5f), mutedColor, x, w, ref y);
+                R("Change", $"₱{_change:N2}", new DrawingFont("Segoe UI", 8.5f), mutedColor, x, w, ref y);
             }
 
             y += 8;
-            C("─────────────────────────────────────", new DrawingFont("Courier New", 7f), MutedBrown, w, x, ref y);
+            C("─────────────────────────────────────", new DrawingFont("Courier New", 7f), mutedColor, w, x, ref y);
             y += 4;
-            C("Thank you for visiting!", new DrawingFont("Segoe UI", 9f, FontStyle.Bold), Brown, w, x, ref y);
-            C("Please come again ☕", new DrawingFont("Segoe UI", 8f, FontStyle.Italic), MutedBrown, w, x, ref y);
+            C("Thank you for visiting!", new DrawingFont("Segoe UI", 9f, System.Drawing.FontStyle.Bold), primaryColor, w, x, ref y);
+            C("Please come again ☕", new DrawingFont("Segoe UI", 8f, System.Drawing.FontStyle.Italic), mutedColor, w, x, ref y);
             y += 4;
-            C("─────────────────────────────────────", new DrawingFont("Courier New", 7f), MutedBrown, w, x, ref y);
+            C("─────────────────────────────────────", new DrawingFont("Courier New", 7f), mutedColor, w, x, ref y);
 
             if (_pdfPath != null)
             {
                 y += 10;
-                C("PDF saved to C:\\Images\\Receipts", new DrawingFont("Segoe UI", 7f), MutedBrown, w, x, ref y);
+                C("PDF saved to C:\\Images\\Receipts", new DrawingFont("Segoe UI", 7f), mutedColor, w, x, ref y);
             }
 
             pnlReceipt.Height = y + 20;
@@ -301,24 +298,25 @@ namespace Coffee.Kiosk.Cashier
 
         void C(string t, DrawingFont f, DrawingColor c, int w, int x, ref int y)
         {
-            var l = new Label { Text = t, Font = f, ForeColor = c, AutoSize = false, Width = w, Height = (int)f.GetHeight() + 8, Location = new DrawingPoint(x, y), TextAlign = ContentAlignment.MiddleCenter, BackColor = DrawingColor.Transparent };
+            var l = new Label { Text = t, Font = f, ForeColor = c, AutoSize = false, Width = w, Height = (int)f.GetHeight() + 8, Location = new DrawingPoint(x, y), TextAlign = System.Drawing.ContentAlignment.MiddleCenter, BackColor = DrawingColor.Transparent };
             pnlReceipt.Controls.Add(l); y += l.Height + 1;
         }
         void L(string t, DrawingFont f, DrawingColor c, int x, int w, ref int y)
         {
-            var l = new Label { Text = t, Font = f, ForeColor = c, AutoSize = false, Width = w, Height = (int)f.GetHeight() + 6, Location = new DrawingPoint(x, y), TextAlign = ContentAlignment.MiddleLeft, BackColor = DrawingColor.Transparent };
+            var l = new Label { Text = t, Font = f, ForeColor = c, AutoSize = false, Width = w, Height = (int)f.GetHeight() + 6, Location = new DrawingPoint(x, y), TextAlign = System.Drawing.ContentAlignment.MiddleLeft, BackColor = DrawingColor.Transparent };
             pnlReceipt.Controls.Add(l); y += l.Height;
         }
         void R(string left, string right, DrawingFont f, DrawingColor c, int x, int w, ref int y)
         {
             int h = (int)f.GetHeight() + 8;
-            pnlReceipt.Controls.Add(new Label { Text = left, Font = f, ForeColor = c, AutoSize = false, Width = w * 2 / 3, Height = h, Location = new DrawingPoint(x, y), TextAlign = ContentAlignment.MiddleLeft, BackColor = DrawingColor.Transparent });
-            pnlReceipt.Controls.Add(new Label { Text = right, Font = f, ForeColor = c, AutoSize = false, Width = w / 3, Height = h, Location = new DrawingPoint(x + w * 2 / 3, y), TextAlign = ContentAlignment.MiddleRight, BackColor = DrawingColor.Transparent });
+            pnlReceipt.Controls.Add(new Label { Text = left, Font = f, ForeColor = c, AutoSize = false, Width = w * 2 / 3, Height = h, Location = new DrawingPoint(x, y), TextAlign = System.Drawing.ContentAlignment.MiddleLeft, BackColor = DrawingColor.Transparent });
+            pnlReceipt.Controls.Add(new Label { Text = right, Font = f, ForeColor = c, AutoSize = false, Width = w / 3, Height = h, Location = new DrawingPoint(x + w * 2 / 3, y), TextAlign = System.Drawing.ContentAlignment.MiddleRight, BackColor = DrawingColor.Transparent });
             y += h + 2;
         }
         void D(int x, int w, ref int y)
         {
-            var l = new Label { Text = new string('-', 52), Font = new DrawingFont("Courier New", 7f), ForeColor = DrawingColor.FromArgb(200, 185, 165), AutoSize = false, Width = w, Height = 14, Location = new DrawingPoint(x, y), TextAlign = ContentAlignment.MiddleCenter, BackColor = DrawingColor.Transparent };
+            var theme = SessionManager.Theme;
+            var l = new Label { Text = new string('-', 52), Font = new DrawingFont("Courier New", 7f), ForeColor = theme.AccentColor, AutoSize = false, Width = w, Height = 14, Location = new DrawingPoint(x, y), TextAlign = System.Drawing.ContentAlignment.MiddleCenter, BackColor = DrawingColor.Transparent };
             pnlReceipt.Controls.Add(l); y += 14;
         }
 

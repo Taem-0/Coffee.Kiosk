@@ -21,19 +21,27 @@ namespace Coffee.Kiosk.Cashier
 
         public UC_Payment(List<OrderItemModel> cart, decimal total) : this()
         {
-            Init(cart, total, 0);
+            Init(cart, total, 0, "Cash");
         }
 
         public UC_Payment(List<OrderItemModel> cart, decimal total, int kioskOrderId) : this()
         {
-            Init(cart, total, kioskOrderId);
+            Init(cart, total, kioskOrderId, "Cash");
         }
 
-        private void Init(List<OrderItemModel> cart, decimal total, int kioskOrderId)
+        public UC_Payment(List<OrderItemModel> cart, decimal total, int kioskOrderId, string defaultPayment) : this()
+        {
+            Init(cart, total, kioskOrderId, defaultPayment);
+        }
+
+        private void Init(List<OrderItemModel> cart, decimal total, int kioskOrderId, string defaultPayment)
         {
             _cart = cart;
             _total = total;
             _kioskOrderId = kioskOrderId;
+
+            var theme = SessionManager.Theme;
+            var gcashGreen = Color.FromArgb(0, 119, 60);
 
             btnConfirm.Enabled = false;
             btnBack.Enabled = true;
@@ -46,18 +54,23 @@ namespace Coffee.Kiosk.Cashier
             btnCash.Click += (s, e) => SetPaymentMethod("Cash");
             btnGcash.Click += (s, e) => SetPaymentMethod("GCash");
 
-            var brown = Color.FromArgb(107, 79, 58);
-            var green = Color.FromArgb(0, 119, 60);
+            btnCash.FillColor = Color.White;
+            btnCash.ForeColor = theme.PrimaryColor;
+            btnCash.BorderColor = theme.PrimaryColor;
+            btnCash.BorderRadius = 8;
 
-            btnCash.FillColor = Color.White; btnCash.ForeColor = brown; btnCash.BorderColor = brown; btnCash.BorderRadius = 8;
-            btnGcash.FillColor = Color.White; btnGcash.ForeColor = green; btnGcash.BorderColor = green; btnGcash.BorderRadius = 8;
+            btnGcash.FillColor = Color.White;
+            btnGcash.ForeColor = gcashGreen;
+            btnGcash.BorderColor = gcashGreen;
+            btnGcash.BorderRadius = 8;
 
-            // Kiosk orders default to GCash; manual cashier orders default to Cash
-            SetPaymentMethod(_kioskOrderId > 0 ? "GCash" : "Cash");
+            string initialMethod = string.IsNullOrEmpty(defaultPayment) ? "Cash" : defaultPayment;
+            SetPaymentMethod(initialMethod);
         }
 
         private void LoadSummary()
         {
+            var theme = SessionManager.Theme;
             pnlSummary.Controls.Clear();
             int y = 8;
 
@@ -72,7 +85,7 @@ namespace Coffee.Kiosk.Cashier
                 pnlSummary.Controls.Add(new Label
                 {
                     Text = display,
-                    ForeColor = Color.FromArgb(107, 79, 58),
+                    ForeColor = theme.PrimaryColor,
                     Font = new Font("Segoe UI", 9f),
                     AutoSize = false,
                     Width = pnlSummary.Width - 110,
@@ -82,7 +95,7 @@ namespace Coffee.Kiosk.Cashier
                 pnlSummary.Controls.Add(new Label
                 {
                     Text = $"₱{item.Subtotal:N2}",
-                    ForeColor = Color.FromArgb(59, 35, 20),
+                    ForeColor = theme.DarkPrimaryColor,
                     Font = new Font("Segoe UI", 9f, FontStyle.Bold),
                     AutoSize = false,
                     Width = 90,
@@ -105,7 +118,7 @@ namespace Coffee.Kiosk.Cashier
             pnlSummary.Controls.Add(new Label
             {
                 Text = $"Total:   ₱{_total:N2}",
-                ForeColor = Color.FromArgb(59, 35, 20),
+                ForeColor = theme.DarkPrimaryColor,
                 Font = new Font("Segoe UI", 10f, FontStyle.Bold),
                 AutoSize = false,
                 Width = pnlSummary.Width - 20,
@@ -114,7 +127,6 @@ namespace Coffee.Kiosk.Cashier
             });
         }
 
-        // Only hides/shows cash-specific controls — buttons always stay visible
         private void SetCashControlsVisible(bool visible)
         {
             lblSummary.Visible = visible;
@@ -132,17 +144,16 @@ namespace Coffee.Kiosk.Cashier
         {
             _paymentMethod = method;
 
-            var brown = Color.FromArgb(107, 79, 58);
-            var green = Color.FromArgb(0, 119, 60);
+            var theme = SessionManager.Theme;
+            var gcashGreen = Color.FromArgb(0, 119, 60);
 
-            // Reset both buttons to unselected state
-            btnCash.FillColor = Color.White; btnCash.ForeColor = brown; btnCash.BorderColor = brown;
-            btnGcash.FillColor = Color.White; btnGcash.ForeColor = green; btnGcash.BorderColor = green;
+            btnCash.FillColor = Color.White; btnCash.ForeColor = theme.PrimaryColor; btnCash.BorderColor = theme.PrimaryColor;
+            btnGcash.FillColor = Color.White; btnGcash.ForeColor = gcashGreen; btnGcash.BorderColor = gcashGreen;
 
             switch (method)
             {
                 case "Cash":
-                    btnCash.FillColor = brown;
+                    btnCash.FillColor = theme.PrimaryColor;
                     btnCash.ForeColor = Color.White;
                     SetCashControlsVisible(true);
                     HideEWalletInfo();
@@ -152,13 +163,12 @@ namespace Coffee.Kiosk.Cashier
                     break;
 
                 case "GCash":
-                    btnGcash.FillColor = green;
+                    btnGcash.FillColor = gcashGreen;
                     btnGcash.ForeColor = Color.White;
-                    // Hide cash inputs but btnCash and btnGcash remain visible
                     SetCashControlsVisible(false);
                     lblChangeAmt.Text = "N/A";
                     btnConfirm.Enabled = true;
-                    ShowEWalletInfo("GCash", "0917-123-4567", green);
+                    ShowEWalletInfo("GCash", "0917-123-4567", gcashGreen);
                     break;
             }
         }
@@ -167,7 +177,7 @@ namespace Coffee.Kiosk.Cashier
         {
             HideEWalletInfo();
 
-            // Place the eWallet panel below the Cash/GCash buttons, not over them
+            var theme = SessionManager.Theme;
             int topY = btnCash.Bottom + 16;
 
             _pnlEWallet = new Panel
@@ -175,13 +185,13 @@ namespace Coffee.Kiosk.Cashier
                 Location = new Point(btnCash.Left, topY),
                 Width = pnlPayLeft.Width - (btnCash.Left * 2),
                 Height = 160,
-                BackColor = Color.FromArgb(245, 250, 255),
+                BackColor = theme.BackgroundColor,
                 BorderStyle = BorderStyle.FixedSingle
             };
 
             var lblTitle = new Label { Text = $"  {method} Payment", Font = new Font("Segoe UI", 12f, FontStyle.Bold), ForeColor = color, Dock = DockStyle.Top, Height = 36, TextAlign = ContentAlignment.MiddleLeft };
-            var lblNum = new Label { Text = $"  Send to:  {number}", Font = new Font("Segoe UI", 10f), ForeColor = Color.FromArgb(44, 34, 24), Dock = DockStyle.Top, Height = 26 };
-            var lblAcc = new Label { Text = "  Account:  Café Filipino", Font = new Font("Segoe UI", 10f), ForeColor = Color.FromArgb(44, 34, 24), Dock = DockStyle.Top, Height = 26 };
+            var lblNum = new Label { Text = $"  Send to:  {number}", Font = new Font("Segoe UI", 10f), ForeColor = theme.DarkPrimaryColor, Dock = DockStyle.Top, Height = 26 };
+            var lblAcc = new Label { Text = $"  Account:  {SessionManager.Theme.ShopName}", Font = new Font("Segoe UI", 10f), ForeColor = theme.DarkPrimaryColor, Dock = DockStyle.Top, Height = 26 };
             var lblAmt = new Label { Text = $"  Amount:  ₱{_total:N2}", Font = new Font("Segoe UI", 11f, FontStyle.Bold), ForeColor = color, Dock = DockStyle.Top, Height = 30 };
             var lblNote = new Label { Text = "  Ask customer to show screenshot before confirming.", Font = new Font("Segoe UI", 8f, FontStyle.Italic), ForeColor = Color.Gray, Dock = DockStyle.Top, Height = 22 };
 
@@ -205,18 +215,20 @@ namespace Coffee.Kiosk.Cashier
 
         private void CalcChange()
         {
+            var theme = SessionManager.Theme;
             if (decimal.TryParse(guna2TextBox1.Text, out decimal cash))
             {
                 decimal change = cash - _total;
                 lblChangeAmt.Text = $"₱{Math.Abs(change):N2}";
                 lblChangeAmt.ForeColor = change >= 0
-                    ? Color.FromArgb(46, 125, 82) : Color.FromArgb(192, 96, 122);
+                    ? Color.FromArgb(46, 125, 82)
+                    : Color.FromArgb(192, 96, 122);
                 btnConfirm.Enabled = change >= 0;
             }
             else
             {
                 lblChangeAmt.Text = "₱0.00";
-                lblChangeAmt.ForeColor = Color.FromArgb(107, 79, 58);
+                lblChangeAmt.ForeColor = theme.PrimaryColor;
                 btnConfirm.Enabled = false;
             }
         }
@@ -234,11 +246,11 @@ namespace Coffee.Kiosk.Cashier
 
             decimal change = _paymentMethod == "Cash" ? cash - _total : 0;
 
-            if (_paymentMethod != "Cash")
+            if (_paymentMethod == "GCash")
             {
                 var ok = MessageBox.Show(
-                    $"Confirm {_paymentMethod} payment of ₱{_total:N2}?\n\nCustomer has shown the screenshot?",
-                    $"Confirm {_paymentMethod}",
+                    $"Confirm GCash payment of ₱{_total:N2}?\n\nCustomer has shown the GCash screenshot?",
+                    "Confirm GCash Payment",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (ok != DialogResult.Yes) return;
             }
