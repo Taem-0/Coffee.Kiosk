@@ -19,26 +19,8 @@ namespace Coffee.Kiosk.Cashier
 
             this.Dock = DockStyle.Top;
             this.Height = 56;
-            this.BackColor = Color.FromArgb(130, 95, 70);   // slightly lighter than pnlRight so rows stand out
+            this.BackColor = Color.FromArgb(130, 95, 70);
             this.Padding = new Padding(8, 4, 8, 4);
-
-            // Minus button — white fill with dark text, clearly visible on any brown bg
-            btnMinus.Text = "−";
-            btnMinus.Font = new Font("Arial", 12f, FontStyle.Bold);
-            btnMinus.FillColor = Color.White;
-            btnMinus.ForeColor = Color.FromArgb(107, 77, 58);
-            btnMinus.BorderColor = Color.FromArgb(200, 170, 130);
-            btnMinus.BorderThickness = 1;
-            btnMinus.BorderRadius = 6;
-
-            // Plus button — white fill with dark text, clearly visible on any brown bg
-            btnPlus.Text = "+";
-            btnPlus.Font = new Font("Arial", 12f, FontStyle.Bold);
-            btnPlus.FillColor = Color.White;
-            btnPlus.ForeColor = Color.FromArgb(107, 77, 58);
-            btnPlus.BorderColor = Color.FromArgb(200, 170, 130);
-            btnPlus.BorderThickness = 1;
-            btnPlus.BorderRadius = 6;
 
             lblItemName.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
             lblItemName.ForeColor = Color.White;
@@ -151,6 +133,7 @@ namespace Coffee.Kiosk.Cashier
             }
         }
 
+        private void guna2Button1_Click(object sender, EventArgs e) { }
         private void lblItemName_Click(object sender, EventArgs e) { }
         private void UC_OrderRow_Load(object sender, EventArgs e) { }
         private void lblQty_Click(object sender, EventArgs e) { }
