@@ -152,6 +152,19 @@ namespace Coffee.Kiosk.CMS.Controllers
             }
         }
 
+        public bool ResetPasswordToDefault(int employeeId)
+        {
+            try
+            {
+                _service.ResetToDefaultPassword(employeeId);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool HasPendingResetRequest(int employeeId)
         {
             try

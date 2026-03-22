@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
+            peakHourNum = new Label();
+            slowestHourNum = new Label();
             label4 = new Label();
             SuspendLayout();
             // 
@@ -43,23 +43,23 @@
             label1.TabIndex = 0;
             label1.Text = "Peak Hours:";
             // 
-            // label2
+            // peakHourNum
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(164, 32);
-            label2.Name = "label2";
-            label2.Size = new Size(74, 25);
-            label2.TabIndex = 1;
-            label2.Text = "number";
+            peakHourNum.AutoSize = true;
+            peakHourNum.Location = new Point(164, 32);
+            peakHourNum.Name = "peakHourNum";
+            peakHourNum.Size = new Size(74, 25);
+            peakHourNum.TabIndex = 1;
+            peakHourNum.Text = "number";
             // 
-            // label3
+            // slowestHourNum
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(703, 32);
-            label3.Name = "label3";
-            label3.Size = new Size(74, 25);
-            label3.TabIndex = 3;
-            label3.Text = "number";
+            slowestHourNum.AutoSize = true;
+            slowestHourNum.Location = new Point(703, 32);
+            slowestHourNum.Name = "slowestHourNum";
+            slowestHourNum.Size = new Size(74, 25);
+            slowestHourNum.TabIndex = 3;
+            slowestHourNum.Text = "number";
             // 
             // label4
             // 
@@ -74,9 +74,9 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label3);
+            Controls.Add(slowestHourNum);
             Controls.Add(label4);
-            Controls.Add(label2);
+            Controls.Add(peakHourNum);
             Controls.Add(label1);
             Name = "PeakHours";
             Size = new Size(850, 90);
@@ -87,8 +87,8 @@
         #endregion
 
         private Label label1;
-        private Label label2;
-        private Label label3;
+        private Label peakHourNum;
+        private Label slowestHourNum;
         private Label label4;
     }
 }

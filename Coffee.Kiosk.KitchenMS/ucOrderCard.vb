@@ -49,7 +49,7 @@
         ApplyRoundedCorners()
 
         ' header info
-        lblOrderNumber.Text = "Order #" & order.OrderNumber
+        lblOrderNumber.Text = "ORDER #" & order.OrderNumber
         lblOrderTime.Text = order.OrderTime.ToString("HH:mm")
 
         ' order type badge color
