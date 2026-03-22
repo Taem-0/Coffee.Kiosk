@@ -69,14 +69,14 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.Reusables
 
         private void ModalCustomizeScreen_Load(object sender, EventArgs e)
         {
-            UI_Handling.centerPanel(topPanel, guna2ShadowPanel1);
+            UI_Handling.centerPanel(topPanel, guna2Panel2);
             LoadModifierGroups(ProductId);
             UpdateAddToCartState();
         }
 
         private void ModalCustomizeScreen_Resize(object sender, EventArgs e)
         {
-            UI_Handling.centerPanel(topPanel, guna2ShadowPanel1);
+            UI_Handling.centerPanel(topPanel, guna2Panel2);
         }
 
         private void AddAmountBtn_Click(object sender, EventArgs e)
