@@ -70,7 +70,7 @@
             topPanel.Dock = DockStyle.Top;
             topPanel.Location = new Point(0, 0);
             topPanel.Name = "topPanel";
-            topPanel.Size = new Size(574, 179);
+            topPanel.Size = new Size(574, 214);
             topPanel.TabIndex = 0;
             // 
             // guna2ShadowPanel1
@@ -84,7 +84,7 @@
             guna2ShadowPanel1.Name = "guna2ShadowPanel1";
             guna2ShadowPanel1.Radius = 5;
             guna2ShadowPanel1.ShadowColor = Color.Black;
-            guna2ShadowPanel1.Size = new Size(138, 146);
+            guna2ShadowPanel1.Size = new Size(166, 189);
             guna2ShadowPanel1.TabIndex = 4;
             // 
             // pictureBox1
@@ -93,7 +93,7 @@
             pictureBox1.Image = Properties.Resources.default_icon;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(138, 96);
+            pictureBox1.Size = new Size(166, 139);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -102,9 +102,9 @@
             // 
             ProductNameLbl.Dock = DockStyle.Bottom;
             ProductNameLbl.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ProductNameLbl.Location = new Point(0, 96);
+            ProductNameLbl.Location = new Point(0, 139);
             ProductNameLbl.Name = "ProductNameLbl";
-            ProductNameLbl.Size = new Size(138, 22);
+            ProductNameLbl.Size = new Size(166, 22);
             ProductNameLbl.TabIndex = 1;
             ProductNameLbl.Text = "Product_Name";
             ProductNameLbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -115,9 +115,9 @@
             panel2.Controls.Add(SubtractAmountButton);
             panel2.Controls.Add(AddAmountBtn);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 118);
+            panel2.Location = new Point(0, 161);
             panel2.Name = "panel2";
-            panel2.Size = new Size(138, 28);
+            panel2.Size = new Size(166, 28);
             panel2.TabIndex = 3;
             // 
             // AmountLbl
@@ -125,7 +125,7 @@
             AmountLbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             AmountLbl.Location = new Point(48, 0);
             AmountLbl.Name = "AmountLbl";
-            AmountLbl.Size = new Size(42, 25);
+            AmountLbl.Size = new Size(72, 25);
             AmountLbl.TabIndex = 3;
             AmountLbl.Text = "13";
             AmountLbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -165,7 +165,7 @@
             AddAmountBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             AddAmountBtn.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             AddAmountBtn.ForeColor = Color.White;
-            AddAmountBtn.Location = new Point(90, 0);
+            AddAmountBtn.Location = new Point(118, 0);
             AddAmountBtn.Name = "AddAmountBtn";
             AddAmountBtn.PressedDepth = 0;
             AddAmountBtn.ShadowDecoration.CustomizableEdges = customizableEdges4;
@@ -182,6 +182,7 @@
             button1.TabIndex = 3;
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
+            button1.Visible = false;
             button1.Click += button1_Click;
             // 
             // flowLayoutPanel1
@@ -189,9 +190,9 @@
             flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(0, 179);
+            flowLayoutPanel1.Location = new Point(0, 214);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(574, 353);
+            flowLayoutPanel1.Size = new Size(574, 318);
             flowLayoutPanel1.TabIndex = 1;
             flowLayoutPanel1.WrapContents = false;
             // 
@@ -199,7 +200,6 @@
             // 
             guna2Panel1.BackColor = Color.Transparent;
             guna2Panel1.BorderColor = Color.Gray;
-            guna2Panel1.BorderRadius = 17;
             guna2Panel1.Controls.Add(TotalAmountLbl);
             guna2Panel1.Controls.Add(label1);
             guna2Panel1.Controls.Add(panel1);
@@ -334,7 +334,6 @@
         private Guna.UI2.WinForms.Guna2Button AddAmountBtn;
         private Panel panel2;
         private Guna.UI2.WinForms.Guna2Button SubtractAmountButton;
-        private Button button1;
         private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Panel panel1;
@@ -343,5 +342,6 @@
         private Label invalidLabel;
         private Label TotalAmountLbl;
         private Label label1;
+        private Button button1;
     }
 }

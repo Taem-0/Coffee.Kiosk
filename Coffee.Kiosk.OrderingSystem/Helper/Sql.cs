@@ -466,7 +466,6 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
                 var result = cmd.ExecuteScalar();
 
-                // If any row exists → insufficient stock found
                 return result == null;
             }
             catch
@@ -536,6 +535,46 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 MessageBox.Show($"Error\n{ex.Message}");
                 return null;
             }
+        }
+
+        internal static List<Models.Ads.Banners> GetAds()
+        {
+            var result = new List<Models.Ads.Banners>();
+            try
+            {
+                using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = """
+                SELECT * FROM kiosk_banners;
+                """;
+
+                using var row = cmd.ExecuteReader();
+                while(row.Read())
+                {
+                    var placement = row.GetString("Placement") switch
+                    {
+                        "Starting Screen" => Models.Ads.AdPlacement.STARTING_SCREEN,
+                        "Top Banner" => Models.Ads.AdPlacement.TOP_BANNER,
+                        "Home Page Banner 1" => Models.Ads.AdPlacement.HOME_PAGE_BANNER_1,
+                        "Home Page Banner 2" => Models.Ads.AdPlacement.HOME_PAGE_BANNER_2,
+                        _ => Models.Ads.AdPlacement.HOME_PAGE_BANNER_1
+                    };
+
+                    result.Add(new Models.Ads.Banners(
+                        row.GetInt32("ID"),
+                        row.GetString("FilePath"),
+                        placement,
+                        row.GetInt32("ID")
+                        ));
+                }
+
+            }catch (Exception ex)
+            {
+                MessageBox.Show($"Error\n{ex.Message}");
+            }
+            return result;
         }
 
     }

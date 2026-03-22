@@ -72,6 +72,9 @@ namespace Coffee.Kiosk.OrderingSystem
 
             Models.Category.LoadFromDataBase();
             Models.Product.LoadFromDataBase();
+
+            Models.Ads.LoadFromDatabase();
+
             Models.UiAssets.LoadFromDatabase();
             UI_Images.loadLogoImage();
 
@@ -276,6 +279,9 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             Models.Category.LoadFromDataBase();
             Models.Product.LoadFromDataBase();
+
+            Models.Ads.LoadFromDatabase();
+
             Models.UiAssets.LoadFromDatabase();
             UI_Images.loadLogoImage();
 
@@ -545,6 +551,15 @@ namespace Coffee.Kiosk.OrderingSystem
 
             _idleTimer.Stop();
             ResetIdleWarning();
+
+            Models.Category.LoadFromDataBase();
+            Models.Product.LoadFromDataBase();
+
+            Models.Ads.LoadFromDatabase();
+
+            Models.UiAssets.LoadFromDatabase();
+            UI_Images.loadLogoImage();
+
             ShowGetStartedScreen();
         }
 
