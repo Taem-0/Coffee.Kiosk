@@ -1,7 +1,9 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
+using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
@@ -11,17 +13,13 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
         public AdminControlForm? ParentFormReference { get; set; }
         private readonly AccountController _controller;
         private DashboardController? _dashboardController;
+        private readonly ShopController _themeController;
 
-        private Color _darkBrown = ColorTranslator.FromHtml("#3d211a");
-        private Color _mediumBrown = ColorTranslator.FromHtml("#6f4d38");
-        private Color _lightBrown = ColorTranslator.FromHtml("#a07856");
-        private Color _beige = ColorTranslator.FromHtml("#cbb799");
-        private Color _background = ColorTranslator.FromHtml("#f5f5dc");
-
-        public DashBoardControl(AccountController accountController)
+        public DashBoardControl(AccountController accountController, ShopController themeController)
         {
             InitializeComponent();
             _controller = accountController ?? throw new ArgumentNullException(nameof(accountController));
+            _themeController = themeController ?? throw new ArgumentNullException(nameof(themeController));
 
             guna2PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             guna2PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -34,7 +32,79 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             TimeLineDropDown.Items.Add("This year");
             TimeLineDropDown.SelectedIndex = 0;
 
-            ApplyTheme();
+            var uiTheme = UIhelp.ThemeManager.BuildUITheme(_themeController);
+            ApplyFullTheme(uiTheme);
+
+            UIhelp.ThemeManager.ThemeChanged += OnThemeChanged;
+        }
+
+
+
+        private void OnThemeChanged(object? sender, UIhelp.UITheme theme)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(() => OnThemeChanged(sender, theme));
+                return;
+            }
+            ApplyFullTheme(theme);
+            this.Refresh();
+        }
+
+        private void ApplyFullTheme(UIhelp.UITheme theme)
+        {
+            UIhelp.ThemeManager.ApplyTheme(this, theme);
+
+            salesOverTime1.ApplyTheme(theme);
+            ordersOverTime1.ApplyTheme(theme);
+            dineInvsTakeout1.ApplyTheme(theme);
+            peakHours1.ApplyTheme(theme);
+
+            guna2Panel1.FillColor = theme.Primary;
+            guna2Panel1.BackColor = theme.Primary;
+            guna2Panel1.BorderColor = theme.DarkPrimary;
+            guna2Panel1.BorderThickness = 1;
+
+            tableLayoutPanel3.BackColor = Color.Transparent;
+
+            TimeLineDropDown.FillColor = theme.Background;
+            TimeLineDropDown.BorderColor = theme.Background;
+            TimeLineDropDown.ForeColor = Color.White;
+            TimeLineDropDown.HoverState.FillColor = theme.Primary;
+            TimeLineDropDown.HoverState.BorderColor = theme.Primary;
+            TimeLineDropDown.FocusedState.FillColor = theme.Primary;
+
+            ApplyComboBoxTheme(TimeLineDropDown, theme);
+            ApplyContainerTheme(guna2ContainerControl1, theme);
+            ApplyContainerTheme(guna2ContainerControl2, theme);
+            ApplyContainerTheme(guna2ContainerControl3, theme);
+            ApplyContainerTheme(guna2ContainerControl4, theme);
+        }
+
+
+
+        private void ApplyComboBoxTheme(Guna.UI2.WinForms.Guna2ComboBox comboBox, UIhelp.UITheme theme)
+        {
+            comboBox.FillColor = theme.Primary;
+            comboBox.BorderColor = theme.Primary;
+            comboBox.ForeColor = Color.White;
+            comboBox.HoverState.BorderColor = theme.Primary;
+            comboBox.HoverState.FillColor = theme.Primary;
+            comboBox.FocusedState.BorderColor = theme.Primary;
+            comboBox.FocusedState.FillColor = theme.Primary; 
+            comboBox.BorderRadius = 17;
+            comboBox.ItemHeight = 30;
+            comboBox.ItemsAppearance.BackColor = theme.Accent;
+            comboBox.ItemsAppearance.ForeColor = theme.DarkPrimary;
+            comboBox.ItemsAppearance.SelectedBackColor = theme.Secondary;
+            comboBox.ItemsAppearance.SelectedForeColor = Color.White;
+        }
+
+        private void ApplyContainerTheme(Guna.UI2.WinForms.Guna2ContainerControl container, UIhelp.UITheme theme)
+        {
+            container.BorderColor = theme.Primary;
+            container.BorderThickness = 2;
+            container.BorderRadius = 25;
         }
 
         public void Initialize(DashboardController dashboardController)
@@ -56,77 +126,16 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
 
             var data = _dashboardController.GetDashboardData(filter);
 
+            transactionsNum.Text = data.TodayOrders.ToString();
+            totalQTYNum.Text = data.TopProducts.Sum(p => p.Quantity).ToString();
+            totalRevenueNum.Text = $"₱{data.TodayRevenue:N2}";
+            totalProfitNum.Text = $"₱{data.TodayRevenue:N2}";
+
             salesOverTime1.LoadData(data);
             ordersOverTime1.LoadData(data);
             dineInvsTakeout1.LoadData(data);
             peakHours1.LoadData(data);
             topSellingProducts1.LoadData(data);
-        }
-
-        private void ApplyTheme()
-        {
-            this.BackColor = _background;
-            this.ForeColor = _darkBrown;
-
-            guna2Panel1.FillColor = _mediumBrown;
-            guna2Panel1.BackColor = _mediumBrown;
-            guna2Panel1.BorderColor = _darkBrown;
-            guna2Panel1.BorderThickness = 1;
-
-            ApplyTextBoxTheme(guna2TextBox1);
-
-            label1.ForeColor = _darkBrown;
-            label1.BackColor = Color.Transparent;
-
-            DropDownContainer.FillColor = _mediumBrown;
-            DropDownContainer.ForeColor = Color.White;
-
-            TimeLineLabel.BackColor = _mediumBrown;
-            TimeLineLabel.ForeColor = Color.White;
-
-            ApplyComboBoxTheme(TimeLineDropDown);
-
-            ApplyContainerTheme(guna2ContainerControl1);
-            ApplyContainerTheme(guna2ContainerControl2);
-            ApplyContainerTheme(guna2ContainerControl3);
-            ApplyContainerTheme(guna2ContainerControl4);
-
-            tableLayoutPanel3.BackColor = Color.Transparent;
-        }
-
-        private void ApplyTextBoxTheme(Guna.UI2.WinForms.Guna2TextBox textBox)
-        {
-            textBox.BorderColor = _mediumBrown;
-            textBox.FocusedState.BorderColor = _lightBrown;
-            textBox.HoverState.BorderColor = _lightBrown;
-            textBox.FillColor = Color.White;
-            textBox.ForeColor = _darkBrown;
-            textBox.PlaceholderForeColor = Color.Gray;
-            textBox.BorderRadius = 8;
-        }
-
-        private void ApplyComboBoxTheme(Guna.UI2.WinForms.Guna2ComboBox comboBox)
-        {
-            comboBox.FillColor = _mediumBrown;
-            comboBox.BorderColor = _mediumBrown;
-            comboBox.ForeColor = Color.White;
-            comboBox.HoverState.BorderColor = _lightBrown;
-            comboBox.HoverState.FillColor = _lightBrown;
-            comboBox.FocusedState.BorderColor = _lightBrown;
-            comboBox.BorderRadius = 17;
-            comboBox.ItemHeight = 30;
-
-            comboBox.ItemsAppearance.BackColor = _beige;
-            comboBox.ItemsAppearance.ForeColor = _darkBrown;
-            comboBox.ItemsAppearance.SelectedBackColor = _lightBrown;
-            comboBox.ItemsAppearance.SelectedForeColor = Color.White;
-        }
-
-        private void ApplyContainerTheme(Guna.UI2.WinForms.Guna2ContainerControl container)
-        {
-            container.BorderColor = _mediumBrown;
-            container.BorderThickness = 2;
-            container.BorderRadius = 25;
         }
 
         private void DashBoardControl_Load(object sender, EventArgs e)

@@ -127,13 +127,14 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             var products = new List<TopSellingProduct>();
             using var cmd = connection.CreateCommand();
             cmd.CommandText = $@"
-                SELECT coi.ProductName, SUM(coi.Quantity) as TotalQty
-                FROM customer_order_item coi
-                INNER JOIN customer_orders co ON coi.CustomerOrderId = co.ID
-                WHERE co.Status = 'Paid' AND {dateFilter}
-                GROUP BY coi.ProductName
-                ORDER BY TotalQty DESC
-                LIMIT 10";
+            SELECT coi.ProductName, SUM(coi.Quantity) as TotalQty, p.ImagePath
+            FROM customer_order_item coi
+            INNER JOIN customer_orders co ON coi.CustomerOrderId = co.ID
+            LEFT JOIN product p ON coi.ProductId = p.ID
+            WHERE co.Status = 'Paid' AND {dateFilter}
+            GROUP BY coi.ProductName, p.ImagePath
+            ORDER BY TotalQty DESC
+            LIMIT 10";
 
             using var reader = cmd.ExecuteReader();
             int rank = 1;
@@ -143,7 +144,10 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 {
                     Name = reader.GetString("ProductName"),
                     Quantity = Convert.ToInt32(reader.GetDecimal("TotalQty")),
-                    Rank = rank++
+                    Rank = rank++,
+                    ImagePath = reader.IsDBNull(reader.GetOrdinal("ImagePath"))
+                        ? null
+                        : reader.GetString("ImagePath")
                 });
             }
             return products;

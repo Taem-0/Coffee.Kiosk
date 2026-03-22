@@ -130,4 +130,38 @@ Public Class DatabaseHelper
         End Using
     End Sub
 
+
+    ' ==================== ADDED ====================
+    Public Class ShopInfo
+        Public Property PrimaryColor As String
+        Public Property LogoPath As String
+    End Class
+
+    Public Shared Function GetShopInfo() As ShopInfo
+        Dim shop As New ShopInfo()
+
+        Using conn As New MySqlConnection(ConnectionString)
+            Try
+                conn.Open()
+
+                Dim sql = "SELECT Primary_Color, LogoPath FROM shop WHERE ID = 1"
+
+                Using cmd As New MySqlCommand(sql, conn)
+                    Using reader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            shop.PrimaryColor = If(reader.IsDBNull(reader.GetOrdinal("Primary_Color")), "", reader.GetString("Primary_Color"))
+                            shop.LogoPath = If(reader.IsDBNull(reader.GetOrdinal("LogoPath")), "", reader.GetString("LogoPath"))
+                        End If
+                    End Using
+                End Using
+
+            Catch ex As MySqlException
+                Console.WriteLine("DB Error (GetShopInfo): " & ex.Message)
+            End Try
+        End Using
+
+        Return shop
+    End Function
+    ' =================================================
+
 End Class

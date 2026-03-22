@@ -28,15 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             productRankNo = new Label();
             productName = new Label();
             productQt = new Label();
+            itemPictureBox = new Guna.UI2.WinForms.Guna2PictureBox();
+            ((System.ComponentModel.ISupportInitialize)itemPictureBox).BeginInit();
             SuspendLayout();
             // 
             // productRankNo
             // 
             productRankNo.AutoSize = true;
-            productRankNo.Location = new Point(224, 34);
+            productRankNo.Location = new Point(198, 34);
             productRankNo.Name = "productRankNo";
             productRankNo.Size = new Size(104, 25);
             productRankNo.TabIndex = 0;
@@ -45,7 +49,7 @@
             // productName
             // 
             productName.AutoSize = true;
-            productName.Location = new Point(458, 34);
+            productName.Location = new Point(431, 34);
             productName.Name = "productName";
             productName.Size = new Size(59, 25);
             productName.TabIndex = 1;
@@ -54,21 +58,37 @@
             // productQt
             // 
             productQt.AutoSize = true;
-            productQt.Location = new Point(672, 34);
+            productQt.Location = new Point(628, 34);
             productQt.Name = "productQt";
             productQt.Size = new Size(41, 25);
             productQt.TabIndex = 2;
             productQt.Text = "Qty";
             // 
+            // itemPictureBox
+            // 
+            itemPictureBox.AutoRoundedCorners = true;
+            itemPictureBox.CustomizableEdges = customizableEdges1;
+            itemPictureBox.FillColor = Color.Transparent;
+            itemPictureBox.ImageRotate = 0F;
+            itemPictureBox.Location = new Point(56, 10);
+            itemPictureBox.Name = "itemPictureBox";
+            itemPictureBox.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            itemPictureBox.Size = new Size(70, 70);
+            itemPictureBox.TabIndex = 3;
+            itemPictureBox.TabStop = false;
+            itemPictureBox.Click += itemPictureBox_Click;
+            // 
             // TopSellingProductContainer
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(itemPictureBox);
             Controls.Add(productQt);
             Controls.Add(productName);
             Controls.Add(productRankNo);
             Name = "TopSellingProductContainer";
-            Size = new Size(822, 90);
+            Size = new Size(793, 90);
+            ((System.ComponentModel.ISupportInitialize)itemPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -78,5 +98,6 @@
         private Label productRankNo;
         private Label productName;
         private Label productQt;
+        private Guna.UI2.WinForms.Guna2PictureBox itemPictureBox;
     }
 }

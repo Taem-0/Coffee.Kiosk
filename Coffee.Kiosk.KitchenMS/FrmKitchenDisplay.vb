@@ -1,10 +1,17 @@
 ﻿Imports System.Runtime
+Imports Coffee.Kiosk.CMS.CoffeeKDB
+Imports Coffee.Kiosk.CMS.Models
+Imports Microsoft.Extensions.Configuration
+Imports MySql.Data.MySqlClient
 
 Public Class frmKitchenDisplay
 
     ' tracks which orders are already on screen
     ' so we don't add the same order twice
     Private _displayedOrderIds As New List(Of Integer)
+
+    Private _lastPrimaryColor As String = ""
+    Private _lastLogoPath As String = ""
 
     ' -------------------------------------------------------
     ' STEP A: when form loads, start the polling timer
@@ -18,6 +25,8 @@ Public Class frmKitchenDisplay
         Timer1.Interval = 2000
         Timer1.Start()
         UpdateActiveOrderCount()
+
+        ApplyShopTheme()
 
         '        ' --- TEST DATA --- remove this when DB is connected
         '        Dim testOrder1 As New Order With {
@@ -35,146 +44,19 @@ Public Class frmKitchenDisplay
         '            .Customizations = New List(Of String) From {"Large Size", "Extra Salt"}}
         '    }
         '}
-
-        '        Dim testOrder2 As New Order With {
-        '    .OrderId = 2,
-        '    .OrderNumber = "002",
-        '    .OrderTime = DateTime.Now.AddMinutes(-1),
-        '    .Status = OrderStatus.Paid,
-        '    .OrderType = "TakeOut",
-        '    .Items = New List(Of OrderItem) From {
-        '        New OrderItem With {.ItemId = 4, .ItemName = "Latte", .Quantity = 2,
-        '            .Customizations = New List(Of String) From {"Oat Milk", "No Sugar"}},
-        '        New OrderItem With {.ItemId = 5, .ItemName = "Cheesecake", .Quantity = 1,
-        '            .Customizations = New List(Of String)},
-        '        New OrderItem With {.ItemId = 6, .ItemName = "Iced Tea", .Quantity = 3,
-        '            .Customizations = New List(Of String) From {"Less Ice"}},
-        '        New OrderItem With {.ItemId = 7, .ItemName = "Sandwich", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"No Onions", "Extra Cheese"}},
-        '        New OrderItem With {.ItemId = 8, .ItemName = "Muffin", .Quantity = 2,
-        '            .Customizations = New List(Of String)},
-        '        New OrderItem With {.ItemId = 9, .ItemName = "Orange Juice", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"No Ice"}},
-        '        New OrderItem With {.ItemId = 10, .ItemName = "Croissant", .Quantity = 2,
-        '            .Customizations = New List(Of String)}
-        '    }
-        '}
-
-        '        Dim testOrder3 As New Order With {
-        '    .OrderId = 3,
-        '    .OrderNumber = "003",
-        '    .OrderTime = DateTime.Now.AddMinutes(-6),
-        '    .Status = OrderStatus.Paid,
-        '    .OrderType = "Delivery",
-        '    .Items = New List(Of OrderItem) From {
-        '        New OrderItem With {.ItemId = 11, .ItemName = "Cappuccino", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"Extra Shot", "Almond Milk"}},
-        '        New OrderItem With {.ItemId = 12, .ItemName = "Pasta", .Quantity = 2,
-        '            .Customizations = New List(Of String) From {"Extra Sauce"}},
-        '        New OrderItem With {.ItemId = 13, .ItemName = "Caesar Salad", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"No Croutons"}},
-        '        New OrderItem With {.ItemId = 14, .ItemName = "Sparkling Water", .Quantity = 3,
-        '            .Customizations = New List(Of String)},
-        '        New OrderItem With {.ItemId = 15, .ItemName = "Tiramisu", .Quantity = 2,
-        '            .Customizations = New List(Of String)},
-        '        New OrderItem With {.ItemId = 16, .ItemName = "Garlic Bread", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"Extra Butter"}},
-        '        New OrderItem With {.ItemId = 17, .ItemName = "Chicken Wings", .Quantity = 8,
-        '            .Customizations = New List(Of String) From {"BBQ Sauce", "Extra Spicy"}},
-        '        New OrderItem With {.ItemId = 18, .ItemName = "Nachos", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"Extra Cheese", "Sour Cream"}},
-        '        New OrderItem With {.ItemId = 19, .ItemName = "Brownie", .Quantity = 2,
-        '            .Customizations = New List(Of String)},
-        '        New OrderItem With {.ItemId = 20, .ItemName = "Espresso", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"Double Shot"}}
-        '    }
-        '}
-
-        '        Dim testOrder4 As New Order With {
-        '    .OrderId = 4,
-        '    .OrderNumber = "004",
-        '    .OrderTime = DateTime.Now.AddMinutes(-2),
-        '    .Status = OrderStatus.Paid,
-        '    .OrderType = "DineIn",
-        '    .Items = New List(Of OrderItem) From {
-        '        New OrderItem With {.ItemId = 21, .ItemName = "Matcha Latte", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"Oat Milk", "Less Sweet"}},
-        '        New OrderItem With {.ItemId = 22, .ItemName = "Club Sandwich", .Quantity = 2,
-        '            .Customizations = New List(Of String) From {"No Mayo"}},
-        '        New OrderItem With {.ItemId = 23, .ItemName = "Onion Rings", .Quantity = 1,
-        '            .Customizations = New List(Of String)},
-        '        New OrderItem With {.ItemId = 24, .ItemName = "Smoothie", .Quantity = 2,
-        '            .Customizations = New List(Of String) From {"Mango", "No Ice"}},
-        '        New OrderItem With {.ItemId = 25, .ItemName = "Waffles", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"Extra Syrup", "Whipped Cream"}},
-        '        New OrderItem With {.ItemId = 26, .ItemName = "Hot Chocolate", .Quantity = 2,
-        '            .Customizations = New List(Of String) From {"Extra Marshmallows"}},
-        '        New OrderItem With {.ItemId = 27, .ItemName = "Pancakes", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"Blueberry", "No Butter"}}
-        '    }
-        '}
-
-        '        Dim testOrder5 As New Order With {
-        '    .OrderId = 5,
-        '    .OrderNumber = "005",
-        '    .OrderTime = DateTime.Now.AddMinutes(-20),
-        '    .Status = OrderStatus.Paid,
-        '    .OrderType = "TakeOut",
-        '    .Items = New List(Of OrderItem) From {
-        '        New OrderItem With {.ItemId = 28, .ItemName = "Americano", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"Extra Shot"}},
-        '        New OrderItem With {.ItemId = 29, .ItemName = "BLT Sandwich", .Quantity = 1,
-        '            .Customizations = New List(Of String)},
-        '        New OrderItem With {.ItemId = 30, .ItemName = "Sweet Potato Fries", .Quantity = 2,
-        '            .Customizations = New List(Of String) From {"Aioli Dip"}}
-        '    }
-        '}
-
-        '        Dim testOrder6 As New Order With {
-        '    .OrderId = 6,
-        '    .OrderNumber = "006",
-        '    .OrderTime = DateTime.Now.AddMinutes(-11),
-        '    .Status = OrderStatus.Paid,
-        '    .OrderType = "Delivery",
-        '    .Items = New List(Of OrderItem) From {
-        '        New OrderItem With {.ItemId = 31, .ItemName = "Flat White", .Quantity = 2,
-        '            .Customizations = New List(Of String) From {"Full Cream Milk"}},
-        '        New OrderItem With {.ItemId = 32, .ItemName = "Beef Burger", .Quantity = 3,
-        '            .Customizations = New List(Of String) From {"Extra Patty", "No Pickles"}},
-        '        New OrderItem With {.ItemId = 33, .ItemName = "Coleslaw", .Quantity = 2,
-        '            .Customizations = New List(Of String)},
-        '        New OrderItem With {.ItemId = 34, .ItemName = "Milkshake", .Quantity = 2,
-        '            .Customizations = New List(Of String) From {"Chocolate", "Extra Thick"}},
-        '        New OrderItem With {.ItemId = 35, .ItemName = "Mushroom Soup", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"Extra Bread"}},
-        '        New OrderItem With {.ItemId = 36, .ItemName = "Cheesy Fries", .Quantity = 2,
-        '            .Customizations = New List(Of String) From {"Jalapenos"}},
-        '        New OrderItem With {.ItemId = 37, .ItemName = "Greek Salad", .Quantity = 1,
-        '            .Customizations = New List(Of String) From {"Extra Feta"}},
-        '        New OrderItem With {.ItemId = 38, .ItemName = "Lemonade", .Quantity = 3,
-        '            .Customizations = New List(Of String) From {"Extra Lemon", "Less Sugar"}},
-        '        New OrderItem With {.ItemId = 39, .ItemName = "Fried Chicken", .Quantity = 4,
-        '            .Customizations = New List(Of String) From {"Spicy", "Extra Sauce"}}
-        '    }
-        '}
-
-        '        AddOrderCard(testOrder1)
-        '        AddOrderCard(testOrder2)
-        '        AddOrderCard(testOrder3)
-        '        AddOrderCard(testOrder4)
-        '        AddOrderCard(testOrder5)
-        '        AddOrderCard(testOrder6)
-        '        ' --- END TEST DATA ---
     End Sub
 
     Private Sub tmrClock_Tick(sender As Object, e As EventArgs) Handles tmrClock.Tick
         lblTime.Text = Date.Now.ToString("HH:mm:ss")
     End Sub
+
     ' -------------------------------------------------------
     ' STEP B: every 3 seconds, check DB for new paid orders
     ' -------------------------------------------------------
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Try
+            ApplyShopTheme()
+
             '  check for New paid orders
             Dim newOrders = GetPaidOrdersFromDB()
             For Each order In newOrders
@@ -196,60 +78,40 @@ Public Class frmKitchenDisplay
             Console.WriteLine("Poll error: " & ex.Message)
         End Try
     End Sub
-    ' -------------------------------------------------------
-    ' STEP C: fetch only PAID orders from your database
-    ' replace YourDbContext with your actual DB context name
-    ' -------------------------------------------------------
+
     Private Function GetPaidOrdersFromDB() As List(Of Order)
         Return DatabaseHelper.GetPaidOrders()
     End Function
 
-    ' -------------------------------------------------------
-    ' STEP D: create an OrderCard and add it to flpOrders
-    ' -------------------------------------------------------
     Private Sub AddOrderCard(order As Order)
-        ' always update UI from the UI thread
         If Me.InvokeRequired Then
             Me.Invoke(New Action(Sub() AddOrderCard(order)))
             Return
         End If
 
-        ' create a new OrderCard user control
         Dim card As New ucOrderCard()
-
-        ' pass the order data into it
         card.LoadOrder(order)
 
-        ' listen for when kitchen taps Done
         AddHandler card.OnOrderCompleted, AddressOf HandleOrderCompleted
 
-        ' add to flpOrders
         flpOrders.Controls.Add(card)
 
-        ' remember this order so we don't add it again
         _displayedOrderIds.Add(order.OrderId)
         UpdateActiveOrderCount()
-
     End Sub
 
-    ' -------------------------------------------------------
-    ' STEP E: when Done is tapped, remove the card
-    ' -------------------------------------------------------
     Private Sub HandleOrderCompleted(card As ucOrderCard, orderId As Integer)
         If Me.InvokeRequired Then
             Me.Invoke(New Action(Sub() HandleOrderCompleted(card, orderId)))
             Return
         End If
 
-        ' remove from screen
         flpOrders.Controls.Remove(card)
         card.Dispose()
 
-        ' remove from tracking list
         _displayedOrderIds.Remove(orderId)
         UpdateActiveOrderCount()
     End Sub
-
 
     Private Sub UpdateActiveOrderCount()
         lblActiveOrders.Text = flpOrders.Controls.Count.ToString()
@@ -265,7 +127,6 @@ Public Class frmKitchenDisplay
             Return
         End If
 
-        ' find the card with matching orderId and remove it
         For Each ctrl As Control In flpOrders.Controls
             If TypeOf ctrl Is ucOrderCard Then
                 Dim card As ucOrderCard = DirectCast(ctrl, ucOrderCard)
@@ -283,4 +144,58 @@ Public Class frmKitchenDisplay
     Private Sub lblTime_Click(sender As Object, e As EventArgs) Handles lblTime.Click
 
     End Sub
+
+    Private Sub ApplyShopTheme()
+        Try
+            Using conn As New MySqlConnection("Server=localhost;Database=coffeekioskdb;Uid=root;Pwd=;")
+                conn.Open()
+
+                Dim sql = "SELECT Primary_Color, LogoPath FROM shop LIMIT 1"
+
+                Using cmd As New MySqlCommand(sql, conn)
+                    Using reader = cmd.ExecuteReader()
+                        If reader.Read() Then
+
+                            Dim primaryColor As String = If(reader.IsDBNull(0), "", reader.GetString(0))
+                            Dim logoPath As String = If(reader.IsDBNull(1), "", reader.GetString(1))
+
+                            If primaryColor = _lastPrimaryColor AndAlso logoPath = _lastLogoPath Then
+                                Return
+                            End If
+
+                            _lastPrimaryColor = primaryColor
+                            _lastLogoPath = logoPath
+
+                            If Not String.IsNullOrEmpty(primaryColor) Then
+                                Dim panelColor As Color = ColorTranslator.FromHtml(primaryColor)
+                                pnl1.BackColor = panelColor
+                                lblTime.BackColor = panelColor
+                            End If
+
+                            If Not String.IsNullOrEmpty(logoPath) AndAlso IO.File.Exists(logoPath) Then
+                                If PictureBox1.Image IsNot Nothing Then
+                                    PictureBox1.Image.Dispose()
+                                    PictureBox1.Image = Nothing
+                                End If
+
+                                Dim bytes = IO.File.ReadAllBytes(logoPath)
+                                Using ms As New IO.MemoryStream(bytes)
+                                    PictureBox1.Image = Image.FromStream(ms)
+                                End Using
+
+                                PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
+                            Else
+                                Console.WriteLine("Logo not found: " & logoPath)
+                            End If
+
+                        End If
+                    End Using
+                End Using
+            End Using
+
+        Catch ex As Exception
+            Console.WriteLine("Theme load error: " & ex.Message)
+        End Try
+    End Sub
+
 End Class

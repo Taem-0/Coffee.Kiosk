@@ -64,6 +64,9 @@ namespace Coffee.Kiosk
             var dashboardManager = new DashboardDBManager(configuration);
             var dashboardService = new DashboardService(dashboardManager);
             var dashboardController = new DashboardController(dashboardService);
+            var orgManager = new OrganizationDBManager(configuration);
+            var orgService = new OrganizationService(orgManager);
+            var orgController = new OrganizationController(orgService);
 
             validator = new RegistrationValidation();
             updateValidation = new UpdateValidation();
@@ -78,18 +81,18 @@ namespace Coffee.Kiosk
             this.Text = $"Shop: {_currentShop.ShopName}";
 
             var draft = new DisplayDTO();
-            registerView = new NewestRegisterView(controller, draft);
-            secondNewestRegisterView = new SecondNewestRegisterView(controller, draft);
+            registerView = new NewestRegisterView(controller, draft, themeController);
+            secondNewestRegisterView = new SecondNewestRegisterView(controller, draft, themeController);
 
-            newEmployeeView = new NewEmployeeView(controller);
+            newEmployeeView = new NewEmployeeView(controller, themeController);
             newEmployeeView.ParentFormReference = this;
 
 
-            dashBoardControl = new DashBoardControl(controller);
+            dashBoardControl = new DashBoardControl(controller, themeController);
             dashBoardControl.Initialize(dashboardController);
             dashBoardControl.ParentFormReference = this;
 
-            settingsView = new SettingsView(controller, themeController, kioskController, _currentEmployee);
+            settingsView = new SettingsView(controller, themeController, kioskController, orgController, _currentEmployee);
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Coffee.Kiosk.CMS.Helpers
 {
-    internal static class UIhelp
+    public class UIhelp
     {
 
         public class UITheme
@@ -193,6 +193,28 @@ namespace Coffee.Kiosk.CMS.Helpers
 
         public static class ThemeManager
         {
+
+            public static event EventHandler<UITheme>? ThemeChanged;
+
+            public static void NotifyThemeChanged(UITheme theme)
+            {
+                ThemeChanged?.Invoke(null, theme);
+            }
+
+            public static void ApplyChartTheme(ScottPlot.WinForms.FormsPlot chart, UITheme theme)
+            {
+                string bg = ColorTranslator.ToHtml(theme.Background);
+                string primary = ColorTranslator.ToHtml(theme.Primary);
+                string accent = ColorTranslator.ToHtml(theme.Accent);
+
+                chart.BackColor = theme.Background;
+                chart.Plot.FigureBackground.Color = ScottPlot.Color.FromHex(bg);
+                chart.Plot.DataBackground.Color = ScottPlot.Color.FromHex(bg);
+                chart.Plot.Grid.MajorLineColor = ScottPlot.Color.FromHex(accent);
+                chart.Plot.Axes.Color(ScottPlot.Color.FromHex(primary));
+                chart.Refresh();
+            }
+
             public static void ApplyTheme(Control root, UITheme theme)
             {
                 if (theme == null) return;

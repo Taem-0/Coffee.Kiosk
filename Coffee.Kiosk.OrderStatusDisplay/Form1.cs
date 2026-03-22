@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB;
+using MySql.Data.MySqlClient;
 
 namespace Coffee.Kiosk.OrderStatusDisplay
 {
@@ -9,12 +10,10 @@ namespace Coffee.Kiosk.OrderStatusDisplay
     {
         private readonly OrderDisplayDBManager _db = new OrderDisplayDBManager();
 
-        // ── accent colors ─────────────────────────────────────
         static readonly Color BlueAccent = Color.FromArgb(59, 79, 212);
         static readonly Color AmberAccent = Color.FromArgb(122, 74, 0);
         static readonly Color GreenAccent = Color.FromArgb(26, 92, 42);
 
-        // ── badge colors ──────────────────────────────────────
         static readonly Color CashBg = Color.FromArgb(59, 79, 212);
         static readonly Color CashFg = Color.FromArgb(220, 226, 255);
         static readonly Color GCashBg = Color.FromArgb(91, 45, 158);
@@ -24,6 +23,9 @@ namespace Coffee.Kiosk.OrderStatusDisplay
         static readonly Color PickupBg = Color.FromArgb(26, 92, 42);
         static readonly Color PickupFg = Color.FromArgb(134, 239, 172);
 
+        private string _lastPrimaryColor = "";
+        private string _lastLogoPath = "";
+
         public Form1()
         {
             InitializeComponent();
@@ -31,11 +33,9 @@ namespace Coffee.Kiosk.OrderStatusDisplay
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // ── form setup ────────────────────────────────────
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 
-            // ── FlowLayoutPanel settings ──────────────────────
             flpPay.FlowDirection = FlowDirection.TopDown;
             flpPay.WrapContents = false;
             flpPay.AutoScroll = false;
@@ -51,7 +51,6 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             flpPickup.AutoScroll = false;
             flpPickup.Padding = new Padding(8, 10, 8, 10);
 
-            // ── auto-complete timer (every 30 seconds) ────────
             var autoCompleteTimer = new System.Windows.Forms.Timer();
             autoCompleteTimer.Interval = 30000;
             autoCompleteTimer.Tick += (s, ev) =>
@@ -61,12 +60,17 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             };
             autoCompleteTimer.Start();
 
-            // ── load cards on startup ─────────────────────────
+            var themeTimer = new System.Windows.Forms.Timer();
+            themeTimer.Interval = 2000;
+            themeTimer.Tick += (s, ev) => ApplyTheme();
+            themeTimer.Start();
+
+            ApplyTheme();
+
             LoadPaymentOrders();
             LoadPreparingOrders();
             LoadPickupOrders();
 
-            // ── reload on window resize ───────────────────────
             this.Resize += (s, ev) =>
             {
                 LoadPaymentOrders();
@@ -75,15 +79,54 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             };
         }
 
-        // ── clock ─────────────────────────────────────────────
+        private void ApplyTheme()
+        {
+            try
+            {
+                using var conn = new MySqlConnection("Server=localhost;Database=CoffeeKioskDB;Uid=root;Pwd=;");
+                conn.Open();
+
+                using var cmd = new MySqlCommand("SELECT Primary_Color, LogoPath FROM shop LIMIT 1", conn);
+                using var reader = cmd.ExecuteReader();
+
+                if (!reader.Read()) return;
+
+                var primary = reader["Primary_Color"]?.ToString() ?? "";
+                var logo = reader["LogoPath"]?.ToString() ?? "";
+
+                if (primary == _lastPrimaryColor && logo == _lastLogoPath)
+                    return;
+
+                _lastPrimaryColor = primary;
+                _lastLogoPath = logo;
+
+                if (!string.IsNullOrEmpty(primary))
+                {
+                    var color = ColorTranslator.FromHtml(primary);
+
+                    this.BackColor = color;
+
+                    pnlHeader.BackColor = color;
+                    pnlPay.BackColor = color;
+                    pnlPrep.BackColor = color;
+                    pnlPickup.BackColor = color;
+                    tableLayoutPanel1.BackColor = color;
+                }
+
+                if (!string.IsNullOrEmpty(logo) && System.IO.File.Exists(logo))
+                {
+                    using var img = Image.FromFile(logo);
+                    pictureBox1.Image = new Bitmap(img);
+                }
+            }
+            catch { }
+        }
+
         private void tmrClock_Tick(object sender, EventArgs e)
         {
             lblClock.Text = DateTime.Now.ToString("hh:mm tt");
         }
 
-        // ══════════════════════════════════════════════════════
-        //  HELPER — creates and adds one card to a column
-        // ══════════════════════════════════════════════════════
         private void AddCard(
             FlowLayoutPanel flp,
             string orderNum,
@@ -105,10 +148,6 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             flp.Controls.Add(card);
         }
 
-        // ══════════════════════════════════════════════════════
-        //  FUNCTION 1 — PLEASE PAY
-        //  Badge: Cash (blue) or GCash (purple)
-        // ══════════════════════════════════════════════════════
         private void LoadPaymentOrders()
         {
             flpPay.Controls.Clear();
@@ -148,10 +187,6 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             }
         }
 
-        // ══════════════════════════════════════════════════════
-        //  FUNCTION 2 — BEING PREPARED
-        //  Badge: always Brewing
-        // ══════════════════════════════════════════════════════
         private void LoadPreparingOrders()
         {
             flpPrep.Controls.Clear();
@@ -175,10 +210,6 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             }
         }
 
-        // ══════════════════════════════════════════════════════
-        //  FUNCTION 3 — READY FOR PICK-UP
-        //  Badge: always Pick up
-        // ══════════════════════════════════════════════════════
         private void LoadPickupOrders()
         {
             flpPickup.Controls.Clear();

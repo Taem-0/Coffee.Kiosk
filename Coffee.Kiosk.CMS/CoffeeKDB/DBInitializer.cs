@@ -64,6 +64,36 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             SELECT 'My Coffee Shop', 'default', '#6F4D38', '#3D211A', '#A07856', '#F5F5DC', '#CBB799'
             WHERE NOT EXISTS (SELECT 1 FROM shop);",
 
+            @"CREATE TABLE IF NOT EXISTS job_titles (
+                ID        INT AUTO_INCREMENT PRIMARY KEY,
+                Title     VARCHAR(100) NOT NULL,
+                IsDefault TINYINT(1) NOT NULL DEFAULT 0
+            );",
+
+
+            @"CREATE TABLE IF NOT EXISTS departments (
+                ID        INT AUTO_INCREMENT PRIMARY KEY,
+                Name      VARCHAR(100) NOT NULL,
+                IsDefault TINYINT(1) NOT NULL DEFAULT 0
+            );",
+
+            @"INSERT INTO job_titles (Title, IsDefault)
+            SELECT * FROM (
+                SELECT 'Barista', 1 UNION ALL
+                SELECT 'Cook', 1 UNION ALL
+                SELECT 'Waiter', 1 UNION ALL
+                SELECT 'Cashier', 1 UNION ALL
+                SELECT 'Manager', 1
+            ) AS tmp
+            WHERE NOT EXISTS (SELECT 1 FROM job_titles WHERE IsDefault = 1);",
+
+            @"INSERT INTO departments (Name, IsDefault)
+            SELECT * FROM (
+                SELECT 'Operations', 1 UNION ALL
+                SELECT 'Management', 1 UNION ALL
+                SELECT 'Administration', 1
+            ) AS tmp
+            WHERE NOT EXISTS (SELECT 1 FROM departments WHERE IsDefault = 1);",
 
             // inventory
             @"CREATE TABLE IF NOT EXISTS inventory_item (

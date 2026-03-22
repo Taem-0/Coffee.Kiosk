@@ -26,5 +26,7 @@ namespace Coffee.Kiosk.CMS.Controllers
         {
             _service.UpdateShopSettings(updatedShop);
         }
+
+
     }
 }
