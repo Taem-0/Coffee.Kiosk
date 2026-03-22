@@ -20,6 +20,17 @@
             base.Dispose(disposing);
         }
 
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        _adTimer?.Stop();
+        //        _adTimer?.Dispose();
+        //        components?.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
+
         #region Component Designer generated code
 
         /// <summary> 
