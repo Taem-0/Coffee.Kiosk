@@ -18,13 +18,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         private string _selectedImagePath;
         private bool _hasChanges;
 
-        // Coffee theme colors
-        private Color _darkBrown = ColorTranslator.FromHtml("#3d211a");
-        private Color _mediumBrown = ColorTranslator.FromHtml("#6f4d38");
-        private Color _lightBrown = ColorTranslator.FromHtml("#a07856");
-        private Color _beige = ColorTranslator.FromHtml("#cbb799");
-        private Color _background = ColorTranslator.FromHtml("#f5f5dc");
-
         public NewUpdateEmployee(DisplayDTO employee, AccountController controller)
         {
             InitializeComponent();
@@ -34,7 +27,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             _selectedImagePath = employee.ProfilePicturePath;
             _hasChanges = false;
 
-            ApplyTheme();
             InitializeForm();
             LoadEmployeeIntoForm();
             SetupScrollbar();
@@ -43,154 +35,8 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             WireUpTextChangedEvents();
         }
 
-        private void ApplyTheme()
-        {
-            // Set background colors
-            this.BackColor = _background;
-            this.ForeColor = _darkBrown;
-            this.Padding = new Padding(20);
-
-            // Apply to left panel
-            guna2Panel1.FillColor = _mediumBrown;
-            guna2Panel1.BackColor = _mediumBrown;
-            guna2Panel1.BorderColor = _darkBrown;
-            guna2Panel1.BorderThickness = 1;
-
-            // Apply to main content panels
-            mainPanel.BackColor = _beige;
-
-            guna2Panel2.FillColor = _beige;
-            guna2Panel2.BackColor = _beige;
-            guna2Panel2.BorderColor = _mediumBrown;
-            guna2Panel2.BorderThickness = 2;
-
-            guna2Panel3.FillColor = _beige;
-            guna2Panel3.BackColor = _beige;
-            guna2Panel3.BorderColor = _mediumBrown;
-            guna2Panel3.BorderThickness = 2;
-
-            // Apply to table layouts
-            tableLayoutPanel1.BackColor = _beige;
-            tableLayoutPanel3.BackColor = _beige;
-
-            // Apply to scrollbar
-            guna2vScrollBar1.ThumbColor = _mediumBrown;
-            guna2vScrollBar1.FillColor = _background;
-
-            // Apply to labels
-            ApplyLabelTheme(label1);
-            ApplyLabelTheme(label2);
-            ApplyLabelTheme(label3);
-            ApplyLabelTheme(label4);
-            ApplyLabelTheme(label5);
-            ApplyLabelTheme(label6);
-            ApplyLabelTheme(label7);
-            ApplyLabelTheme(label8);
-            ApplyLabelTheme(label9);
-            ApplyLabelTheme(label10);
-            ApplyLabelTheme(label11);
-            ApplyLabelTheme(label12);
-            ApplyLabelTheme(label13);
-            ApplyLabelTheme(label15);
-            ApplyLabelTheme(label16);
-            ApplyLabelTheme(label17);
-
-            // Style the section headers differently
-            label17.ForeColor = Color.White;
-            label4.ForeColor = Color.White;
-            label13.ForeColor = Color.White;
-
-            // Apply to buttons
-            ConfigureButton(SubmitButton);
-            ConfigureButton(DeactivateButton);
-            ConfigureButton(acceptRequest);
-            ConfigureCircleButton(AddPfpButton);
-
-            // Apply to all textboxes
-            ApplyTextBoxTheme(FirstNameTextBox);
-            ApplyTextBoxTheme(MiddleNameTextBox);
-            ApplyTextBoxTheme(LastNameTextBox);
-            ApplyTextBoxTheme(PhoneTextBox);
-            ApplyTextBoxTheme(EmailTextBox);
-            ApplyTextBoxTheme(EmergencyFirstNameTextBox);
-            ApplyTextBoxTheme(EmergencyLastNameTextBox);
-            ApplyTextBoxTheme(EmergencyPhoneTextBox);
-            ApplyTextBoxTheme(JobTitleTextBox);
-
-            // Apply to combo boxes
-            ApplyComboBoxTheme(DepartmentComboBox);
-            ApplyComboBoxTheme(EmployeeTypecomboBox);
-
-            // Apply to radio buttons
-            ApplyRadioButtonTheme(AdminRadioButton);
-            ApplyRadioButtonTheme(ManagerRadioButton);
-            ApplyRadioButtonTheme(employeeRadioButton);
-
-            // Style the picture box
-            PictureBox.FillColor = Color.White;
-
-
-            // Style tableLayoutPanel2 (radio button container)
-            tableLayoutPanel2.BackColor = Color.Transparent;
-        }
-
-        private void ApplyLabelTheme(Label label)
-        {
-            label.ForeColor = _darkBrown;
-            label.BackColor = Color.Transparent;
-        }
-
-        private void ConfigureButton(Guna.UI2.WinForms.Guna2Button button)
-        {
-            button.FillColor = _mediumBrown;
-            button.ForeColor = Color.White;
-            button.BorderColor = _darkBrown;
-            button.BorderThickness = 1;
-            button.HoverState.FillColor = _lightBrown;
-            button.HoverState.BorderColor = _darkBrown;
-            button.PressedColor = _darkBrown;
-            button.BorderRadius = 15;
-        }
-
-        private void ConfigureCircleButton(Guna.UI2.WinForms.Guna2CircleButton button)
-        {
-            button.FillColor = _mediumBrown;
-            button.ForeColor = Color.White;
-            button.BorderColor = _darkBrown;
-            button.BorderThickness = 1;
-            button.HoverState.FillColor = _lightBrown;
-            button.HoverState.BorderColor = _darkBrown;
-            button.PressedColor = _darkBrown;
-        }
-
-        private void ApplyTextBoxTheme(Guna.UI2.WinForms.Guna2TextBox textBox)
-        {
-            textBox.BorderColor = _mediumBrown;
-            textBox.FocusedState.BorderColor = _lightBrown;
-            textBox.HoverState.BorderColor = _lightBrown;
-            textBox.FillColor = Color.White;
-            textBox.ForeColor = _darkBrown;
-            textBox.PlaceholderForeColor = Color.Gray;
-            textBox.BorderRadius = 8;
-        }
-
-        private void ApplyComboBoxTheme(ComboBox comboBox)
-        {
-            comboBox.BackColor = Color.White;
-            comboBox.ForeColor = _darkBrown;
-            comboBox.FlatStyle = FlatStyle.Flat;
-            comboBox.Font = new Font("Segoe UI", 11F);
-        }
-
-        private void ApplyRadioButtonTheme(RadioButton radioButton)
-        {
-            radioButton.ForeColor = _darkBrown;
-            radioButton.BackColor = Color.Transparent;
-        }
-
         private void InitializeForm()
         {
-
             DepartmentComboBox.DataSource = Enum.GetNames(typeof(Department))
                 .Select(EnumDisplayHelper.FormatEnum)
                 .ToList();
@@ -202,7 +48,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void SetupScrollbar()
         {
-
             guna2vScrollBar1.Scroll += (s, e) =>
             {
                 mainPanel.AutoScrollPosition = new Point(0, guna2vScrollBar1.Value);
@@ -213,12 +58,10 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 int scrollY = -mainPanel.AutoScrollPosition.Y;
                 guna2vScrollBar1.Value = Math.Min(guna2vScrollBar1.Maximum, scrollY);
             };
-
         }
 
         private void SetupFormControls()
         {
-
             bool isOwner = _employee.Role == "Owner";
             bool isDeactivated = _employee.Status == "DEACTIVATED";
 
@@ -229,7 +72,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             {
                 DeactivateButton.Enabled = false;
                 DeactivateButton.Text = "Cannot Deactivate Owner";
-                DeactivateButton.FillColor = Color.Gray;
                 AdminRadioButton.Enabled = false;
                 ManagerRadioButton.Enabled = false;
                 employeeRadioButton.Enabled = false;
@@ -238,12 +80,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             {
                 DeactivateButton.FillColor = Color.Red;
                 DeactivateButton.HoverState.FillColor = Color.DarkRed;
-            }
-
-            if (acceptRequest.Visible)
-            {
-                acceptRequest.FillColor = Color.Salmon;
-                acceptRequest.HoverState.FillColor = Color.Coral;
             }
         }
 
@@ -279,7 +115,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                     using var img = Image.FromFile(_selectedImagePath);
                     PictureBox.Image = new Bitmap(img);
                 }
-                catch (Exception)
+                catch
                 {
                     SetDefaultProfileImage();
                 }
@@ -320,7 +156,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         private void LoadEmploymentDetails()
         {
             JobTitleTextBox.Text = _employee.JobTitle;
-
             DepartmentComboBox.SelectedItem = _employee.Department;
             EmployeeTypecomboBox.SelectedItem = _employee.EmploymentType;
         }
@@ -346,22 +181,18 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             textBox.BorderColor = UIhelp.ThemeColors.ErrorColor;
             textBox.FocusedState.BorderColor = UIhelp.ThemeColors.ErrorColor;
             textBox.HoverState.BorderColor = UIhelp.ThemeColors.ErrorColor;
-
             textBox.PlaceholderText = errorMessage;
             textBox.PlaceholderForeColor = UIhelp.ThemeColors.ErrorColor;
 
             if (clearInput)
-            {
                 textBox.Text = "";
-            }
         }
 
         private void ClearError(Guna.UI2.WinForms.Guna2TextBox textBox)
         {
-            textBox.BorderColor = _mediumBrown;
-            textBox.FocusedState.BorderColor = _lightBrown;
-            textBox.HoverState.BorderColor = _lightBrown;
-
+            textBox.BorderColor = Color.Empty;
+            textBox.FocusedState.BorderColor = Color.Empty;
+            textBox.HoverState.BorderColor = Color.Empty;
             textBox.PlaceholderText = "";
             textBox.PlaceholderForeColor = Color.Gray;
         }
@@ -389,51 +220,33 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 {
                     case "first name":
                     case "firstname":
-                        ShowError(FirstNameTextBox, error.Value, true);
-                        break;
+                        ShowError(FirstNameTextBox, error.Value, true); break;
                     case "middle name":
                     case "middlename":
-                        ShowError(MiddleNameTextBox, error.Value, true);
-                        break;
+                        ShowError(MiddleNameTextBox, error.Value, true); break;
                     case "last name":
                     case "lastname":
-                        ShowError(LastNameTextBox, error.Value, true);
-                        break;
+                        ShowError(LastNameTextBox, error.Value, true); break;
                     case "email":
-                        ShowError(EmailTextBox, error.Value, true);
-                        break;
+                        ShowError(EmailTextBox, error.Value, true); break;
                     case "phone number":
                     case "phonenumber":
-                        ShowError(PhoneTextBox, error.Value, true);
-                        break;
+                        ShowError(PhoneTextBox, error.Value, true); break;
                     case "emergency first name":
                     case "emergencyfirstname":
-                        ShowError(EmergencyFirstNameTextBox, error.Value, true);
-                        break;
+                        ShowError(EmergencyFirstNameTextBox, error.Value, true); break;
                     case "emergency last name":
                     case "emergencylastname":
-                        ShowError(EmergencyLastNameTextBox, error.Value, true);
-                        break;
+                        ShowError(EmergencyLastNameTextBox, error.Value, true); break;
                     case "emergency number":
                     case "emergencynumber":
-                        ShowError(EmergencyPhoneTextBox, error.Value, true);
-                        break;
+                        ShowError(EmergencyPhoneTextBox, error.Value, true); break;
                     case "job title":
                     case "jobtitle":
-                        ShowError(JobTitleTextBox, error.Value, true);
-                        break;
-                    case "department":
-                        MessageBox.Show(error.Value, "Validation Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                    case "employment type":
-                        MessageBox.Show(error.Value, "Validation Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
+                        ShowError(JobTitleTextBox, error.Value, true); break;
                     default:
                         MessageBox.Show(error.Value, "Validation Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning); break;
                 }
             }
         }
@@ -502,44 +315,31 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 var addr = new System.Net.Mail.MailAddress(email);
                 return addr.Address == email;
             }
-            catch
-            {
-                return false;
-            }
+            catch { return false; }
         }
 
         private void InputCollection()
         {
-            if (!ValidateAllFields())
-                return;
+            if (!ValidateAllFields()) return;
 
             _employee.FirstName = FirstNameTextBox.Text.Trim();
             _employee.MiddleName = MiddleNameTextBox.Text.Trim();
             _employee.LastName = LastNameTextBox.Text.Trim();
-
             _employee.Email = EmailTextBox.Text.Trim();
             _employee.PhoneNumber = PhoneTextBox.Text.Trim();
-
             _employee.EmergencyFirstName = EmergencyFirstNameTextBox.Text.Trim();
             _employee.EmergencyLastName = EmergencyLastNameTextBox.Text.Trim();
             _employee.EmergencyNumber = EmergencyPhoneTextBox.Text.Trim();
-
             _employee.Department = DepartmentComboBox.SelectedItem?.ToString() ?? "";
             _employee.EmploymentType = EmployeeTypecomboBox.SelectedItem?.ToString() ?? "";
-
             _employee.JobTitle = JobTitleTextBox.Text.Trim();
-
-
             _employee.ProfilePicturePath = _selectedImagePath;
 
             if (_employee.Role != "Owner")
             {
-                if (AdminRadioButton.Checked)
-                    _employee.Role = "Owner";
-                else if (ManagerRadioButton.Checked)
-                    _employee.Role = "Manager";
-                else
-                    _employee.Role = "Employee";
+                if (AdminRadioButton.Checked) _employee.Role = "Owner";
+                else if (ManagerRadioButton.Checked) _employee.Role = "Manager";
+                else _employee.Role = "Employee";
             }
 
             var result = _controller.Update(_employee);
@@ -550,122 +350,85 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 return;
             }
 
-            MessageBox.Show(
-                "Employee updated successfully!",
-                "Success",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
-
+            MessageBox.Show("Employee updated successfully!", "Success",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 
-        private void SubmitButton_Click_1(object sender, EventArgs e)
-        {
-            InputCollection();
-        }
+        private void SubmitButton_Click_1(object sender, EventArgs e) => InputCollection();
 
         private void DeactivateButton_Click(object sender, EventArgs e)
         {
             if (_employee.Role == "Owner")
             {
-                MessageBox.Show(
-                    "Owner accounts cannot be deactivated.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Owner accounts cannot be deactivated.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             var result = MessageBox.Show(
                 $"Are you sure you want to deactivate {_employee.FirstName} {_employee.LastName}?",
-                "Confirm Deactivation",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
-            );
+                "Confirm Deactivation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (result != DialogResult.Yes)
-                return;
+            if (result != DialogResult.Yes) return;
 
             try
             {
                 _controller.DeactivateAccount(_employee);
                 _employee.Status = "DEACTIVATED";
-
-                MessageBox.Show(
-                    "Employee deactivated successfully!",
-                    "Success",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-
+                MessageBox.Show("Employee deactivated successfully!", "Success",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Error deactivating employee: {ex.Message}",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show($"Error deactivating employee: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void AddPfpButton_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            using var openFileDialog = new OpenFileDialog
             {
-                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
-                openFileDialog.Title = "Select Profile Picture";
-                openFileDialog.Multiselect = false;
+                Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif",
+                Title = "Select Profile Picture",
+                Multiselect = false
+            };
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        _selectedImagePath = openFileDialog.FileName;
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
-                        using (var img = Image.FromFile(_selectedImagePath))
-                        {
-                            PictureBox.Image = new Bitmap(img);
-                            PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error loading image: {ex.Message}",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        _selectedImagePath = _employee.ProfilePicturePath; 
-                    }
-                }
+            try
+            {
+                _selectedImagePath = openFileDialog.FileName;
+                using var img = Image.FromFile(_selectedImagePath);
+                PictureBox.Image = new Bitmap(img);
+                PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading image: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _selectedImagePath = _employee.ProfilePicturePath;
             }
         }
 
         private Image CreateDefaultProfileImage()
         {
             var bmp = new Bitmap(200, 200);
-            using (Graphics g = Graphics.FromImage(bmp))
+            using var g = Graphics.FromImage(bmp);
+            g.Clear(Color.FromArgb(240, 240, 240));
+            using var pen = new Pen(Color.FromArgb(200, 200, 200), 2);
+            g.DrawEllipse(pen, 10, 10, 180, 180);
+            string initials = GetInitials(_employee.FirstName, _employee.LastName);
+            using var font = new Font("Arial", 48, FontStyle.Bold);
+            using var brush = new SolidBrush(Color.FromArgb(150, 150, 150));
+            var format = new StringFormat
             {
-                g.Clear(Color.FromArgb(240, 240, 240));
-                using (Pen pen = new Pen(Color.FromArgb(200, 200, 200), 2))
-                {
-                    g.DrawEllipse(pen, 10, 10, 180, 180);
-                }
-
-                string initials = GetInitials(_employee.FirstName, _employee.LastName);
-                using (Font font = new Font("Arial", 48, FontStyle.Bold))
-                using (Brush brush = new SolidBrush(Color.FromArgb(150, 150, 150)))
-                {
-                    StringFormat format = new StringFormat();
-                    format.Alignment = StringAlignment.Center;
-                    format.LineAlignment = StringAlignment.Center;
-
-                    g.DrawString(initials, font, brush,
-                        new RectangleF(0, 0, bmp.Width, bmp.Height), format);
-                }
-            }
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+            g.DrawString(initials, font, brush, new RectangleF(0, 0, bmp.Width, bmp.Height), format);
             return bmp;
         }
 
@@ -673,139 +436,89 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         {
             if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
                 return "??";
-
             return $"{firstName[0]}{lastName[0]}".ToUpper();
         }
 
         private void PictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                var contextMenu = new ContextMenuStrip();
-                var removeItem = new ToolStripMenuItem("Remove Profile Picture");
-                removeItem.Click += (s, args) =>
-                {
-                    var result = MessageBox.Show(
-                        "Remove profile picture?",
-                        "Confirm",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question
-                    );
+            if (e.Button != MouseButtons.Right) return;
 
-                    if (result == DialogResult.Yes)
-                    {
-                        _selectedImagePath = null;
-                        SetDefaultProfileImage();
-                    }
-                };
-                contextMenu.Items.Add(removeItem);
-                contextMenu.Show(PictureBox, e.Location);
-            }
+            var contextMenu = new ContextMenuStrip();
+            var removeItem = new ToolStripMenuItem("Remove Profile Picture");
+            removeItem.Click += (s, args) =>
+            {
+                if (MessageBox.Show("Remove profile picture?", "Confirm",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _selectedImagePath = null;
+                    SetDefaultProfileImage();
+                }
+            };
+            contextMenu.Items.Add(removeItem);
+            contextMenu.Show(PictureBox, e.Location);
         }
 
         private void acceptRequest_Click(object sender, EventArgs e)
         {
-            bool hasPendingRequest = _controller.HasPendingResetRequest(int.Parse(_employee.PrimaryID));
-
-            if (!hasPendingRequest)
-            {
-                MessageBox.Show(
-                    "This employee does not have a pending password reset request.",
-                    "No Request Found",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-                acceptRequest.Visible = false;
-                return;
-            }
-
-            var result = MessageBox.Show(
-                $"Approve password reset for {_employee.FirstName} {_employee.LastName}?\n\n" +
-                "This will reset their password to the default temporary password.\n" +
-                "They will need to change it on their next login.",
-                "Approve Password Reset",
+            var confirm = MessageBox.Show(
+                $"Reset password for {_employee.FirstName} {_employee.LastName} to the default?\n\n" +
+                "They will be required to change it on their next login.",
+                "Confirm Password Reset",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+                MessageBoxIcon.Warning);
 
-            if (result != DialogResult.Yes)
-                return;
+            if (confirm != DialogResult.Yes) return;
 
             try
             {
-                bool success = _controller.ApprovePasswordReset(
-                    int.Parse(_employee.PrimaryID),
-                    0
-                );
+                bool success = _controller.ResetPasswordToDefault(int.Parse(_employee.PrimaryID));
 
                 if (success)
                 {
                     string tempPassword = Coffee.Kiosk.CMS.Helpers.LogicHelpers.GetTemporaryPasswordDisplay();
-
                     MessageBox.Show(
-                        $"Password reset approved!\n\n" +
+                        $"Password reset successfully!\n\n" +
                         $"Employee: {_employee.FirstName} {_employee.LastName}\n" +
                         $"Temporary Password: {tempPassword}\n\n" +
-                        "The employee will need to use this password on their next login.",
-                        "Reset Approved",
+                        "They must change it on next login.",
+                        "Reset Successful",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                        MessageBoxIcon.Information);
 
                     acceptRequest.Enabled = false;
-                    acceptRequest.Text = "Reset Approved";
+                    acceptRequest.Text = "Password Reset";
                     acceptRequest.FillColor = Color.Gray;
                 }
                 else
                 {
-                    MessageBox.Show(
-                        "Failed to approve password reset. Please try again.",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
+                    MessageBox.Show("Failed to reset password. Please try again.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Error approving password reset: {ex.Message}",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show($"Error resetting password: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void SetupPasswordResetButton()
         {
-            acceptRequest.Visible = false;
+            bool isOwnerOrManager = _employee.Role == "Owner" || _employee.Role == "Manager";
 
-            if (_employee.Role == "Owner")
+            if (!isOwnerOrManager)
             {
+                acceptRequest.Visible = false;
                 return;
             }
 
-            if (_employee.Status != "ACTIVE")
-            {
-                return;
-            }
-
-            bool hasPendingRequest = _controller.HasPendingResetRequest(int.Parse(_employee.PrimaryID));
-
-            if (hasPendingRequest)
-            {
-                acceptRequest.Visible = true;
-                acceptRequest.Enabled = true;
-                acceptRequest.Text = "Approve Password Reset";
-                acceptRequest.FillColor = Color.Salmon;
-                acceptRequest.HoverState.FillColor = Color.Coral;
-            }
+            acceptRequest.Visible = true;
+            acceptRequest.Enabled = true;
+            acceptRequest.Text = "Reset Password";
+            acceptRequest.FillColor = Color.Salmon;
+            acceptRequest.HoverState.FillColor = Color.Coral;
         }
 
-        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e) { }
     }
 }
