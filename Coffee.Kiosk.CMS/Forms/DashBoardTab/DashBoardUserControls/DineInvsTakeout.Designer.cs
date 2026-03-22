@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
+            dineInCount = new Label();
+            dineInPercentage = new Label();
+            takeOutPercentage = new Label();
+            takeOutCount = new Label();
             label6 = new Label();
             SuspendLayout();
             // 
@@ -45,41 +45,41 @@
             label1.TabIndex = 0;
             label1.Text = "Dine In:";
             // 
-            // label2
+            // dineInCount
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(62, 74);
-            label2.Name = "label2";
-            label2.Size = new Size(64, 25);
-            label2.TabIndex = 1;
-            label2.Text = "Count:";
+            dineInCount.AutoSize = true;
+            dineInCount.Location = new Point(62, 74);
+            dineInCount.Name = "dineInCount";
+            dineInCount.Size = new Size(60, 25);
+            dineInCount.TabIndex = 1;
+            dineInCount.Text = "Count";
             // 
-            // label3
+            // dineInPercentage
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(62, 117);
-            label3.Name = "label3";
-            label3.Size = new Size(98, 25);
-            label3.TabIndex = 2;
-            label3.Text = "Percentage";
+            dineInPercentage.AutoSize = true;
+            dineInPercentage.Location = new Point(62, 117);
+            dineInPercentage.Name = "dineInPercentage";
+            dineInPercentage.Size = new Size(98, 25);
+            dineInPercentage.TabIndex = 2;
+            dineInPercentage.Text = "Percentage";
             // 
-            // label4
+            // takeOutPercentage
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(589, 117);
-            label4.Name = "label4";
-            label4.Size = new Size(98, 25);
-            label4.TabIndex = 5;
-            label4.Text = "Percentage";
+            takeOutPercentage.AutoSize = true;
+            takeOutPercentage.Location = new Point(589, 117);
+            takeOutPercentage.Name = "takeOutPercentage";
+            takeOutPercentage.Size = new Size(98, 25);
+            takeOutPercentage.TabIndex = 5;
+            takeOutPercentage.Text = "Percentage";
             // 
-            // label5
+            // takeOutCount
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(589, 74);
-            label5.Name = "label5";
-            label5.Size = new Size(64, 25);
-            label5.TabIndex = 4;
-            label5.Text = "Count:";
+            takeOutCount.AutoSize = true;
+            takeOutCount.Location = new Point(589, 74);
+            takeOutCount.Name = "takeOutCount";
+            takeOutCount.Size = new Size(60, 25);
+            takeOutCount.TabIndex = 4;
+            takeOutCount.Text = "Count";
             // 
             // label6
             // 
@@ -94,11 +94,11 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label4);
-            Controls.Add(label5);
+            Controls.Add(takeOutPercentage);
+            Controls.Add(takeOutCount);
             Controls.Add(label6);
-            Controls.Add(label3);
-            Controls.Add(label2);
+            Controls.Add(dineInPercentage);
+            Controls.Add(dineInCount);
             Controls.Add(label1);
             Name = "DineInvsTakeout";
             Size = new Size(850, 170);
@@ -109,10 +109,10 @@
         #endregion
 
         private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private Label label5;
+        private Label dineInCount;
+        private Label dineInPercentage;
+        private Label takeOutPercentage;
+        private Label takeOutCount;
         private Label label6;
     }
 }

@@ -14,6 +14,7 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
         public IServiceProvider ServiceProvider { get; set; }
         private AccountController _accountController;
         private bool _isValidating = false;
+        public ShopController ShopController { get; set; }
 
         public OwnerRegistration()
         {
@@ -140,10 +141,12 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
 
             try
             {
-                var shopController = ServiceProvider.GetRequiredService<ShopController>();
-                var shop = shopController.GetShopSettings();
-                shop.ShopName = shopNameTextBox.Text.Trim();
-                shopController.UpdateShopSettings(shop);
+                if (ShopController != null)
+                {
+                    var shop = ShopController.GetShopSettings();
+                    shop.ShopName = shopNameTextBox.Text.Trim();
+                    ShopController.UpdateShopSettings(shop);
+                }
             }
             catch (Exception ex)
             {
