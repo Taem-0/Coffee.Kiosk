@@ -28,8 +28,7 @@ namespace Coffee.Kiosk.OrderingSystem
         private HomePage? homePage;
 
         int currentCartCount = 0;
-        string OrderType = String.Empty;
-
+        internal string OrderType = String.Empty;
 
         private List<Models.Ads.Banners> _topBanner = new();
         private System.Windows.Forms.Timer _adTimer = new();
@@ -54,7 +53,7 @@ namespace Coffee.Kiosk.OrderingSystem
             <br>
             <b>Items:</b> {currentCartCount}
             <br>
-            <b>{orderType}</b>
+            <b>{orderType.ToString()}</b>
             <br>
             <b>Total:</b> ₱
             """;
@@ -189,6 +188,20 @@ namespace Coffee.Kiosk.OrderingSystem
             <b>Total:</b> ₱{total:0.00}
             """;
         }
+
+        internal void UpdateOrderType(string orderType)
+        {
+            OrderType = orderType;
+            guna2HtmlLabel1.Text = $"""
+            <b><font size='12'>Order summary</font></b>
+            <br>
+            <b>Items:</b> {currentCartCount}
+            <br>
+            <b>{orderType}</b>
+            <br>
+            <b>Total:</b> ₱
+            """;
+                }
 
         private void OnProductClicked(int prodcutId)
         {

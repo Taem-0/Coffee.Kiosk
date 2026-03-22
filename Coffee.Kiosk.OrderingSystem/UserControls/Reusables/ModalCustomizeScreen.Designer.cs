@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -38,15 +40,14 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             topPanel = new Panel();
+            guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            panel2 = new Panel();
+            SubtractAmountButton = new Guna.UI2.WinForms.Guna2Button();
+            AmountLbl = new Label();
+            AddAmountBtn = new Guna.UI2.WinForms.Guna2Button();
             pictureBox1 = new PictureBox();
             ProductNameLbl = new Label();
-            panel2 = new Panel();
-            AmountLbl = new Label();
-            SubtractAmountButton = new Guna.UI2.WinForms.Guna2Button();
-            AddAmountBtn = new Guna.UI2.WinForms.Guna2Button();
             button1 = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
@@ -56,13 +57,12 @@
             AddToCartBtn = new Guna.UI2.WinForms.Guna2Button();
             BackButton = new Guna.UI2.WinForms.Guna2Button();
             invalidLabel = new Label();
-            guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             topPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            guna2Panel2.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             guna2Panel1.SuspendLayout();
             panel1.SuspendLayout();
-            guna2Panel2.SuspendLayout();
             SuspendLayout();
             // 
             // topPanel
@@ -75,25 +75,20 @@
             topPanel.Size = new Size(574, 258);
             topPanel.TabIndex = 0;
             // 
-            // pictureBox1
+            // guna2Panel2
             // 
-            pictureBox1.Image = Properties.Resources.default_icon;
-            pictureBox1.Location = new Point(3, 3);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(170, 170);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
-            // ProductNameLbl
-            // 
-            ProductNameLbl.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ProductNameLbl.Location = new Point(3, 176);
-            ProductNameLbl.Name = "ProductNameLbl";
-            ProductNameLbl.Size = new Size(170, 22);
-            ProductNameLbl.TabIndex = 1;
-            ProductNameLbl.Text = "Product_Name";
-            ProductNameLbl.TextAlign = ContentAlignment.MiddleCenter;
+            guna2Panel2.BorderColor = Color.Gray;
+            guna2Panel2.Controls.Add(panel2);
+            guna2Panel2.Controls.Add(pictureBox1);
+            guna2Panel2.Controls.Add(ProductNameLbl);
+            guna2Panel2.CustomBorderColor = Color.Gray;
+            guna2Panel2.CustomBorderThickness = new Padding(3, 3, 3, 0);
+            guna2Panel2.CustomizableEdges = customizableEdges5;
+            guna2Panel2.Location = new Point(174, 3);
+            guna2Panel2.Name = "guna2Panel2";
+            guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            guna2Panel2.Size = new Size(176, 233);
+            guna2Panel2.TabIndex = 5;
             // 
             // panel2
             // 
@@ -104,16 +99,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(170, 28);
             panel2.TabIndex = 3;
-            // 
-            // AmountLbl
-            // 
-            AmountLbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AmountLbl.Location = new Point(45, 0);
-            AmountLbl.Name = "AmountLbl";
-            AmountLbl.Size = new Size(80, 25);
-            AmountLbl.TabIndex = 3;
-            AmountLbl.Text = "13";
-            AmountLbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // SubtractAmountButton
             // 
@@ -137,6 +122,16 @@
             SubtractAmountButton.Text = "+";
             SubtractAmountButton.Click += SubtractAmountButton_Click;
             // 
+            // AmountLbl
+            // 
+            AmountLbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AmountLbl.Location = new Point(45, 0);
+            AmountLbl.Name = "AmountLbl";
+            AmountLbl.Size = new Size(80, 25);
+            AmountLbl.TabIndex = 3;
+            AmountLbl.Text = "13";
+            AmountLbl.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // AddAmountBtn
             // 
             AddAmountBtn.BorderRadius = 10;
@@ -158,6 +153,26 @@
             AddAmountBtn.TabIndex = 2;
             AddAmountBtn.Text = "+";
             AddAmountBtn.Click += AddAmountBtn_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.default_icon;
+            pictureBox1.Location = new Point(3, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(170, 170);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            // 
+            // ProductNameLbl
+            // 
+            ProductNameLbl.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ProductNameLbl.Location = new Point(3, 176);
+            ProductNameLbl.Name = "ProductNameLbl";
+            ProductNameLbl.Size = new Size(170, 22);
+            ProductNameLbl.TabIndex = 1;
+            ProductNameLbl.Text = "Product_Name";
+            ProductNameLbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // button1
             // 
@@ -287,20 +302,6 @@
             invalidLabel.TextAlign = ContentAlignment.TopCenter;
             invalidLabel.Visible = false;
             // 
-            // guna2Panel2
-            // 
-            guna2Panel2.BorderColor = Color.Gray;
-            guna2Panel2.BorderThickness = 3;
-            guna2Panel2.Controls.Add(panel2);
-            guna2Panel2.Controls.Add(pictureBox1);
-            guna2Panel2.Controls.Add(ProductNameLbl);
-            guna2Panel2.CustomizableEdges = customizableEdges5;
-            guna2Panel2.Location = new Point(174, 3);
-            guna2Panel2.Name = "guna2Panel2";
-            guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2Panel2.Size = new Size(176, 233);
-            guna2Panel2.TabIndex = 5;
-            // 
             // ModalCustomizeScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -314,12 +315,12 @@
             Load += ModalCustomizeScreen_Load;
             Resize += ModalCustomizeScreen_Resize;
             topPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            guna2Panel2.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();
             panel1.ResumeLayout(false);
-            guna2Panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
