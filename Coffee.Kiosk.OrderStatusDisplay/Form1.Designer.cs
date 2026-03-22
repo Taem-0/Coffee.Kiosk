@@ -316,7 +316,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1904, 1052);
+            ClientSize = new Size(1904, 1041);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(pnlHeader);
             Name = "Form1";

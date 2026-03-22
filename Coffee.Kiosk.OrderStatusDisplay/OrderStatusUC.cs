@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-
 namespace Coffee.Kiosk.OrderStatusDisplay
 {
     public partial class OrderStatusUC : UserControl
@@ -9,11 +8,13 @@ namespace Coffee.Kiosk.OrderStatusDisplay
         private Color _accent;
         private bool _isPickup;
 
+        // ── exposed property for fade-out lookup ──────────────
+        public string? OrderNumber { get; private set; }
+
         public OrderStatusUC()
         {
             InitializeComponent();
         }
-
         public void SetCard(
             string orderNum,
             string itemName,
@@ -25,6 +26,9 @@ namespace Coffee.Kiosk.OrderStatusDisplay
         {
             _accent = accent;
             _isPickup = isPickup;
+
+            // ── store order number for fade lookup ────────────
+            OrderNumber = orderNum;
 
             // ── set text ──────────────────────────────────────
             lblOrderNum.Text = orderNum;
@@ -54,9 +58,7 @@ namespace Coffee.Kiosk.OrderStatusDisplay
 
             // ── card shell ────────────────────────────────────
             this.Height = 75;
-            // top=0 right=0 bottom=10 left=0 — gap between cards
             this.Margin = new Padding(0, 0, 0, 10);
-            // inner breathing room for the card content
             this.Padding = new Padding(6, 6, 6, 6);
             this.BackColor = Color.FromArgb(245, 237, 224);
 
@@ -81,7 +83,6 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             e.Graphics.DrawRectangle(
                 new Pen(Color.FromArgb(200, 168, 112)),
                 0, 0, Width - 1, Height - 1);
-
             if (_isPickup)
                 e.Graphics.FillRectangle(
                     new SolidBrush(Color.FromArgb(150, 45, 158, 80)),
