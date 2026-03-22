@@ -91,8 +91,21 @@ namespace Coffee.Kiosk.OrderingSystem
         private void AdTimer_Tick(object? sender, EventArgs e)
         {
             _topBannerIndex = (_topBannerIndex + 1) % _topBanner.Count;
-            TopBanner.Image = UI_Images.loadImageFromFile(_topBanner[_topBannerIndex].FilePath);
+            var newImage = UI_Images.loadImageFromFile(_topBanner[_topBannerIndex].FilePath);
+
+            var oldImage = TopBanner.Image;
+            TopBanner.Image = newImage;
+            oldImage?.Dispose();
         }
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            if (!this.Visible)
+                _adTimer.Stop();
+            else if (_topBanner.Count > 1)
+                _adTimer.Start();
+        }
+
 
         private void LoadCategories()
         {
