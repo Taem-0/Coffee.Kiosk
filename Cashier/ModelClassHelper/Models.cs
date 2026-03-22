@@ -19,28 +19,20 @@ namespace Coffee.Kiosk.Cashier.ModelClassHelper
 
     public class OrderCustomization
     {
-        public string ServeAs { get; set; } = "";
-        public string Size { get; set; } = "";
-        public string Beans { get; set; } = "";
-        public string Milk { get; set; } = "";
-        public string IceLevel { get; set; } = "";
-        public string SugarLevel { get; set; } = "";
-        public string ServedWith { get; set; } = "";
         public string Notes { get; set; } = "";
-        public List<string> AddOns { get; set; } = new();
-        public decimal AddOnsTotal { get; set; } = 0;
+        public List<(string GroupName, string OptionName, decimal Price)> SelectedModifiers { get; set; } = new();
+        public decimal AddOnsTotal => SelectedModifiers.Sum(m => m.Price);
+
+        public List<string> AddOns
+        {
+            get => SelectedModifiers.Select(m => m.OptionName).ToList();
+        }
 
         public string Summary()
         {
             var parts = new List<string>();
-            if (!string.IsNullOrEmpty(ServeAs)) parts.Add(ServeAs);
-            if (!string.IsNullOrEmpty(Size)) parts.Add(Size);
-            if (!string.IsNullOrEmpty(ServedWith)) parts.Add(ServedWith);
-            if (!string.IsNullOrEmpty(Beans)) parts.Add(Beans);
-            if (!string.IsNullOrEmpty(Milk)) parts.Add(Milk);
-            if (!string.IsNullOrEmpty(IceLevel)) parts.Add(IceLevel);
-            if (!string.IsNullOrEmpty(SugarLevel)) parts.Add(SugarLevel);
-            foreach (var a in AddOns) parts.Add($"+{a}");
+            foreach (var m in SelectedModifiers)
+                parts.Add($"{m.GroupName}: {m.OptionName}");
             if (!string.IsNullOrEmpty(Notes)) parts.Add($"\"{Notes}\"");
             return string.Join(" · ", parts);
         }
