@@ -1,8 +1,20 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Drawing;
 
 namespace Coffee.Kiosk.Cashier.CashierDBHelper
 {
+    public class ShopTheme
+    {
+        public string ShopName { get; set; } = "Coffee Kiosk";
+        public string? LogoPath { get; set; }
+        public Color PrimaryColor { get; set; } = Color.FromArgb(107, 79, 58);
+        public Color DarkPrimaryColor { get; set; } = Color.FromArgb(61, 33, 26);
+        public Color SecondaryColor { get; set; } = Color.FromArgb(160, 120, 86);
+        public Color BackgroundColor { get; set; } = Color.FromArgb(245, 245, 220);
+        public Color AccentColor { get; set; } = Color.FromArgb(203, 183, 153);
+    }
+
     public static class CashierDBHelper
     {
         private const string ConnectionString =
@@ -51,29 +63,124 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             cmd.ExecuteNonQuery();
         }
 
-        public static int GetNextOrderNumber()
+        public static int GetNextCashierOrderNumber()
         {
             using var conn = GetConnection();
             conn.Open();
-            string sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM customer_orders;";
+            string sql = @"SELECT IFNULL(MAX(CAST(SUBSTRING(OrderNumber, 2) AS UNSIGNED)), 0) + 1
+                           FROM display_preparing_queue
+                           WHERE OrderNumber LIKE 'C%'";
             using var cmd = new MySqlCommand(sql, conn);
             return Convert.ToInt32(cmd.ExecuteScalar());
         }
 
-        public static (string ShopName, string? LogoPath) GetShopInfo()
+        public static void MoveToDisplayPreparingQueue(string orderNumber, string itemName)
         {
             using var conn = GetConnection();
             conn.Open();
-            string sql = "SELECT ShopName, LogoPath FROM Shop LIMIT 1;";
-            using var cmd = new MySqlCommand(sql, conn);
-            using var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using var tx = conn.BeginTransaction();
+            try
             {
-                string name = reader.IsDBNull(0) ? "Coffee Kiosk" : reader.GetString(0);
-                string? path = reader.IsDBNull(1) ? null : reader.GetString(1);
-                return (name, path);
+                var del = new MySqlCommand(
+                    "DELETE FROM display_payment_queue WHERE OrderNumber = @num",
+                    conn, tx);
+                del.Parameters.AddWithValue("@num", orderNumber);
+                del.ExecuteNonQuery();
+
+                var ins = new MySqlCommand(
+                    "INSERT INTO display_preparing_queue (OrderNumber, ItemName) VALUES (@num, @item)",
+                    conn, tx);
+                ins.Parameters.AddWithValue("@num", orderNumber);
+                ins.Parameters.AddWithValue("@item", itemName);
+                ins.ExecuteNonQuery();
+
+                tx.Commit();
             }
-            return ("Coffee Kiosk", null);
+            catch { tx.Rollback(); throw; }
+        }
+
+        public static void DeductInventoryForOrder(int orderId, MySqlConnection conn, MySqlTransaction tx)
+        {
+            string sql = @"
+                UPDATE inventory_item ii
+                INNER JOIN product_recipe pr ON pr.InventoryItemId = ii.ID
+                INNER JOIN customer_order_item coi ON coi.ProductId = pr.ProductId
+                SET ii.Stock = ii.Stock - (pr.InventorySubtraction * coi.Quantity)
+                WHERE coi.CustomerOrderId = @orderId;";
+            using var cmd = new MySqlCommand(sql, conn, tx);
+            cmd.Parameters.AddWithValue("@orderId", orderId);
+            cmd.ExecuteNonQuery();
+        }
+
+        public static void DeductInventoryForOrder(int orderId)
+        {
+            using var conn = GetConnection();
+            conn.Open();
+            using var tx = conn.BeginTransaction();
+            try
+            {
+                DeductInventoryForOrder(orderId, conn, tx);
+                tx.Commit();
+            }
+            catch { tx.Rollback(); throw; }
+        }
+
+        public static void CancelExpiredKioskOrders(int minutesOld = 10)
+        {
+            using var conn = GetConnection();
+            conn.Open();
+            string sql = @"UPDATE customer_orders 
+                           SET Status = 'Cancelled'
+                           WHERE Status = 'Pending'
+                           AND TIMESTAMPDIFF(MINUTE, CreatedAt, NOW()) >= @minutes;";
+            using var cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@minutes", minutesOld);
+            cmd.ExecuteNonQuery();
+        }
+
+        public static ShopTheme GetShopTheme()
+        {
+            var theme = new ShopTheme();
+            try
+            {
+                using var conn = GetConnection();
+                conn.Open();
+                string sql = @"SELECT ShopName, LogoPath, Primary_Color, DarkPrimary_Color,
+                                      Secondary_Color, Background_Color, Accent_Color
+                               FROM shop LIMIT 1;";
+                using var cmd = new MySqlCommand(sql, conn);
+                using var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    theme.ShopName = reader.IsDBNull(0) ? "Coffee Kiosk" : reader.GetString(0);
+                    theme.LogoPath = reader.IsDBNull(1) ? null : reader.GetString(1);
+                    theme.PrimaryColor = ParseColor(reader.IsDBNull(2) ? "#6B4F3A" : reader.GetString(2), Color.FromArgb(107, 79, 58));
+                    theme.DarkPrimaryColor = ParseColor(reader.IsDBNull(3) ? "#3D211A" : reader.GetString(3), Color.FromArgb(61, 33, 26));
+                    theme.SecondaryColor = ParseColor(reader.IsDBNull(4) ? "#A07856" : reader.GetString(4), Color.FromArgb(160, 120, 86));
+                    theme.BackgroundColor = ParseColor(reader.IsDBNull(5) ? "#F5F5DC" : reader.GetString(5), Color.FromArgb(245, 245, 220));
+                    theme.AccentColor = ParseColor(reader.IsDBNull(6) ? "#CBB799" : reader.GetString(6), Color.FromArgb(203, 183, 153));
+                }
+            }
+            catch { }
+            return theme;
+        }
+
+        private static Color ParseColor(string hex, Color fallback)
+        {
+            try
+            {
+                return ColorTranslator.FromHtml(hex);
+            }
+            catch
+            {
+                return fallback;
+            }
+        }
+
+        public static (string ShopName, string? LogoPath) GetShopInfo()
+        {
+            var theme = GetShopTheme();
+            return (theme.ShopName, theme.LogoPath);
         }
     }
 }

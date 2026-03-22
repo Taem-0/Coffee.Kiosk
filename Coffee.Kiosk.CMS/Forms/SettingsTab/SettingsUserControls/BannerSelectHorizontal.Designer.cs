@@ -30,10 +30,7 @@
         {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BannerSelectHorizontal));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
-            AddPfpButton = new Guna.UI2.WinForms.Guna2CircleButton();
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -49,31 +46,10 @@
             guna2PictureBox1.TabIndex = 2;
             guna2PictureBox1.TabStop = false;
             // 
-            // AddPfpButton
-            // 
-            AddPfpButton.BackColor = Color.Transparent;
-            AddPfpButton.DisabledState.BorderColor = Color.DarkGray;
-            AddPfpButton.DisabledState.CustomBorderColor = Color.DarkGray;
-            AddPfpButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            AddPfpButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            AddPfpButton.Font = new Font("Segoe UI", 15F);
-            AddPfpButton.ForeColor = Color.Transparent;
-            AddPfpButton.Image = (Image)resources.GetObject("AddPfpButton.Image");
-            AddPfpButton.ImageSize = new Size(50, 50);
-            AddPfpButton.Location = new Point(242, 8);
-            AddPfpButton.Name = "AddPfpButton";
-            AddPfpButton.ShadowDecoration.CustomizableEdges = customizableEdges3;
-            AddPfpButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            AddPfpButton.Size = new Size(50, 50);
-            AddPfpButton.TabIndex = 5;
-            AddPfpButton.TextAlign = HorizontalAlignment.Left;
-            AddPfpButton.UseTransparentBackground = true;
-            // 
             // BannerSelectHorizontal
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(AddPfpButton);
             Controls.Add(guna2PictureBox1);
             Name = "BannerSelectHorizontal";
             Size = new Size(300, 193);
@@ -84,6 +60,5 @@
         #endregion
 
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
-        private Guna.UI2.WinForms.Guna2CircleButton AddPfpButton;
     }
 }

@@ -30,35 +30,35 @@
         {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            getStartedMiniPic = new Guna.UI2.WinForms.Guna2PictureBox();
-            ((System.ComponentModel.ISupportInitialize)getStartedMiniPic).BeginInit();
+            miniatureStartingBanner = new Guna.UI2.WinForms.Guna2PictureBox();
+            ((System.ComponentModel.ISupportInitialize)miniatureStartingBanner).BeginInit();
             SuspendLayout();
             // 
-            // getStartedMiniPic
+            // miniatureStartingBanner
             // 
-            getStartedMiniPic.CustomizableEdges = customizableEdges1;
-            getStartedMiniPic.Dock = DockStyle.Fill;
-            getStartedMiniPic.ImageRotate = 0F;
-            getStartedMiniPic.Location = new Point(0, 0);
-            getStartedMiniPic.Name = "getStartedMiniPic";
-            getStartedMiniPic.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            getStartedMiniPic.Size = new Size(352, 626);
-            getStartedMiniPic.TabIndex = 1;
-            getStartedMiniPic.TabStop = false;
+            miniatureStartingBanner.CustomizableEdges = customizableEdges1;
+            miniatureStartingBanner.ImageRotate = 0F;
+            miniatureStartingBanner.Location = new Point(0, 0);
+            miniatureStartingBanner.Name = "miniatureStartingBanner";
+            miniatureStartingBanner.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            miniatureStartingBanner.Size = new Size(352, 626);
+            miniatureStartingBanner.SizeMode = PictureBoxSizeMode.StretchImage;
+            miniatureStartingBanner.TabIndex = 1;
+            miniatureStartingBanner.TabStop = false;
             // 
             // MiniGetStartedScreen
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(getStartedMiniPic);
+            Controls.Add(miniatureStartingBanner);
             Name = "MiniGetStartedScreen";
             Size = new Size(352, 626);
-            ((System.ComponentModel.ISupportInitialize)getStartedMiniPic).EndInit();
+            ((System.ComponentModel.ISupportInitialize)miniatureStartingBanner).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2PictureBox getStartedMiniPic;
+        private Guna.UI2.WinForms.Guna2PictureBox miniatureStartingBanner;
     }
 }

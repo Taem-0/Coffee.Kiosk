@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
+namespace Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls
 {
-    public partial class MiniDineInTakeOut : UserControl
+    public partial class PeakHours : UserControl
     {
-        public MiniDineInTakeOut()
+        public PeakHours()
         {
             InitializeComponent();
         }

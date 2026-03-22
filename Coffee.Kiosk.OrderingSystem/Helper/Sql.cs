@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Coffee.Kiosk.OrderingSystem.Models;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
 namespace Coffee.Kiosk.OrderingSystem.Sql
@@ -524,6 +525,66 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
         }
 
 
+        internal static bool IsProductAvailable(int productId)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+                conn.Open();
+
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = @"
+                    SELECT 1
+                    FROM product_recipe pr
+                    JOIN inventory_item i 
+                        ON pr.InventoryItemId = i.ID
+                    WHERE pr.ProductId = @productId
+                      AND i.Stock < pr.InventorySubtraction
+                    LIMIT 1;
+                ";
+
+                cmd.Parameters.AddWithValue("@productId", productId);
+
+                var result = cmd.ExecuteScalar();
+
+                // If any row exists → insufficient stock found
+                return result == null;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        internal static bool CheckIfDatabaseChanged()
+        {
+            try
+            {
+                using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"
+                    SELECT 1
+                    FROM logs
+                    WHERE Table_Affected != 'ACCOUNTS'
+                      AND Created_At > @lastCheck
+                    LIMIT 1;
+                ";
+
+                cmd.Parameters.AddWithValue("@lastCheck", AuditLogs.currentDateTime);
+
+                var result = cmd.ExecuteScalar();
+
+                return result != null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error\n{ex.Message}");
+                return false;
+            }
+        }
         internal static Models.UiAssets.Shop? GetAssets()
         {
             try

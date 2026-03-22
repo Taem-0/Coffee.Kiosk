@@ -26,22 +26,24 @@ namespace Coffee.Kiosk
                 .Build();
 
             var services = new ServiceCollection();
-
             services.AddSingleton<IConfiguration>(configuration);
             services.AddTransient<DBInitializer>();
             services.AddTransient<AccountDBManager>();
             services.AddTransient<AccountsService>();
             services.AddTransient<RegistrationValidation>();
             services.AddTransient<UpdateValidation>();
-            services.AddTransient<LoginValidation>(); 
+            services.AddTransient<LoginValidation>();
             services.AddTransient<AccountController>();
+            services.AddTransient<ShopDBManager>();
+            services.AddTransient<ShopService>();
+            services.AddTransient<ShopController>();
 
             var serviceProvider = services.BuildServiceProvider();
+
             var dbInitializer = serviceProvider.GetRequiredService<DBInitializer>();
             dbInitializer.CreateDataBase();
 
             bool adminExists = CheckIfAdminExists(serviceProvider);
-
             if (!adminExists)
             {
                 ShowStartupWizard(serviceProvider);
@@ -71,8 +73,14 @@ namespace Coffee.Kiosk
 
         private static void ShowStartupWizard(IServiceProvider serviceProvider)
         {
+            var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+            var shopManager = new ShopDBManager(configuration);
+            var shopService = new ShopService(shopManager);
+            var shopController = new ShopController(shopService);
+
             var startupWizard = new StartUpWizard();
             startupWizard.ServiceProvider = serviceProvider;
+            startupWizard.ShopController = shopController;
 
             if (startupWizard.ShowDialog() == DialogResult.OK)
             {

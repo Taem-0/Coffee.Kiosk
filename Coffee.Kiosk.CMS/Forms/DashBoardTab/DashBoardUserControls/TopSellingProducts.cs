@@ -8,19 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
+namespace Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls
 {
-    public partial class MiniGetStartedScreen : UserControl
+    public partial class TopSellingProducts : UserControl
     {
-        public MiniGetStartedScreen()
+        public TopSellingProducts()
         {
             InitializeComponent();
         }
 
-        public void SetBanner(Image? img)
+        private void TopSellingProducts_Load(object sender, EventArgs e)
         {
-            miniatureStartingBanner.Image = img;
-            miniatureStartingBanner.Invalidate();
+
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
         public IServiceProvider ServiceProvider { get; set; }
         private AccountController _accountController;
         private bool _isValidating = false;
+        public ShopController ShopController { get; set; }
 
         public OwnerRegistration()
         {
@@ -136,6 +137,21 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
             {
                 ShowValidationErrors(validationResult);
                 return;
+            }
+
+            try
+            {
+                if (ShopController != null)
+                {
+                    var shop = ShopController.GetShopSettings();
+                    shop.ShopName = shopNameTextBox.Text.Trim();
+                    ShopController.UpdateShopSettings(shop);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Account created but failed to save shop name: {ex.Message}",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             MessageBox.Show("Owner account created successfully!",

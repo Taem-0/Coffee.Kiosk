@@ -1,8 +1,10 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
-using System.IO;
+using Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls;
 using Coffee.Kiosk.CMS.Helpers;
 using Coffee.Kiosk.CMS.Models;
+using Guna.UI2.WinForms;
+using System.IO;
 
 
 namespace Coffee.Kiosk.CMS.Forms.SettingsTab
@@ -52,13 +54,14 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             LoadCurrentEmployeeData();
 
             LoadLogoImage(currentShop.LogoPath);
+            shopNameTextBox.Text = currentShop.ShopName;
 
             //KioskLoad:
 
             bannerUpload1.Initialize(kioskController);
-
+            RefreshPreviews();
             SwitchScreen(miniGetStartedScreen1);
-
+            bannerUpload1.BannersChanged += (s, e) => RefreshPreviews();
 
 
         }
@@ -220,6 +223,11 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             accentColorButton.Enabled = enabled;
         }
 
+        private void shopNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void selectThemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             bool isCustom = selectThemeComboBox.SelectedItem?.ToString() == "Custom";
@@ -264,6 +272,8 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
         private void saveButton_Click(object sender, EventArgs e)
         {
             var shop = _themeController.GetShopSettings();
+
+            shop.ShopName = shopNameTextBox.Text.Trim();
 
             bool isCustom = selectThemeComboBox.SelectedItem?.ToString() == "Custom";
             shop.ThemeMode = isCustom ? "custom" : "default";
@@ -344,95 +354,82 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
         #region KIOSK TAB
 
 
-
-
         private void LeftSlideButton_Click(object sender, EventArgs e)
         {
             if (miniGetStartedScreen1.Visible)
-            {
-                SwitchScreen(miniThankYouScreen1);
-            }
-            else if (miniDineInTakeOut1.Visible)
-            {
-                SwitchScreen(miniGetStartedScreen1);
-            }
-            else if (miniHomePage1.Visible)
-            {
-                SwitchScreen(miniDineInTakeOut1);
-            }
-            else if (miniKioskMenu1.Visible)
-            {
-                SwitchScreen(miniHomePage1);
-            }
-            else if (miniModalScreen1.Visible)
-            {
                 SwitchScreen(miniKioskMenu1);
-            }
-            else if (miniViewOrder1.Visible)
-            {
-                SwitchScreen(miniModalScreen1);
-            }
-            else if (miniThankYouScreen1.Visible)
-            {
-                SwitchScreen(miniViewOrder1);
-            }
+            else if (miniKioskMenu1.Visible)
+                SwitchScreen(miniGetStartedScreen1);
         }
 
         private void RightSlideButton_Click(object sender, EventArgs e)
         {
             if (miniGetStartedScreen1.Visible)
-            {
-                SwitchScreen(miniDineInTakeOut1);
-            }
-            else if (miniDineInTakeOut1.Visible)
-            {
-                SwitchScreen(miniHomePage1);
-            }
-            else if (miniHomePage1.Visible)
-            {
                 SwitchScreen(miniKioskMenu1);
-            }
             else if (miniKioskMenu1.Visible)
-            {
-                SwitchScreen(miniModalScreen1);
-            }
-            else if (miniModalScreen1.Visible)
-            {
-                SwitchScreen(miniViewOrder1);
-            }
-            else if (miniViewOrder1.Visible)
-            {
-                SwitchScreen(miniThankYouScreen1);
-            }
-            else if (miniThankYouScreen1.Visible)
-            {
                 SwitchScreen(miniGetStartedScreen1);
-            }
         }
 
         private void SwitchScreen(UserControl targetScreen)
         {
             UserControl[] allScreens = {
                 miniGetStartedScreen1,
-                miniDineInTakeOut1,
-                miniHomePage1,
-                miniKioskMenu1,
-                miniModalScreen1,
-                miniViewOrder1,
-                miniThankYouScreen1
+                miniKioskMenu1
             };
 
             foreach (var screen in allScreens)
-            {
                 screen.Visible = (screen == targetScreen);
-            }
 
             targetScreen.BringToFront();
         }
 
+        private void RefreshPreviews()
+        {
+            var banners = _kioskController.GetAllBanners();
+
+            var startingBanner = banners
+                .Where(b => b.Placement == "Starting Screen")
+                .OrderBy(b => b.DisplayOrder)
+                .FirstOrDefault();
+
+            var topBanner = banners
+                .Where(b => b.Placement == "Top Banner")
+                .OrderBy(b => b.DisplayOrder)
+                .FirstOrDefault();
+
+            var homeBanner1 = banners
+                .Where(b => b.Placement == "Home Page Banner 1")
+                .OrderBy(b => b.DisplayOrder)
+                .FirstOrDefault();
+
+            var homeBanner2 = banners
+                .Where(b => b.Placement == "Home Page Banner 2")
+                .OrderBy(b => b.DisplayOrder)
+                .FirstOrDefault();
+
+
+            miniGetStartedScreen1.SetBanner(LoadPreviewImage(startingBanner?.FilePath));
+            miniKioskMenu1.SetTopBanner(LoadPreviewImage(topBanner?.FilePath));
+            miniKioskMenu1.SetPromoBanner1(LoadPreviewImage(homeBanner1?.FilePath));
+            miniKioskMenu1.SetPromoBanner2(LoadPreviewImage(homeBanner2?.FilePath));
+
+
+        }
+
         #endregion
 
-        
+        private Image? LoadPreviewImage(string? path)
+        {
+            if (string.IsNullOrEmpty(path) || !File.Exists(path)) return null;
+            try
+            {
+                using var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                return Image.FromStream(fs);
+            }
+            catch { return null; }
+        }
+
+
     }
 
 

@@ -10,12 +10,16 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
     public partial class BannerUpload : UserControl
     {
         private KioskController _kioskController;
+        public event EventHandler? BannersChanged;
+
+
 
         public BannerUpload()
         {
             InitializeComponent();
 
             suggestedDimensionTip.BackColor = Color.Transparent;
+
         }
 
         public void Initialize(KioskController controller)
@@ -117,6 +121,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
                         _kioskController.AddBanner(dialogue.Result);
 
                     RefreshCards();
+                    BannersChanged?.Invoke(this, EventArgs.Empty); 
                     MessageBox.Show(
                         existing != null ? "Banner updated!" : "Banner added!",
                         "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

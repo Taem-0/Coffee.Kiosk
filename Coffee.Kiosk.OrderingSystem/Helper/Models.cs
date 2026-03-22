@@ -279,4 +279,32 @@ namespace Coffee.Kiosk.OrderingSystem.Models
         }
 
     }
+
+       
+    public class AuditLogs
+    {
+        public static DateTime currentDateTime = DateTime.Now;
+
+        public enum Tables
+        {
+            ACCOUNTS,
+
+            INVENTORY_ITEM,
+
+            CATEGORY,
+            PRODUCT,
+            PRODUCT_RECIPE,
+            MODIFIER_GROUP,
+            MODIFIER_OPTION,
+            
+            CUSTOMER_ORDERS,
+            CUSTOMER_ORDER_ITEM,
+            CUSTOMER_ORDER_ITEM_MODIFIER,
+
+            KIOSK,
+            KIOSK_BANNERS,
+
+            SHOP
+        }
+    }
 }

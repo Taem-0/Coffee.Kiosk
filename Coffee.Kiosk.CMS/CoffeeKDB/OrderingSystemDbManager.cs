@@ -70,7 +70,10 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@categoryId", categoryId);
                 cmd.ExecuteNonQuery();
 
-                AuditLogsDb.AddLogs("category", categoryId, AuditLogsDb.Action.UPDATE, 
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.CATEGORY,
+                    categoryId,
+                    AuditLogsDb.Action.UPDATE, 
                     $"Category name changed from '{oldName}' to '{newName}"
                     );
             }
@@ -93,7 +96,17 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@name", name);
                 cmd.Parameters.AddWithValue("@iconPath", iconPath);
                 cmd.ExecuteNonQuery();
-                return (int)cmd.LastInsertedId;
+
+                int lastInsert = (int)cmd.LastInsertedId;
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.CATEGORY,
+                    lastInsert,
+                    AuditLogsDb.Action.INSERT, 
+                    $"Added new Category"
+                    );
+
+                return lastInsert;
             }
             catch (Exception ex)
             {
@@ -110,11 +123,33 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
                 conn.Open();
 
+                using var cmdGetName = conn.CreateCommand();
+                cmdGetName.CommandText = @"SELECT Name FROM category WHERE ID = @categoryId;";
+                cmdGetName.Parameters.AddWithValue("@categoryId", categoryId);
+                cmdGetName.ExecuteReader();
+
+                string? oldName = null;
+
+                using (var reader = cmdGetName.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        oldName = reader.GetString("Name");
+                    }
+                }
+
                 using var cmd = conn.CreateCommand();
                 cmd.CommandText = @"DELETE FROM category
                                     WHERE ID = @categoryId;";
                 cmd.Parameters.AddWithValue("@categoryId", categoryId);
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.CATEGORY,
+                    categoryId,
+                    AuditLogsDb.Action.UPDATE, 
+                    $"Deleted Category Named: {oldName}"
+                    );
             }
             catch(Exception ex)
             {
@@ -136,6 +171,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@isDraft", isDraft);
                 cmd.Parameters.AddWithValue("@categoryId", categoryId);
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.CATEGORY,
+                    categoryId,
+                    AuditLogsDb.Action.UPDATE, 
+                    $"Category with ID: {categoryId} made {(isDraft ? "Hidden" : "Shown")}"
+                    );
             }
             catch (Exception ex)
             {
@@ -158,6 +200,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@newIconPath", newIconPath);
                 cmd.Parameters.AddWithValue("@categoryId", categoryId);
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.CATEGORY,
+                    categoryId,
+                    AuditLogsDb.Action.UPDATE, 
+                    $"Updated Category Icon with ID: {categoryId} "
+                    );
             }
             catch (Exception ex)
             {
@@ -215,7 +264,16 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@price", price);
                 cmd.Parameters.AddWithValue("@imagePath", imagePath);
                 cmd.ExecuteNonQuery();
-                return (int)cmd.LastInsertedId;
+
+                int lastInsert = (int)cmd.LastInsertedId;
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.PRODUCT,
+                    lastInsert,
+                    AuditLogsDb.Action.INSERT, 
+                    $"Added new Product Named: {name}"
+                    );
+                return lastInsert;
             }
             catch (Exception ex)
             {
@@ -232,6 +290,20 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
                 conn.Open();
 
+                using var oldValueCmd = conn.CreateCommand();
+                oldValueCmd.CommandText = "SELECT Name FROM product WHERE ID = @id";
+                oldValueCmd.Parameters.AddWithValue("@id", productId);
+
+                string? oldName = null;
+
+                using (var reader = oldValueCmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        oldName = reader.GetString("Name");
+                    }
+                }
+
                 using var cmd = conn.CreateCommand();
                 cmd.CommandText = @"UPDATE product
                                     SET Name = @name,
@@ -245,6 +317,14 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@id", productId);
 
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.PRODUCT,
+                    productId,
+                    AuditLogsDb.Action.UPDATE, 
+                    $"Updated Product Name from {oldName} to {name}"
+                    );
+
                 return true;
             }
             catch (Exception ex)
@@ -261,11 +341,33 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 using var conn = new MySqlConnection(DBhelper.connectionStringDatabase);
                 conn.Open();
 
+                using var cmdGetName = conn.CreateCommand();
+                cmdGetName.CommandText = @"SELECT Name FROM product WHERE ID = @productId;";
+                cmdGetName.Parameters.AddWithValue("@productId", productId);
+                cmdGetName.ExecuteReader();
+
+                string? oldName = null;
+
+                using (var reader = cmdGetName.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        oldName = reader.GetString("Name");
+                    }
+                }
+
                 using var cmd = conn.CreateCommand();
                 cmd.CommandText = @"DELETE FROM product
                                     WHERE ID = @productid;";
                 cmd.Parameters.AddWithValue("@productId", productId);
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.PRODUCT,
+                    productId,
+                    AuditLogsDb.Action.DELETE,
+                    $"Deleted product Named: {oldName}"
+                    );
             }
             catch(Exception ex)
             {
@@ -337,7 +439,17 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@selectionType", selectionType.ToString());
                 cmd.Parameters.AddWithValue("@required", required);
                 cmd.ExecuteNonQuery();
-                return (int)cmd.LastInsertedId;
+
+                int lastInsert = (int)cmd.LastInsertedId;
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.MODIFIER_GROUP,
+                    lastInsert,
+                    AuditLogsDb.Action.INSERT,
+                    $"Added new modifier_group for product with ID: {productId}"
+                    );
+
+                return lastInsert;
             }
             catch (Exception ex)
             {
@@ -367,6 +479,14 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@required", model.Required);
                 cmd.Parameters.AddWithValue("@id", model.Id);
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.MODIFIER_GROUP,
+                    model.Id,
+                    AuditLogsDb.Action.UPDATE,
+                    $"Updated modifier_group"
+                    );
+
                 return true;
             }
             catch (Exception ex)
@@ -386,6 +506,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 using var cmd = conn.CreateCommand();
                 cmd.CommandText = $"DELETE FROM modifier_group WHERE ID = {GroupId}";
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.MODIFIER_GROUP,
+                    GroupId,
+                    AuditLogsDb.Action.DELETE,
+                    $"Deleted modifier_group with ID: {GroupId}"
+                    );
             }
             catch(Exception ex)
             {
@@ -482,6 +609,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                              """;
                 cmd2.ExecuteNonQuery();
 
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.MODIFIER_OPTION,
+                    lastInsertedId,
+                    AuditLogsDb.Action.INSERT,
+                    $"Added new modifier_option"
+                    );
+
                 return lastInsertedId;
             }
             catch (Exception ex)
@@ -516,6 +650,14 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@id", model.Id.Value);
 
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.MODIFIER_OPTION,
+                    (model.Id == null ? 0 : model.Id.Value),
+                    AuditLogsDb.Action.UPDATE,
+                    $"Updated modifier_option with ID: {model.Id} Name: {model.Name}"
+                    );
+
                 return true;
             }
             catch (Exception ex)
@@ -534,6 +676,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 using var cmd = conn.CreateCommand();
                 cmd.CommandText = $"DELETE FROM modifier_option WHERE ID = {OptionId}";
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.MODIFIER_OPTION,
+                    OptionId,
+                    AuditLogsDb.Action.DELETE,
+                    $"Deleted modifier_option with ID: {OptionId}"
+                    );
             }
             catch(Exception ex)
             {
@@ -590,7 +739,16 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@inventorySubtraction", 1);
 
                 cmd.ExecuteNonQuery();
-                return (int)cmd.LastInsertedId;
+
+                int lastInsert = (int)cmd.LastInsertedId;
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.PRODUCT_RECIPE,
+                    lastInsert,
+                    AuditLogsDb.Action.INSERT,
+                    $"Added new product_recipe"
+                    );
+                return lastInsert;
             }
             catch(Exception ex)
             {
@@ -612,6 +770,14 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("productRecipeId", productRecipeId);
 
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.PRODUCT_RECIPE,
+                    productRecipeId,
+                    AuditLogsDb.Action.DELETE,
+                    $"Deleted product_recipe with ID: {productRecipeId}"
+                    );
+
                 return true;
             }
             catch(Exception ex)
@@ -638,6 +804,14 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@id", id);
 
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.PRODUCT_RECIPE,
+                    id,
+                    AuditLogsDb.Action.UPDATE,
+                    $"Updated product_recipe with ID: {id}"
+                    );
+
                 return true;
             }
             catch(Exception ex)

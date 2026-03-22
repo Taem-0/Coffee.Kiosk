@@ -41,16 +41,19 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
 
             foreach (var product in products)
             {
-                var productItem = new ProductItem(
-                    product.Id,
-                    product.CategoryId,
-                    product.Name,
-                    product.ImagePath,
-                    product.Price
-                    );
-                productItem.productClicked += OnProductClicked;
+                if (Sql.Queries.IsProductAvailable(product.Id))
+                {
+                    var productItem = new ProductItem(
+                        product.Id,
+                        product.CategoryId,
+                        product.Name,
+                        product.ImagePath,
+                        product.Price
+                        );
+                    productItem.productClicked += OnProductClicked;
 
-                flowProducts.Controls.Add(productItem);
+                    flowProducts.Controls.Add(productItem);
+                }
             }
         }
 

@@ -17,6 +17,7 @@ namespace Coffee.Kiosk.Cashier
         private Label _lblBadge = new();
         private UC_KioskOrders _kioskPanel = new();
         private System.Windows.Forms.Timer _pollTimer = new();
+        private System.Windows.Forms.Timer _cancelTimer = new();
 
         public HomePage()
         {
@@ -25,22 +26,36 @@ namespace Coffee.Kiosk.Cashier
             lblClock.Text = DateTime.Now.ToString("hh:mm tt");
             tmrClock.Start();
 
-            try
-            {
-                (string shopName, string? logoPath) = DBHelper.GetShopInfo();
-                ShopName.Text = shopName;
-                this.Text = shopName;
-
-                if (!string.IsNullOrEmpty(logoPath) && File.Exists(logoPath))
-                    LogoPath.Image = Image.FromFile(logoPath);
-            }
-            catch { }
+            ApplyTheme();
 
             SetupBadge();
             SetupKioskPanel();
             SetupPollTimer();
+            SetupCancelTimer();
 
             LoadControl(new UC_Cashier());
+        }
+
+        private void ApplyTheme()
+        {
+            var theme = SessionManager.Theme;
+
+            try
+            {
+                ShopName.Text = theme.ShopName;
+                this.Text = theme.ShopName;
+                ShopName.ForeColor = Color.White;
+
+                pnlTopBar.BackColor = theme.PrimaryColor;
+                this.BackColor = theme.BackgroundColor;
+
+                btnLogout.FillColor = theme.DarkPrimaryColor;
+                btnLogout.ForeColor = Color.White;
+
+                if (!string.IsNullOrEmpty(theme.LogoPath) && File.Exists(theme.LogoPath))
+                    LogoPath.Image = Image.FromFile(theme.LogoPath);
+            }
+            catch { }
         }
 
         public void LoadControl(UserControl uc)
@@ -157,6 +172,18 @@ namespace Coffee.Kiosk.Cashier
             _pollTimer.Start();
         }
 
+        private void SetupCancelTimer()
+        {
+            _cancelTimer.Interval = 60_000;
+            _cancelTimer.Tick += (s, e) =>
+            {
+                try { DBHelper.CancelExpiredKioskOrders(10); }
+                catch { }
+                UpdateBadge();
+            };
+            _cancelTimer.Start();
+        }
+
         private void tmrClock_Tick(object sender, EventArgs e)
         {
             lblClock.Text = DateTime.Now.ToString("hh:mm tt");
@@ -171,6 +198,7 @@ namespace Coffee.Kiosk.Cashier
             if (result == DialogResult.Yes)
             {
                 _pollTimer.Stop();
+                _cancelTimer.Stop();
 
                 try { DBHelper.CloseShift(SessionManager.ActiveSalesId); }
                 catch { }

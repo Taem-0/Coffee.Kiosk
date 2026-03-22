@@ -26,8 +26,18 @@ namespace Coffee.Kiosk.Cashier
 
             lblOrderNum.Text = $"Order #{SessionManager.OrderNumber:D3}";
 
+            ApplyTheme();
             LoadMenuFromDatabase();
             UpdateTotals();
+        }
+
+        private void ApplyTheme()
+        {
+            var theme = SessionManager.Theme;
+            btnPay.FillColor = theme.PrimaryColor;
+            btnPay.ForeColor = Color.White;
+            btnClear.BorderColor = theme.PrimaryColor;
+            btnClear.ForeColor = theme.PrimaryColor;
         }
 
         private void LoadMenuFromDatabase()
@@ -52,6 +62,7 @@ namespace Coffee.Kiosk.Cashier
         private void LoadCategories()
         {
             flpCategories.Controls.Clear();
+            var theme = SessionManager.Theme;
 
             var cats = new List<string> { "All" };
             cats.AddRange(_menu.Select(i => i.Category).Distinct().OrderBy(c => c));
@@ -63,9 +74,9 @@ namespace Coffee.Kiosk.Cashier
                     Text = cat,
                     Size = new Size(cat.Length > 6 ? 100 : 80, 32),
                     BorderRadius = 16,
-                    FillColor = cat == "All" ? Color.FromArgb(107, 79, 58) : Color.Transparent,
-                    ForeColor = cat == "All" ? Color.White : Color.FromArgb(107, 79, 58),
-                    BorderColor = Color.FromArgb(107, 79, 58),
+                    FillColor = cat == "All" ? theme.PrimaryColor : Color.Transparent,
+                    ForeColor = cat == "All" ? Color.White : theme.PrimaryColor,
+                    BorderColor = theme.PrimaryColor,
                     Font = new Font("Segoe UI", 8f),
                     Margin = new Padding(0, 0, 6, 0),
                     Tag = cat
@@ -79,12 +90,13 @@ namespace Coffee.Kiosk.Cashier
         {
             if (sender is not Guna.UI2.WinForms.Guna2Button btn) return;
             _activeCategory = btn.Tag?.ToString() ?? "All";
+            var theme = SessionManager.Theme;
 
             foreach (Guna.UI2.WinForms.Guna2Button b in flpCategories.Controls)
             {
                 bool active = b.Tag?.ToString() == _activeCategory;
-                b.FillColor = active ? Color.FromArgb(107, 79, 58) : Color.Transparent;
-                b.ForeColor = active ? Color.White : Color.FromArgb(107, 79, 58);
+                b.FillColor = active ? theme.PrimaryColor : Color.Transparent;
+                b.ForeColor = active ? Color.White : theme.PrimaryColor;
             }
             FilterMenu();
         }

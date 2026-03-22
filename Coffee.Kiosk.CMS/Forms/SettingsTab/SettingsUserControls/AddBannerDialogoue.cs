@@ -35,8 +35,6 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
 
         private void SetupControls()
         {
-            placementSelection.Items.AddRange(new object[] { "Home Page", "Starting Screen", "Top Banner" });
-            placementSelection.SelectedIndex = 0;
 
             for (int i = 1; i <= 20; i++)
                 orderSelection.Items.Add(i);

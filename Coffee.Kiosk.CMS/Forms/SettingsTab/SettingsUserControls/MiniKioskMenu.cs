@@ -17,9 +17,23 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab.SettingsUserControls
             InitializeComponent();
         }
 
-        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        public void SetTopBanner(Image? img)
         {
-
+            miniatureTopBanner.Image = img;
+            miniatureTopBanner.Invalidate();
         }
+
+        public void SetPromoBanner1(Image? img)
+        {
+            miniatureTopBanner1.Image = img;
+            miniatureTopBanner1.Invalidate();
+        }
+
+        public void SetPromoBanner2(Image? img)
+        {
+            miniatureTopBanner2.Image = img;
+            miniatureTopBanner2.Invalidate();
+        }
+
     }
 }
