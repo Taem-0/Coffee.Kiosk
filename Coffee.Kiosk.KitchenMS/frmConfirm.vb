@@ -38,10 +38,7 @@ Public Class frmConfirm
         Me.Close()
     End Sub
 
-    Private Sub frmConfirm_Deactivate(sender As Object, e As EventArgs) Handles MyBase.Deactivate
-        UserConfirmed = False
-        Me.Close()
-    End Sub
+
 
     Private Sub pnlBackground_Paint(sender As Object, e As PaintEventArgs) Handles pnlBackground.Paint
 
