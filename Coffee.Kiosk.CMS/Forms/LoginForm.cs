@@ -44,6 +44,9 @@ namespace Coffee.Kiosk.CMS.Forms
             services.AddTransient<UpdateValidation>();
             services.AddTransient<LoginValidation>();
             services.AddTransient<AccountController>();
+            services.AddTransient<ShopDBManager>();
+            services.AddTransient<ShopService>();
+            services.AddTransient<ShopController>();
 
             var serviceProvider = services.BuildServiceProvider();
             _controller = serviceProvider.GetRequiredService<AccountController>();

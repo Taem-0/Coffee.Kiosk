@@ -1,4 +1,5 @@
-﻿using Coffee.Kiosk.CMS.Helpers;
+﻿using Coffee.Kiosk.CMS.Controllers;
+using Coffee.Kiosk.CMS.Helpers;
 using System;
 using System.Windows.Forms;
 
@@ -7,6 +8,7 @@ namespace Coffee.Kiosk.CMS.Forms.WizardWoopWoop
     public partial class StartUpWizard : Form
     {
         public IServiceProvider ServiceProvider { get; set; }
+        public ShopController ShopController { get; set; }
 
         public StartUpWizard()
         {
@@ -58,6 +60,7 @@ namespace Coffee.Kiosk.CMS.Forms.WizardWoopWoop
         {
             var ownerRegistration = new WizardFormSequence.OwnerRegistration();
             ownerRegistration.ServiceProvider = ServiceProvider;
+            ownerRegistration.ShopController = ShopController; 
 
             this.Hide();
             var result = ownerRegistration.ShowDialog();

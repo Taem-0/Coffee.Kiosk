@@ -226,5 +226,6 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
         {
 
         }
+
     }
 }
