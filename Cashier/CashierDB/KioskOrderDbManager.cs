@@ -232,15 +232,17 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
                     cmdItem.ExecuteNonQuery();
                     int itemId = (int)cmdItem.LastInsertedId;
 
-                    foreach (var addon in item.Customization.AddOns)
+                    foreach (var mod in item.Customization.SelectedModifiers)
                     {
                         var cmdMod = new MySqlCommand(
                             @"INSERT INTO customer_order_item_modifier
-                                (CustomerOrderItemId, ModifierGroupName, ModifierOptionName, PriceDelta)
-                              VALUES (@itemId, 'Add-on', @name, 0)",
+                            (CustomerOrderItemId, ModifierGroupName, ModifierOptionName, PriceDelta)
+                          VALUES (@itemId, @groupName, @optionName, @priceDelta)",
                             conn, tx);
                         cmdMod.Parameters.AddWithValue("@itemId", itemId);
-                        cmdMod.Parameters.AddWithValue("@name", addon);
+                        cmdMod.Parameters.AddWithValue("@groupName", mod.GroupName);
+                        cmdMod.Parameters.AddWithValue("@optionName", mod.OptionName);
+                        cmdMod.Parameters.AddWithValue("@priceDelta", mod.Price);
                         cmdMod.ExecuteNonQuery();
                     }
                 }

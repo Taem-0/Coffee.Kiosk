@@ -179,6 +179,19 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 FOREIGN KEY (CustomerOrderItemId) REFERENCES customer_order_item(ID) ON DELETE CASCADE
                 );",
 
+           //Employee's Sale
+
+                @"CREATE TABLE IF NOT EXISTS EmployeeSales (
+                SalesId       INT AUTO_INCREMENT PRIMARY KEY,
+                EmployeeId    INT          NOT NULL,
+                EmployeeName  VARCHAR(100) NOT NULL,
+                TotalSales    DECIMAL(10,2) NOT NULL DEFAULT 0,
+                ShiftDate     DATE          NOT NULL,
+                ShiftStart    DATETIME      NOT NULL,
+                ShiftEnd      DATETIME      NULL,
+                CreatedAt     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );"
+
 
     };
 

@@ -232,7 +232,6 @@
                 End Using
             End If
 
-            ' second click — COMPLETE
             tmrWait.Stop()
             DatabaseHelper.UpdateOrderStatus(_orderId, "Completed")
             RaiseEvent OnOrderCompleted(Me, _orderId)

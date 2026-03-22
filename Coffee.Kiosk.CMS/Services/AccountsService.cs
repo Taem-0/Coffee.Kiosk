@@ -182,6 +182,11 @@ namespace Coffee.Kiosk.CMS.Services
             }
         }
 
+        public void ResetToDefaultPassword(int employeeId)
+        {
+            _dBManager.ResetToDefaultPassword(employeeId);
+        }
+
         public void Deactivate(DisplayDTO request)
         {
             var employee = new Employee

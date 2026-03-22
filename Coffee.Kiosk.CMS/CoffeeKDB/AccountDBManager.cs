@@ -433,6 +433,34 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
         }
 
+        public void ResetToDefaultPassword(int employeeId)
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                var (hash, salt) = LogicHelpers.GenerateDefaultPassword();
+
+                command.CommandText = @"UPDATE accounts 
+                       SET Password_Hash = @passwordHash,
+                           Password_Salt = @passwordSalt,
+                           Is_First_Login = 1,
+                           Password_Reset_Requested = 0
+                       WHERE ID = @id";
+
+                command.Parameters.AddWithValue("@id", employeeId);
+                command.Parameters.AddWithValue("@passwordHash", hash);
+                command.Parameters.AddWithValue("@passwordSalt", salt);
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (ResetToDefaultPassword): {ex.Message}");
+                throw;
+            }
+        }
+
         private void ReadData(MySqlDataReader reader, List<Employee> tableData)
         {
             while (reader.Read())

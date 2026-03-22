@@ -51,9 +51,14 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
-                SELECT OrderNumber, ItemName, PaymentMethod
-                FROM   display_payment_queue
-                ORDER  BY ID ASC";
+        SELECT
+            co.ID               AS OrderNumber,
+            coi.ProductName     AS ItemName,
+            co.PaymentMethod
+        FROM customer_orders co
+        JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
+        WHERE co.Status = 'pending'
+        ORDER BY co.ID ASC";
 
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -82,9 +87,13 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
-                SELECT OrderNumber, ItemName
-                FROM   display_preparing_queue
-                ORDER  BY ID ASC";
+    SELECT
+        co.ID               AS OrderNumber,
+        coi.ProductName     AS ItemName
+    FROM customer_orders co
+    JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
+    WHERE co.Status = 'paid'
+    ORDER BY co.ID ASC";
 
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -112,10 +121,14 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
-                SELECT OrderNumber, ItemName
-                FROM   display_pickup_queue
-                WHERE  CompletedAt IS NULL
-                ORDER  BY ID ASC";
+    SELECT
+        co.ID               AS OrderNumber,
+        coi.ProductName     AS ItemName
+    FROM customer_orders co
+    JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
+    WHERE co.Status = 'completed'
+    AND   TIMESTAMPDIFF(MINUTE, co.UpdatedAt, NOW()) < 5
+    ORDER BY co.ID ASC";
 
             using var reader = cmd.ExecuteReader();
             while (reader.Read())

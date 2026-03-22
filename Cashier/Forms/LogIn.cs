@@ -1,8 +1,10 @@
 ﻿using DBHelper = Coffee.Kiosk.Cashier.CashierDBHelper.CashierDBHelper;
+using Coffee.Kiosk.Cashier.CashierDBHelper;
 using Coffee.Kiosk.Cashier.ModelClassHelper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -21,7 +23,6 @@ namespace Cashier
             btnShowPass.FlatStyle = FlatStyle.Flat;
             btnShowPass.FlatAppearance.BorderSize = 0;
             btnShowPass.BackColor = Color.Transparent;
-            btnShowPass.ForeColor = Color.FromArgb(107, 79, 58);
             btnShowPass.Text = "👁";
             btnShowPass.Font = new Font("Segoe UI", 11f);
             btnShowPass.Cursor = Cursors.Hand;
@@ -30,12 +31,54 @@ namespace Cashier
             btnShowPass.MouseUp += (s, e) => txtPassword.UseSystemPasswordChar = true;
             this.Controls.Add(btnShowPass);
 
+            txtUsername.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) txtPassword.Focus(); };
+            txtPassword.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) btnLogin_Click(s, e); };
+
             this.Load += (s, e) =>
             {
+                try
+                {
+                    var theme = DBHelper.GetShopTheme();
+                    SessionManager.Theme = theme;
+
+                    this.BackColor = theme.BackgroundColor;
+                    ShopName.ForeColor = GetContrastColor(theme.BackgroundColor);
+                    ShopName.Text = theme.ShopName;
+
+                    btnLogin.FillColor = theme.PrimaryColor;
+                    btnLogin.ForeColor = Color.White;
+
+                    txtUsername.BorderColor = theme.PrimaryColor;
+                    txtPassword.BorderColor = theme.PrimaryColor;
+
+                    btnShowPass.ForeColor = theme.PrimaryColor;
+
+                    if (!string.IsNullOrEmpty(theme.LogoPath))
+                    {
+                        string fullPath = Path.IsPathRooted(theme.LogoPath)
+                            ? theme.LogoPath
+                            : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, theme.LogoPath);
+
+                        if (File.Exists(fullPath))
+                        {
+                            LogoPath.Image = Image.FromFile(fullPath);
+                            LogoPath.SizeMode = PictureBoxSizeMode.Zoom;
+                        }
+                    }
+                }
+                catch { }
+
                 CenterControls();
                 btnShowPass.BringToFront();
             };
+
             this.Resize += (s, e) => CenterControls();
+        }
+
+        private static Color GetContrastColor(Color bg)
+        {
+            double luminance = (0.299 * bg.R + 0.587 * bg.G + 0.114 * bg.B) / 255;
+            return luminance > 0.5 ? Color.FromArgb(30, 20, 15) : Color.White;
         }
 
         private void CenterControls()
@@ -54,8 +97,8 @@ namespace Cashier
             btnLogin.Location = new Point(cx - btnLogin.Width / 2, txtPassword.Bottom + 28);
 
             btnShowPass.Location = new Point(
-            txtPassword.Right - btnShowPass.Width - 6,
-            txtPassword.Top + (txtPassword.Height - btnShowPass.Height) / 2);
+                txtPassword.Right - btnShowPass.Width - 6,
+                txtPassword.Top + (txtPassword.Height - btnShowPass.Height) / 2);
         }
 
         private static string HashPassword(string password, string salt)
@@ -202,7 +245,7 @@ namespace Cashier
             var txtNew = new TextBox { PlaceholderText = "New password (min 6 characters)", UseSystemPasswordChar = true, Width = 340, Height = 30, Location = new Point(30, 110), Font = new Font("Segoe UI", 10f) };
             var txtConfirm = new TextBox { PlaceholderText = "Confirm new password", UseSystemPasswordChar = true, Width = 340, Height = 30, Location = new Point(30, 150), Font = new Font("Segoe UI", 10f) };
             var lblError = new Label { Text = "", ForeColor = Color.FromArgb(220, 80, 80), Font = new Font("Segoe UI", 8f), AutoSize = false, Width = 340, Height = 20, Location = new Point(30, 185) };
-            var btnSave = new Button { Text = "Save New Password", Width = 340, Height = 40, Location = new Point(30, 210), BackColor = Color.FromArgb(107, 79, 58), ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10f, FontStyle.Bold), Cursor = Cursors.Hand };
+            var btnSave = new Button { Text = "Save New Password", Width = 340, Height = 40, Location = new Point(30, 210), BackColor = SessionManager.Theme.PrimaryColor, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10f, FontStyle.Bold), Cursor = Cursors.Hand };
             btnSave.FlatAppearance.BorderSize = 0;
 
             btnSave.Click += (s, ev) =>
@@ -238,17 +281,8 @@ namespace Cashier
             }, null, 0, 30);
         }
 
-        private void txtUsername_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) txtPassword.Focus();
-        }
-
-        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) btnLogin_Click(sender, e);
-        }
-
         private void txtUsername_TextChanged(object sender, EventArgs e) { }
         private void txtPassword_TextChanged(object sender, EventArgs e) { }
+        private void LogIn_Load(object sender, EventArgs e) { }
     }
 }

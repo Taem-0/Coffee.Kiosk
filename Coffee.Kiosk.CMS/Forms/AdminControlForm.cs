@@ -61,6 +61,9 @@ namespace Coffee.Kiosk
             var themeService = new ShopService(themeManager);
             var kioskManager = new KioskDBManager(configuration);
             var kioskService = new KioskService(kioskManager);
+            var dashboardManager = new DashboardDBManager(configuration);
+            var dashboardService = new DashboardService(dashboardManager);
+            var dashboardController = new DashboardController(dashboardService);
 
             validator = new RegistrationValidation();
             updateValidation = new UpdateValidation();
@@ -81,7 +84,9 @@ namespace Coffee.Kiosk
             newEmployeeView = new NewEmployeeView(controller);
             newEmployeeView.ParentFormReference = this;
 
+
             dashBoardControl = new DashBoardControl(controller);
+            dashBoardControl.Initialize(dashboardController);
             dashBoardControl.ParentFormReference = this;
 
             settingsView = new SettingsView(controller, themeController, kioskController, _currentEmployee);

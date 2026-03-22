@@ -18,7 +18,7 @@ namespace Coffee.Kiosk.Cashier
         private int _qty = 1;
         private List<ModifierGroupModel> _groups = new();
 
-        private Dictionary<int, List<(int Id, string Name, decimal Price)>> _selected = new();
+        private Dictionary<int, List<(int Id, string GroupName, string OptionName, decimal Price)>> _selected = new();
 
         private Label _lblQty = new();
         private TextBox _txtNotes = new();
@@ -72,7 +72,7 @@ namespace Coffee.Kiosk.Cashier
 
             foreach (var group in _groups)
             {
-                _selected[group.GroupId] = new List<(int, string, decimal)>();
+                _selected[group.GroupId] = new List<(int, string, string, decimal)>();
 
                 string label = group.Required
                     ? $"{group.Name}  *required"
@@ -146,7 +146,7 @@ namespace Coffee.Kiosk.Cashier
             if (group.Required && group.Options.Count > 0)
             {
                 var first = group.Options[0];
-                _selected[group.GroupId].Add((first.OptionId, first.Name, first.PriceDelta));
+                _selected[group.GroupId].Add((first.OptionId, group.Name, first.Name, first.PriceDelta));
             }
 
             foreach (var opt in group.Options)
@@ -175,7 +175,7 @@ namespace Coffee.Kiosk.Cashier
                 btn.Click += (s, e) =>
                 {
                     _selected[group.GroupId].Clear();
-                    _selected[group.GroupId].Add((capturedOpt.OptionId, capturedOpt.Name, capturedOpt.PriceDelta));
+                    _selected[group.GroupId].Add((capturedOpt.OptionId, group.Name, capturedOpt.Name, capturedOpt.PriceDelta));
 
                     foreach (var p in pills)
                     {
@@ -277,7 +277,7 @@ namespace Coffee.Kiosk.Cashier
                     isOn = !isOn;
                     chk.Invalidate();
                     if (isOn)
-                        _selected[group.GroupId].Add((capturedOpt.OptionId, capturedOpt.Name, capturedOpt.PriceDelta));
+                        _selected[group.GroupId].Add((capturedOpt.OptionId, group.Name, capturedOpt.Name, capturedOpt.PriceDelta));
                     else
                         _selected[group.GroupId].RemoveAll(x => x.Id == capturedOpt.OptionId);
                     UpdateTotal();
@@ -371,9 +371,9 @@ namespace Coffee.Kiosk.Cashier
                 }
             }
 
-            var modifierParts = _selected.Values
+            var selectedModifiers = _selected.Values
                 .SelectMany(v => v)
-                .Select(x => x.Name)
+                .Select(x => (x.GroupName, x.OptionName, x.Price))
                 .ToList();
 
             Result = new OrderItemModel
@@ -389,8 +389,7 @@ namespace Coffee.Kiosk.Cashier
                 Customization = new OrderCustomization
                 {
                     Notes = _txtNotes?.Text.Trim() ?? "",
-                    AddOns = modifierParts,
-                    AddOnsTotal = _modifiersTotal
+                    SelectedModifiers = selectedModifiers
                 }
             };
 
