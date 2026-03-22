@@ -70,5 +70,24 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             NextClicked?.Invoke();
         }
+
+        private void panel1_Click(object sender, EventArgs e)
+        {
+            NextClicked?.Invoke();
+        }
+        private void GetStartedScreen_Resize(object sender, EventArgs e)
+        {
+            UI_Handling.centerPanel(guna2ShadowPanel2, panel1);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            NextClicked?.Invoke();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            NextClicked?.Invoke();
+        }
     }
 }

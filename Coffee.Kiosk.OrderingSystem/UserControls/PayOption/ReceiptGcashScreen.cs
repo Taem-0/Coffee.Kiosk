@@ -19,10 +19,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls.PayOption
         private int _seconds;
 
         int _orderNumber;
-        public ReceiptGcashScreen()
+        public ReceiptGcashScreen(int customerId)
         {
             InitializeComponent();
             CompanyLogo.Image = UI_Images.logoImage;
+            OrderNumberLbl.Text = customerId.ToString();
         }
 
         public void SetOrderNumber(int orderNumber)

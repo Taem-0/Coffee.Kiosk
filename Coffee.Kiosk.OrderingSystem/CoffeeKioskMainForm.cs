@@ -292,7 +292,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
                 dineInTakeOut.backButtonClicked += () =>
                 {
-                    UI_Handling.loadUserControl(mainPanel, getStartedScreen!);
+                    ShowGetStartedScreen();
                 };
 
                 dineInTakeOut.hasPickedAChoice += () =>
@@ -394,7 +394,7 @@ namespace Coffee.Kiosk.OrderingSystem
             {
                 if (receiptGcashScreen == null)
                 {
-                    receiptGcashScreen = new ReceiptGcashScreen();
+                    receiptGcashScreen = new ReceiptGcashScreen(customerId);
                     receiptGcashScreen.ResetRequested += ShowThankYouScreen;
                 }
                 UI_Handling.loadUserControl(mainPanel, receiptGcashScreen);
