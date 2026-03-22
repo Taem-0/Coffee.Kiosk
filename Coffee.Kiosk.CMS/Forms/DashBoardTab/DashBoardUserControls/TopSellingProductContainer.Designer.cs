@@ -28,45 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
+            productRankNo = new Label();
+            productName = new Label();
+            productQt = new Label();
             SuspendLayout();
             // 
-            // label1
+            // productRankNo
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(224, 34);
-            label1.Name = "label1";
-            label1.Size = new Size(104, 25);
-            label1.TabIndex = 0;
-            label1.Text = "produ.Num";
+            productRankNo.AutoSize = true;
+            productRankNo.Location = new Point(224, 34);
+            productRankNo.Name = "productRankNo";
+            productRankNo.Size = new Size(104, 25);
+            productRankNo.TabIndex = 0;
+            productRankNo.Text = "produ.Num";
             // 
-            // label2
+            // productName
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(458, 34);
-            label2.Name = "label2";
-            label2.Size = new Size(59, 25);
-            label2.TabIndex = 1;
-            label2.Text = "Name";
+            productName.AutoSize = true;
+            productName.Location = new Point(458, 34);
+            productName.Name = "productName";
+            productName.Size = new Size(59, 25);
+            productName.TabIndex = 1;
+            productName.Text = "Name";
             // 
-            // label3
+            // productQt
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(672, 34);
-            label3.Name = "label3";
-            label3.Size = new Size(41, 25);
-            label3.TabIndex = 2;
-            label3.Text = "Qty";
+            productQt.AutoSize = true;
+            productQt.Location = new Point(672, 34);
+            productQt.Name = "productQt";
+            productQt.Size = new Size(41, 25);
+            productQt.TabIndex = 2;
+            productQt.Text = "Qty";
             // 
             // TopSellingProductContainer
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(productQt);
+            Controls.Add(productName);
+            Controls.Add(productRankNo);
             Name = "TopSellingProductContainer";
             Size = new Size(822, 90);
             ResumeLayout(false);
@@ -75,8 +75,8 @@
 
         #endregion
 
-        private Label label1;
-        private Label label2;
-        private Label label3;
+        private Label productRankNo;
+        private Label productName;
+        private Label productQt;
     }
 }

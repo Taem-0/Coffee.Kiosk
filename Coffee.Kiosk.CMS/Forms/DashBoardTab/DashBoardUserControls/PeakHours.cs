@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Coffee.Kiosk.CMS.Models;
 using System.Windows.Forms;
 
 namespace Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls
@@ -15,6 +8,12 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls
         public PeakHours()
         {
             InitializeComponent();
+        }
+
+        public void LoadData(DashboardData data)
+        {
+            peakHourNum.Text = data.BusiestHour;
+            slowestHourNum.Text = data.SlowestHour;
         }
     }
 }
