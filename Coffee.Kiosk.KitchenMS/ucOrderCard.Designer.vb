@@ -58,9 +58,9 @@ Partial Class ucOrderCard
         lblOrderNumber.ForeColor = Color.White
         lblOrderNumber.Location = New Point(9, 13)
         lblOrderNumber.Name = "lblOrderNumber"
-        lblOrderNumber.Size = New Size(72, 23)
+        lblOrderNumber.Size = New Size(82, 23)
         lblOrderNumber.TabIndex = 0
-        lblOrderNumber.Text = "Order #"
+        lblOrderNumber.Text = "ORDER #"
         ' 
         ' lblOrderTime
         ' 
