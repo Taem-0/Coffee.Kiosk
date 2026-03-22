@@ -53,8 +53,18 @@ namespace Cashier
 
                     btnShowPass.ForeColor = theme.PrimaryColor;
 
-                    if (!string.IsNullOrEmpty(theme.LogoPath) && File.Exists(theme.LogoPath))
-                        LogoPath.Image = Image.FromFile(theme.LogoPath);
+                    if (!string.IsNullOrEmpty(theme.LogoPath))
+                    {
+                        string fullPath = Path.IsPathRooted(theme.LogoPath)
+                            ? theme.LogoPath
+                            : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, theme.LogoPath);
+
+                        if (File.Exists(fullPath))
+                        {
+                            LogoPath.Image = Image.FromFile(fullPath);
+                            LogoPath.SizeMode = PictureBoxSizeMode.Zoom;
+                        }
+                    }
                 }
                 catch { }
 
