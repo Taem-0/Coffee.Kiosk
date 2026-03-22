@@ -138,6 +138,19 @@ namespace Coffee.Kiosk.CMS.Forms.WizardFormSequence
                 return;
             }
 
+            try
+            {
+                var shopController = ServiceProvider.GetRequiredService<ShopController>();
+                var shop = shopController.GetShopSettings();
+                shop.ShopName = shopNameTextBox.Text.Trim();
+                shopController.UpdateShopSettings(shop);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Account created but failed to save shop name: {ex.Message}",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
             MessageBox.Show("Owner account created successfully!",
                           "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

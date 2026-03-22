@@ -86,6 +86,7 @@
             placementSelection.Font = new Font("Segoe UI", 10F);
             placementSelection.ForeColor = Color.FromArgb(68, 88, 112);
             placementSelection.ItemHeight = 30;
+            placementSelection.Items.AddRange(new object[] { "Starting Screen", "Top Banner", "Home Page Banner 1", "Home Page Banner 2" });
             placementSelection.Location = new Point(42, 383);
             placementSelection.Name = "placementSelection";
             placementSelection.ShadowDecoration.CustomizableEdges = customizableEdges2;

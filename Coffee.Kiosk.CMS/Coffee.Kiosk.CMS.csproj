@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Forms\CustomizationsTab\**" />
+    <EmbeddedResource Remove="Forms\CustomizationsTab\**" />
+    <None Remove="Forms\CustomizationsTab\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -17,13 +23,15 @@
   <ItemGroup>
     <PackageReference Include="Cyotek.Windows.Forms.ColorPicker" Version="1.7.2" />
     <PackageReference Include="guna.ui2.winforms" Version="2.0.4.7" />
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="MaterialSkin.2" Version="2.3.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
-    <PackageReference Include="MySql.Data" Version="9.5.0" />
+    <PackageReference Include="MySql.Data" Version="9.6.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,8 +50,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Forms\CustomizationsTab\" />
     <Folder Include="Resources\ProfileResource\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cashier\Coffee.Kiosk.Cashier.csproj" />
+    <ProjectReference Include="..\Coffee.Kiosk.KitchenMS\Coffee.Kiosk.KitchenMS.vbproj" />
   </ItemGroup>
 
 </Project>
