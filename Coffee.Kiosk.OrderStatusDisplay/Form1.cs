@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB;
 
@@ -36,6 +37,7 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             WindowState = FormWindowState.Maximized;
 
             // ── FlowLayoutPanel settings ──────────────────────
+            // DO NOT set Dock — designer handles the layout
             flpPay.FlowDirection = FlowDirection.TopDown;
             flpPay.WrapContents = false;
             flpPay.AutoScroll = false;
@@ -51,14 +53,21 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             flpPickup.AutoScroll = false;
             flpPickup.Padding = new Padding(8, 10, 8, 10);
 
-            // ── auto-complete timer (every 30 seconds) ────────
-            var autoCompleteTimer = new System.Windows.Forms.Timer();
-            autoCompleteTimer.Interval = 30000;
-            autoCompleteTimer.Tick += (s, ev) =>
+            // ── auto-refresh timer (every 2 seconds) ─────────
+            var refreshTimer = new System.Windows.Forms.Timer();
+            refreshTimer.Interval = 2_000;
+            refreshTimer.Tick += (s, ev) =>
             {
-                _db.AutoCompleteExpiredPickups();
+                LoadPaymentOrders();
+                LoadPreparingOrders();
                 LoadPickupOrders();
             };
+            refreshTimer.Start();
+
+            // ── auto-complete timer (every 30 seconds) ────────
+            var autoCompleteTimer = new System.Windows.Forms.Timer();
+            autoCompleteTimer.Interval = 30_000;
+            autoCompleteTimer.Tick += AutoCompleteTimer_Tick;
             autoCompleteTimer.Start();
 
             // ── load cards on startup ─────────────────────────
@@ -73,6 +82,78 @@ namespace Coffee.Kiosk.OrderStatusDisplay
                 LoadPreparingOrders();
                 LoadPickupOrders();
             };
+        }
+
+        // ─────────────────────────────────────────────────────
+        //  AUTO-COMPLETE TIMER
+        //  Fade out expired pickup cards then archive them
+        // ─────────────────────────────────────────────────────
+        private async void AutoCompleteTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                // Step 1 — find expired pickup cards
+                var expiredOrders = _db.GetExpiredPickupOrderNumbers();
+
+                // Step 2 — fade out each expired card
+                foreach (var orderNumber in expiredOrders)
+                    FadeOutOrderCard(orderNumber);
+
+                // Step 3 — wait for fade animation to finish
+                if (expiredOrders.Count > 0)
+                    await Task.Delay(1000);
+
+                // Step 4 — archive expired orders in DB
+                _db.AutoCompleteExpiredPickups();
+
+                // Step 5 — refresh pickup column
+                LoadPickupOrders();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Auto-complete error: " + ex.Message);
+            }
+        }
+
+        // ─────────────────────────────────────────────────────
+        //  FADE OUT — finds card by order number and fades it
+        // ─────────────────────────────────────────────────────
+        private void FadeOutOrderCard(string orderNumber)
+        {
+            foreach (Control ctrl in flpPickup.Controls)
+            {
+                if (ctrl is OrderStatusUC card &&
+                    card.OrderNumber == orderNumber)
+                {
+                    var fadeTimer = new System.Windows.Forms.Timer();
+                    fadeTimer.Interval = 50;
+                    double opacity = 1.0;
+
+                    fadeTimer.Tick += (s, e) =>
+                    {
+                        opacity -= 0.05;
+
+                        if (opacity <= 0)
+                        {
+                            fadeTimer.Stop();
+                            fadeTimer.Dispose();
+                            flpPickup.Controls.Remove(card);
+                            card.Dispose();
+                        }
+                        else
+                        {
+                            int alpha = (int)(opacity * 255);
+                            card.BackColor = Color.FromArgb(alpha,
+                                card.BackColor.R,
+                                card.BackColor.G,
+                                card.BackColor.B);
+                        }
+                    };
+
+                    fadeTimer.Start();
+                    break;
+                }
+            }
         }
 
         // ── clock ─────────────────────────────────────────────
@@ -98,9 +179,11 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             card.SetCard(orderNum, itemName, badge,
                          accent, badgeBg, badgeFg, isPickup);
 
-            card.Width = flp.ClientSize.Width - flp.Padding.Left
-                                               - flp.Padding.Right - 4;
-            card.Height = 75;
+            // ── width fills the column, height fixed at 75 ────
+            card.Width = flp.ClientSize.Width
+            - flp.Padding.Left
+            - flp.Padding.Right - 16;  // accounts for 6px left+right margin
+            card.Height = 90;
 
             flp.Controls.Add(card);
         }
@@ -122,7 +205,8 @@ namespace Coffee.Kiosk.OrderStatusDisplay
                     string badge;
                     Color bgColor, fgColor;
 
-                    if (order.PaymentMethod == "Gcash")
+                    // case-insensitive — handles gcash/GCash/Gcash
+                    if (order.PaymentMethod?.ToLower() == "gcash")
                     {
                         badge = "GCash";
                         bgColor = GCashBg;
