@@ -321,7 +321,7 @@
             nextButton.ShadowDecoration.CustomizableEdges = customizableEdges18;
             nextButton.Size = new Size(131, 48);
             nextButton.TabIndex = 15;
-            nextButton.Text = "Next >";
+            nextButton.Text = "Next";
             nextButton.Click += nextButton_Click;
             // 
             // cancelButton

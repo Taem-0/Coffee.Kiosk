@@ -67,33 +67,10 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             ApplyContainerTheme(guna2ContainerControl4);
 
             // Apply to table layouts
-            tableLayoutPanel1.BackColor = _beige;
-            tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            tableLayoutPanel1.ForeColor = _darkBrown;
-            tableLayoutPanel1.BorderStyle = BorderStyle.None;
 
-            tableLayoutPanel2.BackColor = _beige;
-            tableLayoutPanel2.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            tableLayoutPanel2.ForeColor = _darkBrown;
-            tableLayoutPanel2.BorderStyle = BorderStyle.None;
 
             tableLayoutPanel3.BackColor = Color.Transparent;
 
-            tableLayoutPanel1.Paint += (s, e) =>
-            {
-                using (Pen pen = new Pen(_mediumBrown, 2))
-                {
-                    e.Graphics.DrawRectangle(pen, 0, 0, tableLayoutPanel1.Width - 1, tableLayoutPanel1.Height - 1);
-                }
-            };
-
-            tableLayoutPanel2.Paint += (s, e) =>
-            {
-                using (Pen pen = new Pen(_mediumBrown, 2))
-                {
-                    e.Graphics.DrawRectangle(pen, 0, 0, tableLayoutPanel2.Width - 1, tableLayoutPanel2.Height - 1);
-                }
-            };
         }
 
         private void ApplyTextBoxTheme(Guna.UI2.WinForms.Guna2TextBox textBox)
