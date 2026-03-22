@@ -11,25 +11,25 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         //protected override void Dispose(bool disposing)
         //{
-        //    if (disposing)
+        //    if (disposing && (components != null))
         //    {
-        //        _adTimer?.Stop();
-        //        _adTimer?.Dispose();
-        //        components?.Dispose();
+        //        components.Dispose();
         //    }
         //    base.Dispose(disposing);
         //}
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _adTimer?.Stop();
+                _adTimer?.Dispose();
+                components?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         #region Component Designer generated code
 
