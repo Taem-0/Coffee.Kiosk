@@ -74,7 +74,7 @@
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Margin = new Padding(3, 4, 3, 4);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1924, 131);
+            pnlHeader.Size = new Size(1902, 131);
             pnlHeader.TabIndex = 0;
             // 
             // lblClock
@@ -328,7 +328,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1924, 1055);
+            ClientSize = new Size(1902, 973);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(pnlHeader);
             Margin = new Padding(3, 4, 3, 4);

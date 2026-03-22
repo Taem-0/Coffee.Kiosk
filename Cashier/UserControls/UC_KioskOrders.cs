@@ -12,6 +12,9 @@ namespace Coffee.Kiosk.Cashier.UserControls
 
         private static readonly Color Brown = Color.FromArgb(107, 79, 58);
         private static readonly Color LightCream = Color.FromArgb(245, 240, 230);
+        private static readonly Color Urgent = Color.FromArgb(192, 32, 32);
+        private static readonly Color Warn = Color.FromArgb(180, 110, 0);
+        private static readonly Color Safe = Color.FromArgb(80, 120, 60);
 
         private FlowLayoutPanel _pnlList = new();
         private Label _lblEmpty = new();
@@ -28,13 +31,8 @@ namespace Coffee.Kiosk.Cashier.UserControls
             this.BackColor = LightCream;
             this.BorderStyle = BorderStyle.FixedSingle;
 
-            var pnlHeader = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 44,
-                BackColor = Brown
-            };
-
+            // ── Header ──────────────────────────────────────────────────────
+            var pnlHeader = new Panel { Dock = DockStyle.Top, Height = 44, BackColor = Brown };
             var lblTitle = new Label
             {
                 Text = "🔔  Kiosk Orders",
@@ -46,6 +44,7 @@ namespace Coffee.Kiosk.Cashier.UserControls
             };
             pnlHeader.Controls.Add(lblTitle);
 
+            // ── Search bar ──────────────────────────────────────────────────
             var pnlSearch = new Panel
             {
                 Dock = DockStyle.Top,
@@ -80,6 +79,7 @@ namespace Coffee.Kiosk.Cashier.UserControls
             pnlSearch.Controls.Add(_txtOrderId);
             pnlSearch.Controls.Add(btnSearch);
 
+            // ── Order list ──────────────────────────────────────────────────
             _pnlList = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
@@ -111,14 +111,8 @@ namespace Coffee.Kiosk.Cashier.UserControls
                     _pnlList.Controls.RemoveAt(i);
 
             List<KioskOrderSummary> orders;
-            try
-            {
-                orders = KioskOrderDbManager.GetPendingOrders();
-            }
-            catch
-            {
-                orders = new List<KioskOrderSummary>();
-            }
+            try { orders = KioskOrderDbManager.GetPendingOrders(); }
+            catch { orders = new List<KioskOrderSummary>(); }
 
             _lblEmpty.Visible = orders.Count == 0;
 
@@ -128,18 +122,40 @@ namespace Coffee.Kiosk.Cashier.UserControls
 
         private Panel BuildOrderCard(KioskOrderSummary order)
         {
+            // How many minutes has this order been waiting?
+            int minutesOld = (int)(DateTime.Now - order.CreatedAt).TotalMinutes;
+            int minutesLeft = Math.Max(0, 10 - minutesOld);
+            bool isUrgent = minutesLeft <= 2;
+            bool isWarn = minutesLeft <= 5 && !isUrgent;
+
+            Color timerColor = isUrgent ? Urgent : (isWarn ? Warn : Safe);
+            string timerText = minutesLeft == 0
+                ? "⚠ EXPIRING NOW"
+                : $"⏱ {minutesLeft} min left";
+
+            // Card background turns light red when urgent
+            Color cardBg = isUrgent
+                ? Color.FromArgb(255, 240, 240)
+                : Color.White;
+
             var card = new Panel
             {
                 Width = 310,
-                Height = 60,
-                BackColor = Color.White,
+                Height = 72,
+                BackColor = cardBg,
                 Cursor = Cursors.Hand,
                 Margin = new Padding(0, 0, 0, 6)
             };
+
+            Color borderColor = isUrgent
+                ? Color.FromArgb(220, 100, 100)
+                : Color.FromArgb(200, 185, 165);
+
             card.Paint += (s, e) =>
                 e.Graphics.DrawRectangle(
-                    new Pen(Color.FromArgb(200, 185, 165)), 0, 0, card.Width - 1, card.Height - 1);
+                    new Pen(borderColor), 0, 0, card.Width - 1, card.Height - 1);
 
+            // Order ID
             var lblId = new Label
             {
                 Text = $"Order #{order.OrderId}",
@@ -148,6 +164,8 @@ namespace Coffee.Kiosk.Cashier.UserControls
                 Location = new Point(10, 8),
                 AutoSize = true
             };
+
+            // Order type (DineIn / TakeOut)
             var lblType = new Label
             {
                 Text = order.OrderType,
@@ -156,6 +174,18 @@ namespace Coffee.Kiosk.Cashier.UserControls
                 Location = new Point(10, 30),
                 AutoSize = true
             };
+
+            // Countdown timer
+            var lblTimer = new Label
+            {
+                Text = timerText,
+                Font = new Font("Segoe UI", 7.5f, FontStyle.Bold),
+                ForeColor = timerColor,
+                Location = new Point(10, 50),
+                AutoSize = true
+            };
+
+            // Total amount — right side
             var lblAmt = new Label
             {
                 Text = $"₱{order.TotalAmount:N2}",
@@ -163,19 +193,21 @@ namespace Coffee.Kiosk.Cashier.UserControls
                 ForeColor = Color.FromArgb(59, 35, 20),
                 AutoSize = false,
                 Width = 100,
-                Height = 60,
+                Height = 72,
                 Location = new Point(200, 0),
                 TextAlign = ContentAlignment.MiddleRight
             };
 
             card.Controls.Add(lblId);
             card.Controls.Add(lblType);
+            card.Controls.Add(lblTimer);
             card.Controls.Add(lblAmt);
 
             EventHandler handler = (s, e) => OrderSelected?.Invoke(order.OrderId);
             card.Click += handler;
             lblId.Click += handler;
             lblType.Click += handler;
+            lblTimer.Click += handler;
             lblAmt.Click += handler;
 
             return card;
