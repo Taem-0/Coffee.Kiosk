@@ -73,7 +73,7 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1684, 111);
+            pnlHeader.Size = new Size(1902, 131);
             pnlHeader.TabIndex = 0;
             // 
             // lblClock
@@ -316,7 +316,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1684, 897);
+            ClientSize = new Size(1902, 973);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(pnlHeader);
             Name = "Form1";

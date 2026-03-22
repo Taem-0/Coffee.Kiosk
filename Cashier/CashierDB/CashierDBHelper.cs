@@ -67,36 +67,9 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
         {
             using var conn = GetConnection();
             conn.Open();
-            string sql = @"SELECT IFNULL(MAX(CAST(SUBSTRING(OrderNumber, 2) AS UNSIGNED)), 0) + 1
-                           FROM display_preparing_queue
-                           WHERE OrderNumber LIKE 'C%'";
+            string sql = @"SELECT IFNULL(MAX(ID), 0) + 1 FROM customer_orders;";
             using var cmd = new MySqlCommand(sql, conn);
             return Convert.ToInt32(cmd.ExecuteScalar());
-        }
-
-        public static void MoveToDisplayPreparingQueue(string orderNumber, string itemName)
-        {
-            using var conn = GetConnection();
-            conn.Open();
-            using var tx = conn.BeginTransaction();
-            try
-            {
-                var del = new MySqlCommand(
-                    "DELETE FROM display_payment_queue WHERE OrderNumber = @num",
-                    conn, tx);
-                del.Parameters.AddWithValue("@num", orderNumber);
-                del.ExecuteNonQuery();
-
-                var ins = new MySqlCommand(
-                    "INSERT INTO display_preparing_queue (OrderNumber, ItemName) VALUES (@num, @item)",
-                    conn, tx);
-                ins.Parameters.AddWithValue("@num", orderNumber);
-                ins.Parameters.AddWithValue("@item", itemName);
-                ins.ExecuteNonQuery();
-
-                tx.Commit();
-            }
-            catch { tx.Rollback(); throw; }
         }
 
         public static void DeductInventoryForOrder(int orderId, MySqlConnection conn, MySqlTransaction tx)
@@ -125,6 +98,8 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             catch { tx.Rollback(); throw; }
         }
 
+        // Auto-cancels kiosk orders that have been Pending for too long.
+        // Only touches Status = 'Pending' so Paid/Completed/Cancelled are never affected.
         public static void CancelExpiredKioskOrders(int minutesOld = 10)
         {
             using var conn = GetConnection();
@@ -167,14 +142,8 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
 
         private static Color ParseColor(string hex, Color fallback)
         {
-            try
-            {
-                return ColorTranslator.FromHtml(hex);
-            }
-            catch
-            {
-                return fallback;
-            }
+            try { return ColorTranslator.FromHtml(hex); }
+            catch { return fallback; }
         }
 
         public static (string ShopName, string? LogoPath) GetShopInfo()
