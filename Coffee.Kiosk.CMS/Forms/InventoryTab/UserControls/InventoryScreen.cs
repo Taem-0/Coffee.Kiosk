@@ -115,5 +115,10 @@ namespace Coffee.Kiosk.CMS.Forms.InventoryTab.UserControls
             _searchTimer.Stop();
             SearchInventory();
         }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            SearchTxtBox.Clear();
+        }
     }
 }

@@ -152,6 +152,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 cmd.Parameters.AddWithValue("@id", model.Id);
                 
                 cmd.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.INVENTORY_ITEM,
+                    (model.Id == null ? 0 : model.Id.Value),
+                    AuditLogsDb.Action.UPDATE,
+                    $"Updated inventory_item with an ID: {model.Id}"
+                    );
                 return true;
             }
             catch (Exception ex)
@@ -177,7 +184,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
             catch (MySqlException ex)
             {
-                if (ex.Number == 1451) // foreign key constraint fails
+                if (ex.Number == 1451)
                 {
                     var usageList = GetProductsUsingInventoryItem(inventoryId);
                     if (usageList.Count == 0)

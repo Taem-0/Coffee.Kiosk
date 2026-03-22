@@ -34,7 +34,6 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
             settings.IsZoomControlEnabled = false;
             settings.AreBrowserAcceleratorKeysEnabled = false;
 
-            // Listen for messages from React
             webView21.CoreWebView2.WebMessageReceived += (s, args) =>
             {
                 if (args.TryGetWebMessageAsString() == "TAP")
@@ -47,6 +46,11 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
         private void GetStartedScreenV2_Click(object sender, EventArgs e)
         {
            NextClicked?.Invoke();
+        }
+
+        public void RefreshScreen()
+        {
+            webView21.CoreWebView2.Reload();
         }
     }
 }
