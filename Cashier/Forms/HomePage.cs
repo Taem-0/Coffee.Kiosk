@@ -26,16 +26,7 @@ namespace Coffee.Kiosk.Cashier
             lblClock.Text = DateTime.Now.ToString("hh:mm tt");
             tmrClock.Start();
 
-            try
-            {
-                (string shopName, string? logoPath) = DBHelper.GetShopInfo();
-                ShopName.Text = shopName;
-                this.Text = shopName;
-
-                if (!string.IsNullOrEmpty(logoPath) && File.Exists(logoPath))
-                    LogoPath.Image = Image.FromFile(logoPath);
-            }
-            catch { }
+            ApplyTheme();
 
             SetupBadge();
             SetupKioskPanel();
@@ -43,6 +34,28 @@ namespace Coffee.Kiosk.Cashier
             SetupCancelTimer();
 
             LoadControl(new UC_Cashier());
+        }
+
+        private void ApplyTheme()
+        {
+            var theme = SessionManager.Theme;
+
+            try
+            {
+                ShopName.Text = theme.ShopName;
+                this.Text = theme.ShopName;
+                ShopName.ForeColor = Color.White;
+
+                pnlTopBar.BackColor = theme.PrimaryColor;
+                this.BackColor = theme.BackgroundColor;
+
+                btnLogout.FillColor = theme.DarkPrimaryColor;
+                btnLogout.ForeColor = Color.White;
+
+                if (!string.IsNullOrEmpty(theme.LogoPath) && File.Exists(theme.LogoPath))
+                    LogoPath.Image = Image.FromFile(theme.LogoPath);
+            }
+            catch { }
         }
 
         public void LoadControl(UserControl uc)

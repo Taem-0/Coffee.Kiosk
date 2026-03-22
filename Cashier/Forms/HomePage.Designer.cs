@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlTopBar = new Panel();
             btnBell = new Guna.UI2.WinForms.Guna2CircleButton();
             btnLogout = new Guna.UI2.WinForms.Guna2Button();
@@ -73,7 +73,7 @@
             btnBell.ForeColor = Color.FromArgb(111, 77, 56);
             btnBell.Location = new Point(1253, 12);
             btnBell.Name = "btnBell";
-            btnBell.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnBell.ShadowDecoration.CustomizableEdges = customizableEdges1;
             btnBell.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnBell.Size = new Size(55, 55);
             btnBell.TabIndex = 7;
@@ -84,7 +84,7 @@
             // 
             btnLogout.BackColor = Color.FromArgb(111, 77, 56);
             btnLogout.BorderRadius = 10;
-            btnLogout.CustomizableEdges = customizableEdges5;
+            btnLogout.CustomizableEdges = customizableEdges2;
             btnLogout.DisabledState.BorderColor = Color.DarkGray;
             btnLogout.DisabledState.CustomBorderColor = Color.DarkGray;
             btnLogout.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -94,7 +94,7 @@
             btnLogout.ForeColor = Color.FromArgb(59, 35, 20);
             btnLogout.Location = new Point(1771, 17);
             btnLogout.Name = "btnLogout";
-            btnLogout.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnLogout.ShadowDecoration.CustomizableEdges = customizableEdges3;
             btnLogout.Size = new Size(131, 39);
             btnLogout.TabIndex = 6;
             btnLogout.Text = "Logout";
@@ -131,7 +131,7 @@
             ShopName.BackColor = Color.Transparent;
             ShopName.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ShopName.ForeColor = Color.White;
-            ShopName.Location = new Point(92, 18);
+            ShopName.Location = new Point(97, 18);
             ShopName.Name = "ShopName";
             ShopName.Size = new Size(252, 46);
             ShopName.TabIndex = 3;
