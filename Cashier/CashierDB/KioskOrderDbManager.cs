@@ -1,4 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
 
 namespace Coffee.Kiosk.Cashier.CashierDBHelper
 {
@@ -8,6 +10,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
         public string OrderType { get; set; } = "";
         public decimal TotalAmount { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string Payment { get; set; } = "Cash";
     }
 
     public class KioskOrderItem
@@ -36,7 +39,6 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
 
     public static class KioskOrderDbManager
     {
-        // Only fetches Kiosk (Pending) orders — cashier orders go straight to Paid
         public static List<KioskOrderSummary> GetPendingOrders()
         {
             var list = new List<KioskOrderSummary>();
@@ -44,7 +46,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             conn.Open();
 
             var cmd = new MySqlCommand(
-                "SELECT ID, OrderType, TotalAmount, CreatedAt " +
+                "SELECT ID, OrderType, TotalAmount, CreatedAt, IFNULL(Payment, 'Cash') AS Payment " +
                 "FROM customer_orders " +
                 "WHERE Status = 'Pending' " +
                 "ORDER BY ID ASC", conn);
@@ -57,7 +59,8 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
                     OrderId = reader.GetInt32("ID"),
                     OrderType = reader.GetString("OrderType"),
                     TotalAmount = reader.GetDecimal("TotalAmount"),
-                    CreatedAt = reader.GetDateTime("CreatedAt")
+                    CreatedAt = reader.GetDateTime("CreatedAt"),
+                    Payment = reader.GetString("Payment")
                 });
             }
             return list;
@@ -199,7 +202,6 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             return groups;
         }
 
-        // Used by cashier manual orders — inserts directly as Paid with Payment column
         public static int SaveCashierOrder(
             List<Coffee.Kiosk.Cashier.ModelClassHelper.OrderItemModel> cart,
             decimal totalAmount,
@@ -267,7 +269,6 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             }
         }
 
-        // Used by kiosk orders — updates Pending -> Paid and sets Payment method
         public static void MarkOrderPaid(int orderId, string payment = "Gcash")
         {
             using var conn = CashierDBHelper.GetConnection();

@@ -49,13 +49,30 @@ namespace Coffee.Kiosk.Cashier
 
         public void SetSelected(bool selected)
         {
-            guna2Panel1.FillColor = selected ? Color.FromArgb(240, 225, 210) : Color.White;
-            guna2Panel1.BorderColor = selected ? Color.FromArgb(107, 79, 58) : Color.FromArgb(212, 184, 150);
+            var theme = SessionManager.Theme;
+            if (selected)
+            {
+                guna2Panel1.FillColor = BlendWithWhite(theme.PrimaryColor, 0.15f);
+                guna2Panel1.BorderColor = theme.PrimaryColor;
+            }
+            else
+            {
+                guna2Panel1.FillColor = Color.White;
+                guna2Panel1.BorderColor = theme.AccentColor;
+            }
         }
 
         public void UpdatePrice(decimal price)
         {
             label1.Text = $"₱{price:N2}";
+        }
+
+        private static Color BlendWithWhite(Color color, float amount)
+        {
+            int r = (int)(color.R + (255 - color.R) * (1 - amount));
+            int g = (int)(color.G + (255 - color.G) * (1 - amount));
+            int b = (int)(color.B + (255 - color.B) * (1 - amount));
+            return Color.FromArgb(r, g, b);
         }
 
         private void picItem_Click(object sender, EventArgs e) { }

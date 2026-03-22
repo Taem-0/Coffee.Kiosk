@@ -17,9 +17,11 @@ namespace Coffee.Kiosk.Cashier
         {
             OrderItem = orderItem;
 
+            var theme = SessionManager.Theme;
+
             this.Dock = DockStyle.Top;
             this.Height = 56;
-            this.BackColor = Color.FromArgb(130, 95, 70);
+            this.BackColor = theme.PrimaryColor;
             this.Padding = new Padding(8, 4, 8, 4);
 
             lblItemName.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
@@ -32,7 +34,7 @@ namespace Coffee.Kiosk.Cashier
             lblQty.TextAlign = ContentAlignment.MiddleCenter;
 
             lblSubtotal.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
-            lblSubtotal.ForeColor = Color.FromArgb(212, 184, 150);
+            lblSubtotal.ForeColor = theme.AccentColor;
             lblSubtotal.TextAlign = ContentAlignment.MiddleRight;
 
             var lblCustom = new Label
@@ -40,7 +42,7 @@ namespace Coffee.Kiosk.Cashier
                 Name = "lblCustomSummary",
                 AutoSize = false,
                 Font = new Font("Segoe UI", 7f),
-                ForeColor = Color.FromArgb(212, 184, 150),
+                ForeColor = theme.AccentColor,
                 BackColor = Color.Transparent,
                 Visible = false,
                 TextAlign = ContentAlignment.TopLeft

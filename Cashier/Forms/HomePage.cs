@@ -80,7 +80,7 @@ namespace Coffee.Kiosk.Cashier
             _lblBadge.AutoSize = false;
             _lblBadge.Size = new Size(20, 20);
             _lblBadge.Location = new Point(btnBell.Right - 14, btnBell.Top - 2);
-            _lblBadge.BackColor = Color.Red;
+            _lblBadge.BackColor = Color.FromArgb(220, 50, 50);
             _lblBadge.ForeColor = Color.White;
             _lblBadge.Font = new Font("Segoe UI", 7f, FontStyle.Bold);
             _lblBadge.TextAlign = ContentAlignment.MiddleCenter;
@@ -171,7 +171,10 @@ namespace Coffee.Kiosk.Cashier
 
             decimal total = summary?.TotalAmount ?? cart.Sum(c => c.Subtotal);
 
-            var payment = new UC_Payment(cart, total, orderId);
+            string kioskPayment = summary?.Payment ?? "Cash";
+            string defaultPayment = kioskPayment.Equals("Gcash", StringComparison.OrdinalIgnoreCase) ? "GCash" : "Cash";
+
+            var payment = new UC_Payment(cart, total, orderId, defaultPayment);
             LoadControl(payment);
         }
 

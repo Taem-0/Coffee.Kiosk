@@ -20,10 +20,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
         private const string ConnectionString =
             "Server=localhost;Database=CoffeeKioskDB;Uid=root;Pwd=;";
 
-        public static MySqlConnection GetConnection()
-        {
-            return new MySqlConnection(ConnectionString);
-        }
+        public static MySqlConnection GetConnection() => new MySqlConnection(ConnectionString);
 
         public static int OpenShift(int employeeId, string employeeName)
         {
@@ -98,8 +95,6 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             catch { tx.Rollback(); throw; }
         }
 
-        // Auto-cancels kiosk orders that have been Pending for too long.
-        // Only touches Status = 'Pending' so Paid/Completed/Cancelled are never affected.
         public static void CancelExpiredKioskOrders(int minutesOld = 10)
         {
             using var conn = GetConnection();
