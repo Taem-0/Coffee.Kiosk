@@ -92,7 +92,6 @@
             txtUsername.Size = new Size(620, 64);
             txtUsername.TabIndex = 3;
             txtUsername.TextChanged += txtUsername_TextChanged;
-            txtUsername.KeyDown += txtUsername_KeyDown;
             // 
             // label2
             // 
@@ -150,7 +149,6 @@
             txtPassword.TabIndex = 7;
             txtPassword.UseSystemPasswordChar = true;
             txtPassword.TextChanged += txtPassword_TextChanged;
-            txtPassword.KeyDown += txtPassword_KeyDown;
             // 
             // lblError
             // 
@@ -182,6 +180,7 @@
             Name = "LogIn";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Log In";
+            Load += LogIn_Load;
             ((System.ComponentModel.ISupportInitialize)LogoPath).EndInit();
             ResumeLayout(false);
             PerformLayout();
