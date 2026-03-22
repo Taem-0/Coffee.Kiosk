@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 
 namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
@@ -41,7 +40,8 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
 
         // ─────────────────────────────────────────────────────
         //  GET — PLEASE PAY column
-        //  Status: Pending (case-insensitive)
+        //  Status: Pending
+        //  Hides after 10 minutes
         //  Called by: Form1 display
         // ─────────────────────────────────────────────────────
         public List<PaymentQueueItem> GetPaymentQueue()
@@ -57,11 +57,13 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
                     GROUP_CONCAT(coi.ProductName
                         ORDER BY coi.ID
                         SEPARATOR ', ')                 AS ItemName,
-                    COALESCE(co.PaymentMethod, 'cash')  AS PaymentMethod
+                    COALESCE(co.Payment, 'Cash')        AS PaymentMethod
                 FROM customer_orders co
                 JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
-                WHERE LOWER(co.Status) = 'pending'
-                GROUP BY co.ID, co.PaymentMethod
+                WHERE co.Status = 'Pending'
+                AND   co.CreatedAt IS NOT NULL
+                AND   TIMESTAMPDIFF(MINUTE, co.CreatedAt, NOW()) < 10
+                GROUP BY co.ID, co.Payment
                 ORDER BY co.ID ASC";
 
             using var reader = cmd.ExecuteReader();
@@ -80,7 +82,7 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
 
         // ─────────────────────────────────────────────────────
         //  GET — BEING PREPARED column
-        //  Status: Paid (case-insensitive)
+        //  Status: Paid
         //  Called by: Form1 display
         // ─────────────────────────────────────────────────────
         public List<PreparingQueueItem> GetPreparingQueue()
@@ -98,7 +100,7 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
                         SEPARATOR ', ')             AS ItemName
                 FROM customer_orders co
                 JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
-                WHERE LOWER(co.Status) = 'paid'
+                WHERE co.Status = 'Paid'
                 GROUP BY co.ID
                 ORDER BY co.ID ASC";
 
@@ -117,9 +119,8 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
 
         // ─────────────────────────────────────────────────────
         //  GET — READY FOR PICK-UP column
-        //  Status: Completed (case-insensitive)
-        //  Shows order immediately when completed
-        //  Hides after 5 minutes automatically
+        //  Status: Completed
+        //  Hides after 5 minutes using CreatedAt
         //  Called by: Form1 display
         // ─────────────────────────────────────────────────────
         public List<PickupQueueItem> GetPickupQueue()
@@ -137,11 +138,9 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
                         SEPARATOR ', ')             AS ItemName
                 FROM customer_orders co
                 JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
-                WHERE LOWER(co.Status) = 'completed'
-                AND  (
-                        co.UpdatedAt IS NULL
-                        OR TIMESTAMPDIFF(MINUTE, co.UpdatedAt, NOW()) < 5
-                     )
+                WHERE co.Status = 'Completed'
+                AND   co.CreatedAt IS NOT NULL
+                AND   TIMESTAMPDIFF(MINUTE, co.CreatedAt, NOW()) < 5
                 GROUP BY co.ID
                 ORDER BY co.ID ASC";
 
@@ -173,41 +172,84 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
             cmd.CommandText = @"
                 SELECT co.ID AS OrderNumber
                 FROM   customer_orders co
-                WHERE  LOWER(co.Status) = 'completed'
-                AND    co.UpdatedAt IS NOT NULL
-                AND    TIMESTAMPDIFF(MINUTE, co.UpdatedAt, NOW()) >= 5";
+                WHERE  co.Status = 'Completed'
+                AND    co.CreatedAt IS NOT NULL
+                AND    TIMESTAMPDIFF(MINUTE, co.CreatedAt, NOW()) >= 5";
 
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
-            {
                 expiredOrders.Add($"#{reader["OrderNumber"]}");
-            }
 
             return expiredOrders;
         }
 
         // ─────────────────────────────────────────────────────
-        //  AUTO-COMPLETE — archives cards after 5 min fade
+        //  GET — expired payment orders (10 mins reached)
+        //  Used by Form1 timer to trigger fade animation
         //  Called by: Form1 timer every 30 seconds
         // ─────────────────────────────────────────────────────
-        public void AutoCompleteExpiredPickups()
+        public List<string> GetExpiredPaymentOrderNumbers()
+        {
+            var expiredOrders = new List<string>();
+
+            using var conn = CreateConnection();
+            using var cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"
+                SELECT co.ID AS OrderNumber
+                FROM   customer_orders co
+                WHERE  co.Status = 'Pending'
+                AND    co.CreatedAt IS NOT NULL
+                AND    TIMESTAMPDIFF(MINUTE, co.CreatedAt, NOW()) >= 10";
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+                expiredOrders.Add($"#{reader["OrderNumber"]}");
+
+            return expiredOrders;
+        }
+
+        // ─────────────────────────────────────────────────────
+        //  AUTO-CANCEL — completed orders after 5 mins
+        //  Called by: Form1 timer every 30 seconds
+        // ─────────────────────────────────────────────────────
+        public void AutoCancelExpiredPickups()
         {
             using var conn = CreateConnection();
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
                 UPDATE customer_orders
-                SET    Status    = 'archived'
-                WHERE  LOWER(Status) = 'completed'
-                AND    UpdatedAt IS NOT NULL
-                AND    TIMESTAMPDIFF(MINUTE, UpdatedAt, NOW()) >= 5";
+                SET    Status = 'Cancelled'
+                WHERE  Status = 'Completed'
+                AND    CreatedAt IS NOT NULL
+                AND    TIMESTAMPDIFF(MINUTE, CreatedAt, NOW()) >= 5";
+
+            cmd.ExecuteNonQuery();
+        }
+
+        // ─────────────────────────────────────────────────────
+        //  AUTO-CANCEL — pending orders after 10 mins
+        //  Called by: Form1 timer every 30 seconds
+        // ─────────────────────────────────────────────────────
+        public void AutoCancelExpiredPayments()
+        {
+            using var conn = CreateConnection();
+            using var cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"
+                UPDATE customer_orders
+                SET    Status = 'Cancelled'
+                WHERE  Status = 'Pending'
+                AND    CreatedAt IS NOT NULL
+                AND    TIMESTAMPDIFF(MINUTE, CreatedAt, NOW()) >= 10";
 
             cmd.ExecuteNonQuery();
         }
 
         // ─────────────────────────────────────────────────────
         //  AUTO-ADD — cashier confirms payment
-        //  Moves: pending → paid
+        //  Moves: Pending → Paid
         //  Called by: Cashier subsystem
         // ─────────────────────────────────────────────────────
         public void ConfirmPayment(string orderNumber)
@@ -217,10 +259,10 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
 
             cmd.CommandText = @"
                 UPDATE customer_orders
-                SET    Status    = 'paid',
+                SET    Status    = 'Paid',
                        UpdatedAt = NOW()
                 WHERE  ID        = @OrderNumber
-                AND    LOWER(Status) = 'pending'";
+                AND    Status    = 'Pending'";
 
             cmd.Parameters.AddWithValue("@OrderNumber", orderNumber);
             cmd.ExecuteNonQuery();
@@ -228,7 +270,7 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
 
         // ─────────────────────────────────────────────────────
         //  AUTO-ADD — barista marks order done
-        //  Moves: paid → completed
+        //  Moves: Paid → Completed
         //  Called by: Kitchen subsystem
         // ─────────────────────────────────────────────────────
         public void MarkAsReady(string orderNumber)
@@ -238,10 +280,10 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
 
             cmd.CommandText = @"
                 UPDATE customer_orders
-                SET    Status    = 'completed',
+                SET    Status    = 'Completed',
                        UpdatedAt = NOW()
                 WHERE  ID        = @OrderNumber
-                AND    LOWER(Status) = 'paid'";
+                AND    Status    = 'Paid'";
 
             cmd.Parameters.AddWithValue("@OrderNumber", orderNumber);
             cmd.ExecuteNonQuery();
