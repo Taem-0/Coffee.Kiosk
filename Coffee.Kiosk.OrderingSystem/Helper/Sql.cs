@@ -11,57 +11,6 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
         private static string[] tableCommands =
         {
-            @"CREATE TABLE IF NOT EXISTS accounts (
-                ID INT AUTO_INCREMENT PRIMARY KEY,
-                First_Name VARCHAR(100) NOT NULL,
-                Middle_Name VARCHAR(100) NOT NULL,
-                Last_Name VARCHAR(100) NOT NULL,
-                Phone_Number VARCHAR(25) NOT NULL,
-                Email_Address VARCHAR(255) NOT NULL,
-                Emergency_First_Name VARCHAR(100) NOT NULL,
-                Emergency_Last_Name VARCHAR(100) NOT NULL,
-                Emergency_Number VARCHAR(20) NOT NULL,
-                Job_Title VARCHAR(50) NOT NULL,
-                Role ENUM('EMPLOYEE', 'MANAGER', 'OWNER') NOT NULL,
-                Department ENUM('OPERATIONS', 'MANAGEMENT', 'ADMINISTRATION') 
-                    NOT NULL DEFAULT 'OPERATIONS',
-                EmploymentType ENUM('FULL_TIME', 'PART_TIME', 'CONTRACT') 
-                    NOT NULL DEFAULT 'FULL_TIME',
-                Status ENUM('ACTIVE','DEACTIVATED') 
-                    NOT NULL DEFAULT 'ACTIVE',
-                Profile_Picture_Path VARCHAR(255) NULL,
-                Password_Hash VARCHAR(255) NOT NULL,
-                Password_Salt VARCHAR(255) NOT NULL,
-                Is_First_Login BOOLEAN NOT NULL DEFAULT 1,
-                Password_Reset_Requested BOOLEAN NOT NULL DEFAULT 0
-            );",
-
-            @"CREATE TABLE IF NOT EXISTS kiosk_banners (
-                ID           INT AUTO_INCREMENT PRIMARY KEY,
-                FilePath     VARCHAR(255) NOT NULL DEFAULT '',
-                Placement    VARCHAR(100) NOT NULL,
-                DisplayOrder INT NOT NULL DEFAULT 0
-            );",
-
-            @"CREATE TABLE IF NOT EXISTS shop (
-                ID INT AUTO_INCREMENT PRIMARY KEY,
-                ShopName VARCHAR(100) NOT NULL,
-                ThemeMode ENUM('default', 'custom') NOT NULL DEFAULT 'default',
-                Primary_Color VARCHAR(10) NOT NULL,
-                DarkPrimary_Color VARCHAR(10) NOT NULL,
-                Secondary_Color VARCHAR(10) NOT NULL,
-                Background_Color VARCHAR(10) NOT NULL,
-                Accent_Color VARCHAR(10) NOT NULL,
-                LogoPath VARCHAR(255) NULL
-            );",
-
-            @"INSERT INTO shop (
-                ShopName, ThemeMode, Primary_Color, DarkPrimary_Color, Secondary_Color, Background_Color, Accent_Color
-            )
-            SELECT 'My Coffee Shop', 'default', '#6F4D38', '#3D211A', '#A07856', '#F5F5DC', '#CBB799'
-            WHERE NOT EXISTS (SELECT 1 FROM shop);",
-
-
             // inventory
             @"CREATE TABLE IF NOT EXISTS inventory_item (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
