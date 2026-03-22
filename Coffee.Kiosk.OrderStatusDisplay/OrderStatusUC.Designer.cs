@@ -37,9 +37,9 @@
             // 
             lblOrderNum.AutoSize = true;
             lblOrderNum.Font = new Font("Arial Rounded MT Bold", 30F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblOrderNum.Location = new Point(42, 11);
+            lblOrderNum.Location = new Point(48, 13);
             lblOrderNum.Name = "lblOrderNum";
-            lblOrderNum.Size = new Size(139, 46);
+            lblOrderNum.Size = new Size(174, 58);
             lblOrderNum.TabIndex = 0;
             lblOrderNum.Text = "label1";
             lblOrderNum.Click += lblOrderNum_Click;
@@ -47,10 +47,11 @@
             // lblItemName
             // 
             lblItemName.AutoSize = true;
+            lblItemName.Dock = DockStyle.Bottom;
             lblItemName.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblItemName.Location = new Point(52, 66);
+            lblItemName.Location = new Point(14, 79);
             lblItemName.Name = "lblItemName";
-            lblItemName.Size = new Size(56, 18);
+            lblItemName.Size = new Size(69, 23);
             lblItemName.TabIndex = 1;
             lblItemName.Text = "label2";
             lblItemName.Click += lblItemName_Click;
@@ -59,23 +60,24 @@
             // 
             lblBadge.AutoSize = true;
             lblBadge.Font = new Font("Arial Rounded MT Bold", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblBadge.Location = new Point(445, 42);
+            lblBadge.Location = new Point(509, 49);
             lblBadge.Name = "lblBadge";
-            lblBadge.Size = new Size(71, 24);
+            lblBadge.Size = new Size(93, 32);
             lblBadge.TabIndex = 2;
             lblBadge.Text = "label3";
             lblBadge.Click += lblBadge_Click;
             // 
             // OrderStatusUC
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(lblBadge);
             Controls.Add(lblItemName);
             Controls.Add(lblOrderNum);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "OrderStatusUC";
-            Padding = new Padding(12, 8, 12, 8);
-            Size = new Size(579, 94);
+            Padding = new Padding(14, 9, 14, 9);
+            Size = new Size(662, 111);
             Load += OrderStatusUC_Load;
             ResumeLayout(false);
             PerformLayout();

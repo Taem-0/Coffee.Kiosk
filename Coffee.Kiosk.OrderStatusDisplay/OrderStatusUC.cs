@@ -36,14 +36,14 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             lblBadge.Text = badge;
 
             // ── lblOrderNum ───────────────────────────────────
-            lblOrderNum.Font = new Font("Segoe UI", 25, FontStyle.Bold);
+            lblOrderNum.Font = new Font("Segoe UI", 23, FontStyle.Bold);
             lblOrderNum.ForeColor = accent;
             lblOrderNum.BackColor = Color.Transparent;
             lblOrderNum.AutoSize = true;
             lblOrderNum.Location = new Point(_isPickup ? 18 : 14, 10);
 
             // ── lblItemName ───────────────────────────────────
-            lblItemName.Font = new Font("Segoe UI", 15);
+            lblItemName.Font = new Font("Segoe UI", 12);
             lblItemName.ForeColor = Color.FromArgb(122, 80, 48);
             lblItemName.BackColor = Color.Transparent;
             lblItemName.AutoSize = true;
