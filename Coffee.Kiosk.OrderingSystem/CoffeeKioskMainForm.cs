@@ -26,7 +26,8 @@ namespace Coffee.Kiosk.OrderingSystem
 
         public event Action<Models.Orders>? CartUpdated;
 
-        private GetStartedScreen? getStartedScreen;
+        //private GetStartedScreen? getStartedScreen;
+        private GetStartedScreenV2? getStartedScreen;
         private DineInTakeOut? dineInTakeOut;
         private KioskMenu? kioskMenu;
         private ViewOrder? viewOrder;
@@ -267,7 +268,7 @@ namespace Coffee.Kiosk.OrderingSystem
             Models.AuditLogs.currentDateTime = DateTime.Now;
             if (getStartedScreen == null)
             {
-                getStartedScreen = new GetStartedScreen();
+                getStartedScreen = new GetStartedScreenV2();
                 getStartedScreen.NextClicked += ShowDineInTakeOutScreen;
             }
             LoadNecessary();
@@ -524,7 +525,6 @@ namespace Coffee.Kiosk.OrderingSystem
                 if (f is ConfirmRemove) f.Close();
             }
 
-            getStartedScreen?.Dispose();
             dineInTakeOut?.Dispose();
             if (kioskMenu != null)
             {
@@ -539,7 +539,6 @@ namespace Coffee.Kiosk.OrderingSystem
             receiptGcashScreen?.Dispose();
 
 
-            getStartedScreen = null;
             dineInTakeOut = null;
             modalScreen = null;
             viewOrder = null;
