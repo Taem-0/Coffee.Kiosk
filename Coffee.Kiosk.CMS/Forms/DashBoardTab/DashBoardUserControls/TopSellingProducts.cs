@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Coffee.Kiosk.CMS.Models;
 using System.Windows.Forms;
 
 namespace Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls
@@ -17,9 +10,20 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls
             InitializeComponent();
         }
 
-        private void TopSellingProducts_Load(object sender, EventArgs e)
+        public void LoadData(DashboardData data)
         {
+            topSellingFlowLayout.Controls.Clear();
+            topSellingFlowLayout.AutoScroll = true;
 
+            foreach (var product in data.TopProducts)
+            {
+                var container = new TopSellingProductContainer();
+                container.SetProduct(product);
+                topSellingFlowLayout.Controls.Add(container);
+            }
         }
+
+
+        private void TopSellingProducts_Load(object sender, EventArgs e) { }
     }
 }

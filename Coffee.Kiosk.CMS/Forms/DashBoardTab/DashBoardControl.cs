@@ -1,4 +1,5 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
+using Coffee.Kiosk.CMS.Models;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,8 +10,8 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
     {
         public AdminControlForm? ParentFormReference { get; set; }
         private readonly AccountController _controller;
+        private DashboardController? _dashboardController;
 
-        // Coffee theme colors
         private Color _darkBrown = ColorTranslator.FromHtml("#3d211a");
         private Color _mediumBrown = ColorTranslator.FromHtml("#6f4d38");
         private Color _lightBrown = ColorTranslator.FromHtml("#a07856");
@@ -27,50 +28,70 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             guna2PictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             guna2PictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
 
+            TimeLineDropDown.Items.Clear();
+            TimeLineDropDown.Items.Add("This day");
+            TimeLineDropDown.Items.Add("This month");
+            TimeLineDropDown.Items.Add("This year");
+            TimeLineDropDown.SelectedIndex = 0;
+
             ApplyTheme();
+        }
+
+        public void Initialize(DashboardController dashboardController)
+        {
+            _dashboardController = dashboardController;
+            RefreshDashboard();
+        }
+
+        private void RefreshDashboard()
+        {
+            if (_dashboardController == null) return;
+
+            string filter = TimeLineDropDown.SelectedItem?.ToString() switch
+            {
+                "This month" => "month",
+                "This year" => "year",
+                _ => "day"
+            };
+
+            var data = _dashboardController.GetDashboardData(filter);
+
+            salesOverTime1.LoadData(data);
+            ordersOverTime1.LoadData(data);
+            dineInvsTakeout1.LoadData(data);
+            peakHours1.LoadData(data);
+            topSellingProducts1.LoadData(data);
         }
 
         private void ApplyTheme()
         {
-            // Set background colors
             this.BackColor = _background;
             this.ForeColor = _darkBrown;
 
-            // Apply to header panel
             guna2Panel1.FillColor = _mediumBrown;
             guna2Panel1.BackColor = _mediumBrown;
             guna2Panel1.BorderColor = _darkBrown;
             guna2Panel1.BorderThickness = 1;
 
-            // Apply to search textbox
             ApplyTextBoxTheme(guna2TextBox1);
 
-            // Apply to title label
             label1.ForeColor = _darkBrown;
             label1.BackColor = Color.Transparent;
 
-            // Apply to dropdown container
             DropDownContainer.FillColor = _mediumBrown;
             DropDownContainer.ForeColor = Color.White;
 
-            // Apply to timeline label
             TimeLineLabel.BackColor = _mediumBrown;
             TimeLineLabel.ForeColor = Color.White;
 
-            // Apply to dropdown
             ApplyComboBoxTheme(TimeLineDropDown);
 
-            // Apply to data containers
             ApplyContainerTheme(guna2ContainerControl1);
             ApplyContainerTheme(guna2ContainerControl2);
             ApplyContainerTheme(guna2ContainerControl3);
             ApplyContainerTheme(guna2ContainerControl4);
 
-            // Apply to table layouts
-
-
             tableLayoutPanel3.BackColor = Color.Transparent;
-
         }
 
         private void ApplyTextBoxTheme(Guna.UI2.WinForms.Guna2TextBox textBox)
@@ -93,8 +114,8 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             comboBox.HoverState.FillColor = _lightBrown;
             comboBox.FocusedState.BorderColor = _lightBrown;
             comboBox.BorderRadius = 17;
-
             comboBox.ItemHeight = 30;
+
             comboBox.ItemsAppearance.BackColor = _beige;
             comboBox.ItemsAppearance.ForeColor = _darkBrown;
             comboBox.ItemsAppearance.SelectedBackColor = _lightBrown;
@@ -106,67 +127,16 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             container.BorderColor = _mediumBrown;
             container.BorderThickness = 2;
             container.BorderRadius = 25;
-
-
-
         }
 
         private void DashBoardControl_Load(object sender, EventArgs e)
         {
-            // Additional initialization if needed
-            UpdateDashboardData();
+            RefreshDashboard();
         }
 
-        private void UpdateDashboardData()
+        private void TimeLineDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // This method would be called to update dashboard statistics
-            // For now, we'll just set placeholder text
-
-            // You could add labels or other controls to display data
-            // For example:
-            // AddEmployeeCount();
-            // AddSalesData();
-            // AddRecentActivity();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-            // Optional: Add functionality if needed
-        }
-
-        private void guna2HtmlLabel1_Click(object sender, EventArgs e)
-        {
-            // Optional: Add functionality if needed
-        }
-
-        private void guna2Panel2_Paint(object sender, PaintEventArgs e)
-        {
-            // Optional: Add custom painting if needed
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-            // Custom border painting is handled in ApplyTheme
-        }
-
-        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
-        {
-            // Optional: Add custom painting if needed
-        }
-
-        private void tableLayoutPanel3_Paint_1(object sender, PaintEventArgs e)
-        {
-            // Optional: Add custom painting if needed
-        }
-
-        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
-        {
-            // Optional: Add custom painting if needed
-        }
-
-        private void guna2ContainerControl4_Click(object sender, EventArgs e)
-        {
-            // Optional: Add functionality if needed
+            RefreshDashboard();
         }
 
         private void AddDataCard(Guna.UI2.WinForms.Guna2ContainerControl container, string title, string value, Color valueColor)
@@ -197,35 +167,13 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             container.Controls.Add(valueLabel);
         }
 
-        // Call future cards
-        private void InitializeDashboardCards()
-        {
-            // Example: Initialize the data cards
-            AddDataCard(guna2ContainerControl1, "Total Employees", "0", _darkBrown);
-            AddDataCard(guna2ContainerControl2, "Active Today", "0", Color.Green);
-            AddDataCard(guna2ContainerControl3, "Pending Tasks", "0", Color.Orange);
-            AddDataCard(guna2ContainerControl4, "Revenue", "$0.00", Color.Green);
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2ContainerControl2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2ContainerControl3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2PictureBox3_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        private void label1_Click(object sender, EventArgs e) { }
+        private void guna2HtmlLabel1_Click(object sender, EventArgs e) { }
+        private void guna2Panel2_Paint(object sender, PaintEventArgs e) { }
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e) { }
+        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e) { }
+        private void tableLayoutPanel3_Paint_1(object sender, PaintEventArgs e) { }
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e) { }
+        private void guna2ContainerControl4_Click(object sender, EventArgs e) { }
     }
 }

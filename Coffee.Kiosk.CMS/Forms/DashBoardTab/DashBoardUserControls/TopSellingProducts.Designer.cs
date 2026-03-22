@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            topSellingFlowLayout = new FlowLayoutPanel();
             topSellingProductContainer1 = new TopSellingProductContainer();
-            flowLayoutPanel1.SuspendLayout();
+            topSellingFlowLayout.SuspendLayout();
             SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // topSellingFlowLayout
             // 
-            flowLayoutPanel1.Controls.Add(topSellingProductContainer1);
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(10, 10);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Padding = new Padding(2);
-            flowLayoutPanel1.Size = new Size(830, 250);
-            flowLayoutPanel1.TabIndex = 0;
+            topSellingFlowLayout.Controls.Add(topSellingProductContainer1);
+            topSellingFlowLayout.Dock = DockStyle.Fill;
+            topSellingFlowLayout.Location = new Point(10, 10);
+            topSellingFlowLayout.Name = "topSellingFlowLayout";
+            topSellingFlowLayout.Padding = new Padding(2);
+            topSellingFlowLayout.Size = new Size(830, 250);
+            topSellingFlowLayout.TabIndex = 0;
             // 
             // topSellingProductContainer1
             // 
@@ -54,18 +54,18 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(topSellingFlowLayout);
             Name = "TopSellingProducts";
             Padding = new Padding(10);
             Size = new Size(850, 270);
             Load += TopSellingProducts_Load;
-            flowLayoutPanel1.ResumeLayout(false);
+            topSellingFlowLayout.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel topSellingFlowLayout;
         private TopSellingProductContainer topSellingProductContainer1;
     }
 }

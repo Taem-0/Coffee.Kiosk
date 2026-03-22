@@ -168,6 +168,7 @@
             TimeLineDropDown.Size = new Size(154, 36);
             TimeLineDropDown.StartIndex = 0;
             TimeLineDropDown.TabIndex = 2;
+            TimeLineDropDown.SelectedIndexChanged += TimeLineDropDown_SelectedIndexChanged;
             // 
             // TimeLineLabel
             // 
@@ -286,7 +287,6 @@
             guna2ContainerControl2.Size = new Size(428, 206);
             guna2ContainerControl2.TabIndex = 6;
             guna2ContainerControl2.Text = "DataContainer01";
-            guna2ContainerControl2.Click += guna2ContainerControl2_Click;
             // 
             // guna2PictureBox1
             // 
@@ -312,7 +312,6 @@
             label3.Size = new Size(45, 54);
             label3.TabIndex = 1;
             label3.Text = "0";
-            label3.Click += label3_Click;
             // 
             // label2
             // 
@@ -393,7 +392,6 @@
             guna2ContainerControl3.Size = new Size(428, 206);
             guna2ContainerControl3.TabIndex = 7;
             guna2ContainerControl3.Text = "DataContainer01";
-            guna2ContainerControl3.Click += guna2ContainerControl3_Click;
             // 
             // guna2PictureBox3
             // 
@@ -405,7 +403,6 @@
             guna2PictureBox3.Size = new Size(120, 120);
             guna2PictureBox3.TabIndex = 8;
             guna2PictureBox3.TabStop = false;
-            guna2PictureBox3.Click += guna2PictureBox3_Click;
             // 
             // label6
             // 
