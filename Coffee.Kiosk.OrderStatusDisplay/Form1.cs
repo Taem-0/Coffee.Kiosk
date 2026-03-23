@@ -43,11 +43,11 @@ namespace Coffee.Kiosk.OrderStatusDisplay
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // ── form setup ────────────────────────────────────
+            // ── form setup
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 
-            // ── FlowLayoutPanel settings ──────────────────────
+            // ── FlowLayoutPanel settings
             flpPay.FlowDirection = FlowDirection.TopDown;
             flpPay.WrapContents = false;
             flpPay.AutoScroll = false;
@@ -63,7 +63,7 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             flpPickup.AutoScroll = false;
             flpPickup.Padding = new Padding(8, 10, 8, 10);
 
-            // ── double buffering on panels ────────────────────
+            // ── double buffering on panels 
             typeof(FlowLayoutPanel).GetProperty("DoubleBuffered",
                 System.Reflection.BindingFlags.Instance |
                 System.Reflection.BindingFlags.NonPublic)
@@ -79,7 +79,7 @@ namespace Coffee.Kiosk.OrderStatusDisplay
                 System.Reflection.BindingFlags.NonPublic)
                 ?.SetValue(flpPickup, true);
 
-            // ── auto-refresh timer (every 2 seconds) ──────────
+            // ── auto-refresh timer (every 2 seconds)
             var refreshTimer = new System.Windows.Forms.Timer();
             refreshTimer.Interval = 2_000;
             refreshTimer.Tick += (s, ev) =>
@@ -90,18 +90,18 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             };
             refreshTimer.Start();
 
-            // ── auto-cancel timer (every 30 seconds) ──────────
+            // ── auto-cancel timer (every 30 seconds)
             var autoCompleteTimer = new System.Windows.Forms.Timer();
             autoCompleteTimer.Interval = 30_000;
             autoCompleteTimer.Tick += AutoCompleteTimer_Tick;
             autoCompleteTimer.Start();
 
-            // ── load cards on startup ─────────────────────────
+            // ── load cards on startup 
             LoadPaymentOrders();
             LoadPreparingOrders();
             LoadPickupOrders();
 
-            // ── reload on window resize ───────────────────────
+            // ── reload on window resize
             this.Resize += (s, ev) =>
             {
                 // force full redraw on resize
@@ -114,34 +114,31 @@ namespace Coffee.Kiosk.OrderStatusDisplay
                 LoadPickupOrders();
             };
         }
-
-        // ─────────────────────────────────────────────────────
         //  AUTO-CANCEL TIMER — runs every 30 seconds
         //  Fades out expired cards then cancels them in DB
-        // ─────────────────────────────────────────────────────
         private async void AutoCompleteTimer_Tick(object sender, EventArgs e)
         {
             try
             {
-                // ── pickup: fade out after 5 mins ─────────────
+                // ── pickup: fade out after 5 mins 
                 var expiredPickups = _db.GetExpiredPickupOrderNumbers();
                 foreach (var orderNumber in expiredPickups)
                     FadeOutCard(flpPickup, orderNumber);
 
-                // ── payment: fade out after 10 mins ───────────
+                // ── payment: fade out after 10 mins 
                 var expiredPayments = _db.GetExpiredPaymentOrderNumbers();
                 foreach (var orderNumber in expiredPayments)
                     FadeOutCard(flpPay, orderNumber);
 
-                // ── wait for fade animation to finish ─────────
+                // ── wait for fade animation to finish 
                 if (expiredPickups.Count > 0 || expiredPayments.Count > 0)
                     await Task.Delay(1000);
 
-                // ── cancel expired orders in DB ───────────────
+                // ── cancel expired orders in DB 
                 _db.AutoCancelExpiredPickups();
                 _db.AutoCancelExpiredPayments();
 
-                // ── 2-second refresh timer handles redraw ─────
+                // ── 2-second refresh timer handles redraw
             }
             catch (Exception ex)
             {
@@ -149,9 +146,7 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             }
         }
 
-        // ─────────────────────────────────────────────────────
         //  FADE OUT — works for any column
-        // ─────────────────────────────────────────────────────
         private void FadeOutCard(FlowLayoutPanel flp, string orderNumber)
         {
             foreach (Control ctrl in flp.Controls)
@@ -320,6 +315,21 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             {
                 MessageBox.Show("Pickup queue error: " + ex.Message);
             }
+        }
+
+        private void pnlPay_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pnlPrepHeader_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pnlPayHeader_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

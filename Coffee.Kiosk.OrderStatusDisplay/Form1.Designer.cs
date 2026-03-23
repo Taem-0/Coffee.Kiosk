@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             pnlHeader = new Panel();
             lblClock = new Label();
             pictureBox1 = new PictureBox();
@@ -72,17 +73,18 @@
             pnlHeader.Controls.Add(lblCafeFil);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Margin = new Padding(3, 4, 3, 4);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1902, 131);
+            pnlHeader.Size = new Size(1902, 122);
             pnlHeader.TabIndex = 0;
             // 
             // lblClock
             // 
             lblClock.AutoSize = true;
             lblClock.Font = new Font("Arial Rounded MT Bold", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblClock.Location = new Point(1735, 42);
+            lblClock.Location = new Point(1696, 41);
             lblClock.Name = "lblClock";
-            lblClock.Size = new Size(93, 37);
+            lblClock.Size = new Size(115, 46);
             lblClock.TabIndex = 2;
             lblClock.Text = "Time";
             // 
@@ -90,9 +92,10 @@
             // 
             pictureBox1.BackColor = Color.Tan;
             pictureBox1.Image = Properties.Resources.Untitled_design__7_;
-            pictureBox1.Location = new Point(13, 9);
+            pictureBox1.Location = new Point(26, 10);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(98, 93);
+            pictureBox1.Size = new Size(113, 104);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
@@ -101,9 +104,9 @@
             // 
             lblCafeFil.AutoSize = true;
             lblCafeFil.Font = new Font("Dubai", 26.2499962F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCafeFil.Location = new Point(117, 28);
+            lblCafeFil.Location = new Point(134, 31);
             lblCafeFil.Name = "lblCafeFil";
-            lblCafeFil.Size = new Size(251, 60);
+            lblCafeFil.Size = new Size(317, 75);
             lblCafeFil.TabIndex = 0;
             lblCafeFil.Text = "CAFE FILIPINO";
             // 
@@ -116,11 +119,12 @@
             tableLayoutPanel1.Controls.Add(pnlPay, 0, 0);
             tableLayoutPanel1.Controls.Add(pnlPrep, 1, 0);
             tableLayoutPanel1.Controls.Add(pnlPickup, 2, 0);
-            tableLayoutPanel1.Location = new Point(27, 129);
+            tableLayoutPanel1.Location = new Point(50, 131);
+            tableLayoutPanel1.Margin = new Padding(3, 4, 3, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(1848, 911);
+            tableLayoutPanel1.Size = new Size(1850, 889);
             tableLayoutPanel1.TabIndex = 1;
             // 
             // pnlPay
@@ -129,17 +133,20 @@
             pnlPay.Controls.Add(flpPay);
             pnlPay.Controls.Add(pnlPayHeader);
             pnlPay.Dock = DockStyle.Left;
-            pnlPay.Location = new Point(3, 3);
+            pnlPay.Location = new Point(3, 4);
+            pnlPay.Margin = new Padding(3, 4, 3, 4);
             pnlPay.Name = "pnlPay";
-            pnlPay.Size = new Size(609, 905);
+            pnlPay.Size = new Size(610, 881);
             pnlPay.TabIndex = 0;
+            pnlPay.Paint += pnlPay_Paint;
             // 
             // flpPay
             // 
             flpPay.FlowDirection = FlowDirection.TopDown;
-            flpPay.Location = new Point(0, 196);
+            flpPay.Location = new Point(3, 208);
+            flpPay.Margin = new Padding(3, 4, 3, 4);
             flpPay.Name = "flpPay";
-            flpPay.Size = new Size(609, 709);
+            flpPay.Size = new Size(618, 669);
             flpPay.TabIndex = 1;
             flpPay.WrapContents = false;
             // 
@@ -149,18 +156,20 @@
             pnlPayHeader.Controls.Add(lblProceed);
             pnlPayHeader.Controls.Add(lblPay);
             pnlPayHeader.Controls.Add(lblIcon);
-            pnlPayHeader.Location = new Point(16, 18);
+            pnlPayHeader.Location = new Point(15, 21);
+            pnlPayHeader.Margin = new Padding(3, 4, 3, 4);
             pnlPayHeader.Name = "pnlPayHeader";
-            pnlPayHeader.Size = new Size(579, 159);
+            pnlPayHeader.Size = new Size(583, 170);
             pnlPayHeader.TabIndex = 0;
+            pnlPayHeader.Paint += pnlPayHeader_Paint;
             // 
             // lblProceed
             // 
             lblProceed.AutoSize = true;
             lblProceed.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblProceed.Location = new Point(214, 119);
+            lblProceed.Location = new Point(206, 141);
             lblProceed.Name = "lblProceed";
-            lblProceed.Size = new Size(162, 18);
+            lblProceed.Size = new Size(198, 23);
             lblProceed.TabIndex = 2;
             lblProceed.Text = "Proceed to Cashier";
             // 
@@ -168,19 +177,19 @@
             // 
             lblPay.AutoSize = true;
             lblPay.Font = new Font("Arial Rounded MT Bold", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPay.Location = new Point(187, 74);
+            lblPay.Location = new Point(145, 87);
             lblPay.Name = "lblPay";
-            lblPay.Size = new Size(234, 40);
+            lblPay.Size = new Size(297, 51);
             lblPay.TabIndex = 1;
             lblPay.Text = "PLEASE PAY";
             // 
             // lblIcon
             // 
             lblIcon.AutoSize = true;
-            lblIcon.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblIcon.Location = new Point(256, 5);
+            lblIcon.Font = new Font("Segoe UI", 34.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblIcon.Location = new Point(239, 3);
             lblIcon.Name = "lblIcon";
-            lblIcon.Size = new Size(94, 65);
+            lblIcon.Size = new Size(110, 76);
             lblIcon.TabIndex = 0;
             lblIcon.Text = "💳";
             // 
@@ -190,17 +199,19 @@
             pnlPrep.Controls.Add(flpPrep);
             pnlPrep.Controls.Add(pnlPrepHeader);
             pnlPrep.Dock = DockStyle.Fill;
-            pnlPrep.Location = new Point(618, 3);
+            pnlPrep.Location = new Point(619, 4);
+            pnlPrep.Margin = new Padding(3, 4, 3, 4);
             pnlPrep.Name = "pnlPrep";
-            pnlPrep.Size = new Size(609, 905);
+            pnlPrep.Size = new Size(610, 881);
             pnlPrep.TabIndex = 1;
             // 
             // flpPrep
             // 
             flpPrep.FlowDirection = FlowDirection.TopDown;
-            flpPrep.Location = new Point(0, 196);
+            flpPrep.Location = new Point(4, 209);
+            flpPrep.Margin = new Padding(3, 4, 3, 4);
             flpPrep.Name = "flpPrep";
-            flpPrep.Size = new Size(609, 709);
+            flpPrep.Size = new Size(621, 668);
             flpPrep.TabIndex = 1;
             flpPrep.WrapContents = false;
             // 
@@ -210,18 +221,20 @@
             pnlPrepHeader.Controls.Add(lblPrepared);
             pnlPrepHeader.Controls.Add(lblPreparing);
             pnlPrepHeader.Controls.Add(lblIcon1);
-            pnlPrepHeader.Location = new Point(12, 18);
+            pnlPrepHeader.Location = new Point(15, 21);
+            pnlPrepHeader.Margin = new Padding(3, 4, 3, 4);
             pnlPrepHeader.Name = "pnlPrepHeader";
-            pnlPrepHeader.Size = new Size(579, 159);
+            pnlPrepHeader.Size = new Size(583, 170);
             pnlPrepHeader.TabIndex = 0;
+            pnlPrepHeader.Paint += pnlPrepHeader_Paint;
             // 
             // lblPrepared
             // 
             lblPrepared.AutoSize = true;
             lblPrepared.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblPrepared.Location = new Point(199, 119);
+            lblPrepared.Location = new Point(167, 140);
             lblPrepared.Name = "lblPrepared";
-            lblPrepared.Size = new Size(203, 18);
+            lblPrepared.Size = new Size(252, 23);
             lblPrepared.TabIndex = 2;
             lblPrepared.Text = "We're making your order";
             // 
@@ -229,9 +242,9 @@
             // 
             lblPreparing.AutoSize = true;
             lblPreparing.Font = new Font("Arial Rounded MT Bold", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPreparing.Location = new Point(138, 74);
+            lblPreparing.Location = new Point(93, 87);
             lblPreparing.Name = "lblPreparing";
-            lblPreparing.Size = new Size(333, 40);
+            lblPreparing.Size = new Size(421, 51);
             lblPreparing.TabIndex = 1;
             lblPreparing.Text = "BEING PREPARED";
             // 
@@ -239,9 +252,9 @@
             // 
             lblIcon1.AutoSize = true;
             lblIcon1.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblIcon1.Location = new Point(261, 14);
+            lblIcon1.Location = new Point(249, 7);
             lblIcon1.Name = "lblIcon1";
-            lblIcon1.Size = new Size(94, 65);
+            lblIcon1.Size = new Size(117, 81);
             lblIcon1.TabIndex = 0;
             lblIcon1.Text = "☕";
             // 
@@ -251,17 +264,19 @@
             pnlPickup.Controls.Add(flpPickup);
             pnlPickup.Controls.Add(pnlPickupHeader);
             pnlPickup.Dock = DockStyle.Right;
-            pnlPickup.Location = new Point(1234, 3);
+            pnlPickup.Location = new Point(1235, 4);
+            pnlPickup.Margin = new Padding(3, 4, 3, 4);
             pnlPickup.Name = "pnlPickup";
-            pnlPickup.Size = new Size(611, 905);
+            pnlPickup.Size = new Size(612, 881);
             pnlPickup.TabIndex = 2;
             // 
             // flpPickup
             // 
             flpPickup.FlowDirection = FlowDirection.TopDown;
-            flpPickup.Location = new Point(0, 196);
+            flpPickup.Location = new Point(3, 209);
+            flpPickup.Margin = new Padding(3, 4, 3, 4);
             flpPickup.Name = "flpPickup";
-            flpPickup.Size = new Size(612, 709);
+            flpPickup.Size = new Size(618, 668);
             flpPickup.TabIndex = 1;
             flpPickup.WrapContents = false;
             // 
@@ -271,18 +286,19 @@
             pnlPickupHeader.Controls.Add(label1);
             pnlPickupHeader.Controls.Add(lblPickUp);
             pnlPickupHeader.Controls.Add(lblIcon2);
-            pnlPickupHeader.Location = new Point(21, 18);
+            pnlPickupHeader.Location = new Point(13, 21);
+            pnlPickupHeader.Margin = new Padding(3, 4, 3, 4);
             pnlPickupHeader.Name = "pnlPickupHeader";
-            pnlPickupHeader.Size = new Size(579, 159);
+            pnlPickupHeader.Size = new Size(583, 170);
             pnlPickupHeader.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.Location = new Point(201, 119);
+            label1.Location = new Point(183, 140);
             label1.Name = "label1";
-            label1.Size = new Size(208, 18);
+            label1.Size = new Size(254, 23);
             label1.TabIndex = 2;
             label1.Text = "Please collect your order";
             // 
@@ -290,9 +306,9 @@
             // 
             lblPickUp.AutoSize = true;
             lblPickUp.Font = new Font("Arial Rounded MT Bold", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPickUp.Location = new Point(122, 75);
+            lblPickUp.Location = new Point(61, 88);
             lblPickUp.Name = "lblPickUp";
-            lblPickUp.Size = new Size(378, 40);
+            lblPickUp.Size = new Size(478, 51);
             lblPickUp.TabIndex = 1;
             lblPickUp.Text = "READY FOR PICK-UP";
             // 
@@ -300,9 +316,9 @@
             // 
             lblIcon2.AutoSize = true;
             lblIcon2.Font = new Font("Segoe UI", 32.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblIcon2.Location = new Point(274, 19);
+            lblIcon2.Location = new Point(256, 12);
             lblIcon2.Name = "lblIcon2";
-            lblIcon2.Size = new Size(85, 59);
+            lblIcon2.Size = new Size(104, 72);
             lblIcon2.TabIndex = 0;
             lblIcon2.Text = "✅";
             // 
@@ -314,11 +330,14 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1902, 973);
+            BackColor = Color.OldLace;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(1902, 1033);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(pnlHeader);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
