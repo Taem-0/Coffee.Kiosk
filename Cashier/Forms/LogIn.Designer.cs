@@ -48,9 +48,10 @@
             // 
             LogoPath.BackColor = Color.FromArgb(107, 77, 58);
             LogoPath.BackgroundImageLayout = ImageLayout.Zoom;
-            LogoPath.Location = new Point(609, 288);
+            LogoPath.Location = new Point(757, 350);
+            LogoPath.Margin = new Padding(4, 4, 4, 4);
             LogoPath.Name = "LogoPath";
-            LogoPath.Size = new Size(147, 115);
+            LogoPath.Size = new Size(185, 185);
             LogoPath.TabIndex = 1;
             LogoPath.TabStop = false;
             // 
@@ -60,9 +61,10 @@
             ShopName.BackColor = Color.Transparent;
             ShopName.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ShopName.ForeColor = Color.White;
-            ShopName.Location = new Point(760, 293);
+            ShopName.Location = new Point(950, 366);
+            ShopName.Margin = new Padding(4, 0, 4, 0);
             ShopName.Name = "ShopName";
-            ShopName.Size = new Size(589, 106);
+            ShopName.Size = new Size(706, 128);
             ShopName.TabIndex = 2;
             ShopName.Text = "CAFÉ FILIPINO";
             // 
@@ -83,13 +85,13 @@
             txtUsername.Font = new Font("Segoe UI", 10F);
             txtUsername.ForeColor = Color.White;
             txtUsername.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtUsername.Location = new Point(670, 480);
-            txtUsername.Margin = new Padding(3, 5, 3, 5);
+            txtUsername.Location = new Point(838, 600);
+            txtUsername.Margin = new Padding(4, 6, 4, 6);
             txtUsername.Name = "txtUsername";
             txtUsername.PlaceholderText = "Email";
             txtUsername.SelectedText = "";
             txtUsername.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            txtUsername.Size = new Size(620, 64);
+            txtUsername.Size = new Size(775, 80);
             txtUsername.TabIndex = 3;
             txtUsername.TextChanged += txtUsername_TextChanged;
             // 
@@ -98,9 +100,10 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(704, 474);
+            label2.Location = new Point(880, 592);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(0, 28);
+            label2.Size = new Size(0, 32);
             label2.TabIndex = 5;
             // 
             // btnLogin
@@ -114,10 +117,11 @@
             btnLogin.FillColor = Color.FromArgb(107, 79, 58);
             btnLogin.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(823, 720);
+            btnLogin.Location = new Point(1029, 900);
+            btnLogin.Margin = new Padding(4, 4, 4, 4);
             btnLogin.Name = "btnLogin";
             btnLogin.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnLogin.Size = new Size(315, 56);
+            btnLogin.Size = new Size(394, 70);
             btnLogin.TabIndex = 6;
             btnLogin.Text = "Login";
             btnLogin.Click += btnLogin_Click;
@@ -139,13 +143,13 @@
             txtPassword.Font = new Font("Segoe UI", 10F);
             txtPassword.ForeColor = Color.White;
             txtPassword.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtPassword.Location = new Point(670, 584);
-            txtPassword.Margin = new Padding(3, 5, 3, 5);
+            txtPassword.Location = new Point(838, 730);
+            txtPassword.Margin = new Padding(4, 6, 4, 6);
             txtPassword.Name = "txtPassword";
             txtPassword.PlaceholderText = "Password";
             txtPassword.SelectedText = "";
             txtPassword.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            txtPassword.Size = new Size(620, 64);
+            txtPassword.Size = new Size(775, 80);
             txtPassword.TabIndex = 7;
             txtPassword.UseSystemPasswordChar = true;
             txtPassword.TextChanged += txtPassword_TextChanged;
@@ -156,19 +160,20 @@
             lblError.BackColor = Color.Transparent;
             lblError.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblError.ForeColor = Color.White;
-            lblError.Location = new Point(862, 685);
+            lblError.Location = new Point(1078, 856);
+            lblError.Margin = new Padding(4, 0, 4, 0);
             lblError.Name = "lblError";
-            lblError.Size = new Size(243, 23);
+            lblError.Size = new Size(305, 30);
             lblError.TabIndex = 8;
             lblError.Text = "Invalid username or password.";
             lblError.Visible = false;
             // 
             // LogIn
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(44, 44, 42);
-            ClientSize = new Size(1920, 1080);
+            ClientSize = new Size(1946, 1226);
             Controls.Add(lblError);
             Controls.Add(txtPassword);
             Controls.Add(btnLogin);
@@ -177,6 +182,7 @@
             Controls.Add(ShopName);
             Controls.Add(LogoPath);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 4, 4, 4);
             Name = "LogIn";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Log In";

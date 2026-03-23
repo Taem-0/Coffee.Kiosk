@@ -56,8 +56,9 @@
             pnlTopBar.Controls.Add(LogoPath);
             pnlTopBar.Dock = DockStyle.Top;
             pnlTopBar.Location = new Point(0, 0);
+            pnlTopBar.Margin = new Padding(4, 4, 4, 4);
             pnlTopBar.Name = "pnlTopBar";
-            pnlTopBar.Size = new Size(1920, 79);
+            pnlTopBar.Size = new Size(1946, 99);
             pnlTopBar.TabIndex = 0;
             // 
             // btnBell
@@ -71,11 +72,12 @@
             btnBell.FillColor = Color.FromArgb(212, 184, 150);
             btnBell.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnBell.ForeColor = Color.FromArgb(111, 77, 56);
-            btnBell.Location = new Point(1253, 12);
+            btnBell.Location = new Point(1566, 15);
+            btnBell.Margin = new Padding(4, 4, 4, 4);
             btnBell.Name = "btnBell";
             btnBell.ShadowDecoration.CustomizableEdges = customizableEdges1;
             btnBell.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            btnBell.Size = new Size(55, 55);
+            btnBell.Size = new Size(69, 69);
             btnBell.TabIndex = 7;
             btnBell.Text = "🔔";
             btnBell.Click += btnBell_Click;
@@ -92,10 +94,11 @@
             btnLogout.FillColor = Color.FromArgb(212, 184, 150);
             btnLogout.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLogout.ForeColor = Color.FromArgb(59, 35, 20);
-            btnLogout.Location = new Point(1771, 17);
+            btnLogout.Location = new Point(2214, 21);
+            btnLogout.Margin = new Padding(4, 4, 4, 4);
             btnLogout.Name = "btnLogout";
             btnLogout.ShadowDecoration.CustomizableEdges = customizableEdges3;
-            btnLogout.Size = new Size(131, 39);
+            btnLogout.Size = new Size(164, 49);
             btnLogout.TabIndex = 6;
             btnLogout.Text = "Logout";
             btnLogout.Click += btnLogout_Click;
@@ -105,9 +108,10 @@
             lblClock.BackColor = Color.Transparent;
             lblClock.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblClock.ForeColor = Color.White;
-            lblClock.Location = new Point(1613, 21);
+            lblClock.Location = new Point(2016, 26);
+            lblClock.Margin = new Padding(4, 0, 4, 0);
             lblClock.Name = "lblClock";
-            lblClock.Size = new Size(120, 35);
+            lblClock.Size = new Size(150, 44);
             lblClock.TabIndex = 5;
             lblClock.Text = "Time In";
             lblClock.TextAlign = ContentAlignment.TopCenter;
@@ -118,9 +122,10 @@
             lblCashier.BackColor = Color.Transparent;
             lblCashier.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCashier.ForeColor = Color.White;
-            lblCashier.Location = new Point(1325, 21);
+            lblCashier.Location = new Point(1656, 26);
+            lblCashier.Margin = new Padding(4, 0, 4, 0);
             lblCashier.Name = "lblCashier";
-            lblCashier.Size = new Size(273, 35);
+            lblCashier.Size = new Size(341, 44);
             lblCashier.TabIndex = 4;
             lblCashier.Text = "Cashier Staff -";
             lblCashier.Click += lblCashier_Click;
@@ -131,9 +136,10 @@
             ShopName.BackColor = Color.Transparent;
             ShopName.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ShopName.ForeColor = Color.White;
-            ShopName.Location = new Point(97, 18);
+            ShopName.Location = new Point(121, 22);
+            ShopName.Margin = new Padding(4, 0, 4, 0);
             ShopName.Name = "ShopName";
-            ShopName.Size = new Size(252, 46);
+            ShopName.Size = new Size(296, 54);
             ShopName.TabIndex = 3;
             ShopName.Text = "CAFÉ FILIPINO";
             // 
@@ -141,9 +147,10 @@
             // 
             LogoPath.BackColor = Color.FromArgb(255, 224, 192);
             LogoPath.BackgroundImageLayout = ImageLayout.Zoom;
-            LogoPath.Location = new Point(12, 8);
+            LogoPath.Location = new Point(33, 11);
+            LogoPath.Margin = new Padding(4, 4, 4, 4);
             LogoPath.Name = "LogoPath";
-            LogoPath.Size = new Size(81, 65);
+            LogoPath.Size = new Size(80, 80);
             LogoPath.TabIndex = 2;
             LogoPath.TabStop = false;
             // 
@@ -151,9 +158,10 @@
             // 
             pnlContainer.BackColor = Color.FromArgb(250, 246, 243);
             pnlContainer.Dock = DockStyle.Fill;
-            pnlContainer.Location = new Point(0, 79);
+            pnlContainer.Location = new Point(0, 99);
+            pnlContainer.Margin = new Padding(4, 4, 4, 4);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(1920, 1001);
+            pnlContainer.Size = new Size(1946, 1127);
             pnlContainer.TabIndex = 1;
             // 
             // tmrClock
@@ -164,13 +172,14 @@
             // 
             // HomePage
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(250, 246, 243);
-            ClientSize = new Size(1920, 1080);
+            ClientSize = new Size(1946, 1226);
             Controls.Add(pnlContainer);
             Controls.Add(pnlTopBar);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 4, 4, 4);
             Name = "HomePage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HomePage";

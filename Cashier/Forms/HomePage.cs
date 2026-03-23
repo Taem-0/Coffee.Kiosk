@@ -52,20 +52,46 @@ namespace Coffee.Kiosk.Cashier
                 btnLogout.FillColor = theme.DarkPrimaryColor;
                 btnLogout.ForeColor = Color.White;
 
-                if (!string.IsNullOrEmpty(theme.LogoPath))
-                {
-                    string fullPath = Path.IsPathRooted(theme.LogoPath)
-                        ? theme.LogoPath
-                        : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, theme.LogoPath);
-
-                    if (File.Exists(fullPath))
-                    {
-                        LogoPath.Image = Image.FromFile(fullPath);
-                        LogoPath.SizeMode = PictureBoxSizeMode.Zoom;
-                    }
-                }
+                LoadLogo(theme.LogoPath);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Theme load error:\n{ex.Message}");
+            }
+        }
+
+        // ✅ FIXED LOGO LOADER
+        private void LoadLogo(string? logoPath)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(logoPath))
+                    return;
+
+                string cleanPath = logoPath.Trim();
+
+                string fullPath = Path.IsPathRooted(cleanPath)
+                    ? cleanPath
+                    : Path.Combine(Application.StartupPath, cleanPath);
+
+                if (!File.Exists(fullPath))
+                {
+                    MessageBox.Show($"Logo not found:\n{fullPath}");
+                    return;
+                }
+
+                // Prevent file locking
+                using (var fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read))
+                {
+                    LogoPath.Image = Image.FromStream(fs);
+                }
+
+                LogoPath.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading logo:\n{ex.Message}");
+            }
         }
 
         public void LoadControl(UserControl uc)
