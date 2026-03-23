@@ -58,10 +58,13 @@
         Dim orderType As String = If(String.IsNullOrEmpty(order.OrderType), "dinein", order.OrderType.ToLower())
 
 
-        ' button default — cream bg, brown border
-        btnAction.Text = "Start"
+        btnAction.Text = "Complete"
+        btnAction.BackColor = Color.White
+        btnAction.ForeColor = Color.Black
         btnAction.BorderColor = Color.Black
         btnAction.BorderSize = 1
+        _isStarted = True  ' skip the Start step
+
 
 
         ' apply default color
@@ -101,7 +104,7 @@
         Next
 
         ' button default state
-        btnAction.Text = "Start"
+        btnAction.Text = "Complete"
         btnAction.BorderColor = Color.Black
         btnAction.BorderSize = 1
 
@@ -137,13 +140,7 @@
 
 
         Else
-            ' NORMAL — keep current header color
-            If _isStarted Then
-                pnlHeader.BackColor = Color.FromArgb(33, 176, 23)  ' green if started
-            Else
-                pnlHeader.BackColor = ColorHeaderBrown            ' brown if not started yet
-            End If
-            lblWaitTime.ForeColor = Color.White
+
         End If
     End Sub
 
@@ -203,39 +200,29 @@
     ' STEP F: Start → Complete
     ' -------------------------------------------------------
     Private Sub btnAction_Click(sender As Object, e As EventArgs) Handles btnAction.Click
-        If Not _isStarted Then
-            ' first click — START
-            _isStarted = True
-            btnAction.Text = "Complete"
-            btnAction.BackColor = Color.White
-            btnAction.ForeColor = Color.Black
-            btnAction.BorderColor = Color.Black
-            '  pnlHeader.BackColor = Color.FromArgb(33, 176, 23)
-            tmrWait.Start()
-        Else
-            ' check if all items are finished
-            Dim allDone As Boolean = True
-            For Each ctrl As Control In flpItems.Controls
-                If TypeOf ctrl Is ucOrderItem Then
-                    Dim uc As ucOrderItem = DirectCast(ctrl, ucOrderItem)
-                    If Not uc.IsFinished Then
-                        allDone = False
-                        Exit For
-                    End If
+        ' check if all items are finished
+        Dim allDone As Boolean = True
+        For Each ctrl As Control In flpItems.Controls
+            If TypeOf ctrl Is ucOrderItem Then
+                Dim uc As ucOrderItem = DirectCast(ctrl, ucOrderItem)
+                If Not uc.IsFinished Then
+                    allDone = False
+                    Exit For
                 End If
-            Next
-
-            If Not allDone Then
-                Using confirm As New frmConfirm()
-                    confirm.ShowDialog(Me)
-                    If Not confirm.UserConfirmed Then Return
-                End Using
             End If
+        Next
 
-            tmrWait.Stop()
-            DatabaseHelper.UpdateOrderStatus(_orderId, "Completed")
-            RaiseEvent OnOrderCompleted(Me, _orderId)
+        If Not allDone Then
+            Using confirm As New frmConfirm()
+                confirm.ShowDialog(Me)
+                If Not confirm.UserConfirmed Then Return
+            End Using
         End If
+
+        tmrWait.Stop()
+        DatabaseHelper.UpdateOrderStatus(_orderId, "Completed")
+        RaiseEvent OnOrderCompleted(Me, _orderId)
+
     End Sub
     Private Sub ApplyRoundedCorners()
         Dim radius As Integer = 20
@@ -304,6 +291,7 @@
             'btnAction.ForeColor = Color.FromArgb(30, 100, 50)
         End If
     End Sub
+
 
 
 
