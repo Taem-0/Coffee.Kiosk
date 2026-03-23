@@ -2,13 +2,8 @@
 using Coffee.Kiosk.CMS.DTOs;
 using Coffee.Kiosk.CMS.Helpers;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Coffee.Kiosk.CMS.Forms.AccountsTab
@@ -17,31 +12,36 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
     {
         private readonly AccountController _controller;
         private readonly DisplayDTO _draft;
-        private Color _darkBrown = ColorTranslator.FromHtml("#3d211a");
-        private Color _mediumBrown = ColorTranslator.FromHtml("#6f4d38");
-        private Color _lightBrown = ColorTranslator.FromHtml("#a07856");
-        private Color _beige = ColorTranslator.FromHtml("#cbb799");
-        private Color _background = ColorTranslator.FromHtml("#f5f5dc");
+        private readonly ShopController _themeController;
+        private Color _darkBrown;
+        private Color _mediumBrown;
+        private Color _lightBrown;
+        private Color _beige;
+        private Color _background;
 
-        public NewestRegisterView(AccountController controller, DisplayDTO draft)
+        public NewestRegisterView(AccountController controller, DisplayDTO draft, ShopController themeController)
         {
-
             InitializeComponent();
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
             _draft = draft ?? throw new ArgumentNullException(nameof(draft));
+            _themeController = themeController ?? throw new ArgumentNullException(nameof(themeController));
+
+            var uiTheme = UIhelp.ThemeManager.BuildUITheme(_themeController);
+            _darkBrown = uiTheme.DarkPrimary;
+            _mediumBrown = uiTheme.Primary;
+            _lightBrown = uiTheme.Secondary;
+            _beige = uiTheme.Accent;
+            _background = uiTheme.Background;
 
             ApplyTheme();
             WireUpEvents();
             LoadDraftValues();
 
             PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-
-
         }
 
         private void ApplyTheme()
         {
-
             this.BackColor = _background;
             this.ForeColor = _darkBrown;
             this.Padding = new Padding(20);
@@ -53,38 +53,17 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             tableLayoutPanel1.BackColor = _beige;
 
-            label1.ForeColor = Color.White;
-            label1.BackColor = Color.Transparent;
-
-            label2.ForeColor = _darkBrown;
-            label2.BackColor = Color.Transparent;
-            
-            label3.ForeColor = _darkBrown;
-            label3.BackColor = Color.Transparent;
-
-            label4.ForeColor = _darkBrown;
-            label4.BackColor = Color.Transparent;
-
-            label5.ForeColor = _darkBrown;
-            label5.BackColor = Color.Transparent;
-
-            label6.ForeColor = _darkBrown;
-            label6.BackColor = Color.Transparent;
-
-            label7.ForeColor = _darkBrown;
-            label7.BackColor = Color.Transparent;
-
-            label8.ForeColor = _darkBrown;
-            label8.BackColor = Color.Transparent;
-
-            label9.ForeColor = _darkBrown;
-            label9.BackColor = Color.Transparent;
-
-            label10.ForeColor = _darkBrown;
-            label10.BackColor = Color.Transparent;
-
-            label17.ForeColor = Color.White;
-            label17.BackColor = Color.Transparent;
+            label1.ForeColor = _darkBrown; label1.BackColor = Color.Transparent;
+            label2.ForeColor = _darkBrown; label2.BackColor = Color.Transparent;
+            label3.ForeColor = _darkBrown; label3.BackColor = Color.Transparent;
+            label4.ForeColor = _darkBrown; label4.BackColor = Color.Transparent;
+            label5.ForeColor = _darkBrown; label5.BackColor = Color.Transparent;
+            label6.ForeColor = _darkBrown; label6.BackColor = Color.Transparent;
+            label7.ForeColor = _darkBrown; label7.BackColor = Color.Transparent;
+            label8.ForeColor = _darkBrown; label8.BackColor = Color.Transparent;
+            label9.ForeColor = _darkBrown; label9.BackColor = Color.Transparent;
+            label10.ForeColor = _darkBrown; label10.BackColor = Color.Transparent;
+            label17.ForeColor = Color.White; label17.BackColor = Color.Transparent;
 
             ConfigureButton(NextButton);
             ConfigureButton(CancelButton);
@@ -100,7 +79,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             ApplyTextBoxTheme(EmergencyPhoneTextBox);
 
             PictureBox.FillColor = Color.White;
-
         }
 
         private void ConfigureButton(Guna.UI2.WinForms.Guna2Button button)
@@ -147,7 +125,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             EmergencyFirstNameTextBox.TextChanged += (s, e) => ClearError(EmergencyFirstNameTextBox);
             EmergencyLastNameTextBox.TextChanged += (s, e) => ClearError(EmergencyLastNameTextBox);
             EmergencyPhoneTextBox.TextChanged += (s, e) => ClearError(EmergencyPhoneTextBox);
-
             PictureBox.MouseClick += PictureBox_MouseClick;
         }
 
@@ -162,23 +139,16 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             EmergencyLastNameTextBox.Text = _draft.EmergencyLastName;
             EmergencyPhoneTextBox.Text = _draft.EmergencyNumber;
 
-            if (!string.IsNullOrEmpty(_draft.ProfilePicturePath) && System.IO.File.Exists(_draft.ProfilePicturePath))
+            if (!string.IsNullOrEmpty(_draft.ProfilePicturePath) && File.Exists(_draft.ProfilePicturePath))
             {
-                try
-                {
-                    PictureBox.Image = Image.FromFile(_draft.ProfilePicturePath);
-                }
-                catch
-                {
-                    PictureBox.Image = null;
-                }
+                try { PictureBox.Image = Image.FromFile(_draft.ProfilePicturePath); }
+                catch { PictureBox.Image = null; }
             }
         }
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            if (!ValidateAllFields())
-                return;
+            if (!ValidateAllFields()) return;
 
             _draft.FirstName = FirstNameTextBox.Text.Trim();
             _draft.MiddleName = MiddleNameTextBox.Text.Trim();
@@ -189,53 +159,31 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             _draft.EmergencyLastName = EmergencyLastNameTextBox.Text.Trim();
             _draft.EmergencyNumber = EmergencyPhoneTextBox.Text.Trim();
 
-            using (var step2 = new SecondNewestRegisterView(_controller, _draft))
-            {
-                var result = step2.ShowDialog(this);
-                if (result == DialogResult.Cancel)
-                {
-                    this.Close();
-                }
-                else if (result == DialogResult.OK)
-                {
-                    this.Close();
-                }
-                else if (result == DialogResult.Retry)
-                {
-
-                    //UHMMMM
-
-                }
-            }
+            using var step2 = new SecondNewestRegisterView(_controller, _draft, _themeController);
+            var result = step2.ShowDialog(this);
+            if (result == DialogResult.Cancel || result == DialogResult.OK)
+                this.Close();
         }
 
-        private void CancelButton_Click_1(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void CancelButton_Click_1(object sender, EventArgs e) => this.Close();
 
         private void AddPfpButton_Click(object sender, EventArgs e)
         {
-            using (var ofd = new OpenFileDialog())
+            using var ofd = new OpenFileDialog
             {
-                ofd.Title = "Select Profile Picture";
-                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
-                ofd.Multiselect = false;
+                Title = "Select Profile Picture",
+                Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif",
+                Multiselect = false
+            };
 
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    _draft.ProfilePicturePath = ofd.FileName;
+            if (ofd.ShowDialog() != DialogResult.OK) return;
 
-                    try
-                    {
-                        PictureBox.Image = Image.FromFile(ofd.FileName);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error loading image: {ex.Message}", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+            _draft.ProfilePicturePath = ofd.FileName;
+            try { PictureBox.Image = Image.FromFile(ofd.FileName); }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading image: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -244,14 +192,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             textBox.BorderColor = UIhelp.ThemeColors.ErrorColor;
             textBox.FocusedState.BorderColor = UIhelp.ThemeColors.ErrorColor;
             textBox.HoverState.BorderColor = UIhelp.ThemeColors.ErrorColor;
-
             textBox.PlaceholderText = errorMessage;
             textBox.PlaceholderForeColor = UIhelp.ThemeColors.ErrorColor;
-
-            if (clearInput)
-            {
-                textBox.Text = "";
-            }
+            if (clearInput) textBox.Text = "";
         }
 
         private void ClearError(Guna.UI2.WinForms.Guna2TextBox textBox)
@@ -259,7 +202,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             textBox.BorderColor = _mediumBrown;
             textBox.FocusedState.BorderColor = _lightBrown;
             textBox.HoverState.BorderColor = _lightBrown;
-
             textBox.PlaceholderText = "";
             textBox.PlaceholderForeColor = Color.Gray;
         }
@@ -282,96 +224,48 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             bool isValid = true;
             bool firstErrorFocused = false;
 
-            if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text))
+            void Flag(Guna.UI2.WinForms.Guna2TextBox tb, string msg)
             {
-                ShowError(FirstNameTextBox, "First name is required", true);
+                ShowError(tb, msg, true);
                 isValid = false;
-                if (!firstErrorFocused)
-                {
-                    FirstNameTextBox.Focus();
-                    firstErrorFocused = true;
-                }
+                if (!firstErrorFocused) { tb.Focus(); firstErrorFocused = true; }
             }
+
+            if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text))
+                Flag(FirstNameTextBox, "First name is required");
 
             if (string.IsNullOrWhiteSpace(LastNameTextBox.Text))
-            {
-                ShowError(LastNameTextBox, "Last name is required", true);
-                isValid = false;
-                if (!firstErrorFocused)
-                {
-                    LastNameTextBox.Focus();
-                    firstErrorFocused = true;
-                }
-            }
+                Flag(LastNameTextBox, "Last name is required");
 
             if (string.IsNullOrWhiteSpace(EmailTextBox.Text))
-            {
-                ShowError(EmailTextBox, "Email is required", true);
-                isValid = false;
-                if (!firstErrorFocused)
-                {
-                    EmailTextBox.Focus();
-                    firstErrorFocused = true;
-                }
-            }
+                Flag(EmailTextBox, "Email is required");
             else if (!IsValidEmail(EmailTextBox.Text))
-            {
-                ShowError(EmailTextBox, "Please enter a valid email address", true);
-                isValid = false;
-                if (!firstErrorFocused)
-                {
-                    EmailTextBox.Focus();
-                    EmailTextBox.SelectAll();
-                    firstErrorFocused = true;
-                }
-            }
+                Flag(EmailTextBox, "Please enter a valid email address");
 
             if (string.IsNullOrWhiteSpace(PhoneTextBox.Text))
-            {
-                ShowError(PhoneTextBox, "Phone number is required", true);
-                isValid = false;
-                if (!firstErrorFocused)
-                {
-                    PhoneTextBox.Focus();
-                    firstErrorFocused = true;
-                }
-            }
+                Flag(PhoneTextBox, "Phone number is required");
 
             return isValid;
         }
 
         private bool IsValidEmail(string email)
         {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
+            try { var a = new System.Net.Mail.MailAddress(email); return a.Address == email; }
+            catch { return false; }
         }
 
         private void PictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && PictureBox.Image != null)
+            if (e.Button != MouseButtons.Right || PictureBox.Image == null) return;
+            if (MessageBox.Show("Remove profile picture?", "Confirm",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                var result = MessageBox.Show("Remove profile picture?", "Confirm",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
-                {
-                    _draft.ProfilePicturePath = null;
-                    PictureBox.Image = null;
-                    PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                }
+                _draft.ProfilePicturePath = null;
+                PictureBox.Image = null;
+                PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             }
         }
 
-        private void PictureBox_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void PictureBox_Click(object sender, EventArgs e) { }
     }
 }

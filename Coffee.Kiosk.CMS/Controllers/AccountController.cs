@@ -49,6 +49,16 @@ namespace Coffee.Kiosk.CMS.Controllers
 
         }
 
+        public List<DisplayDTO> GetAllEmployees()
+        {
+            return _service.DisplayAllAccounts();
+        }
+
+        public void ReactivateAccount(DisplayDTO currentAccount)
+        {
+            _service.Reactivate(currentAccount);
+        }
+
         public LoginResult Login(LoginDTO request)
         {
             var result = _loginValidation.Validate(request);

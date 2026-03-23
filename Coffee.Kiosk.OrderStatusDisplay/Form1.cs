@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB;
+using MySql.Data.MySqlClient;
 
 namespace Coffee.Kiosk.OrderStatusDisplay
 {
@@ -11,12 +12,10 @@ namespace Coffee.Kiosk.OrderStatusDisplay
     {
         private readonly OrderDisplayDBManager _db = new OrderDisplayDBManager();
 
-        // ── accent colors ─────────────────────────────────────
         static readonly Color BlueAccent = Color.FromArgb(59, 79, 212);
         static readonly Color AmberAccent = Color.FromArgb(122, 74, 0);
         static readonly Color GreenAccent = Color.FromArgb(26, 92, 42);
 
-        // ── badge colors ──────────────────────────────────────
         static readonly Color CashBg = Color.FromArgb(59, 79, 212);
         static readonly Color CashFg = Color.FromArgb(220, 226, 255);
         static readonly Color GCashBg = Color.FromArgb(91, 45, 158);
@@ -26,10 +25,8 @@ namespace Coffee.Kiosk.OrderStatusDisplay
         static readonly Color PickupBg = Color.FromArgb(26, 92, 42);
         static readonly Color PickupFg = Color.FromArgb(134, 239, 172);
 
-        // ── snapshot tracking (prevents flicker) ─────────────
-        private string _lastPaySnapshot = "";
-        private string _lastPrepSnapshot = "";
-        private string _lastPickupSnapshot = "";
+        private string _lastPrimaryColor = "";
+        private string _lastLogoPath = "";
 
         public Form1()
         {
@@ -43,11 +40,9 @@ namespace Coffee.Kiosk.OrderStatusDisplay
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // ── form setup ────────────────────────────────────
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 
-            // ── FlowLayoutPanel settings ──────────────────────
             flpPay.FlowDirection = FlowDirection.TopDown;
             flpPay.WrapContents = false;
             flpPay.AutoScroll = false;
@@ -63,26 +58,9 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             flpPickup.AutoScroll = false;
             flpPickup.Padding = new Padding(8, 10, 8, 10);
 
-            // ── double buffering on panels ────────────────────
-            typeof(FlowLayoutPanel).GetProperty("DoubleBuffered",
-                System.Reflection.BindingFlags.Instance |
-                System.Reflection.BindingFlags.NonPublic)
-                ?.SetValue(flpPay, true);
-
-            typeof(FlowLayoutPanel).GetProperty("DoubleBuffered",
-                System.Reflection.BindingFlags.Instance |
-                System.Reflection.BindingFlags.NonPublic)
-                ?.SetValue(flpPrep, true);
-
-            typeof(FlowLayoutPanel).GetProperty("DoubleBuffered",
-                System.Reflection.BindingFlags.Instance |
-                System.Reflection.BindingFlags.NonPublic)
-                ?.SetValue(flpPickup, true);
-
-            // ── auto-refresh timer (every 2 seconds) ──────────
-            var refreshTimer = new System.Windows.Forms.Timer();
-            refreshTimer.Interval = 2_000;
-            refreshTimer.Tick += (s, ev) =>
+            var autoCompleteTimer = new System.Windows.Forms.Timer();
+            autoCompleteTimer.Interval = 30000;
+            autoCompleteTimer.Tick += (s, ev) =>
             {
                 LoadPaymentOrders();
                 LoadPreparingOrders();
@@ -96,12 +74,17 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             autoCompleteTimer.Tick += AutoCompleteTimer_Tick;
             autoCompleteTimer.Start();
 
-            // ── load cards on startup ─────────────────────────
+            var themeTimer = new System.Windows.Forms.Timer();
+            themeTimer.Interval = 2000;
+            themeTimer.Tick += (s, ev) => ApplyTheme();
+            themeTimer.Start();
+
+            ApplyTheme();
+
             LoadPaymentOrders();
             LoadPreparingOrders();
             LoadPickupOrders();
 
-            // ── reload on window resize ───────────────────────
             this.Resize += (s, ev) =>
             {
                 // force full redraw on resize
@@ -115,81 +98,49 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             };
         }
 
-        // ─────────────────────────────────────────────────────
-        //  AUTO-CANCEL TIMER — runs every 30 seconds
-        //  Fades out expired cards then cancels them in DB
-        // ─────────────────────────────────────────────────────
-        private async void AutoCompleteTimer_Tick(object sender, EventArgs e)
+        private void ApplyTheme()
         {
             try
             {
-                // ── pickup: fade out after 5 mins ─────────────
-                var expiredPickups = _db.GetExpiredPickupOrderNumbers();
-                foreach (var orderNumber in expiredPickups)
-                    FadeOutCard(flpPickup, orderNumber);
+                using var conn = new MySqlConnection("Server=localhost;Database=CoffeeKioskDB;Uid=root;Pwd=;");
+                conn.Open();
 
-                // ── payment: fade out after 10 mins ───────────
-                var expiredPayments = _db.GetExpiredPaymentOrderNumbers();
-                foreach (var orderNumber in expiredPayments)
-                    FadeOutCard(flpPay, orderNumber);
+                using var cmd = new MySqlCommand("SELECT Primary_Color, LogoPath FROM shop LIMIT 1", conn);
+                using var reader = cmd.ExecuteReader();
 
-                // ── wait for fade animation to finish ─────────
-                if (expiredPickups.Count > 0 || expiredPayments.Count > 0)
-                    await Task.Delay(1000);
+                if (!reader.Read()) return;
 
-                // ── cancel expired orders in DB ───────────────
-                _db.AutoCancelExpiredPickups();
-                _db.AutoCancelExpiredPayments();
+                var primary = reader["Primary_Color"]?.ToString() ?? "";
+                var logo = reader["LogoPath"]?.ToString() ?? "";
 
-                // ── 2-second refresh timer handles redraw ─────
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Auto-complete error: " + ex.Message);
-            }
-        }
+                if (primary == _lastPrimaryColor && logo == _lastLogoPath)
+                    return;
 
-        // ─────────────────────────────────────────────────────
-        //  FADE OUT — works for any column
-        // ─────────────────────────────────────────────────────
-        private void FadeOutCard(FlowLayoutPanel flp, string orderNumber)
-        {
-            foreach (Control ctrl in flp.Controls)
-            {
-                if (ctrl is OrderStatusUC card && card.OrderNumber == orderNumber)
+                _lastPrimaryColor = primary;
+                _lastLogoPath = logo;
+
+                if (!string.IsNullOrEmpty(primary))
                 {
-                    var fadeTimer = new System.Windows.Forms.Timer();
-                    fadeTimer.Interval = 50;
-                    double opacity = 1.0;
+                    var color = ColorTranslator.FromHtml(primary);
 
-                    fadeTimer.Tick += (s, ev) =>
-                    {
-                        opacity -= 0.05;
+                    this.BackColor = color;
 
-                        if (opacity <= 0)
-                        {
-                            fadeTimer.Stop();
-                            fadeTimer.Dispose();
-                            flp.Controls.Remove(card);
-                            card.Dispose();
-                        }
-                        else
-                        {
-                            int alpha = (int)(opacity * 255);
-                            card.BackColor = Color.FromArgb(alpha,
-                                card.BackColor.R,
-                                card.BackColor.G,
-                                card.BackColor.B);
-                        }
-                    };
+                    pnlHeader.BackColor = color;
+                    pnlPay.BackColor = color;
+                    pnlPrep.BackColor = color;
+                    pnlPickup.BackColor = color;
+                    tableLayoutPanel1.BackColor = color;
+                }
 
-                    fadeTimer.Start();
-                    break;
+                if (!string.IsNullOrEmpty(logo) && System.IO.File.Exists(logo))
+                {
+                    using var img = Image.FromFile(logo);
+                    pictureBox1.Image = new Bitmap(img);
                 }
             }
+            catch { }
         }
 
-        // ── clock ─────────────────────────────────────────────
         private void tmrClock_Tick(object sender, EventArgs e)
         {
             lblClock.Text = DateTime.Now.ToString("hh:mm tt");
@@ -263,10 +214,6 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             }
         }
 
-        // ─────────────────────────────────────────────────────
-        //  LOAD — BEING PREPARED column
-        //  Badge: always Brewing
-        // ─────────────────────────────────────────────────────
         private void LoadPreparingOrders()
         {
             try
@@ -292,10 +239,6 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             }
         }
 
-        // ─────────────────────────────────────────────────────
-        //  LOAD — READY FOR PICK-UP column
-        //  Badge: always Pick up
-        // ─────────────────────────────────────────────────────
         private void LoadPickupOrders()
         {
             try
