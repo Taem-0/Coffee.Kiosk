@@ -130,6 +130,15 @@ Public Class DatabaseHelper
         End Using
     End Sub
 
+
+    ' ==================== ADDED ====================
+    Public Class ShopInfo
+        Public Property PrimaryColor As String
+        Public Property LogoPath As String
+    End Class
+
+    Public Shared Function GetShopInfo() As ShopInfo
+        Dim shop As New ShopInfo()
     Public Shared Function GetOrderById(orderId As Integer) As Order
         Dim order As Order = Nothing
 
@@ -137,6 +146,13 @@ Public Class DatabaseHelper
             Try
                 conn.Open()
 
+                Dim sql = "SELECT Primary_Color, LogoPath FROM shop WHERE ID = 1"
+
+                Using cmd As New MySqlCommand(sql, conn)
+                    Using reader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            shop.PrimaryColor = If(reader.IsDBNull(reader.GetOrdinal("Primary_Color")), "", reader.GetString("Primary_Color"))
+                            shop.LogoPath = If(reader.IsDBNull(reader.GetOrdinal("LogoPath")), "", reader.GetString("LogoPath"))
                 Dim orderSql = "SELECT ID, OrderType, Status, CreatedAt 
                             FROM customer_orders WHERE ID = @orderId"
 
@@ -159,6 +175,14 @@ Public Class DatabaseHelper
                     End Using
                 End Using
 
+            Catch ex As MySqlException
+                Console.WriteLine("DB Error (GetShopInfo): " & ex.Message)
+            End Try
+        End Using
+
+        Return shop
+    End Function
+    ' =================================================
                 If order IsNot Nothing Then
                     ' get items
                     Using itemConn As New MySqlConnection(ConnectionString)

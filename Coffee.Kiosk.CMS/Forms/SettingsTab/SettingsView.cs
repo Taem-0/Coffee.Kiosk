@@ -16,11 +16,12 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
         private readonly AccountController _controller;
         private readonly Employee _currentEmployee;
         private readonly ShopController _themeController;
+        private readonly OrganizationController _orgController;
         private string? _selectedImagePath;
         private Cyotek.Windows.Forms.ColorPickerDialog colorPickerDialog1 = new Cyotek.Windows.Forms.ColorPickerDialog();
 
 
-        public SettingsView(AccountController controller, ShopController themeController, KioskController kioskController, Employee currentEmployee)
+        public SettingsView(AccountController controller, ShopController themeController, KioskController kioskController, OrganizationController orgController, Employee currentEmployee)
         {
             InitializeComponent();
 
@@ -32,29 +33,17 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
             _selectedImagePath = currentEmployee.ProfilePicturePath;
 
+
             var uiTheme = UIhelp.ThemeManager.BuildUITheme(_themeController);
             UIhelp.ThemeManager.ApplyTheme(this, uiTheme);
 
-            primaryColorButton.FillColor = uiTheme.Primary;
-            primaryDarkColorButton.FillColor = uiTheme.DarkPrimary;
-            secondaryColorButton.FillColor = uiTheme.Secondary;
-            backgroundColorButton.FillColor = uiTheme.Background;
-            accentColorButton.FillColor = uiTheme.Accent;
-            UploadLogoContainer.FillColor = uiTheme.Background;
 
-            selectThemeComboBox.Items.Clear();
-            selectThemeComboBox.Items.Add("Default");
-            selectThemeComboBox.Items.Add("Custom");
 
-            var currentShop = _themeController.GetShopSettings();
-            selectThemeComboBox.SelectedItem = currentShop.ThemeMode?.Equals("custom", StringComparison.OrdinalIgnoreCase) == true
-                ? "Custom"
-                : "Default";
 
+            shopPreferences1.Initialize(themeController);
+            //jobTitles1.Initialize(orgController);
             LoadCurrentEmployeeData();
 
-            LoadLogoImage(currentShop.LogoPath);
-            shopNameTextBox.Text = currentShop.ShopName;
 
             //KioskLoad:
 
@@ -210,146 +199,7 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion
-
-        #region ORGANIZATION TAB
-
-        private void SetColorEditing(bool enabled)
-        {
-            primaryColorButton.Enabled = enabled;
-            primaryDarkColorButton.Enabled = enabled;
-            secondaryColorButton.Enabled = enabled;
-            backgroundColorButton.Enabled = enabled;
-            accentColorButton.Enabled = enabled;
-        }
-
-        private void shopNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void selectThemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            bool isCustom = selectThemeComboBox.SelectedItem?.ToString() == "Custom";
-            SetColorEditing(isCustom);
-        }
-
-        private void PickColor(Guna.UI2.WinForms.Guna2Button button)
-        {
-            colorPickerDialog1.Color = button.FillColor;
-
-            if (colorPickerDialog1.ShowDialog() == DialogResult.OK)
-            {
-                button.FillColor = colorPickerDialog1.Color;
-            }
-        }
-
-        private void primaryColorButton_Click(object sender, EventArgs e)
-        {
-            PickColor(primaryColorButton);
-        }
-
-        private void primaryDarkColorButton_Click(object sender, EventArgs e)
-        {
-            PickColor(primaryDarkColorButton);
-        }
-
-        private void secondaryColorButton_Click(object sender, EventArgs e)
-        {
-            PickColor(secondaryColorButton);
-        }
-
-        private void backgroundColorButton_Click(object sender, EventArgs e)
-        {
-            PickColor(backgroundColorButton);
-        }
-
-        private void accentColorButton_Click(object sender, EventArgs e)
-        {
-            PickColor(accentColorButton);
-        }
-
-        private void saveButton_Click(object sender, EventArgs e)
-        {
-            var shop = _themeController.GetShopSettings();
-
-            shop.ShopName = shopNameTextBox.Text.Trim();
-
-            bool isCustom = selectThemeComboBox.SelectedItem?.ToString() == "Custom";
-            shop.ThemeMode = isCustom ? "custom" : "default";
-
-            if (isCustom)
-            {
-                shop.PrimaryColor = ColorTranslator.ToHtml(primaryColorButton.FillColor);
-                shop.DarkPrimaryColor = ColorTranslator.ToHtml(primaryDarkColorButton.FillColor);
-                shop.SecondaryColor = ColorTranslator.ToHtml(secondaryColorButton.FillColor);
-                shop.BackgroundColor = ColorTranslator.ToHtml(backgroundColorButton.FillColor);
-                shop.AccentColor = ColorTranslator.ToHtml(accentColorButton.FillColor);
-            }
-            else
-            {
-                shop.PrimaryColor = "#6F4D38";
-                shop.DarkPrimaryColor = "#3D211A";
-                shop.SecondaryColor = "#A07856";
-                shop.BackgroundColor = "#F5F5DC";
-                shop.AccentColor = "#CBB799";
-            }
-
-            _themeController.UpdateShopSettings(shop);
-
-            var uiTheme = UIhelp.ThemeManager.BuildUITheme(_themeController);
-            primaryColorButton.FillColor = uiTheme.Primary;
-            primaryDarkColorButton.FillColor = uiTheme.DarkPrimary;
-            secondaryColorButton.FillColor = uiTheme.Secondary;
-            backgroundColorButton.FillColor = uiTheme.Background;
-            accentColorButton.FillColor = uiTheme.Accent;
-
-            UIhelp.ThemeManager.ApplyTheme(this, uiTheme);
-
-            primaryColorButton.FillColor = uiTheme.Primary;
-            primaryDarkColorButton.FillColor = uiTheme.DarkPrimary;
-            secondaryColorButton.FillColor = uiTheme.Secondary;
-            backgroundColorButton.FillColor = uiTheme.Background;
-            accentColorButton.FillColor = uiTheme.Accent;
-            UploadLogoContainer.FillColor = uiTheme.Background;
-        }
-
-        private void uploadLogoButton_Click(object sender, EventArgs e)
-        {
-            using var ofd = new OpenFileDialog();
-            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.webp";
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    var shop = _themeController.GetShopSettings();
-                    shop.LogoPath = ofd.FileName;
-                    _themeController.UpdateShopSettings(shop);
-
-                    LoadLogoImage(ofd.FileName);
-                    MessageBox.Show("Logo updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Failed to save logo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void LoadLogoImage(string? path)
-        {
-            if (string.IsNullOrEmpty(path) || !File.Exists(path)) return;
-            try
-            {
-                using var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-                LogoPictureBox.Image = Image.FromStream(fs);
-                LogoPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            }
-            catch { }
-        }
-
-        #endregion
+        #endregion   
 
         #region KIOSK TAB
 

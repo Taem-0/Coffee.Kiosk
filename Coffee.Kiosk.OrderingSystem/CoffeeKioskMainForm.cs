@@ -316,6 +316,17 @@ namespace Coffee.Kiosk.OrderingSystem
         private void ShowKioskMenuScreen()
         {
             mainPanel.SuspendLayout();
+            //MessageBox.Show($"{currentOrder.Type.ToString()}");
+            //if (kioskMenu != null)
+            //{
+            //    var expectedType = currentOrder?.Type == Models.Orders.TypeOfOrder.DineIn ? "Dine In" : "Take Out";
+            //    if (kioskMenu.OrderType != expectedType)
+            //    {
+            //        this.CartUpdated -= kioskMenu.OnCartUpdated;
+            //        kioskMenu.Dispose();
+            //        kioskMenu = null;
+            //    }
+            //}
             if (kioskMenu == null)
             {
                 currentOrder ??= new Models.Orders();
@@ -325,8 +336,12 @@ namespace Coffee.Kiosk.OrderingSystem
                 kioskMenu.ProductSelected += ShowModalCustomizeScreen;
                 kioskMenu.ViewOrderClicked += ShowViewOrder;
                 this.CartUpdated += kioskMenu.OnCartUpdated;
+            }else
+            {
+                var orderType = currentOrder?.Type == Models.Orders.TypeOfOrder.DineIn ? "Dine In" : "Take Out";
+                kioskMenu.UpdateOrderType(orderType);
             }
-            currentOrder ??= new Models.Orders();
+                currentOrder ??= new Models.Orders();
             if (viewOrder == null)
             {
                 viewOrder = new ViewOrder(currentOrder);
@@ -558,7 +573,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
             Models.UiAssets.LoadFromDatabase();
             UI_Images.loadLogoImage();
-
+            getStartedScreen?.RefreshScreen();
             ShowGetStartedScreen();
         }
 

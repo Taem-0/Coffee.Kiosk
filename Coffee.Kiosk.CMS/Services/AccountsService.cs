@@ -64,6 +64,38 @@ namespace Coffee.Kiosk.CMS.Services
             }
         }
 
+        public void Reactivate(DisplayDTO request)
+        {
+            var employee = new Employee
+            {
+                Id = int.Parse(request.PrimaryID),
+                Status = AccountStatus.ACTIVE
+            };
+            _dBManager.ReactivateEmployee(employee);
+        }
+        public List<DisplayDTO> DisplayAllAccounts()
+        {
+            var employees = _dBManager.GetAllEmployees();
+            return employees.Select(account => new DisplayDTO
+            {
+                PrimaryID = account.Id.ToString(),
+                FirstName = account.FirstName,
+                MiddleName = account.MiddleName,
+                LastName = account.LastName,
+                PhoneNumber = account.PhoneNumber,
+                Email = account.Email,
+                EmergencyFirstName = account.EmergencyFirstName,
+                EmergencyLastName = account.EmergencyLastName,
+                EmergencyNumber = account.EmergencyNumber,
+                JobTitle = account.JobTitle,
+                Role = UIhelp.EnumDisplayHelper.FormatEnum(account.Role.ToString()),
+                Department = UIhelp.EnumDisplayHelper.FormatEnum(account.Department.ToString()),
+                EmploymentType = UIhelp.EnumDisplayHelper.FormatEnum(account.EmploymentType.ToString()),
+                Status = account.Status.ToString(),
+                ProfilePicturePath = account.ProfilePicturePath
+            }).ToList();
+        }
+
         public Employee ValidateLogin(string email, string password)
         {
             return _dBManager.ValidateLogin(email, password);

@@ -13,19 +13,26 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
     {
         private readonly AccountController _controller;
         private readonly DisplayDTO _draft;
+        private readonly ShopController _themeController;
+        private Color _darkBrown;
+        private Color _mediumBrown;
+        private Color _lightBrown;
+        private Color _beige;
+        private Color _background;
 
-        // Coffee theme colors
-        private Color _darkBrown = ColorTranslator.FromHtml("#3d211a");
-        private Color _mediumBrown = ColorTranslator.FromHtml("#6f4d38");
-        private Color _lightBrown = ColorTranslator.FromHtml("#a07856");
-        private Color _beige = ColorTranslator.FromHtml("#cbb799");
-        private Color _background = ColorTranslator.FromHtml("#f5f5dc");
-
-        public SecondNewestRegisterView(AccountController controller, DisplayDTO draft)
+        public SecondNewestRegisterView(AccountController controller, DisplayDTO draft, ShopController themeController)
         {
             InitializeComponent();
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
             _draft = draft ?? throw new ArgumentNullException(nameof(draft));
+            _themeController = themeController ?? throw new ArgumentNullException(nameof(themeController));
+
+            var uiTheme = UIhelp.ThemeManager.BuildUITheme(_themeController);
+            _darkBrown = uiTheme.DarkPrimary;
+            _mediumBrown = uiTheme.Primary;
+            _lightBrown = uiTheme.Secondary;
+            _beige = uiTheme.Accent;
+            _background = uiTheme.Background;
 
             ApplyTheme();
             WireUpEvents();
@@ -34,52 +41,39 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void ApplyTheme()
         {
-            // Set background colors
             this.BackColor = _background;
             this.ForeColor = _darkBrown;
             this.Padding = new Padding(20);
 
-            // Apply to header panel
             guna2Panel1.FillColor = _mediumBrown;
             guna2Panel1.BackColor = _mediumBrown;
             guna2Panel1.BorderColor = _darkBrown;
             guna2Panel1.BorderThickness = 1;
 
-            // Apply to table layout (main content area)
             tableLayoutPanel1.BackColor = _beige;
 
-            // Apply to labels
             ApplyLabelTheme(label1);
             ApplyLabelTheme(label2);
             ApplyLabelTheme(label3);
             ApplyLabelTheme(label6);
 
-            // Style the section header differently
             label17.ForeColor = Color.White;
             label17.BackColor = Color.Transparent;
 
-            // Apply to buttons
             ConfigureButton(SubmitButton);
             ConfigureButton(BackButton);
             ConfigureCircleButton(AddPictureButton);
 
-            // Apply to textboxes
             ApplyTextBoxTheme(JobTitleTextBox);
 
-            // Apply to combo boxes
             ApplyComboBoxTheme(DepartmentComboBox);
             ApplyComboBoxTheme(EmployeeTypecomboBox);
 
-            // Apply to radio buttons
             ApplyRadioButtonTheme(AdminRadioButton);
             ApplyRadioButtonTheme(ManagerRadioButton);
             ApplyRadioButtonTheme(employeeRadioButton);
 
-            // Style the picture box
             PictureBox2.FillColor = Color.White;
-
-
-            // Style tableLayoutPanel2 (radio button container)
             tableLayoutPanel2.BackColor = Color.Transparent;
         }
 
@@ -140,7 +134,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         private void WireUpEvents()
         {
             JobTitleTextBox.TextChanged += (s, e) => ClearError(JobTitleTextBox);
-
             PictureBox2.MouseClick += PictureBox2_MouseClick;
         }
 
@@ -156,15 +149,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             switch (_draft.Role?.ToUpper())
             {
-                case "EMPLOYEE":
-                    employeeRadioButton.Checked = true;
-                    break;
-                case "MANAGER":
-                    ManagerRadioButton.Checked = true;
-                    break;
-                case "OWNER":
-                    AdminRadioButton.Checked = true;
-                    break;
+                case "EMPLOYEE": employeeRadioButton.Checked = true; break;
+                case "MANAGER": ManagerRadioButton.Checked = true; break;
+                case "OWNER": AdminRadioButton.Checked = true; break;
             }
 
             if (!string.IsNullOrEmpty(_draft.ProfilePicturePath) && File.Exists(_draft.ProfilePicturePath))
@@ -174,54 +161,41 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                     PictureBox2.Image = Image.FromFile(_draft.ProfilePicturePath);
                     PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
                 }
-                catch
-                {
-                    // If image fails to load, set to null
-                    PictureBox2.Image = null;
-                }
+                catch { PictureBox2.Image = null; }
             }
         }
 
         private void AddPictureButton_Click(object sender, EventArgs e)
         {
-            using var openFile = new OpenFileDialog();
-            openFile.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
-
-            if (openFile.ShowDialog() == DialogResult.OK)
+            using var openFile = new OpenFileDialog { Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp" };
+            if (openFile.ShowDialog() != DialogResult.OK) return;
+            try
             {
-                try
-                {
-                    _draft.ProfilePicturePath = openFile.FileName;
-                    PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-                    PictureBox2.Image = Image.FromFile(openFile.FileName);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error loading image: {ex.Message}", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                _draft.ProfilePicturePath = openFile.FileName;
+                PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+                PictureBox2.Image = Image.FromFile(openFile.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading image: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void PictureBox2_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && PictureBox2.Image != null)
+            if (e.Button != MouseButtons.Right || PictureBox2.Image == null) return;
+            if (MessageBox.Show("Remove profile picture?", "Confirm",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                var result = MessageBox.Show("Remove profile picture?", "Confirm",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
-                {
-                    _draft.ProfilePicturePath = null;
-                    PictureBox2.Image = null;
-                }
+                _draft.ProfilePicturePath = null;
+                PictureBox2.Image = null;
             }
         }
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
             ClearAllErrors();
-
             bool hasError = false;
 
             if (string.IsNullOrWhiteSpace(JobTitleTextBox.Text))
@@ -244,19 +218,15 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 hasError = true;
             }
 
-            if (hasError)
-                return;
+            if (hasError) return;
 
             _draft.Department = DepartmentComboBox.SelectedItem?.ToString() ?? "";
             _draft.JobTitle = JobTitleTextBox.Text.Trim();
             _draft.EmploymentType = EmployeeTypecomboBox.SelectedItem?.ToString() ?? "";
 
-            if (employeeRadioButton.Checked)
-                _draft.Role = "EMPLOYEE";
-            else if (ManagerRadioButton.Checked)
-                _draft.Role = "MANAGER";
-            else if (AdminRadioButton.Checked)
-                _draft.Role = "OWNER";
+            if (employeeRadioButton.Checked) _draft.Role = "EMPLOYEE";
+            else if (ManagerRadioButton.Checked) _draft.Role = "MANAGER";
+            else if (AdminRadioButton.Checked) _draft.Role = "OWNER";
 
             if (!Enum.TryParse<Department>(_draft.Department, true, out var department))
                 department = Department.OPERATIONS;
@@ -266,7 +236,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
             if (!Enum.TryParse<AccountRole>(_draft.Role, true, out var role))
                 role = AccountRole.EMPLOYEE;
-
 
             var registrationDto = new RegistrationDTO
             {
@@ -286,12 +255,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             };
 
             var result = _controller.Register(registrationDto);
-
-            if (!result.IsValid)
-            {
-                ShowValidationErrors(result);
-                return;
-            }
+            if (!result.IsValid) { ShowValidationErrors(result); return; }
 
             MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.DialogResult = DialogResult.OK;
@@ -309,14 +273,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             textBox.BorderColor = UIhelp.ThemeColors.ErrorColor;
             textBox.FocusedState.BorderColor = UIhelp.ThemeColors.ErrorColor;
             textBox.HoverState.BorderColor = UIhelp.ThemeColors.ErrorColor;
-
             textBox.PlaceholderText = errorMessage;
             textBox.PlaceholderForeColor = UIhelp.ThemeColors.ErrorColor;
-
-            if (clearInput)
-            {
-                textBox.Text = "";
-            }
+            if (clearInput) textBox.Text = "";
         }
 
         private void ClearError(Guna.UI2.WinForms.Guna2TextBox textBox)
@@ -324,52 +283,21 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             textBox.BorderColor = _mediumBrown;
             textBox.FocusedState.BorderColor = _lightBrown;
             textBox.HoverState.BorderColor = _lightBrown;
-
             textBox.PlaceholderText = "";
             textBox.PlaceholderForeColor = Color.Gray;
         }
 
-        private void ClearAllErrors()
-        {
-            ClearError(JobTitleTextBox);
-        }
+        private void ClearAllErrors() => ClearError(JobTitleTextBox);
 
         private void ShowValidationErrors(ValidationResults result)
         {
             ClearAllErrors();
-
             foreach (var error in result.Errors)
             {
-                switch (error.Key.ToLower())
-                {
-                    case "first name":
-                    case "firstname":
-                        MessageBox.Show(error.Value, "Validation Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                    case "last name":
-                    case "lastname":
-                        MessageBox.Show(error.Value, "Validation Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                    case "email":
-                        MessageBox.Show(error.Value, "Validation Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                    case "phone number":
-                    case "phonenumber":
-                        MessageBox.Show(error.Value, "Validation Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                    case "job title":
-                    case "jobtitle":
-                        ShowError(JobTitleTextBox, error.Value, true);
-                        break;
-                    default:
-                        MessageBox.Show(error.Value, "Validation Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                }
+                if (error.Key.ToLower() is "job title" or "jobtitle")
+                    ShowError(JobTitleTextBox, error.Value, true);
+                else
+                    MessageBox.Show(error.Value, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

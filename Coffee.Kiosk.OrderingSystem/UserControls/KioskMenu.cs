@@ -28,8 +28,7 @@ namespace Coffee.Kiosk.OrderingSystem
         private HomePage? homePage;
 
         int currentCartCount = 0;
-        string OrderType = String.Empty;
-
+        internal string OrderType = String.Empty;
 
         private List<Models.Ads.Banners> _topBanner = new();
         private System.Windows.Forms.Timer _adTimer = new();
@@ -54,7 +53,7 @@ namespace Coffee.Kiosk.OrderingSystem
             <br>
             <b>Items:</b> {currentCartCount}
             <br>
-            <b>{orderType}</b>
+            <b>{orderType.ToString()}</b>
             <br>
             <b>Total:</b> ₱
             """;
@@ -92,8 +91,21 @@ namespace Coffee.Kiosk.OrderingSystem
         private void AdTimer_Tick(object? sender, EventArgs e)
         {
             _topBannerIndex = (_topBannerIndex + 1) % _topBanner.Count;
-            TopBanner.Image = UI_Images.loadImageFromFile(_topBanner[_topBannerIndex].FilePath);
+            var newImage = UI_Images.loadImageFromFile(_topBanner[_topBannerIndex].FilePath);
+
+            var oldImage = TopBanner.Image;
+            TopBanner.Image = newImage;
+            oldImage?.Dispose();
         }
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            if (!this.Visible)
+                _adTimer.Stop();
+            else if (_topBanner.Count > 1)
+                _adTimer.Start();
+        }
+
 
         private void LoadCategories()
         {
@@ -189,6 +201,20 @@ namespace Coffee.Kiosk.OrderingSystem
             <b>Total:</b> ₱{total:0.00}
             """;
         }
+
+        internal void UpdateOrderType(string orderType)
+        {
+            OrderType = orderType;
+            guna2HtmlLabel1.Text = $"""
+            <b><font size='12'>Order summary</font></b>
+            <br>
+            <b>Items:</b> {currentCartCount}
+            <br>
+            <b>{orderType}</b>
+            <br>
+            <b>Total:</b> ₱
+            """;
+                }
 
         private void OnProductClicked(int prodcutId)
         {

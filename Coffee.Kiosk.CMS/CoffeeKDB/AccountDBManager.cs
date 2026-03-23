@@ -17,6 +17,27 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                     "Connection string 'Database' is missing in appsettings.json.");
         }
 
+        public List<Employee> GetAllEmployees()
+        {
+            var tableData = new List<Employee>();
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = "SELECT * FROM accounts";
+                using var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                    ReadData(reader, tableData);
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (GetAllEmployees): {ex.Message}");
+            }
+
+            return tableData;
+        }
+
         public void PostEmployee(Employee employee)
         {
             using var connection = DBhelper.CreateConnection(_connectionString);
@@ -90,6 +111,24 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
         }
 
+        public void ReactivateEmployee(Employee employee)
+        {
+            using var connection = DBhelper.CreateConnection(_connectionString);
+            using var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = @"UPDATE accounts SET Status = @status WHERE ID = @id";
+                command.Parameters.AddWithValue("@status", AccountStatus.ACTIVE.ToString());
+                command.Parameters.AddWithValue("@id", employee.Id);
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"ERROR (ReactivateEmployee): {ex.Message}");
+                throw;
+            }
+        }
         public void UpdateEmployee(Employee employee)
         {
             using var connection = DBhelper.CreateConnection(_connectionString);

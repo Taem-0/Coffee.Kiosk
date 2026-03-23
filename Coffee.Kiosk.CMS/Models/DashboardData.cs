@@ -32,6 +32,7 @@ namespace Coffee.Kiosk.CMS.Models
         public string Name { get; set; } = string.Empty;
         public int Quantity { get; set; }
         public int Rank { get; set; }
+        public string? ImagePath { get; set; }
     }
 
     public class DailyRevenue

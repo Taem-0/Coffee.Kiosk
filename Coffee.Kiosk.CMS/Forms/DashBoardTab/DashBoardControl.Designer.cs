@@ -1,4 +1,6 @@
-﻿namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
+﻿using Coffee.Kiosk.CMS.Helpers;
+
+namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
 {
     partial class DashBoardControl
     {
@@ -15,6 +17,7 @@
         {
             if (disposing && (components != null))
             {
+                UIhelp.ThemeManager.ThemeChanged -= OnThemeChanged;
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -28,63 +31,55 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashBoardControl));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashBoardControl));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             label1 = new Label();
-            TimeLineDropDown = new Guna.UI2.WinForms.Guna2ComboBox();
-            TimeLineLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            DropDownContainer = new Guna.UI2.WinForms.Guna2ContainerControl();
             guna2ContainerControl1 = new Guna.UI2.WinForms.Guna2ContainerControl();
             guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             label5 = new Label();
-            label4 = new Label();
+            totalQTYNum = new Label();
             tableLayoutPanel3 = new TableLayoutPanel();
             guna2ContainerControl2 = new Guna.UI2.WinForms.Guna2ContainerControl();
             guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
-            label3 = new Label();
+            transactionsNum = new Label();
             label2 = new Label();
             guna2ContainerControl4 = new Guna.UI2.WinForms.Guna2ContainerControl();
             guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
             label8 = new Label();
-            label9 = new Label();
+            totalProfitNum = new Label();
             guna2ContainerControl3 = new Guna.UI2.WinForms.Guna2ContainerControl();
             guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
             label6 = new Label();
-            label7 = new Label();
+            totalRevenueNum = new Label();
             ordersOverTime1 = new Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls.OrdersOverTime();
             label10 = new Label();
             label11 = new Label();
-            peakHours1 = new Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls.PeakHours();
-            topSellingProducts1 = new Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls.TopSellingProducts();
             salesOverTime1 = new Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls.SalesOverTime();
             dineInvsTakeout1 = new Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls.DineInvsTakeout();
-            guna2Panel1.SuspendLayout();
-            DropDownContainer.SuspendLayout();
+            topSellingProducts1 = new Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls.TopSellingProducts();
+            peakHours1 = new Coffee.Kiosk.CMS.Forms.DashBoardTab.DashBoardUserControls.PeakHours();
+            TimeLineDropDown = new Guna.UI2.WinForms.Guna2ComboBox();
+            TimeLineLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2ContainerControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox2).BeginInit();
             tableLayoutPanel3.SuspendLayout();
@@ -99,36 +94,13 @@
             // guna2Panel1
             // 
             guna2Panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            guna2Panel1.Controls.Add(guna2TextBox1);
-            guna2Panel1.CustomizableEdges = customizableEdges3;
+            guna2Panel1.CustomizableEdges = customizableEdges1;
             guna2Panel1.Location = new Point(0, 0);
             guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2Panel1.Size = new Size(1961, 74);
             guna2Panel1.TabIndex = 0;
             guna2Panel1.Paint += guna2Panel1_Paint;
-            // 
-            // guna2TextBox1
-            // 
-            guna2TextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            guna2TextBox1.AutoRoundedCorners = true;
-            guna2TextBox1.CustomizableEdges = customizableEdges1;
-            guna2TextBox1.DefaultText = "";
-            guna2TextBox1.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            guna2TextBox1.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            guna2TextBox1.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            guna2TextBox1.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            guna2TextBox1.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            guna2TextBox1.Font = new Font("Segoe UI", 9F);
-            guna2TextBox1.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            guna2TextBox1.Location = new Point(1604, 12);
-            guna2TextBox1.Margin = new Padding(4, 5, 4, 5);
-            guna2TextBox1.Name = "guna2TextBox1";
-            guna2TextBox1.PlaceholderText = "Search";
-            guna2TextBox1.SelectedText = "";
-            guna2TextBox1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2TextBox1.Size = new Size(289, 51);
-            guna2TextBox1.TabIndex = 1;
             // 
             // label1
             // 
@@ -141,74 +113,18 @@
             label1.Text = "Dashboard\r\n";
             label1.Click += label1_Click;
             // 
-            // TimeLineDropDown
-            // 
-            TimeLineDropDown.AutoRoundedCorners = true;
-            TimeLineDropDown.BackColor = Color.Brown;
-            TimeLineDropDown.BorderColor = Color.Brown;
-            TimeLineDropDown.BorderRadius = 17;
-            TimeLineDropDown.BorderThickness = 0;
-            TimeLineDropDown.CustomizableEdges = customizableEdges5;
-            TimeLineDropDown.DrawMode = DrawMode.OwnerDrawFixed;
-            TimeLineDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
-            TimeLineDropDown.FillColor = Color.Brown;
-            TimeLineDropDown.FocusedColor = Color.FromArgb(94, 148, 255);
-            TimeLineDropDown.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            TimeLineDropDown.FocusedState.FillColor = Color.Transparent;
-            TimeLineDropDown.Font = new Font("Segoe UI", 10F);
-            TimeLineDropDown.ForeColor = Color.White;
-            TimeLineDropDown.HoverState.BorderColor = Color.Transparent;
-            TimeLineDropDown.HoverState.FillColor = Color.Transparent;
-            TimeLineDropDown.ItemHeight = 30;
-            TimeLineDropDown.Items.AddRange(new object[] { "This day", "This month", "This year" });
-            TimeLineDropDown.ItemsAppearance.SelectedFont = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TimeLineDropDown.Location = new Point(79, 5);
-            TimeLineDropDown.Name = "TimeLineDropDown";
-            TimeLineDropDown.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            TimeLineDropDown.Size = new Size(154, 36);
-            TimeLineDropDown.StartIndex = 0;
-            TimeLineDropDown.TabIndex = 2;
-            TimeLineDropDown.SelectedIndexChanged += TimeLineDropDown_SelectedIndexChanged;
-            // 
-            // TimeLineLabel
-            // 
-            TimeLineLabel.BackColor = Color.Brown;
-            TimeLineLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TimeLineLabel.ForeColor = Color.White;
-            TimeLineLabel.Location = new Point(19, 9);
-            TimeLineLabel.Name = "TimeLineLabel";
-            TimeLineLabel.Size = new Size(54, 27);
-            TimeLineLabel.TabIndex = 3;
-            TimeLineLabel.Text = "Show:";
-            // 
-            // DropDownContainer
-            // 
-            DropDownContainer.AutoRoundedCorners = true;
-            DropDownContainer.BackColor = SystemColors.Control;
-            DropDownContainer.Controls.Add(TimeLineDropDown);
-            DropDownContainer.Controls.Add(TimeLineLabel);
-            DropDownContainer.CustomizableEdges = customizableEdges7;
-            DropDownContainer.FillColor = Color.Brown;
-            DropDownContainer.ForeColor = Color.Cornsilk;
-            DropDownContainer.Location = new Point(250, 81);
-            DropDownContainer.Name = "DropDownContainer";
-            DropDownContainer.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            DropDownContainer.Size = new Size(251, 45);
-            DropDownContainer.TabIndex = 4;
-            DropDownContainer.Text = "DropDownContainer";
-            // 
             // guna2ContainerControl1
             // 
             guna2ContainerControl1.BackColor = SystemColors.Control;
             guna2ContainerControl1.BorderRadius = 25;
             guna2ContainerControl1.Controls.Add(guna2PictureBox2);
             guna2ContainerControl1.Controls.Add(label5);
-            guna2ContainerControl1.Controls.Add(label4);
-            guna2ContainerControl1.CustomizableEdges = customizableEdges11;
+            guna2ContainerControl1.Controls.Add(totalQTYNum);
+            guna2ContainerControl1.CustomizableEdges = customizableEdges5;
             guna2ContainerControl1.Dock = DockStyle.Fill;
             guna2ContainerControl1.Location = new Point(474, 3);
             guna2ContainerControl1.Name = "guna2ContainerControl1";
-            guna2ContainerControl1.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            guna2ContainerControl1.ShadowDecoration.CustomizableEdges = customizableEdges6;
             guna2ContainerControl1.Size = new Size(428, 206);
             guna2ContainerControl1.TabIndex = 5;
             guna2ContainerControl1.Text = "DataContainer01";
@@ -216,12 +132,12 @@
             // guna2PictureBox2
             // 
             guna2PictureBox2.BackColor = Color.Transparent;
-            guna2PictureBox2.CustomizableEdges = customizableEdges9;
+            guna2PictureBox2.CustomizableEdges = customizableEdges3;
             guna2PictureBox2.Image = (Image)resources.GetObject("guna2PictureBox2.Image");
             guna2PictureBox2.ImageRotate = 0F;
             guna2PictureBox2.Location = new Point(30, 43);
             guna2PictureBox2.Name = "guna2PictureBox2";
-            guna2PictureBox2.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            guna2PictureBox2.ShadowDecoration.CustomizableEdges = customizableEdges4;
             guna2PictureBox2.Size = new Size(120, 120);
             guna2PictureBox2.TabIndex = 5;
             guna2PictureBox2.TabStop = false;
@@ -238,16 +154,16 @@
             label5.TabIndex = 3;
             label5.Text = "TOTAL QTY SOLD";
             // 
-            // label4
+            // totalQTYNum
             // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.White;
-            label4.Font = new Font("Segoe UI", 20F);
-            label4.Location = new Point(232, 97);
-            label4.Name = "label4";
-            label4.Size = new Size(45, 54);
-            label4.TabIndex = 4;
-            label4.Text = "0";
+            totalQTYNum.AutoSize = true;
+            totalQTYNum.BackColor = Color.White;
+            totalQTYNum.Font = new Font("Segoe UI", 20F);
+            totalQTYNum.Location = new Point(156, 97);
+            totalQTYNum.Name = "totalQTYNum";
+            totalQTYNum.Size = new Size(45, 54);
+            totalQTYNum.TabIndex = 4;
+            totalQTYNum.Text = "0";
             // 
             // tableLayoutPanel3
             // 
@@ -277,13 +193,13 @@
             guna2ContainerControl2.BackColor = SystemColors.Control;
             guna2ContainerControl2.BorderRadius = 25;
             guna2ContainerControl2.Controls.Add(guna2PictureBox1);
-            guna2ContainerControl2.Controls.Add(label3);
+            guna2ContainerControl2.Controls.Add(transactionsNum);
             guna2ContainerControl2.Controls.Add(label2);
-            guna2ContainerControl2.CustomizableEdges = customizableEdges15;
+            guna2ContainerControl2.CustomizableEdges = customizableEdges9;
             guna2ContainerControl2.Dock = DockStyle.Fill;
             guna2ContainerControl2.Location = new Point(3, 3);
             guna2ContainerControl2.Name = "guna2ContainerControl2";
-            guna2ContainerControl2.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            guna2ContainerControl2.ShadowDecoration.CustomizableEdges = customizableEdges10;
             guna2ContainerControl2.Size = new Size(428, 206);
             guna2ContainerControl2.TabIndex = 6;
             guna2ContainerControl2.Text = "DataContainer01";
@@ -291,27 +207,27 @@
             // guna2PictureBox1
             // 
             guna2PictureBox1.BackColor = Color.Transparent;
-            guna2PictureBox1.CustomizableEdges = customizableEdges13;
+            guna2PictureBox1.CustomizableEdges = customizableEdges7;
             guna2PictureBox1.Image = (Image)resources.GetObject("guna2PictureBox1.Image");
             guna2PictureBox1.ImageRotate = 0F;
             guna2PictureBox1.Location = new Point(25, 43);
             guna2PictureBox1.Name = "guna2PictureBox1";
-            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges8;
             guna2PictureBox1.Size = new Size(120, 120);
             guna2PictureBox1.TabIndex = 2;
             guna2PictureBox1.TabStop = false;
             guna2PictureBox1.UseTransparentBackground = true;
             // 
-            // label3
+            // transactionsNum
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.White;
-            label3.Font = new Font("Segoe UI", 20F);
-            label3.Location = new Point(227, 97);
-            label3.Name = "label3";
-            label3.Size = new Size(45, 54);
-            label3.TabIndex = 1;
-            label3.Text = "0";
+            transactionsNum.AutoSize = true;
+            transactionsNum.BackColor = Color.White;
+            transactionsNum.Font = new Font("Segoe UI", 20F);
+            transactionsNum.Location = new Point(155, 97);
+            transactionsNum.Name = "transactionsNum";
+            transactionsNum.Size = new Size(45, 54);
+            transactionsNum.TabIndex = 1;
+            transactionsNum.Text = "0";
             // 
             // label2
             // 
@@ -330,12 +246,12 @@
             guna2ContainerControl4.BorderRadius = 25;
             guna2ContainerControl4.Controls.Add(guna2PictureBox4);
             guna2ContainerControl4.Controls.Add(label8);
-            guna2ContainerControl4.Controls.Add(label9);
-            guna2ContainerControl4.CustomizableEdges = customizableEdges19;
+            guna2ContainerControl4.Controls.Add(totalProfitNum);
+            guna2ContainerControl4.CustomizableEdges = customizableEdges13;
             guna2ContainerControl4.Dock = DockStyle.Fill;
             guna2ContainerControl4.Location = new Point(1416, 3);
             guna2ContainerControl4.Name = "guna2ContainerControl4";
-            guna2ContainerControl4.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            guna2ContainerControl4.ShadowDecoration.CustomizableEdges = customizableEdges14;
             guna2ContainerControl4.Size = new Size(431, 206);
             guna2ContainerControl4.TabIndex = 8;
             guna2ContainerControl4.Text = "DataContainer01";
@@ -344,12 +260,12 @@
             // guna2PictureBox4
             // 
             guna2PictureBox4.BackColor = Color.Transparent;
-            guna2PictureBox4.CustomizableEdges = customizableEdges17;
+            guna2PictureBox4.CustomizableEdges = customizableEdges11;
             guna2PictureBox4.Image = (Image)resources.GetObject("guna2PictureBox4.Image");
             guna2PictureBox4.ImageRotate = 0F;
             guna2PictureBox4.Location = new Point(35, 43);
             guna2PictureBox4.Name = "guna2PictureBox4";
-            guna2PictureBox4.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            guna2PictureBox4.ShadowDecoration.CustomizableEdges = customizableEdges12;
             guna2PictureBox4.Size = new Size(120, 120);
             guna2PictureBox4.TabIndex = 11;
             guna2PictureBox4.TabStop = false;
@@ -366,16 +282,16 @@
             label8.TabIndex = 9;
             label8.Text = "TOTAL PROFIT";
             // 
-            // label9
+            // totalProfitNum
             // 
-            label9.AutoSize = true;
-            label9.BackColor = Color.White;
-            label9.Font = new Font("Segoe UI", 20F);
-            label9.Location = new Point(237, 97);
-            label9.Name = "label9";
-            label9.Size = new Size(45, 54);
-            label9.TabIndex = 10;
-            label9.Text = "0";
+            totalProfitNum.AutoSize = true;
+            totalProfitNum.BackColor = Color.White;
+            totalProfitNum.Font = new Font("Segoe UI", 20F);
+            totalProfitNum.Location = new Point(161, 97);
+            totalProfitNum.Name = "totalProfitNum";
+            totalProfitNum.Size = new Size(45, 54);
+            totalProfitNum.TabIndex = 10;
+            totalProfitNum.Text = "0";
             // 
             // guna2ContainerControl3
             // 
@@ -383,23 +299,23 @@
             guna2ContainerControl3.BorderRadius = 25;
             guna2ContainerControl3.Controls.Add(guna2PictureBox3);
             guna2ContainerControl3.Controls.Add(label6);
-            guna2ContainerControl3.Controls.Add(label7);
-            guna2ContainerControl3.CustomizableEdges = customizableEdges23;
+            guna2ContainerControl3.Controls.Add(totalRevenueNum);
+            guna2ContainerControl3.CustomizableEdges = customizableEdges17;
             guna2ContainerControl3.Dock = DockStyle.Fill;
             guna2ContainerControl3.Location = new Point(945, 3);
             guna2ContainerControl3.Name = "guna2ContainerControl3";
-            guna2ContainerControl3.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            guna2ContainerControl3.ShadowDecoration.CustomizableEdges = customizableEdges18;
             guna2ContainerControl3.Size = new Size(428, 206);
             guna2ContainerControl3.TabIndex = 7;
             guna2ContainerControl3.Text = "DataContainer01";
             // 
             // guna2PictureBox3
             // 
-            guna2PictureBox3.CustomizableEdges = customizableEdges21;
+            guna2PictureBox3.CustomizableEdges = customizableEdges15;
             guna2PictureBox3.ImageRotate = 0F;
             guna2PictureBox3.Location = new Point(36, 43);
             guna2PictureBox3.Name = "guna2PictureBox3";
-            guna2PictureBox3.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            guna2PictureBox3.ShadowDecoration.CustomizableEdges = customizableEdges16;
             guna2PictureBox3.Size = new Size(120, 120);
             guna2PictureBox3.TabIndex = 8;
             guna2PictureBox3.TabStop = false;
@@ -415,22 +331,22 @@
             label6.TabIndex = 6;
             label6.Text = "TOTAL REVENUE";
             // 
-            // label7
+            // totalRevenueNum
             // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.White;
-            label7.Font = new Font("Segoe UI", 20F);
-            label7.Location = new Point(238, 97);
-            label7.Name = "label7";
-            label7.Size = new Size(45, 54);
-            label7.TabIndex = 7;
-            label7.Text = "0";
+            totalRevenueNum.AutoSize = true;
+            totalRevenueNum.BackColor = Color.White;
+            totalRevenueNum.Font = new Font("Segoe UI", 20F);
+            totalRevenueNum.Location = new Point(162, 97);
+            totalRevenueNum.Name = "totalRevenueNum";
+            totalRevenueNum.Size = new Size(45, 54);
+            totalRevenueNum.TabIndex = 7;
+            totalRevenueNum.Text = "0";
             // 
             // ordersOverTime1
             // 
             ordersOverTime1.Location = new Point(45, 751);
             ordersOverTime1.Name = "ordersOverTime1";
-            ordersOverTime1.Size = new Size(550, 270);
+            ordersOverTime1.Size = new Size(940, 270);
             ordersOverTime1.TabIndex = 13;
             // 
             // label10
@@ -453,56 +369,95 @@
             label11.TabIndex = 15;
             label11.Text = "Performance";
             // 
-            // peakHours1
-            // 
-            peakHours1.Location = new Point(1010, 733);
-            peakHours1.Name = "peakHours1";
-            peakHours1.Size = new Size(850, 90);
-            peakHours1.TabIndex = 17;
-            // 
-            // topSellingProducts1
-            // 
-            topSellingProducts1.Location = new Point(1010, 457);
-            topSellingProducts1.Name = "topSellingProducts1";
-            topSellingProducts1.Padding = new Padding(10);
-            topSellingProducts1.Size = new Size(850, 270);
-            topSellingProducts1.TabIndex = 16;
-            // 
             // salesOverTime1
             // 
             salesOverTime1.Location = new Point(45, 457);
             salesOverTime1.Name = "salesOverTime1";
-            salesOverTime1.Size = new Size(550, 270);
+            salesOverTime1.Size = new Size(940, 270);
             salesOverTime1.TabIndex = 12;
             // 
             // dineInvsTakeout1
             // 
-            dineInvsTakeout1.Location = new Point(1010, 851);
+            dineInvsTakeout1.BackColor = Color.FromArgb(245, 245, 220);
+            dineInvsTakeout1.Location = new Point(998, 733);
             dineInvsTakeout1.Name = "dineInvsTakeout1";
-            dineInvsTakeout1.Size = new Size(850, 170);
+            dineInvsTakeout1.Size = new Size(425, 288);
             dineInvsTakeout1.TabIndex = 18;
+            // 
+            // topSellingProducts1
+            // 
+            topSellingProducts1.Location = new Point(998, 457);
+            topSellingProducts1.Name = "topSellingProducts1";
+            topSellingProducts1.Padding = new Padding(10);
+            topSellingProducts1.Size = new Size(850, 252);
+            topSellingProducts1.TabIndex = 19;
+            // 
+            // peakHours1
+            // 
+            peakHours1.BackColor = Color.FromArgb(245, 245, 220);
+            peakHours1.Location = new Point(1412, 733);
+            peakHours1.Name = "peakHours1";
+            peakHours1.Size = new Size(425, 288);
+            peakHours1.TabIndex = 20;
+            // 
+            // TimeLineDropDown
+            // 
+            TimeLineDropDown.AutoRoundedCorners = true;
+            TimeLineDropDown.BackColor = Color.Brown;
+            TimeLineDropDown.BorderColor = Color.Brown;
+            TimeLineDropDown.BorderRadius = 17;
+            TimeLineDropDown.BorderThickness = 0;
+            TimeLineDropDown.CustomizableEdges = customizableEdges19;
+            TimeLineDropDown.DrawMode = DrawMode.OwnerDrawFixed;
+            TimeLineDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
+            TimeLineDropDown.FillColor = Color.Brown;
+            TimeLineDropDown.FocusedColor = Color.FromArgb(94, 148, 255);
+            TimeLineDropDown.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            TimeLineDropDown.FocusedState.FillColor = Color.Transparent;
+            TimeLineDropDown.Font = new Font("Segoe UI", 10F);
+            TimeLineDropDown.ForeColor = Color.White;
+            TimeLineDropDown.HoverState.BorderColor = Color.Transparent;
+            TimeLineDropDown.HoverState.FillColor = Color.Transparent;
+            TimeLineDropDown.ItemHeight = 30;
+            TimeLineDropDown.Items.AddRange(new object[] { "This day", "This month", "This year" });
+            TimeLineDropDown.ItemsAppearance.SelectedFont = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TimeLineDropDown.Location = new Point(296, 89);
+            TimeLineDropDown.Name = "TimeLineDropDown";
+            TimeLineDropDown.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            TimeLineDropDown.Size = new Size(154, 36);
+            TimeLineDropDown.StartIndex = 0;
+            TimeLineDropDown.TabIndex = 2;
+            TimeLineDropDown.SelectedIndexChanged += TimeLineDropDown_SelectedIndexChanged;
+            // 
+            // TimeLineLabel
+            // 
+            TimeLineLabel.BackColor = Color.Brown;
+            TimeLineLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TimeLineLabel.ForeColor = Color.White;
+            TimeLineLabel.Location = new Point(19, 9);
+            TimeLineLabel.Name = "TimeLineLabel";
+            TimeLineLabel.Size = new Size(54, 27);
+            TimeLineLabel.TabIndex = 3;
+            TimeLineLabel.Text = "Show:";
             // 
             // DashBoardControl
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(dineInvsTakeout1);
+            Controls.Add(TimeLineDropDown);
             Controls.Add(peakHours1);
             Controls.Add(topSellingProducts1);
+            Controls.Add(dineInvsTakeout1);
             Controls.Add(label11);
             Controls.Add(label10);
             Controls.Add(ordersOverTime1);
             Controls.Add(salesOverTime1);
             Controls.Add(tableLayoutPanel3);
             Controls.Add(label1);
-            Controls.Add(DropDownContainer);
             Controls.Add(guna2Panel1);
             Name = "DashBoardControl";
             Size = new Size(1909, 1058);
             Load += DashBoardControl_Load;
-            guna2Panel1.ResumeLayout(false);
-            DropDownContainer.ResumeLayout(false);
-            DropDownContainer.PerformLayout();
             guna2ContainerControl1.ResumeLayout(false);
             guna2ContainerControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox2).EndInit();
@@ -523,34 +478,32 @@
         #endregion
 
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
         private Label label1;
-        private Guna.UI2.WinForms.Guna2ComboBox TimeLineDropDown;
-        private Guna.UI2.WinForms.Guna2HtmlLabel TimeLineLabel;
-        private Guna.UI2.WinForms.Guna2ContainerControl DropDownContainer;
         private Guna.UI2.WinForms.Guna2ContainerControl guna2ContainerControl1;
         private TableLayoutPanel tableLayoutPanel3;
         private Guna.UI2.WinForms.Guna2ContainerControl guna2ContainerControl3;
         private Guna.UI2.WinForms.Guna2ContainerControl guna2ContainerControl2;
         private Guna.UI2.WinForms.Guna2ContainerControl guna2ContainerControl4;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
-        private Label label3;
+        private Label transactionsNum;
         private Label label2;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
         private Label label5;
-        private Label label4;
+        private Label totalQTYNum;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox3;
         private Label label6;
-        private Label label7;
+        private Label totalRevenueNum;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
         private Label label8;
-        private Label label9;
+        private Label totalProfitNum;
         private DashBoardUserControls.OrdersOverTime ordersOverTime1;
         private Label label10;
         private Label label11;
-        private DashBoardUserControls.PeakHours peakHours1;
-        private DashBoardUserControls.TopSellingProducts topSellingProducts1;
         private DashBoardUserControls.SalesOverTime salesOverTime1;
         private DashBoardUserControls.DineInvsTakeout dineInvsTakeout1;
+        private DashBoardUserControls.TopSellingProducts topSellingProducts1;
+        private DashBoardUserControls.PeakHours peakHours1;
+        private Guna.UI2.WinForms.Guna2ComboBox TimeLineDropDown;
+        private Guna.UI2.WinForms.Guna2HtmlLabel TimeLineLabel;
     }
 }

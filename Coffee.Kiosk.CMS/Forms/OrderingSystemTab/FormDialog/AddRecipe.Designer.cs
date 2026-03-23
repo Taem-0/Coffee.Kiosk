@@ -70,6 +70,7 @@
             // 
             // flowLayoutPanel1
             // 
+            flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.BackColor = Color.Transparent;
             flowLayoutPanel1.Location = new Point(6, 52);
             flowLayoutPanel1.Name = "flowLayoutPanel1";

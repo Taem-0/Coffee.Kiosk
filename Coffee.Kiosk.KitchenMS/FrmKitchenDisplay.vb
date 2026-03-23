@@ -1,10 +1,20 @@
 ﻿Imports System.Runtime
+Imports Coffee.Kiosk.CMS.CoffeeKDB
+Imports Coffee.Kiosk.CMS.Models
+Imports Microsoft.Extensions.Configuration
+Imports MySql.Data.MySqlClient
 
 Public Class frmKitchenDisplay
 
     Private _displayedOrderIds As New List(Of Integer)
     Private _lastCompletedOrderId As Integer = -1
 
+    Private _lastPrimaryColor As String = ""
+    Private _lastLogoPath As String = ""
+
+    ' -------------------------------------------------------
+    ' STEP A: when form loads, start the polling timer
+    ' -------------------------------------------------------
     Private Sub frmKitchenDisplay_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblTime.Text = Date.Now.ToString("HH:mm:ss")
         tmrClock.Interval = 1000
@@ -15,6 +25,24 @@ Public Class frmKitchenDisplay
         Timer1.Start()
         UpdateActiveOrderCount()
 
+        ApplyShopTheme()
+
+        '        ' --- TEST DATA --- remove this when DB is connected
+        '        Dim testOrder1 As New Order With {
+        '    .OrderId = 1,
+        '    .OrderNumber = "001",
+        '    .OrderTime = DateTime.Now.AddMinutes(-3),
+        '    .Status = OrderStatus.Paid,
+        '    .OrderType = "DineIn",
+        '    .Items = New List(Of OrderItem) From {
+        '        New OrderItem With {.ItemId = 1, .ItemName = "Coffee", .Quantity = 1,
+        '            .Customizations = New List(Of String) From {"Arabica Beans", "Low Sugar", "Extra Whip"}},
+        '        New OrderItem With {.ItemId = 2, .ItemName = "Burger", .Quantity = 2,
+        '            .Customizations = New List(Of String)},
+        '        New OrderItem With {.ItemId = 3, .ItemName = "Fries", .Quantity = 1,
+        '            .Customizations = New List(Of String) From {"Large Size", "Extra Salt"}}
+        '    }
+        '}
         ' disable recall button on load
         btnRecall.Enabled = False
         btnRecall.DisabledState.FillColor = Color.FromArgb(60, 60, 60)
@@ -26,9 +54,14 @@ Public Class frmKitchenDisplay
         lblTime.Text = Date.Now.ToString("HH:mm:ss")
     End Sub
 
+    ' -------------------------------------------------------
+    ' STEP B: every 3 seconds, check DB for new paid orders
+    ' -------------------------------------------------------
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Try
-            ' check for new paid orders
+            ApplyShopTheme()
+
+            '  check for New paid orders
             Dim newOrders = GetPaidOrdersFromDB()
             For Each order In newOrders
                 If _displayedOrderIds.Contains(order.OrderId) Then
@@ -73,6 +106,9 @@ Public Class frmKitchenDisplay
             Me.Invoke(New Action(Sub() HandleOrderCompleted(card, orderId)))
             Return
         End If
+
+        flpOrders.Controls.Remove(card)
+        card.Dispose()
 
         ' save last completed order for recall
         _lastCompletedOrderId = orderId
@@ -157,5 +193,57 @@ Public Class frmKitchenDisplay
         End If
     End Sub
 
+    Private Sub ApplyShopTheme()
+        Try
+            Using conn As New MySqlConnection("Server=localhost;Database=coffeekioskdb;Uid=root;Pwd=;")
+                conn.Open()
+
+                Dim sql = "SELECT Primary_Color, LogoPath FROM shop LIMIT 1"
+
+                Using cmd As New MySqlCommand(sql, conn)
+                    Using reader = cmd.ExecuteReader()
+                        If reader.Read() Then
+
+                            Dim primaryColor As String = If(reader.IsDBNull(0), "", reader.GetString(0))
+                            Dim logoPath As String = If(reader.IsDBNull(1), "", reader.GetString(1))
+
+                            If primaryColor = _lastPrimaryColor AndAlso logoPath = _lastLogoPath Then
+                                Return
+                            End If
+
+                            _lastPrimaryColor = primaryColor
+                            _lastLogoPath = logoPath
+
+                            If Not String.IsNullOrEmpty(primaryColor) Then
+                                Dim panelColor As Color = ColorTranslator.FromHtml(primaryColor)
+                                pnl1.BackColor = panelColor
+                                lblTime.BackColor = panelColor
+                            End If
+
+                            If Not String.IsNullOrEmpty(logoPath) AndAlso IO.File.Exists(logoPath) Then
+                                If PictureBox1.Image IsNot Nothing Then
+                                    PictureBox1.Image.Dispose()
+                                    PictureBox1.Image = Nothing
+                                End If
+
+                                Dim bytes = IO.File.ReadAllBytes(logoPath)
+                                Using ms As New IO.MemoryStream(bytes)
+                                    PictureBox1.Image = Image.FromStream(ms)
+                                End Using
+
+                                PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
+                            Else
+                                Console.WriteLine("Logo not found: " & logoPath)
+                            End If
+
+                        End If
+                    End Using
+                End Using
+            End Using
+
+        Catch ex As Exception
+            Console.WriteLine("Theme load error: " & ex.Message)
+        End Try
+    End Sub
 
 End Class
