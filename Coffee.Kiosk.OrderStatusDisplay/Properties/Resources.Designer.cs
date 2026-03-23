@@ -73,6 +73,26 @@ namespace Coffee.Kiosk.OrderStatusDisplay.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Untitled_design__36_ {
+            get {
+                object obj = ResourceManager.GetObject("Untitled design (36)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Untitled_design__37_ {
+            get {
+                object obj = ResourceManager.GetObject("Untitled design (37)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Untitled_design__5_ {
             get {
                 object obj = ResourceManager.GetObject("Untitled design (5)", resourceCulture);
