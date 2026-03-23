@@ -143,7 +143,7 @@
             // flpPay
             // 
             flpPay.FlowDirection = FlowDirection.TopDown;
-            flpPay.Location = new Point(3, 208);
+            flpPay.Location = new Point(-3, 208);
             flpPay.Margin = new Padding(3, 4, 3, 4);
             flpPay.Name = "flpPay";
             flpPay.Size = new Size(618, 669);
@@ -199,7 +199,7 @@
             pnlPrep.Controls.Add(flpPrep);
             pnlPrep.Controls.Add(pnlPrepHeader);
             pnlPrep.Dock = DockStyle.Fill;
-            pnlPrep.Location = new Point(619, 4);
+            pnlPrep.Location = new Point(619, 3);
             pnlPrep.Margin = new Padding(3, 4, 3, 4);
             pnlPrep.Name = "pnlPrep";
             pnlPrep.Size = new Size(610, 881);
@@ -208,7 +208,7 @@
             // flpPrep
             // 
             flpPrep.FlowDirection = FlowDirection.TopDown;
-            flpPrep.Location = new Point(4, 209);
+            flpPrep.Location = new Point(-3, 209);
             flpPrep.Margin = new Padding(3, 4, 3, 4);
             flpPrep.Name = "flpPrep";
             flpPrep.Size = new Size(621, 668);
@@ -273,7 +273,7 @@
             // flpPickup
             // 
             flpPickup.FlowDirection = FlowDirection.TopDown;
-            flpPickup.Location = new Point(3, 209);
+            flpPickup.Location = new Point(-3, 209);
             flpPickup.Margin = new Padding(3, 4, 3, 4);
             flpPickup.Name = "flpPickup";
             flpPickup.Size = new Size(618, 668);
@@ -321,6 +321,8 @@
             lblIcon2.Size = new Size(104, 72);
             lblIcon2.TabIndex = 0;
             lblIcon2.Text = "✅";
+
+
             // 
             // tmrClock
             // 

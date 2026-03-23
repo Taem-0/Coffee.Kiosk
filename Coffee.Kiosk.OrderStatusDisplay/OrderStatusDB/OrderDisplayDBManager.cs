@@ -140,7 +140,7 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
                 JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
                 WHERE co.Status = 'Completed'
                 AND   co.CreatedAt IS NOT NULL
-                AND   TIMESTAMPDIFF(MINUTE, co.CreatedAt, NOW()) < 5
+                AND   TIMESTAMPDIFF(MINUTE, co.CreatedAt, NOW()) < 10
                 GROUP BY co.ID
                 ORDER BY co.ID ASC";
 
@@ -287,6 +287,8 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
 
             cmd.Parameters.AddWithValue("@OrderNumber", orderNumber);
             cmd.ExecuteNonQuery();
+
+
         }
     }
 }
