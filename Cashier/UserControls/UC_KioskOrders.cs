@@ -1,4 +1,5 @@
 ﻿using Coffee.Kiosk.Cashier.CashierDBHelper;
+using Coffee.Kiosk.Cashier.ModelClassHelper;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,9 +10,6 @@ namespace Coffee.Kiosk.Cashier.UserControls
     public partial class UC_KioskOrders : UserControl
     {
         public event Action<int>? OrderSelected;
-
-        private static readonly Color Brown = Color.FromArgb(107, 79, 58);
-        private static readonly Color LightCream = Color.FromArgb(245, 240, 230);
 
         private FlowLayoutPanel _pnlList = new();
         private Label _lblEmpty = new();
@@ -25,16 +23,12 @@ namespace Coffee.Kiosk.Cashier.UserControls
 
         private void BuildUI()
         {
-            this.BackColor = LightCream;
+            var theme = SessionManager.Theme;
+
+            this.BackColor = theme.BackgroundColor;
             this.BorderStyle = BorderStyle.FixedSingle;
 
-            var pnlHeader = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 44,
-                BackColor = Brown
-            };
-
+            var pnlHeader = new Panel { Dock = DockStyle.Top, Height = 44, BackColor = theme.PrimaryColor };
             var lblTitle = new Label
             {
                 Text = "🔔  Kiosk Orders",
@@ -50,7 +44,7 @@ namespace Coffee.Kiosk.Cashier.UserControls
             {
                 Dock = DockStyle.Top,
                 Height = 46,
-                BackColor = Color.FromArgb(235, 228, 218),
+                BackColor = BlendColors(theme.BackgroundColor, theme.AccentColor, 0.3f),
                 Padding = new Padding(8, 7, 8, 7)
             };
 
@@ -67,7 +61,7 @@ namespace Coffee.Kiosk.Cashier.UserControls
             {
                 Text = "Load",
                 Font = new Font("Segoe UI", 9f, FontStyle.Bold),
-                BackColor = Brown,
+                BackColor = theme.PrimaryColor,
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
                 Size = new Size(70, 30),
@@ -111,14 +105,8 @@ namespace Coffee.Kiosk.Cashier.UserControls
                     _pnlList.Controls.RemoveAt(i);
 
             List<KioskOrderSummary> orders;
-            try
-            {
-                orders = KioskOrderDbManager.GetPendingOrders();
-            }
-            catch
-            {
-                orders = new List<KioskOrderSummary>();
-            }
+            try { orders = KioskOrderDbManager.GetPendingOrders(); }
+            catch { orders = new List<KioskOrderSummary>(); }
 
             _lblEmpty.Visible = orders.Count == 0;
 
@@ -128,26 +116,50 @@ namespace Coffee.Kiosk.Cashier.UserControls
 
         private Panel BuildOrderCard(KioskOrderSummary order)
         {
+            var theme = SessionManager.Theme;
+
+            int minutesOld = (int)(DateTime.Now - order.CreatedAt).TotalMinutes;
+            int minutesLeft = Math.Max(0, 10 - minutesOld);
+            bool isUrgent = minutesLeft <= 2;
+            bool isWarn = minutesLeft <= 5 && !isUrgent;
+
+            Color urgentColor = Color.FromArgb(192, 32, 32);
+            Color warnColor = Color.FromArgb(180, 110, 0);
+            Color safeColor = Color.FromArgb(80, 120, 60);
+
+            Color timerColor = isUrgent ? urgentColor : (isWarn ? warnColor : safeColor);
+            string timerText = minutesLeft == 0 ? "⚠ EXPIRING NOW" : $"⏱ {minutesLeft} min left";
+
+            Color cardBg = isUrgent ? Color.FromArgb(255, 240, 240) : Color.White;
+
+            bool isGcash = order.Payment.Equals("Gcash", StringComparison.OrdinalIgnoreCase)
+                        || order.Payment.Equals("GCash", StringComparison.OrdinalIgnoreCase);
+
+            Color paymentBadgeColor = isGcash ? Color.FromArgb(0, 119, 60) : theme.PrimaryColor;
+            string paymentIcon = isGcash ? "📱 GCash" : "💵 Cash";
+
             var card = new Panel
             {
                 Width = 310,
-                Height = 60,
-                BackColor = Color.White,
+                Height = 82,
+                BackColor = cardBg,
                 Cursor = Cursors.Hand,
                 Margin = new Padding(0, 0, 0, 6)
             };
+
+            Color borderColor = isUrgent ? Color.FromArgb(220, 100, 100) : theme.AccentColor;
             card.Paint += (s, e) =>
-                e.Graphics.DrawRectangle(
-                    new Pen(Color.FromArgb(200, 185, 165)), 0, 0, card.Width - 1, card.Height - 1);
+                e.Graphics.DrawRectangle(new Pen(borderColor), 0, 0, card.Width - 1, card.Height - 1);
 
             var lblId = new Label
             {
                 Text = $"Order #{order.OrderId}",
                 Font = new Font("Segoe UI", 10f, FontStyle.Bold),
-                ForeColor = Brown,
+                ForeColor = theme.PrimaryColor,
                 Location = new Point(10, 8),
                 AutoSize = true
             };
+
             var lblType = new Label
             {
                 Text = order.OrderType,
@@ -156,26 +168,49 @@ namespace Coffee.Kiosk.Cashier.UserControls
                 Location = new Point(10, 30),
                 AutoSize = true
             };
+
+            var lblPayment = new Label
+            {
+                Text = paymentIcon,
+                Font = new Font("Segoe UI", 8f, FontStyle.Bold),
+                ForeColor = paymentBadgeColor,
+                Location = new Point(10, 46),
+                AutoSize = true
+            };
+
+            var lblTimer = new Label
+            {
+                Text = timerText,
+                Font = new Font("Segoe UI", 7.5f, FontStyle.Bold),
+                ForeColor = timerColor,
+                Location = new Point(10, 62),
+                AutoSize = true
+            };
+
             var lblAmt = new Label
             {
                 Text = $"₱{order.TotalAmount:N2}",
                 Font = new Font("Segoe UI", 10f, FontStyle.Bold),
-                ForeColor = Color.FromArgb(59, 35, 20),
+                ForeColor = theme.DarkPrimaryColor,
                 AutoSize = false,
                 Width = 100,
-                Height = 60,
+                Height = 82,
                 Location = new Point(200, 0),
                 TextAlign = ContentAlignment.MiddleRight
             };
 
             card.Controls.Add(lblId);
             card.Controls.Add(lblType);
+            card.Controls.Add(lblPayment);
+            card.Controls.Add(lblTimer);
             card.Controls.Add(lblAmt);
 
             EventHandler handler = (s, e) => OrderSelected?.Invoke(order.OrderId);
             card.Click += handler;
             lblId.Click += handler;
             lblType.Click += handler;
+            lblPayment.Click += handler;
+            lblTimer.Click += handler;
             lblAmt.Click += handler;
 
             return card;
@@ -193,6 +228,14 @@ namespace Coffee.Kiosk.Cashier.UserControls
                 MessageBox.Show("Please enter a valid numeric Order ID.",
                     "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private static Color BlendColors(Color a, Color b, float t)
+        {
+            return Color.FromArgb(
+                (int)(a.R + (b.R - a.R) * t),
+                (int)(a.G + (b.G - a.G) * t),
+                (int)(a.B + (b.B - a.B) * t));
         }
     }
 }

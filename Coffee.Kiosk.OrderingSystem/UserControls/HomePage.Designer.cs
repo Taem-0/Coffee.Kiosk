@@ -28,43 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pictureBox1 = new PictureBox();
-            pictureBox2 = new PictureBox();
+            HomeBanner2 = new PictureBox();
+            HomeBanner1 = new PictureBox();
             panel3 = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             PanelContainer = new Panel();
             panel2 = new Panel();
             label1 = new Label();
             guna2vScrollBar1 = new Guna.UI2.WinForms.Guna2VScrollBar();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)HomeBanner2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)HomeBanner1).BeginInit();
             PanelContainer.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
-            // pictureBox1
+            // HomeBanner2
             // 
-            pictureBox1.Dock = DockStyle.Top;
-            pictureBox1.Image = Properties.Resources.Desain__Banner;
-            pictureBox1.Location = new Point(0, 364);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Padding = new Padding(17);
-            pictureBox1.Size = new Size(803, 300);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            HomeBanner2.Dock = DockStyle.Top;
+            HomeBanner2.Image = Properties.Resources.Desain__Banner;
+            HomeBanner2.Location = new Point(0, 364);
+            HomeBanner2.Name = "HomeBanner2";
+            HomeBanner2.Padding = new Padding(17);
+            HomeBanner2.Size = new Size(803, 300);
+            HomeBanner2.SizeMode = PictureBoxSizeMode.StretchImage;
+            HomeBanner2.TabIndex = 0;
+            HomeBanner2.TabStop = false;
             // 
-            // pictureBox2
+            // HomeBanner1
             // 
-            pictureBox2.Dock = DockStyle.Top;
-            pictureBox2.Image = Properties.Resources.download__29_;
-            pictureBox2.Location = new Point(0, 0);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Padding = new Padding(17);
-            pictureBox2.Size = new Size(803, 300);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
+            HomeBanner1.Dock = DockStyle.Top;
+            HomeBanner1.Image = Properties.Resources.download__29_;
+            HomeBanner1.Location = new Point(0, 0);
+            HomeBanner1.Name = "HomeBanner1";
+            HomeBanner1.Padding = new Padding(17);
+            HomeBanner1.Size = new Size(803, 300);
+            HomeBanner1.SizeMode = PictureBoxSizeMode.StretchImage;
+            HomeBanner1.TabIndex = 0;
+            HomeBanner1.TabStop = false;
             // 
             // panel3
             // 
@@ -90,9 +90,9 @@
             PanelContainer.AutoScroll = true;
             PanelContainer.Controls.Add(flowLayoutPanel1);
             PanelContainer.Controls.Add(panel2);
-            PanelContainer.Controls.Add(pictureBox1);
+            PanelContainer.Controls.Add(HomeBanner2);
             PanelContainer.Controls.Add(panel3);
-            PanelContainer.Controls.Add(pictureBox2);
+            PanelContainer.Controls.Add(HomeBanner1);
             PanelContainer.Dock = DockStyle.Fill;
             PanelContainer.Location = new Point(0, 0);
             PanelContainer.Name = "PanelContainer";
@@ -139,8 +139,8 @@
             Controls.Add(PanelContainer);
             Name = "HomePage";
             Size = new Size(820, 848);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)HomeBanner2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)HomeBanner1).EndInit();
             PanelContainer.ResumeLayout(false);
             PanelContainer.PerformLayout();
             panel2.ResumeLayout(false);
@@ -149,8 +149,8 @@
         }
 
         #endregion
-        private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
+        private PictureBox HomeBanner2;
+        private PictureBox HomeBanner1;
         private Panel panel3;
         private Panel PanelContainer;
         private FlowLayoutPanel flowLayoutPanel1;

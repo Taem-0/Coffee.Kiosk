@@ -51,10 +51,10 @@
             btnMinus.FillColor = Color.FromArgb(111, 77, 56);
             btnMinus.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnMinus.ForeColor = Color.White;
-            btnMinus.Location = new Point(112, 6);
+            btnMinus.Location = new Point(112, 5);
             btnMinus.Name = "btnMinus";
             btnMinus.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnMinus.Size = new Size(43, 34);
+            btnMinus.Size = new Size(43, 43);
             btnMinus.TabIndex = 0;
             btnMinus.Text = "-";
             btnMinus.Click += btnMinus_Click;
@@ -107,10 +107,10 @@
             btnPlus.FillColor = Color.FromArgb(111, 77, 56);
             btnPlus.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnPlus.ForeColor = Color.White;
-            btnPlus.Location = new Point(198, 6);
+            btnPlus.Location = new Point(198, 5);
             btnPlus.Name = "btnPlus";
             btnPlus.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnPlus.Size = new Size(39, 34);
+            btnPlus.Size = new Size(40, 43);
             btnPlus.TabIndex = 5;
             btnPlus.Text = "+";
             btnPlus.Click += btnPlus_Click;

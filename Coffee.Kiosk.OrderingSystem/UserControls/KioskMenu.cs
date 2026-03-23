@@ -28,7 +28,11 @@ namespace Coffee.Kiosk.OrderingSystem
         private HomePage? homePage;
 
         int currentCartCount = 0;
-        string OrderType = String.Empty;
+        internal string OrderType = String.Empty;
+
+        private List<Models.Ads.Banners> _topBanner = new();
+        private System.Windows.Forms.Timer _adTimer = new();
+        private int _topBannerIndex = 0;
 
         Point scrollPos;
 
@@ -49,14 +53,14 @@ namespace Coffee.Kiosk.OrderingSystem
             <br>
             <b>Items:</b> {currentCartCount}
             <br>
-            <b>{orderType}</b>
+            <b>{orderType.ToString()}</b>
             <br>
             <b>Total:</b> ₱
             """;
             LoadCategories();
+            LoadBanners();
             ShowHome();
         }
-
 
         protected override void OnHandleCreated(EventArgs e)
         {
@@ -66,6 +70,43 @@ namespace Coffee.Kiosk.OrderingSystem
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.UserPaint, true);
         }
+
+        private void LoadBanners()
+        {
+            _topBanner = Models.Ads.AdsBanners
+                .Where(b => b.AdPlacement == Models.Ads.AdPlacement.TOP_BANNER)
+                .OrderBy(b => b.DisplayOrder)
+                .ToList();
+
+            if (_topBanner.Count > 0)
+                TopBanner.Image = UI_Images.loadImageFromFile(_topBanner[0].FilePath);
+
+            if (_topBanner.Count > 1)
+            {
+                _adTimer.Interval = 5000;
+                _adTimer.Tick += AdTimer_Tick;
+                _adTimer.Start();
+            }
+        }
+        private void AdTimer_Tick(object? sender, EventArgs e)
+        {
+            _topBannerIndex = (_topBannerIndex + 1) % _topBanner.Count;
+            var newImage = UI_Images.loadImageFromFile(_topBanner[_topBannerIndex].FilePath);
+
+            var oldImage = TopBanner.Image;
+            TopBanner.Image = newImage;
+            oldImage?.Dispose();
+        }
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            if (!this.Visible)
+                _adTimer.Stop();
+            else if (_topBanner.Count > 1)
+                _adTimer.Start();
+        }
+
+
         private void LoadCategories()
         {
             flowCategories.SuspendLayout();
@@ -160,6 +201,20 @@ namespace Coffee.Kiosk.OrderingSystem
             <b>Total:</b> ₱{total:0.00}
             """;
         }
+
+        internal void UpdateOrderType(string orderType)
+        {
+            OrderType = orderType;
+            guna2HtmlLabel1.Text = $"""
+            <b><font size='12'>Order summary</font></b>
+            <br>
+            <b>Items:</b> {currentCartCount}
+            <br>
+            <b>{orderType}</b>
+            <br>
+            <b>Total:</b> ₱
+            """;
+                }
 
         private void OnProductClicked(int prodcutId)
         {

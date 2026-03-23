@@ -17,38 +17,24 @@ namespace Coffee.Kiosk.Cashier
         {
             OrderItem = orderItem;
 
+            var theme = SessionManager.Theme;
+
             this.Dock = DockStyle.Top;
             this.Height = 56;
-            this.BackColor = Color.FromArgb(248, 244, 240);
+            this.BackColor = theme.PrimaryColor;
             this.Padding = new Padding(8, 4, 8, 4);
 
-            btnMinus.Text = "−";
-            btnMinus.Font = new Font("Arial", 12f, FontStyle.Bold);
-            btnMinus.FillColor = Color.FromArgb(240, 225, 210);
-            btnMinus.ForeColor = Color.FromArgb(107, 79, 58);
-            btnMinus.BorderColor = Color.FromArgb(107, 79, 58);
-            btnMinus.BorderThickness = 1;
-            btnMinus.BorderRadius = 6;
-
-            btnPlus.Text = "+";
-            btnPlus.Font = new Font("Arial", 12f, FontStyle.Bold);
-            btnPlus.FillColor = Color.FromArgb(107, 79, 58);
-            btnPlus.ForeColor = Color.White;
-            btnPlus.BorderColor = Color.FromArgb(107, 79, 58);
-            btnPlus.BorderThickness = 1;
-            btnPlus.BorderRadius = 6;
-
             lblItemName.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
-            lblItemName.ForeColor = Color.FromArgb(44, 34, 24);
+            lblItemName.ForeColor = Color.White;
             lblItemName.AutoSize = false;
             lblItemName.TextAlign = ContentAlignment.MiddleLeft;
 
             lblQty.Font = new Font("Segoe UI", 10f, FontStyle.Bold);
-            lblQty.ForeColor = Color.FromArgb(59, 35, 20);
+            lblQty.ForeColor = Color.White;
             lblQty.TextAlign = ContentAlignment.MiddleCenter;
 
             lblSubtotal.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
-            lblSubtotal.ForeColor = Color.FromArgb(59, 35, 20);
+            lblSubtotal.ForeColor = theme.AccentColor;
             lblSubtotal.TextAlign = ContentAlignment.MiddleRight;
 
             var lblCustom = new Label
@@ -56,7 +42,7 @@ namespace Coffee.Kiosk.Cashier
                 Name = "lblCustomSummary",
                 AutoSize = false,
                 Font = new Font("Segoe UI", 7f),
-                ForeColor = Color.FromArgb(150, 120, 90),
+                ForeColor = theme.AccentColor,
                 BackColor = Color.Transparent,
                 Visible = false,
                 TextAlign = ContentAlignment.TopLeft
@@ -121,7 +107,6 @@ namespace Coffee.Kiosk.Cashier
                 string summary = OrderItem.Customization.Summary();
                 lblCustom.Text = summary;
                 lblCustom.Visible = !string.IsNullOrEmpty(summary);
-
                 this.Height = string.IsNullOrEmpty(summary) ? 56 : 68;
             }
 

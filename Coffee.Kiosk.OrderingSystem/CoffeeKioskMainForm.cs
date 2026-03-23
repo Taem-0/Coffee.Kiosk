@@ -26,7 +26,8 @@ namespace Coffee.Kiosk.OrderingSystem
 
         public event Action<Models.Orders>? CartUpdated;
 
-        private GetStartedScreen? getStartedScreen;
+        //private GetStartedScreen? getStartedScreen;
+        private GetStartedScreenV2? getStartedScreen;
         private DineInTakeOut? dineInTakeOut;
         private KioskMenu? kioskMenu;
         private ViewOrder? viewOrder;
@@ -72,6 +73,9 @@ namespace Coffee.Kiosk.OrderingSystem
 
             Models.Category.LoadFromDataBase();
             Models.Product.LoadFromDataBase();
+
+            Models.Ads.LoadFromDatabase();
+
             Models.UiAssets.LoadFromDatabase();
             UI_Images.loadLogoImage();
 
@@ -264,7 +268,7 @@ namespace Coffee.Kiosk.OrderingSystem
             Models.AuditLogs.currentDateTime = DateTime.Now;
             if (getStartedScreen == null)
             {
-                getStartedScreen = new GetStartedScreen();
+                getStartedScreen = new GetStartedScreenV2();
                 getStartedScreen.NextClicked += ShowDineInTakeOutScreen;
             }
             LoadNecessary();
@@ -276,6 +280,9 @@ namespace Coffee.Kiosk.OrderingSystem
         {
             Models.Category.LoadFromDataBase();
             Models.Product.LoadFromDataBase();
+
+            Models.Ads.LoadFromDatabase();
+
             Models.UiAssets.LoadFromDatabase();
             UI_Images.loadLogoImage();
 
@@ -286,7 +293,7 @@ namespace Coffee.Kiosk.OrderingSystem
 
                 dineInTakeOut.backButtonClicked += () =>
                 {
-                    UI_Handling.loadUserControl(mainPanel, getStartedScreen!);
+                    ShowGetStartedScreen();
                 };
 
                 dineInTakeOut.hasPickedAChoice += () =>
@@ -309,6 +316,17 @@ namespace Coffee.Kiosk.OrderingSystem
         private void ShowKioskMenuScreen()
         {
             mainPanel.SuspendLayout();
+            //MessageBox.Show($"{currentOrder.Type.ToString()}");
+            //if (kioskMenu != null)
+            //{
+            //    var expectedType = currentOrder?.Type == Models.Orders.TypeOfOrder.DineIn ? "Dine In" : "Take Out";
+            //    if (kioskMenu.OrderType != expectedType)
+            //    {
+            //        this.CartUpdated -= kioskMenu.OnCartUpdated;
+            //        kioskMenu.Dispose();
+            //        kioskMenu = null;
+            //    }
+            //}
             if (kioskMenu == null)
             {
                 currentOrder ??= new Models.Orders();
@@ -318,8 +336,12 @@ namespace Coffee.Kiosk.OrderingSystem
                 kioskMenu.ProductSelected += ShowModalCustomizeScreen;
                 kioskMenu.ViewOrderClicked += ShowViewOrder;
                 this.CartUpdated += kioskMenu.OnCartUpdated;
+            }else
+            {
+                var orderType = currentOrder?.Type == Models.Orders.TypeOfOrder.DineIn ? "Dine In" : "Take Out";
+                kioskMenu.UpdateOrderType(orderType);
             }
-            currentOrder ??= new Models.Orders();
+                currentOrder ??= new Models.Orders();
             if (viewOrder == null)
             {
                 viewOrder = new ViewOrder(currentOrder);
@@ -388,7 +410,7 @@ namespace Coffee.Kiosk.OrderingSystem
             {
                 if (receiptGcashScreen == null)
                 {
-                    receiptGcashScreen = new ReceiptGcashScreen();
+                    receiptGcashScreen = new ReceiptGcashScreen(customerId);
                     receiptGcashScreen.ResetRequested += ShowThankYouScreen;
                 }
                 UI_Handling.loadUserControl(mainPanel, receiptGcashScreen);
@@ -518,7 +540,6 @@ namespace Coffee.Kiosk.OrderingSystem
                 if (f is ConfirmRemove) f.Close();
             }
 
-            getStartedScreen?.Dispose();
             dineInTakeOut?.Dispose();
             if (kioskMenu != null)
             {
@@ -533,7 +554,6 @@ namespace Coffee.Kiosk.OrderingSystem
             receiptGcashScreen?.Dispose();
 
 
-            getStartedScreen = null;
             dineInTakeOut = null;
             modalScreen = null;
             viewOrder = null;
@@ -545,6 +565,15 @@ namespace Coffee.Kiosk.OrderingSystem
 
             _idleTimer.Stop();
             ResetIdleWarning();
+
+            Models.Category.LoadFromDataBase();
+            Models.Product.LoadFromDataBase();
+
+            Models.Ads.LoadFromDatabase();
+
+            Models.UiAssets.LoadFromDatabase();
+            UI_Images.loadLogoImage();
+            getStartedScreen?.RefreshScreen();
             ShowGetStartedScreen();
         }
 

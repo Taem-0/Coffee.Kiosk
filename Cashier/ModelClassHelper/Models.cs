@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Coffee.Kiosk.Cashier.ModelClassHelper
 {
@@ -22,11 +23,7 @@ namespace Coffee.Kiosk.Cashier.ModelClassHelper
         public string Notes { get; set; } = "";
         public List<(string GroupName, string OptionName, decimal Price)> SelectedModifiers { get; set; } = new();
         public decimal AddOnsTotal => SelectedModifiers.Sum(m => m.Price);
-
-        public List<string> AddOns
-        {
-            get => SelectedModifiers.Select(m => m.OptionName).ToList();
-        }
+        public List<string> AddOns => SelectedModifiers.Select(m => m.OptionName).ToList();
 
         public string Summary()
         {

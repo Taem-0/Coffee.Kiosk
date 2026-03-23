@@ -43,7 +43,7 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             lblOrderNum.Location = new Point(_isPickup ? 18 : 14, 10);
 
             // ── lblItemName ───────────────────────────────────
-            lblItemName.Font = new Font("Segoe UI", 14);
+            lblItemName.Font = new Font("Segoe UI", 12);
             lblItemName.ForeColor = Color.FromArgb(122, 80, 48);
             lblItemName.BackColor = Color.Transparent;
             lblItemName.AutoSize = true;
@@ -57,9 +57,9 @@ namespace Coffee.Kiosk.OrderStatusDisplay
             lblBadge.Padding = new Padding(10, 5, 10, 5);
 
             // ── card shell ────────────────────────────────────
-            this.Height = 75;
-            this.Margin = new Padding(0, 0, 0, 10);
-            this.Padding = new Padding(6, 6, 6, 6);
+            this.Height = 90;
+            this.Margin = new Padding(8, 0, 8, 14);
+            this.Padding = new Padding(12, 6, 12, 6);
             this.BackColor = Color.FromArgb(245, 237, 224);
 
             // ── badge repositions on resize ───────────────────

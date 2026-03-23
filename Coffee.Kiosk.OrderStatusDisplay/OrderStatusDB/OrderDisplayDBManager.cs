@@ -40,9 +40,10 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
 
         // ─────────────────────────────────────────────────────
         //  GET — PLEASE PAY column
+        //  Status: Pending
+        //  Hides after 10 minutes
         //  Called by: Form1 display
         // ─────────────────────────────────────────────────────
-
         public List<PaymentQueueItem> GetPaymentQueue()
         {
             var list = new List<PaymentQueueItem>();
@@ -51,21 +52,26 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
-        SELECT
-            co.ID               AS OrderNumber,
-            coi.ProductName     AS ItemName,
-            co.PaymentMethod
-        FROM customer_orders co
-        JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
-        WHERE co.Status = 'pending'
-        ORDER BY co.ID ASC";
+                SELECT
+                    co.ID                               AS OrderNumber,
+                    GROUP_CONCAT(coi.ProductName
+                        ORDER BY coi.ID
+                        SEPARATOR ', ')                 AS ItemName,
+                    COALESCE(co.Payment, 'Cash')        AS PaymentMethod
+                FROM customer_orders co
+                JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
+                WHERE co.Status = 'Pending'
+                AND   co.CreatedAt IS NOT NULL
+                AND   TIMESTAMPDIFF(MINUTE, co.CreatedAt, NOW()) < 10
+                GROUP BY co.ID, co.Payment
+                ORDER BY co.ID ASC";
 
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 list.Add(new PaymentQueueItem
                 {
-                    OrderNumber = reader["OrderNumber"].ToString(),
+                    OrderNumber = $"#{reader["OrderNumber"]}",
                     ItemName = reader["ItemName"].ToString(),
                     PaymentMethod = reader["PaymentMethod"].ToString()
                 });
@@ -76,9 +82,9 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
 
         // ─────────────────────────────────────────────────────
         //  GET — BEING PREPARED column
+        //  Status: Paid
         //  Called by: Form1 display
         // ─────────────────────────────────────────────────────
-
         public List<PreparingQueueItem> GetPreparingQueue()
         {
             var list = new List<PreparingQueueItem>();
@@ -87,20 +93,23 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
-    SELECT
-        co.ID               AS OrderNumber,
-        coi.ProductName     AS ItemName
-    FROM customer_orders co
-    JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
-    WHERE co.Status = 'paid'
-    ORDER BY co.ID ASC";
+                SELECT
+                    co.ID                           AS OrderNumber,
+                    GROUP_CONCAT(coi.ProductName
+                        ORDER BY coi.ID
+                        SEPARATOR ', ')             AS ItemName
+                FROM customer_orders co
+                JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
+                WHERE co.Status = 'Paid'
+                GROUP BY co.ID
+                ORDER BY co.ID ASC";
 
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 list.Add(new PreparingQueueItem
                 {
-                    OrderNumber = reader["OrderNumber"].ToString(),
+                    OrderNumber = $"#{reader["OrderNumber"]}",
                     ItemName = reader["ItemName"].ToString()
                 });
             }
@@ -110,9 +119,10 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
 
         // ─────────────────────────────────────────────────────
         //  GET — READY FOR PICK-UP column
+        //  Status: Completed
+        //  Hides after 5 minutes using CreatedAt
         //  Called by: Form1 display
         // ─────────────────────────────────────────────────────
-
         public List<PickupQueueItem> GetPickupQueue()
         {
             var list = new List<PickupQueueItem>();
@@ -121,21 +131,25 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
-    SELECT
-        co.ID               AS OrderNumber,
-        coi.ProductName     AS ItemName
-    FROM customer_orders co
-    JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
-    WHERE co.Status = 'completed'
-    AND   TIMESTAMPDIFF(MINUTE, co.UpdatedAt, NOW()) < 5
-    ORDER BY co.ID ASC";
+                SELECT
+                    co.ID                           AS OrderNumber,
+                    GROUP_CONCAT(coi.ProductName
+                        ORDER BY coi.ID
+                        SEPARATOR ', ')             AS ItemName
+                FROM customer_orders co
+                JOIN customer_order_item coi ON coi.CustomerOrderId = co.ID
+                WHERE co.Status = 'Completed'
+                AND   co.CreatedAt IS NOT NULL
+                AND   TIMESTAMPDIFF(MINUTE, co.CreatedAt, NOW()) < 5
+                GROUP BY co.ID
+                ORDER BY co.ID ASC";
 
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 list.Add(new PickupQueueItem
                 {
-                    OrderNumber = reader["OrderNumber"].ToString(),
+                    OrderNumber = $"#{reader["OrderNumber"]}",
                     ItemName = reader["ItemName"].ToString()
                 });
             }
@@ -144,126 +158,134 @@ namespace Coffee.Kiosk.OrderStatusDisplay.OrderStatusDB
         }
 
         // ─────────────────────────────────────────────────────
-        //  ADD — new order appears in Please Pay
-        //  Called by: Cashier subsystem
+        //  GET — expired pickup orders (5 mins reached)
+        //  Used by Form1 timer to trigger fade animation
+        //  Called by: Form1 timer every 30 seconds
         // ─────────────────────────────────────────────────────
+        public List<string> GetExpiredPickupOrderNumbers()
+        {
+            var expiredOrders = new List<string>();
 
-        public void AddToPaymentQueue(string orderNumber, string itemName, string paymentMethod)
+            using var conn = CreateConnection();
+            using var cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"
+                SELECT co.ID AS OrderNumber
+                FROM   customer_orders co
+                WHERE  co.Status = 'Completed'
+                AND    co.CreatedAt IS NOT NULL
+                AND    TIMESTAMPDIFF(MINUTE, co.CreatedAt, NOW()) >= 5";
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+                expiredOrders.Add($"#{reader["OrderNumber"]}");
+
+            return expiredOrders;
+        }
+
+        // ─────────────────────────────────────────────────────
+        //  GET — expired payment orders (10 mins reached)
+        //  Used by Form1 timer to trigger fade animation
+        //  Called by: Form1 timer every 30 seconds
+        // ─────────────────────────────────────────────────────
+        public List<string> GetExpiredPaymentOrderNumbers()
+        {
+            var expiredOrders = new List<string>();
+
+            using var conn = CreateConnection();
+            using var cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"
+                SELECT co.ID AS OrderNumber
+                FROM   customer_orders co
+                WHERE  co.Status = 'Pending'
+                AND    co.CreatedAt IS NOT NULL
+                AND    TIMESTAMPDIFF(MINUTE, co.CreatedAt, NOW()) >= 10";
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+                expiredOrders.Add($"#{reader["OrderNumber"]}");
+
+            return expiredOrders;
+        }
+
+        // ─────────────────────────────────────────────────────
+        //  AUTO-CANCEL — completed orders after 5 mins
+        //  Called by: Form1 timer every 30 seconds
+        // ─────────────────────────────────────────────────────
+        public void AutoCancelExpiredPickups()
         {
             using var conn = CreateConnection();
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
-                INSERT INTO display_payment_queue (OrderNumber, ItemName, PaymentMethod)
-                VALUES (@OrderNumber, @ItemName, @PaymentMethod)";
-
-            cmd.Parameters.AddWithValue("@OrderNumber", orderNumber);
-            cmd.Parameters.AddWithValue("@ItemName", itemName);
-            cmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
+                UPDATE customer_orders
+                SET    Status = 'Cancelled'
+                WHERE  Status = 'Completed'
+                AND    CreatedAt IS NOT NULL
+                AND    TIMESTAMPDIFF(MINUTE, CreatedAt, NOW()) >= 5";
 
             cmd.ExecuteNonQuery();
         }
 
         // ─────────────────────────────────────────────────────
-        //  MOVE — payment confirmed → Being Prepared
-        //  Called by: Cashier subsystem
-        // ─────────────────────────────────────────────────────
-
-        public void MoveToPreparingQueue(string orderNumber, string itemName)
-        {
-            using var conn = CreateConnection();
-            using var tran = conn.BeginTransaction();
-
-            try
-            {
-                using (var del = conn.CreateCommand())
-                {
-                    del.Transaction = tran;
-                    del.CommandText = @"
-                        DELETE FROM display_payment_queue
-                        WHERE  OrderNumber = @OrderNumber";
-                    del.Parameters.AddWithValue("@OrderNumber", orderNumber);
-                    del.ExecuteNonQuery();
-                }
-
-                using (var ins = conn.CreateCommand())
-                {
-                    ins.Transaction = tran;
-                    ins.CommandText = @"
-                        INSERT INTO display_preparing_queue (OrderNumber, ItemName)
-                        VALUES (@OrderNumber, @ItemName)";
-                    ins.Parameters.AddWithValue("@OrderNumber", orderNumber);
-                    ins.Parameters.AddWithValue("@ItemName", itemName);
-                    ins.ExecuteNonQuery();
-                }
-
-                tran.Commit();
-            }
-            catch
-            {
-                tran.Rollback();
-                throw;
-            }
-        }
-
-        // ─────────────────────────────────────────────────────
-        //  MOVE — barista marks done → Ready for Pick-up
-        //  Called by: Kitchen subsystem
-        // ─────────────────────────────────────────────────────
-
-        public void MoveToPickupQueue(string orderNumber, string itemName)
-        {
-            using var conn = CreateConnection();
-            using var tran = conn.BeginTransaction();
-
-            try
-            {
-                using (var del = conn.CreateCommand())
-                {
-                    del.Transaction = tran;
-                    del.CommandText = @"
-                        DELETE FROM display_preparing_queue
-                        WHERE  OrderNumber = @OrderNumber";
-                    del.Parameters.AddWithValue("@OrderNumber", orderNumber);
-                    del.ExecuteNonQuery();
-                }
-
-                using (var ins = conn.CreateCommand())
-                {
-                    ins.Transaction = tran;
-                    ins.CommandText = @"
-                        INSERT INTO display_pickup_queue (OrderNumber, ItemName, ReadyAt)
-                        VALUES (@OrderNumber, @ItemName, NOW())";
-                    ins.Parameters.AddWithValue("@OrderNumber", orderNumber);
-                    ins.Parameters.AddWithValue("@ItemName", itemName);
-                    ins.ExecuteNonQuery();
-                }
-
-                tran.Commit();
-            }
-            catch
-            {
-                tran.Rollback();
-                throw;
-            }
-        }
-
-        // ─────────────────────────────────────────────────────
-        //  AUTO-COMPLETE — removes card after 5 mins
+        //  AUTO-CANCEL — pending orders after 10 mins
         //  Called by: Form1 timer every 30 seconds
         // ─────────────────────────────────────────────────────
-
-        public void AutoCompleteExpiredPickups()
+        public void AutoCancelExpiredPayments()
         {
             using var conn = CreateConnection();
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
-                UPDATE display_pickup_queue
-                SET    CompletedAt = NOW()
-                WHERE  CompletedAt IS NULL
-                AND    TIMESTAMPDIFF(MINUTE, ReadyAt, NOW()) >= 5";
+                UPDATE customer_orders
+                SET    Status = 'Cancelled'
+                WHERE  Status = 'Pending'
+                AND    CreatedAt IS NOT NULL
+                AND    TIMESTAMPDIFF(MINUTE, CreatedAt, NOW()) >= 10";
 
+            cmd.ExecuteNonQuery();
+        }
+
+        // ─────────────────────────────────────────────────────
+        //  AUTO-ADD — cashier confirms payment
+        //  Moves: Pending → Paid
+        //  Called by: Cashier subsystem
+        // ─────────────────────────────────────────────────────
+        public void ConfirmPayment(string orderNumber)
+        {
+            using var conn = CreateConnection();
+            using var cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"
+                UPDATE customer_orders
+                SET    Status    = 'Paid',
+                       UpdatedAt = NOW()
+                WHERE  ID        = @OrderNumber
+                AND    Status    = 'Pending'";
+
+            cmd.Parameters.AddWithValue("@OrderNumber", orderNumber);
+            cmd.ExecuteNonQuery();
+        }
+
+        // ─────────────────────────────────────────────────────
+        //  AUTO-ADD — barista marks order done
+        //  Moves: Paid → Completed
+        //  Called by: Kitchen subsystem
+        // ─────────────────────────────────────────────────────
+        public void MarkAsReady(string orderNumber)
+        {
+            using var conn = CreateConnection();
+            using var cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"
+                UPDATE customer_orders
+                SET    Status    = 'Completed',
+                       UpdatedAt = NOW()
+                WHERE  ID        = @OrderNumber
+                AND    Status    = 'Paid'";
+
+            cmd.Parameters.AddWithValue("@OrderNumber", orderNumber);
             cmd.ExecuteNonQuery();
         }
     }

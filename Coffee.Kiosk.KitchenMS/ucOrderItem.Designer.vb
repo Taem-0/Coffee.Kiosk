@@ -64,7 +64,7 @@ Partial Class ucOrderItem
         Panel1.Dock = DockStyle.Bottom
         Panel1.Location = New Point(0, 106)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(334, 1)
+        Panel1.Size = New Size(333, 1)
         Panel1.TabIndex = 3
         ' 
         ' ucOrderItem
@@ -77,7 +77,7 @@ Partial Class ucOrderItem
         Controls.Add(lblItemName)
         Controls.Add(lblQuantity)
         Name = "ucOrderItem"
-        Size = New Size(334, 107)
+        Size = New Size(333, 107)
         ResumeLayout(False)
         PerformLayout()
     End Sub

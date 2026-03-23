@@ -11,50 +11,6 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
         private static string[] tableCommands =
         {
-            @"CREATE TABLE IF NOT EXISTS accounts (
-                ID INT AUTO_INCREMENT PRIMARY KEY,
-                First_Name VARCHAR(100) NOT NULL,
-                Middle_Name VARCHAR(100) NOT NULL,
-                Last_Name VARCHAR(100) NOT NULL,
-                Phone_Number VARCHAR(25) NOT NULL,
-                Email_Address VARCHAR(255) NOT NULL,
-                Emergency_First_Name VARCHAR(100) NOT NULL,
-                Emergency_Last_Name VARCHAR(100) NOT NULL,
-                Emergency_Number VARCHAR(20) NOT NULL,
-                Job_Title VARCHAR(50) NOT NULL,
-                Role ENUM('EMPLOYEE', 'MANAGER', 'OWNER') NOT NULL,
-                Department ENUM('OPERATIONS', 'MANAGEMENT', 'ADMINISTRATION') 
-                    NOT NULL DEFAULT 'OPERATIONS',
-                EmploymentType ENUM('FULL_TIME', 'PART_TIME', 'CONTRACT') 
-                    NOT NULL DEFAULT 'FULL_TIME',
-                Status ENUM('ACTIVE','DEACTIVATED') 
-                    NOT NULL DEFAULT 'ACTIVE',
-                Profile_Picture_Path VARCHAR(255) NULL,
-                Password_Hash VARCHAR(255) NOT NULL,
-                Password_Salt VARCHAR(255) NOT NULL,
-                Is_First_Login BOOLEAN NOT NULL DEFAULT 1,
-                Password_Reset_Requested BOOLEAN NOT NULL DEFAULT 0
-            );",
-
-            @"CREATE TABLE IF NOT EXISTS shop (
-                ID INT AUTO_INCREMENT PRIMARY KEY,
-                ShopName VARCHAR(100) NOT NULL,
-                ThemeMode ENUM('default', 'custom') NOT NULL DEFAULT 'default',
-                Primary_Color VARCHAR(10) NOT NULL,
-                DarkPrimary_Color VARCHAR(10) NOT NULL,
-                Secondary_Color VARCHAR(10) NOT NULL,
-                Background_Color VARCHAR(10) NOT NULL,
-                Accent_Color VARCHAR(10) NOT NULL,
-                LogoPath VARCHAR(255) NULL
-            );",
-
-            @"INSERT INTO shop (
-                ShopName, ThemeMode, Primary_Color, DarkPrimary_Color, Secondary_Color, Background_Color, Accent_Color
-            )
-            SELECT 'My Coffee Shop', 'default', '#6F4D38', '#3D211A', '#A07856', '#F5F5DC', '#CBB799'
-            WHERE NOT EXISTS (SELECT 1 FROM shop);",
-
-
             // inventory
             @"CREATE TABLE IF NOT EXISTS inventory_item (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
@@ -74,10 +30,9 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 Action ENUM('INSERT','UPDATE','DELETE') NOT NULL,
 
                 Changed_By INT NOT NULL,
-                Changed_By_Name INT NOT NULL,
+                Changed_By_Name VARCHAR(67) NOT NULL,
 
-                Old_Value TEXT NULL,
-                New_Value TEXT NULL,
+                Summary VARCHAR(255) NOT NULL,
 
                 Created_At DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
             );",
@@ -98,6 +53,14 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 ImagePath VARCHAR(255),
                 IsCustomizable BOOLEAN NOT NULL DEFAULT 0,
                 FOREIGN KEY (CategoryID) REFERENCES category(ID) ON DELETE CASCADE
+            );",
+
+            @"CREATE TABLE IF NOT EXISTS product_recipe (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                ProductId INT NOT NULL,
+                InventoryItemId INT NOT NULL,
+                InventorySubtraction DECIMAL(10,2) NOT NULL,
+                FOREIGN KEY (ProductId) REFERENCES product(ID) ON DELETE CASCADE
             );",
 
             @"CREATE TABLE IF NOT EXISTS modifier_group (
@@ -131,8 +94,9 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 ID INT AUTO_INCREMENT PRIMARY KEY,
 
                 OrderType ENUM('DineIn','TakeOut') NOT NULL,
-                Status ENUM('Pending','Paid','Cancelled') NOT NULL DEFAULT 'Pending',
+                Status ENUM('Pending','Paid','Cancelled', 'Completed') NOT NULL DEFAULT 'Pending',
                 TotalAmount DECIMAL(10,2) NOT NULL,
+                Payment ENUM('Cash','Gcash') NOT NULL DEFAULT 'Cash',
 
                 CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );",
@@ -163,54 +127,9 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 PriceDelta DECIMAL(10,2) NOT NULL,
 
                 FOREIGN KEY (CustomerOrderItemId) REFERENCES customer_order_item(ID) ON DELETE CASCADE
-                );"
+                );",
+
         };
-
-        // OrderSummary Json format :
-        //{
-        //  "items": [
-        //    {
-        //      "productId": 1,
-        //      "productName": "Americano",
-        //      "basePrice": 120.00,
-        //      "quantity": 2,
-        //      "modifiers": [
-        //        {
-        //          "groupId": 1,
-        //          "groupName": "Size",
-        //          "optionId": 2,
-        //          "optionName": "Large",
-        //          "priceDelta": 30.00
-        //        },
-        //        {
-        //          "groupId": 2,
-        //          "groupName": "Sugar",
-        //          "optionId": [5],
-        //          "optionName": "[Muscovado]",
-        //          "priceDelta": 3.00
-        //        }
-        //      ],
-        //      "itemTotal": 306.00
-        //    },
-        //      "productId": 2,
-        //      "productName": "Stuff",
-        //      "basePrice": 120.00,
-        //      "quantity": 1,
-        //      "modifiers": [
-        //        {
-        //          "groupId": 1,
-        //          "groupName": "Size",
-        //          "optionId": [2, 3],
-        //          "optionName": "[stuff1, stuff2]",
-        //          "priceDelta": 30.00
-        //        },
-        //      ],
-        //      "itemTotal": 306.00
-        //  ],
-        //  "subtotal": 306.00
-        //}
-
-                
 
         internal static void Init(IConfiguration configuration)
         {
@@ -525,29 +444,74 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
         }
 
 
+        //internal static bool IsProductAvailable(int productId)
+        //{
+        //    try
+        //    {
+        //        using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+        //        conn.Open();
+
+        //        var cmd = conn.CreateCommand();
+        //        cmd.CommandText = @"
+        //            SELECT 1
+        //            FROM product_recipe pr
+        //            JOIN inventory_item i 
+        //                ON pr.InventoryItemId = i.ID
+        //            WHERE pr.ProductId = @productId
+        //              AND i.Stock < pr.InventorySubtraction
+        //            LIMIT 1;
+        //        ";
+
+        //        cmd.Parameters.AddWithValue("@productId", productId);
+
+        //        var result = cmd.ExecuteScalar();
+
+        //        return result == null;
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
         internal static bool IsProductAvailable(int productId)
         {
             try
             {
                 using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
                 conn.Open();
-
                 var cmd = conn.CreateCommand();
+                // crazy mofo what is this
                 cmd.CommandText = @"
                     SELECT 1
-                    FROM product_recipe pr
-                    JOIN inventory_item i 
-                        ON pr.InventoryItemId = i.ID
-                    WHERE pr.ProductId = @productId
-                      AND i.Stock < pr.InventorySubtraction
-                    LIMIT 1;
-                ";
+                    FROM product p
 
+                    LEFT JOIN (
+                        SELECT pr.ProductId
+                        FROM product_recipe pr
+                        JOIN inventory_item i ON pr.InventoryItemId = i.ID
+                        WHERE pr.ProductId = @productId
+                          AND i.Stock < pr.InventorySubtraction
+                        LIMIT 1
+                    ) recipe_fail ON recipe_fail.ProductId = p.ID
+
+                    LEFT JOIN (
+                        SELECT mg.ProductId
+                        FROM modifier_option mo
+                        JOIN modifier_group mg ON mo.GroupId = mg.ID
+                        JOIN inventory_item i ON mo.InventoryItemId = i.ID
+                        WHERE mg.ProductId = @productId
+                          AND mo.InventoryItemId IS NOT NULL
+                          AND i.Stock < mo.InventorySubtraction
+                        LIMIT 1
+                    ) modifier_fail ON modifier_fail.ProductId = p.ID
+
+                    WHERE p.ID = @productId
+                      AND (recipe_fail.ProductId IS NOT NULL 
+                        OR modifier_fail.ProductId IS NOT NULL);
+                "; 
                 cmd.Parameters.AddWithValue("@productId", productId);
-
                 var result = cmd.ExecuteScalar();
 
-                // If any row exists → insufficient stock found
                 return result == null;
             }
             catch
@@ -579,9 +543,8 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
 
                 return result != null;
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show($"Error\n{ex.Message}");
                 return false;
             }
         }
@@ -618,6 +581,46 @@ namespace Coffee.Kiosk.OrderingSystem.Sql
                 MessageBox.Show($"Error\n{ex.Message}");
                 return null;
             }
+        }
+
+        internal static List<Models.Ads.Banners> GetAds()
+        {
+            var result = new List<Models.Ads.Banners>();
+            try
+            {
+                using var conn = new MySqlConnection(DBInitializer.connectionStringDatabase);
+                conn.Open();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = """
+                SELECT * FROM kiosk_banners;
+                """;
+
+                using var row = cmd.ExecuteReader();
+                while(row.Read())
+                {
+                    var placement = row.GetString("Placement") switch
+                    {
+                        "Starting Screen" => Models.Ads.AdPlacement.STARTING_SCREEN,
+                        "Top Banner" => Models.Ads.AdPlacement.TOP_BANNER,
+                        "Home Page Banner 1" => Models.Ads.AdPlacement.HOME_PAGE_BANNER_1,
+                        "Home Page Banner 2" => Models.Ads.AdPlacement.HOME_PAGE_BANNER_2,
+                        _ => Models.Ads.AdPlacement.HOME_PAGE_BANNER_1
+                    };
+
+                    result.Add(new Models.Ads.Banners(
+                        row.GetInt32("ID"),
+                        row.GetString("FilePath"),
+                        placement,
+                        row.GetInt32("ID")
+                        ));
+                }
+
+            }catch (Exception ex)
+            {
+                MessageBox.Show($"Error\n{ex.Message}");
+            }
+            return result;
         }
 
     }

@@ -22,7 +22,7 @@ Public Class DatabaseHelper
                         While orderReader.Read()
                             Dim order As New Order With {
                                 .OrderId = orderReader.GetInt32("ID"),
-                                .OrderNumber = orderReader.GetInt32("ID").ToString("D3"),
+                                .OrderNumber = orderReader.GetInt32("ID").ToString(),
                                 .OrderTime = orderReader.GetDateTime("CreatedAt"),
                                 .Status = OrderStatus.Paid,
                                 .OrderType = If(orderReader.IsDBNull(orderReader.GetOrdinal("OrderType")),
@@ -139,6 +139,8 @@ Public Class DatabaseHelper
 
     Public Shared Function GetShopInfo() As ShopInfo
         Dim shop As New ShopInfo()
+    Public Shared Function GetOrderById(orderId As Integer) As Order
+        Dim order As Order = Nothing
 
         Using conn As New MySqlConnection(ConnectionString)
             Try
@@ -151,6 +153,24 @@ Public Class DatabaseHelper
                         If reader.Read() Then
                             shop.PrimaryColor = If(reader.IsDBNull(reader.GetOrdinal("Primary_Color")), "", reader.GetString("Primary_Color"))
                             shop.LogoPath = If(reader.IsDBNull(reader.GetOrdinal("LogoPath")), "", reader.GetString("LogoPath"))
+                Dim orderSql = "SELECT ID, OrderType, Status, CreatedAt 
+                            FROM customer_orders WHERE ID = @orderId"
+
+                Using orderCmd As New MySqlCommand(orderSql, conn)
+                    orderCmd.Parameters.AddWithValue("@orderId", orderId)
+
+                    Using orderReader = orderCmd.ExecuteReader()
+                        If orderReader.Read() Then
+                            order = New Order With {
+                                .OrderId = orderReader.GetInt32("ID"),
+                                .OrderNumber = orderReader.GetInt32("ID").ToString(),
+                                .OrderTime = orderReader.GetDateTime("CreatedAt"),
+                                .Status = OrderStatus.Paid,
+                                .OrderType = If(orderReader.IsDBNull(orderReader.GetOrdinal("OrderType")),
+                                               "DineIn",
+                                               orderReader.GetString("OrderType")),
+                                .Items = New List(Of OrderItem)
+                            }
                         End If
                     End Using
                 End Using
@@ -163,5 +183,61 @@ Public Class DatabaseHelper
         Return shop
     End Function
     ' =================================================
+                If order IsNot Nothing Then
+                    ' get items
+                    Using itemConn As New MySqlConnection(ConnectionString)
+                        itemConn.Open()
+                        Dim itemSql = "SELECT ID, ProductName, Quantity 
+                                   FROM customer_order_item 
+                                   WHERE CustomerOrderId = @orderId"
+
+                        Using itemCmd As New MySqlCommand(itemSql, itemConn)
+                            itemCmd.Parameters.AddWithValue("@orderId", orderId)
+
+                            Using itemReader = itemCmd.ExecuteReader()
+                                While itemReader.Read()
+                                    Dim item As New OrderItem With {
+                                        .ItemId = itemReader.GetInt32("ID"),
+                                        .ItemName = itemReader.GetString("ProductName"),
+                                        .Quantity = itemReader.GetInt32("Quantity"),
+                                        .Customizations = New List(Of String)
+                                    }
+                                    order.Items.Add(item)
+                                End While
+                            End Using
+                        End Using
+                    End Using
+
+                    ' get modifiers
+                    For Each item In order.Items
+                        Using modConn As New MySqlConnection(ConnectionString)
+                            modConn.Open()
+                            Dim modSql = "SELECT ModifierGroupName, ModifierOptionName 
+                                      FROM customer_order_item_modifier 
+                                      WHERE CustomerOrderItemId = @itemId
+                                      ORDER BY ID"
+
+                            Using modCmd As New MySqlCommand(modSql, modConn)
+                                modCmd.Parameters.AddWithValue("@itemId", item.ItemId)
+
+                                Using modReader = modCmd.ExecuteReader()
+                                    While modReader.Read()
+                                        Dim groupName = modReader.GetString("ModifierGroupName")
+                                        Dim optionName = modReader.GetString("ModifierOptionName")
+                                        item.Customizations.Add(groupName & ": " & optionName)
+                                    End While
+                                End Using
+                            End Using
+                        End Using
+                    Next
+                End If
+
+            Catch ex As MySqlException
+                Console.WriteLine("DB Error: " & ex.Message)
+            End Try
+        End Using
+
+        Return order
+    End Function
 
 End Class

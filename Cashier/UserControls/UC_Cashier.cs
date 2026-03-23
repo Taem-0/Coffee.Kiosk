@@ -17,9 +17,29 @@ namespace Coffee.Kiosk.Cashier
         public UC_Cashier()
         {
             InitializeComponent();
+            Setup();
+        }
+
+        public UC_Cashier(List<OrderItemModel> existingCart) : this()
+        {
+            _cart = existingCart;
+
+            foreach (var item in _cart)
+                AddOrderRow(item);
+
+            UpdateTotals();
+
+            foreach (var card in flpMenuGrid.Controls.OfType<UC_MenuCard>())
+                card.SetSelected(_cart.Any(c => c.Item.ItemID == card.Item.ItemID));
+        }
+
+        private void Setup()
+        {
+            var theme = SessionManager.Theme;
 
             pnlOrderItems.AutoScroll = true;
             pnlOrderItems.Padding = new Padding(4, 4, 4, 4);
+            pnlOrderItems.BackColor = theme.PrimaryColor;
             flpMenuGrid.Padding = new Padding(6, 6, 6, 6);
             flpCategories.AutoScroll = false;
             flpCategories.WrapContents = false;
@@ -36,8 +56,9 @@ namespace Coffee.Kiosk.Cashier
             var theme = SessionManager.Theme;
             btnPay.FillColor = theme.PrimaryColor;
             btnPay.ForeColor = Color.White;
-            btnClear.BorderColor = theme.PrimaryColor;
-            btnClear.ForeColor = theme.PrimaryColor;
+            btnClear.FillColor = Color.Transparent;
+            btnClear.BorderColor = theme.AccentColor;
+            btnClear.ForeColor = theme.AccentColor;
         }
 
         private void LoadMenuFromDatabase()

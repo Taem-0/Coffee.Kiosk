@@ -148,7 +148,7 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
 
     internal class UI_Images
     {
-        public static Image logoImage = Properties.Resources.default_icon;
+        public static Image logoImage = new Bitmap(Properties.Resources.default_icon);
 
         internal static void loadLogoImage()
         {
@@ -156,17 +156,16 @@ namespace Coffee.Kiosk.OrderingSystem.Helper
                 Models.UiAssets.shopData != null
                 ? Models.UiAssets.shopData.LogoPath
                 : ""
-                );
-
+            );
             if (File.Exists(logoPath))
-                logoImage = Image.FromFile(logoPath);
+                logoImage = new Bitmap(logoPath);
             else
-                logoImage = Properties.Resources.default_icon;
-        }
-        internal static Image loadImageFromFile(string path) 
-        { 
-            return File.Exists(path) ? Image.FromFile(path) : Properties.Resources.default_icon; 
+                logoImage = new Bitmap(Properties.Resources.default_icon);
         }
 
+        internal static Image loadImageFromFile(string path)
+        {
+            return File.Exists(path) ? new Bitmap(path) : new Bitmap(Properties.Resources.default_icon);
+        }
     }
 }

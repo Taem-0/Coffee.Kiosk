@@ -6,9 +6,8 @@ Imports MySql.Data.MySqlClient
 
 Public Class frmKitchenDisplay
 
-    ' tracks which orders are already on screen
-    ' so we don't add the same order twice
     Private _displayedOrderIds As New List(Of Integer)
+    Private _lastCompletedOrderId As Integer = -1
 
     Private _lastPrimaryColor As String = ""
     Private _lastLogoPath As String = ""
@@ -18,9 +17,9 @@ Public Class frmKitchenDisplay
     ' -------------------------------------------------------
     Private Sub frmKitchenDisplay_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblTime.Text = Date.Now.ToString("HH:mm:ss")
-        tmrClock.Interval = 1000  ' every 1 second
+        tmrClock.Interval = 1000
         tmrClock.Start()
-        pnl1.BackColor = Color.FromArgb(92, 51, 23) 'Panel color
+        pnl1.BackColor = Color.FromArgb(92, 51, 23)
         lblTime.BackColor = Color.FromArgb(92, 51, 23)
         Timer1.Interval = 2000
         Timer1.Start()
@@ -44,6 +43,11 @@ Public Class frmKitchenDisplay
         '            .Customizations = New List(Of String) From {"Large Size", "Extra Salt"}}
         '    }
         '}
+        ' disable recall button on load
+        btnRecall.Enabled = False
+        btnRecall.DisabledState.FillColor = Color.FromArgb(60, 60, 60)
+        btnRecall.DisabledState.ForeColor = Color.FromArgb(150, 150, 150)
+        btnRecall.DisabledState.BorderColor = Color.FromArgb(60, 60, 60)
     End Sub
 
     Private Sub tmrClock_Tick(sender As Object, e As EventArgs) Handles tmrClock.Tick
@@ -66,7 +70,7 @@ Public Class frmKitchenDisplay
                 AddOrderCard(order)
             Next
 
-            '   check for canceled orders And remove them
+            ' check for canceled orders and remove them
             Dim canceledIds = DatabaseHelper.GetCanceledOrderIds()
             For Each canceledId In canceledIds
                 If _displayedOrderIds.Contains(canceledId) Then
@@ -91,11 +95,8 @@ Public Class frmKitchenDisplay
 
         Dim card As New ucOrderCard()
         card.LoadOrder(order)
-
         AddHandler card.OnOrderCompleted, AddressOf HandleOrderCompleted
-
         flpOrders.Controls.Add(card)
-
         _displayedOrderIds.Add(order.OrderId)
         UpdateActiveOrderCount()
     End Sub
@@ -109,8 +110,18 @@ Public Class frmKitchenDisplay
         flpOrders.Controls.Remove(card)
         card.Dispose()
 
+        ' save last completed order for recall
+        _lastCompletedOrderId = orderId
+
+        flpOrders.Controls.Remove(card)
+        card.Dispose()
         _displayedOrderIds.Remove(orderId)
         UpdateActiveOrderCount()
+
+        ' enable recall button
+        btnRecall.Enabled = True
+        '  btnRecall.FillColor = Color.FromArgb(92, 51, 23)
+        btnRecall.ForeColor = Color.White
     End Sub
 
     Private Sub UpdateActiveOrderCount()
@@ -118,7 +129,6 @@ Public Class frmKitchenDisplay
     End Sub
 
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles pnl1.Paint
-        'Panel1.BackColor = Color.FromArgb(201, 185, 159)
     End Sub
 
     Private Sub RemoveCanceledOrder(orderId As Integer)
@@ -141,8 +151,46 @@ Public Class frmKitchenDisplay
         Next
     End Sub
 
-    Private Sub lblTime_Click(sender As Object, e As EventArgs) Handles lblTime.Click
+    Private Sub btnRecall_Click(sender As Object, e As EventArgs) Handles btnRecall.Click
+        If _lastCompletedOrderId = -1 Then Return
 
+        ' set status back to Paid in DB
+        DatabaseHelper.UpdateOrderStatus(_lastCompletedOrderId, "Paid")
+
+        ' fetch the order from DB
+        Dim order = DatabaseHelper.GetOrderById(_lastCompletedOrderId)
+
+        If order IsNot Nothing Then
+            _displayedOrderIds.Remove(_lastCompletedOrderId)
+
+            ' add card back in correct position
+            Dim card As New ucOrderCard()
+            card.LoadOrder(order)
+            AddHandler card.OnOrderCompleted, AddressOf HandleOrderCompleted
+            flpOrders.Controls.Add(card)
+
+            ' find correct position based on OrderId
+            Dim correctIndex As Integer = 0
+            For i As Integer = 0 To flpOrders.Controls.Count - 1
+                Dim existingCard As ucOrderCard = TryCast(flpOrders.Controls(i), ucOrderCard)
+                If existingCard IsNot Nothing Then
+                    If existingCard.OrderId < order.OrderId Then
+                        correctIndex = i + 1
+                    End If
+                End If
+            Next
+            flpOrders.Controls.SetChildIndex(card, correctIndex)
+
+            _displayedOrderIds.Add(order.OrderId)
+            UpdateActiveOrderCount()
+
+            ' reset recall
+            _lastCompletedOrderId = -1
+            btnRecall.Enabled = False
+            btnRecall.DisabledState.FillColor = Color.FromArgb(60, 60, 60)
+            btnRecall.DisabledState.ForeColor = Color.FromArgb(150, 150, 150)
+            btnRecall.DisabledState.BorderColor = Color.FromArgb(60, 60, 60)
+        End If
     End Sub
 
     Private Sub ApplyShopTheme()

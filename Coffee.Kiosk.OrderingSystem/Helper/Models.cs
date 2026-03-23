@@ -307,4 +307,26 @@ namespace Coffee.Kiosk.OrderingSystem.Models
             SHOP
         }
     }
+
+    public class Ads
+    {
+        public static List<Banners> AdsBanners = new();
+        public enum AdPlacement
+        {
+            STARTING_SCREEN,
+            TOP_BANNER,
+            HOME_PAGE_BANNER_1,
+            HOME_PAGE_BANNER_2
+        }
+        public record Banners (
+            int Id,
+            string FilePath,
+            AdPlacement AdPlacement,
+            int DisplayOrder
+            );
+        public static void LoadFromDatabase()
+        {
+            AdsBanners = Sql.Queries.GetAds();
+        }
+    }
 }

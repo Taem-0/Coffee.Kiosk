@@ -40,7 +40,7 @@
             label2.Name = "label2";
             label2.Size = new Size(63, 32);
             label2.TabIndex = 5;
-            label2.Text = "0:00";
+            label2.Text = "0:10";
             // 
             // label1
             // 

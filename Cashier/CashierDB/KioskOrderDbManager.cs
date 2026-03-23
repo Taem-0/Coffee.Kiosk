@@ -1,4 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
 
 namespace Coffee.Kiosk.Cashier.CashierDBHelper
 {
@@ -7,6 +9,8 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
         public int OrderId { get; set; }
         public string OrderType { get; set; } = "";
         public decimal TotalAmount { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string Payment { get; set; } = "Cash";
     }
 
     public class KioskOrderItem
@@ -42,7 +46,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             conn.Open();
 
             var cmd = new MySqlCommand(
-                "SELECT ID, OrderType, TotalAmount " +
+                "SELECT ID, OrderType, TotalAmount, CreatedAt, IFNULL(Payment, 'Cash') AS Payment " +
                 "FROM customer_orders " +
                 "WHERE Status = 'Pending' " +
                 "ORDER BY ID ASC", conn);
@@ -54,7 +58,9 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
                 {
                     OrderId = reader.GetInt32("ID"),
                     OrderType = reader.GetString("OrderType"),
-                    TotalAmount = reader.GetDecimal("TotalAmount")
+                    TotalAmount = reader.GetDecimal("TotalAmount"),
+                    CreatedAt = reader.GetDateTime("CreatedAt"),
+                    Payment = reader.GetString("Payment")
                 });
             }
             return list;
@@ -199,7 +205,8 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
         public static int SaveCashierOrder(
             List<Coffee.Kiosk.Cashier.ModelClassHelper.OrderItemModel> cart,
             decimal totalAmount,
-            string orderType = "DineIn")
+            string orderType = "DineIn",
+            string payment = "Cash")
         {
             using var conn = CashierDBHelper.GetConnection();
             conn.Open();
@@ -208,11 +215,12 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             try
             {
                 var cmdOrder = new MySqlCommand(
-                    @"INSERT INTO customer_orders (OrderType, Status, TotalAmount, CreatedAt)
-                      VALUES (@orderType, 'Paid', @total, NOW())",
+                    @"INSERT INTO customer_orders (OrderType, Status, TotalAmount, Payment, CreatedAt)
+                      VALUES (@orderType, 'Paid', @total, @payment, NOW())",
                     conn, tx);
                 cmdOrder.Parameters.AddWithValue("@orderType", orderType);
                 cmdOrder.Parameters.AddWithValue("@total", totalAmount);
+                cmdOrder.Parameters.AddWithValue("@payment", payment);
                 cmdOrder.ExecuteNonQuery();
                 int orderId = (int)cmdOrder.LastInsertedId;
 
@@ -224,10 +232,12 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
                           VALUES (@orderId, @productId, @name, @base, @unit, @qty)",
                         conn, tx);
                     cmdItem.Parameters.AddWithValue("@orderId", orderId);
-                    cmdItem.Parameters.AddWithValue("@productId", item.Item.ItemID > 0 ? item.Item.ItemID : (object)DBNull.Value);
+                    cmdItem.Parameters.AddWithValue("@productId",
+                        item.Item.ItemID > 0 ? item.Item.ItemID : (object)DBNull.Value);
                     cmdItem.Parameters.AddWithValue("@name", item.Item.ItemName);
                     cmdItem.Parameters.AddWithValue("@base", item.Item.Price);
-                    cmdItem.Parameters.AddWithValue("@unit", item.Item.Price + item.Customization.AddOnsTotal);
+                    cmdItem.Parameters.AddWithValue("@unit",
+                        item.Item.Price + item.Customization.AddOnsTotal);
                     cmdItem.Parameters.AddWithValue("@qty", item.Quantity);
                     cmdItem.ExecuteNonQuery();
                     int itemId = (int)cmdItem.LastInsertedId;
@@ -236,8 +246,8 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
                     {
                         var cmdMod = new MySqlCommand(
                             @"INSERT INTO customer_order_item_modifier
-                            (CustomerOrderItemId, ModifierGroupName, ModifierOptionName, PriceDelta)
-                          VALUES (@itemId, @groupName, @optionName, @priceDelta)",
+                                (CustomerOrderItemId, ModifierGroupName, ModifierOptionName, PriceDelta)
+                              VALUES (@itemId, @groupName, @optionName, @priceDelta)",
                             conn, tx);
                         cmdMod.Parameters.AddWithValue("@itemId", itemId);
                         cmdMod.Parameters.AddWithValue("@groupName", mod.GroupName);
@@ -259,7 +269,7 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             }
         }
 
-        public static void MarkOrderPaid(int orderId)
+        public static void MarkOrderPaid(int orderId, string payment = "Gcash")
         {
             using var conn = CashierDBHelper.GetConnection();
             conn.Open();
@@ -267,8 +277,9 @@ namespace Coffee.Kiosk.Cashier.CashierDBHelper
             try
             {
                 var cmd = new MySqlCommand(
-                    "UPDATE customer_orders SET Status = 'Paid' WHERE ID = @oid",
+                    "UPDATE customer_orders SET Status = 'Paid', Payment = @payment WHERE ID = @oid",
                     conn, tx);
+                cmd.Parameters.AddWithValue("@payment", payment);
                 cmd.Parameters.AddWithValue("@oid", orderId);
                 cmd.ExecuteNonQuery();
 

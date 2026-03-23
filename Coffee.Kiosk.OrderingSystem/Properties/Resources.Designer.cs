@@ -63,6 +63,16 @@ namespace Coffee.Kiosk.OrderingSystem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ADS1 {
+            get {
+                object obj = ResourceManager.GetObject("ADS1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Art_Whale_PH_GCash_QR_Code_New {
             get {
                 object obj = ResourceManager.GetObject("Art-Whale-PH-GCash-QR-Code-New", resourceCulture);

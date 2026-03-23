@@ -63,6 +63,15 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 command.Parameters.AddWithValue("@Placement", banner.Placement ?? "");
                 command.Parameters.AddWithValue("@DisplayOrder", banner.DisplayOrder);
                 command.ExecuteNonQuery();
+
+
+                int lastInsert = (int)command.LastInsertedId;
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.KIOSK_BANNERS,
+                    lastInsert,
+                    AuditLogsDb.Action.INSERT,
+                    $"Added new kiosk_banners"
+                    );
             }
             catch (MySqlException ex)
             {
@@ -86,6 +95,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 command.Parameters.AddWithValue("@FilePath", filePath ?? "");
                 command.Parameters.AddWithValue("@ID", id);
                 command.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.KIOSK_BANNERS,
+                    id,
+                    AuditLogsDb.Action.UPDATE,
+                    $"Updated kiosk_banners filepath with an ID: {id}"
+                    );
             }
             catch (MySqlException ex)
             {
@@ -111,6 +127,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 command.Parameters.AddWithValue("@DisplayOrder", banner.DisplayOrder);
                 command.Parameters.AddWithValue("@ID", banner.ID);
                 command.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.KIOSK_BANNERS,
+                    banner.ID,
+                    AuditLogsDb.Action.UPDATE,
+                    $"Updated kiosk_banners with an ID: {banner.ID}"
+                    );
             }
             catch (MySqlException ex)
             {
@@ -130,6 +153,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 command.CommandText = "DELETE FROM kiosk_banners WHERE ID = @ID";
                 command.Parameters.AddWithValue("@ID", id);
                 command.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                    AuditLogsDb.Tables.KIOSK_BANNERS,
+                    id,
+                    AuditLogsDb.Action.DELETE,
+                    $"Deleted kiosk_banners with an ID: {id}"
+                    );
             }
             catch (MySqlException ex)
             {

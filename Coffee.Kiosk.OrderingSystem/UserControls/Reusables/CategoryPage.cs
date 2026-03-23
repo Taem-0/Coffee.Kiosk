@@ -1,4 +1,5 @@
 ﻿using Coffee.Kiosk.OrderingSystem.Helper;
+using Coffee.Kiosk.OrderingSystem.UserControls.Reusables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,6 +54,16 @@ namespace Coffee.Kiosk.OrderingSystem.UserControls
                     productItem.productClicked += OnProductClicked;
 
                     flowProducts.Controls.Add(productItem);
+                }else
+                {
+                    var unavailableItem = new UnavailableProduct(
+                        product.Id,
+                        product.CategoryId,
+                        product.Name,
+                        product.ImagePath,
+                        product.Price
+                        );
+                    flowProducts.Controls.Add(unavailableItem);
                 }
             }
         }
