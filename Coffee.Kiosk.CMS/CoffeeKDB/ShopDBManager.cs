@@ -94,6 +94,13 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
                 command.Parameters.AddWithValue("@LogoPath", shop.LogoPath ?? (object)DBNull.Value);
 
                 command.ExecuteNonQuery();
+
+                AuditLogsDb.AddLogs(
+                AuditLogsDb.Tables.SHOP,
+                shop.Id,
+                AuditLogsDb.Action.UPDATE,
+                $"Update shop with an ID: {shop.Id}"
+                );
             }
             catch (MySqlException ex)
             {

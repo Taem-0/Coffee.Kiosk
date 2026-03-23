@@ -64,6 +64,10 @@ namespace Cashier
                             LogoPath.Image = Image.FromFile(fullPath);
                             LogoPath.SizeMode = PictureBoxSizeMode.Zoom;
                         }
+                        else
+                        {
+                            Console.WriteLine($"Logo file not found at: {fullPath}");
+                        }
                     }
                 }
                 catch { }
