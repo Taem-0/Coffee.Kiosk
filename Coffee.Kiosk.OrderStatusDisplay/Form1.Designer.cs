@@ -2,15 +2,10 @@
 {
     partial class Form1
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
+       
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing"
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +17,7 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
+        
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
@@ -64,9 +56,9 @@
             pnlPickup.SuspendLayout();
             pnlPickupHeader.SuspendLayout();
             SuspendLayout();
-            // 
+             
             // pnlHeader
-            // 
+           
             pnlHeader.BackColor = Color.Tan;
             pnlHeader.Controls.Add(lblClock);
             pnlHeader.Controls.Add(pictureBox1);
@@ -77,9 +69,9 @@
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new Size(1902, 122);
             pnlHeader.TabIndex = 0;
-            // 
+            
             // lblClock
-            // 
+             
             lblClock.AutoSize = true;
             lblClock.Font = new Font("Arial Rounded MT Bold", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblClock.Location = new Point(1696, 41);
@@ -87,9 +79,9 @@
             lblClock.Size = new Size(115, 46);
             lblClock.TabIndex = 2;
             lblClock.Text = "Time";
-            // 
+             
             // pictureBox1
-            // 
+             
             pictureBox1.BackColor = Color.Tan;
             pictureBox1.Image = Properties.Resources.Untitled_design__7_;
             pictureBox1.Location = new Point(26, 10);
@@ -99,9 +91,9 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
-            // 
+             
             // lblCafeFil
-            // 
+             
             lblCafeFil.AutoSize = true;
             lblCafeFil.Font = new Font("Dubai", 26.2499962F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCafeFil.Location = new Point(134, 31);
@@ -109,9 +101,9 @@
             lblCafeFil.Size = new Size(317, 75);
             lblCafeFil.TabIndex = 0;
             lblCafeFil.Text = "CAFE FILIPINO";
-            // 
+            
             // tableLayoutPanel1
-            // 
+             
             tableLayoutPanel1.ColumnCount = 3;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
@@ -126,9 +118,9 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Size = new Size(1850, 889);
             tableLayoutPanel1.TabIndex = 1;
-            // 
+            
             // pnlPay
-            // 
+            
             pnlPay.BackColor = Color.Tan;
             pnlPay.Controls.Add(flpPay);
             pnlPay.Controls.Add(pnlPayHeader);
@@ -139,9 +131,9 @@
             pnlPay.Size = new Size(610, 881);
             pnlPay.TabIndex = 0;
             pnlPay.Paint += pnlPay_Paint;
-            // 
+           
             // flpPay
-            // 
+            
             flpPay.FlowDirection = FlowDirection.TopDown;
             flpPay.Location = new Point(-3, 208);
             flpPay.Margin = new Padding(3, 4, 3, 4);
@@ -149,9 +141,9 @@
             flpPay.Size = new Size(618, 669);
             flpPay.TabIndex = 1;
             flpPay.WrapContents = false;
-            // 
+            
             // pnlPayHeader
-            // 
+             
             pnlPayHeader.BackColor = Color.SeaShell;
             pnlPayHeader.Controls.Add(lblProceed);
             pnlPayHeader.Controls.Add(lblPay);
@@ -162,9 +154,9 @@
             pnlPayHeader.Size = new Size(583, 170);
             pnlPayHeader.TabIndex = 0;
             pnlPayHeader.Paint += pnlPayHeader_Paint;
-            // 
+             
             // lblProceed
-            // 
+             
             lblProceed.AutoSize = true;
             lblProceed.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             lblProceed.Location = new Point(206, 141);
@@ -172,9 +164,9 @@
             lblProceed.Size = new Size(198, 23);
             lblProceed.TabIndex = 2;
             lblProceed.Text = "Proceed to Cashier";
-            // 
+             
             // lblPay
-            // 
+             
             lblPay.AutoSize = true;
             lblPay.Font = new Font("Arial Rounded MT Bold", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblPay.Location = new Point(145, 87);
@@ -182,9 +174,9 @@
             lblPay.Size = new Size(297, 51);
             lblPay.TabIndex = 1;
             lblPay.Text = "PLEASE PAY";
-            // 
+            
             // lblIcon
-            // 
+             
             lblIcon.AutoSize = true;
             lblIcon.Font = new Font("Segoe UI", 34.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblIcon.Location = new Point(239, 3);
@@ -192,9 +184,9 @@
             lblIcon.Size = new Size(110, 76);
             lblIcon.TabIndex = 0;
             lblIcon.Text = "💳";
-            // 
+             
             // pnlPrep
-            // 
+             
             pnlPrep.BackColor = Color.Tan;
             pnlPrep.Controls.Add(flpPrep);
             pnlPrep.Controls.Add(pnlPrepHeader);
@@ -204,9 +196,9 @@
             pnlPrep.Name = "pnlPrep";
             pnlPrep.Size = new Size(610, 881);
             pnlPrep.TabIndex = 1;
-            // 
+             
             // flpPrep
-            // 
+             
             flpPrep.FlowDirection = FlowDirection.TopDown;
             flpPrep.Location = new Point(-3, 209);
             flpPrep.Margin = new Padding(3, 4, 3, 4);
@@ -214,10 +206,9 @@
             flpPrep.Size = new Size(621, 668);
             flpPrep.TabIndex = 1;
             flpPrep.WrapContents = false;
-            // 
+            
             // pnlPrepHeader
-            // 
-            pnlPrepHeader.BackColor = Color.SeaShell;
+                        pnlPrepHeader.BackColor = Color.SeaShell;
             pnlPrepHeader.Controls.Add(lblPrepared);
             pnlPrepHeader.Controls.Add(lblPreparing);
             pnlPrepHeader.Controls.Add(lblIcon1);
@@ -227,9 +218,9 @@
             pnlPrepHeader.Size = new Size(583, 170);
             pnlPrepHeader.TabIndex = 0;
             pnlPrepHeader.Paint += pnlPrepHeader_Paint;
-            // 
+            
             // lblPrepared
-            // 
+            
             lblPrepared.AutoSize = true;
             lblPrepared.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             lblPrepared.Location = new Point(167, 140);
@@ -237,9 +228,9 @@
             lblPrepared.Size = new Size(252, 23);
             lblPrepared.TabIndex = 2;
             lblPrepared.Text = "We're making your order";
-            // 
+            
             // lblPreparing
-            // 
+             
             lblPreparing.AutoSize = true;
             lblPreparing.Font = new Font("Arial Rounded MT Bold", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblPreparing.Location = new Point(93, 87);
@@ -247,9 +238,9 @@
             lblPreparing.Size = new Size(421, 51);
             lblPreparing.TabIndex = 1;
             lblPreparing.Text = "BEING PREPARED";
-            // 
+            
             // lblIcon1
-            // 
+            
             lblIcon1.AutoSize = true;
             lblIcon1.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblIcon1.Location = new Point(249, 7);

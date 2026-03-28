@@ -26,7 +26,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab.AccountUserControls
             nameSortToggle.Click += (s, e) => SortBy("Name");
             jobSortToggle.Click += (s, e) => SortBy("JobTitle");
             departmentSortToggle.Click += (s, e) => SortBy("Department");
-            historySortToggle.Click += (s, e) => SortBy("History");
         }
 
         private void SortBy(string column)
@@ -89,6 +88,11 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab.AccountUserControls
         private void Card_OnCardClicked(object? sender, DisplayDTO employee)
         {
             OnEmployeeClicked?.Invoke(this, employee);
+        }
+
+        private void employeeCard1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

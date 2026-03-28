@@ -12,9 +12,6 @@ Public Class frmKitchenDisplay
     Private _lastPrimaryColor As String = ""
     Private _lastLogoPath As String = ""
 
-    ' -------------------------------------------------------
-    ' STEP A: when form loads, start the polling timer
-    ' -------------------------------------------------------
     Private Sub frmKitchenDisplay_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblTime.Text = Date.Now.ToString("HH:mm:ss")
         tmrClock.Interval = 1000
@@ -54,9 +51,9 @@ Public Class frmKitchenDisplay
         lblTime.Text = Date.Now.ToString("HH:mm:ss")
     End Sub
 
-    ' -------------------------------------------------------
-    ' STEP B: every 3 seconds, check DB for new paid orders
-    ' -------------------------------------------------------
+
+    ' every 3 seconds, check DB for new paid orders
+
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Try
             ApplyShopTheme()

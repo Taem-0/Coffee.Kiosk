@@ -142,9 +142,9 @@ namespace Coffee.Kiosk
             InventoryTab.Controls.Add(inventorySystemControl1);
             InventoryTab.Font = new Font("Segoe UI", 10.8F);
             InventoryTab.ImageKey = "TruckInventory.png";
-            InventoryTab.Location = new Point(4, 41);
+            InventoryTab.Location = new Point(4, 54);
             InventoryTab.Name = "InventoryTab";
-            InventoryTab.Size = new Size(708, 382);
+            InventoryTab.Size = new Size(192, 42);
             InventoryTab.TabIndex = 4;
             InventoryTab.Text = "Inventory";
             InventoryTab.UseVisualStyleBackColor = true;
@@ -154,7 +154,7 @@ namespace Coffee.Kiosk
             inventorySystemControl1.Dock = DockStyle.Fill;
             inventorySystemControl1.Location = new Point(0, 0);
             inventorySystemControl1.Name = "inventorySystemControl1";
-            inventorySystemControl1.Size = new Size(708, 382);
+            inventorySystemControl1.Size = new Size(192, 42);
             inventorySystemControl1.TabIndex = 0;
             // 
             // Settings

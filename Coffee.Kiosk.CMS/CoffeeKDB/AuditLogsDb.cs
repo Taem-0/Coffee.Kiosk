@@ -51,7 +51,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
         {
             if (_employee == null)
             {
-                MessageBox.Show("Failed to auditLogs");
+                //MessageBox.Show("Failed to auditLogs");
                 return false;
             }
             try
@@ -77,7 +77,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message}");
+                //MessageBox.Show($"{ex.Message}");
                 return false;
             }
         }

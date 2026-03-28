@@ -60,7 +60,7 @@ namespace Coffee.Kiosk.Cashier
             }
         }
 
-        // ✅ FIXED LOGO LOADER
+        //FIXED LOGO LOADER
         private void LoadLogo(string? logoPath)
         {
             try

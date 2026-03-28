@@ -29,7 +29,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             {
                 "month" => "MONTH(co.CreatedAt) = MONTH(NOW()) AND YEAR(co.CreatedAt) = YEAR(NOW())",
                 "year" => "YEAR(co.CreatedAt) = YEAR(NOW())",
-                _ => "DATE(co.CreatedAt) = CURDATE()" // day default
+                _ => "DATE(co.CreatedAt) = CURDATE()" 
             };
 
             data.TodayRevenue = GetRevenue(connection, "DATE(co.CreatedAt) = CURDATE()");

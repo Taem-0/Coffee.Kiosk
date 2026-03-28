@@ -12,7 +12,7 @@ Public Class DatabaseHelper
             Try
                 conn.Open()
 
-                ' STEP A: get all Paid orders
+                ' get all Paid orders
                 Dim orderSql = "SELECT ID, OrderType, Status, CreatedAt 
                                 FROM customer_orders 
                                 WHERE Status = 'Paid'"
@@ -35,7 +35,7 @@ Public Class DatabaseHelper
                     End Using
                 End Using
 
-                ' STEP B: for each order get its items
+                ' each order get its items
                 For Each order In orders
                     Using itemConn As New MySqlConnection(ConnectionString)
                         itemConn.Open()
@@ -60,7 +60,7 @@ Public Class DatabaseHelper
                         End Using
                     End Using
 
-                    ' STEP C: for each item get its modifiers
+                    ' each item get its modifiers
                     For Each item In order.Items
                         Using modConn As New MySqlConnection(ConnectionString)
                             modConn.Open()

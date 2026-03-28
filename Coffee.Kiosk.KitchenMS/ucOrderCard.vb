@@ -1,32 +1,27 @@
 ﻿Public Class ucOrderCard
 
-    ' -------------------------------------------------------
-    ' EVENT
-    ' -------------------------------------------------------
+    'event
     Public Event OnOrderCompleted(card As ucOrderCard, orderId As Integer)
 
-    ' -------------------------------------------------------
-    ' PRIVATE VARIABLES
-    ' -------------------------------------------------------
+    'Variables 
     Private _orderId As Integer
     Private _elapsedSeconds As Integer = 0
     Private _totalWaitSeconds As Integer = 0
     Private _isStarted As Boolean = False
     Private _borderColor As Color = Color.FromArgb(80, 50, 20)
 
-    ' -------------------------------------------------------
-    ' COLORS — based on the reference image
-    Private Shared ReadOnly ColorHeaderBrown As Color = Color.FromArgb(92, 51, 23)      ' #5C3317 dark coffee brown
-    Private Shared ReadOnly ColorFooter As Color = Color.FromArgb(255, 255, 255)      ' #5C3317 dark coffee brow
-    Private Shared ReadOnly ColorBodyCream As Color = Color.FromArgb(255, 255, 255)     ' #F5ECD7 warm cream
-    Private Shared ReadOnly ColorBorderBrown As Color = Color.FromArgb(92, 51, 23)      ' #5C3317 same as header
-    Private Shared ReadOnly ColorOrangeTimer As Color = Color.FromArgb(193, 127, 58)    ' #C17F3A warning orange
-    Private Shared ReadOnly ColorRedTimer As Color = Color.FromArgb(192, 57, 43)        ' #C0392B urgent red
 
 
-    ' -------------------------------------------------------
-    ' CONSTRUCTOR — add this right here
-    ' -------------------------------------------------------
+    Private Shared ReadOnly ColorHeaderBrown As Color = Color.FromArgb(92, 51, 23)
+    Private Shared ReadOnly ColorFooter As Color = Color.FromArgb(255, 255, 255)
+    Private Shared ReadOnly ColorBodyCream As Color = Color.FromArgb(255, 255, 255)
+    Private Shared ReadOnly ColorBorderBrown As Color = Color.FromArgb(92, 51, 23)
+    Private Shared ReadOnly ColorOrangeTimer As Color = Color.FromArgb(193, 127, 58)
+    Private Shared ReadOnly ColorRedTimer As Color = Color.FromArgb(192, 57, 43)
+
+
+
+    'constructor and scrolbar
     Public Sub New()
         InitializeComponent()
 
@@ -35,7 +30,7 @@
                     ControlStyles.OptimizedDoubleBuffer, True)
         Me.DoubleBuffered = True
 
-        ' hide scrollbar but keep mouse wheel scrolling
+
         pnlBody.AutoScroll = False
         flpItems.AutoScroll = True
         AddHandler flpItems.MouseWheel, AddressOf flpItems_MouseWheel
@@ -52,7 +47,6 @@
         lblOrderNumber.Text = "ORDER #" & order.OrderNumber
         lblOrderTime.Text = order.OrderTime.ToString("HH:mm")
 
-        ' order type badge color
         ' order type badge
         lblOrderType.Text = If(String.IsNullOrEmpty(order.OrderType), "DINE IN", order.OrderType.ToUpper())
         Dim orderType As String = If(String.IsNullOrEmpty(order.OrderType), "dinein", order.OrderType.ToLower())
@@ -63,7 +57,7 @@
         btnAction.ForeColor = Color.Black
         btnAction.BorderColor = Color.Black
         btnAction.BorderSize = 1
-        _isStarted = True  ' skip the Start step
+        _isStarted = True
 
 
 
@@ -73,7 +67,7 @@
     footer:=ColorFooter,
     border:=ColorBorderBrown
 )
-        ' 5 mins per quantity instead of per item
+        ' 5 mins per quantity 
         Dim totalQuantity As Integer = 0
         For Each item In order.Items
             totalQuantity += item.Quantity
@@ -117,12 +111,11 @@
 
         ' start timer immediately from order time
         tmrWait.Interval = 1000
-        tmrWait.Start()   ' <-- changed from Stop() to Start()
+        tmrWait.Start()
     End Sub
 
-    ' -------------------------------------------------------
-    ' STEP B: tick every second
-    ' -------------------------------------------------------
+    ' tick every second
+
     Private Sub tmrWait_Tick(sender As Object, e As EventArgs) Handles tmrWait.Tick
         _elapsedSeconds += 1
         UpdateTimerDisplay()
@@ -144,29 +137,29 @@
         End If
     End Sub
 
-    ' -------------------------------------------------------
-    ' STEP C: format MM:SS on lblWaitTime
-    ' -------------------------------------------------------
+
+    ' format MM:SS on lblWaitTime
+
     Private Sub UpdateTimerDisplay()
         Dim minutes As Integer = _elapsedSeconds \ 60
         Dim seconds As Integer = _elapsedSeconds Mod 60
         lblWaitTime.Text = String.Format("{0:00}:{1:00}", minutes, seconds)
     End Sub
 
-    ' -------------------------------------------------------
-    ' STEP D: set colors on all panels + border
-    ' -------------------------------------------------------
+
+    ' set colors on all panels + border
+
     Private Sub SetCardColor(header As Color, footer As Color, border As Color)
         pnlHeader.BackColor = header
         pnlFooter.BackColor = footer
-        pnlBody.BackColor = Color.White ' body always cream
+        pnlBody.BackColor = Color.White '
         _borderColor = border
         Me.Invalidate()
     End Sub
 
-    ' -------------------------------------------------------
-    ' STEP E: paint rounded border around the whole card
-    ' -------------------------------------------------------
+
+    ' paint rounded border around the whole card
+
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         MyBase.OnPaint(e)
 
@@ -184,21 +177,19 @@
             path.AddArc(rect.X, rect.Bottom - radius * 2, radius * 2, radius * 2, 90, 90)
             path.CloseFigure()
 
-            ' thick black pen — covers pixelated Region edge completely
             Using outerPen As New Pen(Color.Black, 6)
                 g.DrawPath(outerPen, path)
             End Using
 
-            ' thin black border on top — clean smooth visible border
+
             Using innerPen As New Pen(Color.Black, 1.5F)
                 g.DrawPath(innerPen, path)
             End Using
         End Using
     End Sub
 
-    ' -------------------------------------------------------
-    ' STEP F: Start → Complete
-    ' -------------------------------------------------------
+
+
     Private Sub btnAction_Click(sender As Object, e As EventArgs) Handles btnAction.Click
         ' check if all items are finished
         Dim allDone As Boolean = True
@@ -248,9 +239,9 @@
         flpItems.PerformLayout()
     End Sub
 
-    ' -------------------------------------------------------
-    ' BUTTON HOVER AND CLICK EFFECTS
-    ' -------------------------------------------------------
+
+    ' hover
+
     Private Sub btnAction_MouseEnter(sender As Object, e As EventArgs) Handles btnAction.MouseEnter
         If Not _isStarted Then
             ' Start button hover — light brown tint
@@ -281,16 +272,20 @@
         End If
     End Sub
 
-    Private Sub btnAction_MouseUp(sender As Object, e As MouseEventArgs) Handles btnAction.MouseUp
-        ' restore hover color after releasing click
-        If Not _isStarted Then
-            'btnAction.BackColor = Color.FromArgb(237, 217, 176)
-            'btnAction.ForeColor = Color.FromArgb(92, 51, 23)
-        Else
-            'btnAction.BackColor = Color.FromArgb(200, 240, 210)
-            'btnAction.ForeColor = Color.FromArgb(30, 100, 50)
-        End If
-    End Sub
+    'Private Sub btnAction_MouseUp(sender As Object, e As MouseEventArgs) Handles btnAction.MouseUp
+    '    ' restore hover color after releasing click
+    '    If Not _isStarted Then
+    '        'btnAction.BackColor = Color.FromArgb(237, 217, 176)
+    '        'btnAction.ForeColor = Color.FromArgb(92, 51, 23)
+    '    Else
+    '        'btnAction.BackColor = Color.FromArgb(200, 240, 210)
+    '        'btnAction.ForeColor = Color.FromArgb(30, 100, 50)
+    '    End If
+    'End Sub
+
+    'Private Sub pnlHeader_Paint(sender As Object, e As PaintEventArgs) Handles pnlHeader.Paint
+
+    'End Sub
 
 
 

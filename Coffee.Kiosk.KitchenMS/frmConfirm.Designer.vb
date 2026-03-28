@@ -126,6 +126,7 @@ Partial Class frmConfirm
         Controls.Add(btnYes)
         Controls.Add(lblMessage)
         Controls.Add(pnlBackground)
+        ForeColor = Color.Black
         FormBorderStyle = FormBorderStyle.None
         Name = "frmConfirm"
         StartPosition = FormStartPosition.CenterScreen

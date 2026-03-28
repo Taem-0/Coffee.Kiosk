@@ -31,8 +31,8 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             label1 = new Label();
             employeeContainerContainer1 = new Coffee.Kiosk.CMS.Forms.AccountsTab.AccountUserControls.EmployeeContainerContainer();
@@ -40,40 +40,44 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             // 
             // guna2Panel1
             // 
-            guna2Panel1.CustomizableEdges = customizableEdges3;
+            guna2Panel1.CustomizableEdges = customizableEdges1;
             guna2Panel1.Dock = DockStyle.Top;
             guna2Panel1.Location = new Point(0, 0);
+            guna2Panel1.Margin = new Padding(2);
             guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2Panel1.Size = new Size(1909, 74);
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            guna2Panel1.Size = new Size(1920, 59);
             guna2Panel1.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            label1.Location = new Point(17, 79);
+            label1.Location = new Point(14, 63);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(376, 48);
+            label1.Size = new Size(316, 41);
             label1.TabIndex = 2;
             label1.Text = "Employee Dashboard";
             // 
             // employeeContainerContainer1
             // 
-            employeeContainerContainer1.Location = new Point(0, 130);
+            employeeContainerContainer1.Location = new Point(0, 106);
+            employeeContainerContainer1.Margin = new Padding(2);
             employeeContainerContainer1.Name = "employeeContainerContainer1";
-            employeeContainerContainer1.Size = new Size(1876, 928);
+            employeeContainerContainer1.Size = new Size(1920, 974);
             employeeContainerContainer1.TabIndex = 3;
             // 
             // NewEmployeeView
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(employeeContainerContainer1);
             Controls.Add(label1);
             Controls.Add(guna2Panel1);
+            Margin = new Padding(2);
             Name = "NewEmployeeView";
-            Size = new Size(1909, 1058);
+            Size = new Size(1920, 1080);
             Load += NewEmployeeView_Load;
             ResumeLayout(false);
             PerformLayout();
