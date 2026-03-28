@@ -60,10 +60,8 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             dineInvsTakeout1.ApplyTheme(theme);
             peakHours1.ApplyTheme(theme);
 
-            guna2Panel1.FillColor = theme.Primary;
-            guna2Panel1.BackColor = theme.Primary;
-            guna2Panel1.BorderColor = theme.DarkPrimary;
-            guna2Panel1.BorderThickness = 1;
+
+
 
             tableLayoutPanel3.BackColor = Color.Transparent;
 

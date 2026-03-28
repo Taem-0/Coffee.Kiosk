@@ -1,6 +1,7 @@
 ﻿using Coffee.Kiosk.CMS.Controllers;
 using Coffee.Kiosk.CMS.DTOs;
 using Coffee.Kiosk.CMS.Helpers;
+using Coffee.Kiosk.CMS.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -34,6 +35,19 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab.AccountUserControls
             searchButton.Click += SearchButton_Click;
 
             LoadData();
+
+            employeeCount.AutoSize = true;
+            employeeCount.TextChanged += (s, e) => CenterEmployeeCount();
+            CenterEmployeeCount();
+            employeeCount.BackColor = Color.Transparent;
+        }
+
+        private void CenterEmployeeCount()
+        {
+            employeeCount.Location = new Point(
+                (guna2ContainerControl1.Width - employeeCount.Width) / 2,
+                (guna2ContainerControl1.Height - employeeCount.Height) / 2
+            );
         }
 
         private void LoadData()
@@ -80,7 +94,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab.AccountUserControls
             ).ToList();
 
             employeeCardContainercs1.LoadEmployees(filtered, _controller!);
-            employeeCount.Text = $"{filtered.Count} Employees (Filtered)";
         }
 
         private void AddNewEmployeeButton_Click(object? sender, EventArgs e)

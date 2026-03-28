@@ -37,7 +37,8 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
             var uiTheme = UIhelp.ThemeManager.BuildUITheme(_themeController);
             UIhelp.ThemeManager.ApplyTheme(this, uiTheme);
 
-
+            RightSlideButton.BackColor = Color.Transparent;
+            LeftSlideButton.BackColor = Color.Transparent;
 
 
             shopPreferences1.Initialize(themeController);
@@ -47,10 +48,14 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
             //KioskLoad:
 
+            RightSlideButton.BackColor = Color.Transparent;
+            LeftSlideButton.BackColor = Color.Transparent;
             bannerUpload1.Initialize(kioskController);
             RefreshPreviews();
             SwitchScreen(miniGetStartedScreen1);
             bannerUpload1.BannersChanged += (s, e) => RefreshPreviews();
+            RightSlideButton.BackColor = uiTheme.Background;
+            LeftSlideButton.BackColor = uiTheme.Background;
 
 
         }
@@ -235,6 +240,8 @@ namespace Coffee.Kiosk.CMS.Forms.SettingsTab
 
         private void RefreshPreviews()
         {
+
+
             var banners = _kioskController.GetAllBanners();
 
             var startingBanner = banners

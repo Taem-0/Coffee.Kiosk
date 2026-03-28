@@ -391,17 +391,15 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
                 return;
             }
 
-            bool isDeactivated = _employee.Status == "DEACTIVATED";
+            using var dialogue = new Coffee.Kiosk.CMS.Forms.QuickDialogues.DeactivateDialogue();
+            dialogue.StartPosition = FormStartPosition.CenterParent;
+            dialogue.ShowDialog(this);
 
-            if (MessageBox.Show(
-                isDeactivated
-                    ? $"Are you sure you want to reactivate {_employee.FirstName} {_employee.LastName}?"
-                    : $"Are you sure you want to deactivate {_employee.FirstName} {_employee.LastName}?",
-                isDeactivated ? "Confirm Reactivation" : "Confirm Deactivation",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+            if (!dialogue.Confirmed) return;
 
             try
             {
+                bool isDeactivated = _employee.Status == "DEACTIVATED";
                 if (isDeactivated)
                 {
                     _controller.ReactivateAccount(_employee);
@@ -420,8 +418,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -496,10 +493,11 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab
 
         private void acceptRequest_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(
-                $"Reset password for {_employee.FirstName} {_employee.LastName} to the default?\n\n" +
-                "They will be required to change it on their next login.",
-                "Confirm Password Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+            using var dialogue = new Coffee.Kiosk.CMS.Forms.QuickDialogues.ResetPassDialogue();
+            dialogue.StartPosition = FormStartPosition.CenterParent;
+            dialogue.ShowDialog(this);
+
+            if (!dialogue.Confirmed) return;
 
             try
             {

@@ -42,6 +42,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             employeeCount = new Label();
             currentEmployeeFilter = new Guna.UI2.WinForms.Guna2Button();
             inactiveEmployeeFilter = new Guna.UI2.WinForms.Guna2Button();
@@ -52,14 +54,17 @@
             searchButton = new Guna.UI2.WinForms.Guna2Button();
             addNewEmployeeButton = new Guna.UI2.WinForms.Guna2Button();
             employeeCardContainercs1 = new EmployeeCardContainercs();
+            guna2ContainerControl1 = new Guna.UI2.WinForms.Guna2ContainerControl();
             guna2Panel1.SuspendLayout();
+            guna2ContainerControl1.SuspendLayout();
             SuspendLayout();
             // 
             // employeeCount
             // 
             employeeCount.AutoSize = true;
+            employeeCount.BackColor = Color.Transparent;
             employeeCount.Font = new Font("Segoe UI", 17F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            employeeCount.Location = new Point(849, 28);
+            employeeCount.Location = new Point(5, 8);
             employeeCount.Margin = new Padding(2, 0, 2, 0);
             employeeCount.Name = "employeeCount";
             employeeCount.Size = new Size(223, 40);
@@ -75,7 +80,7 @@
             currentEmployeeFilter.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             currentEmployeeFilter.Font = new Font("Segoe UI", 9F);
             currentEmployeeFilter.ForeColor = Color.White;
-            currentEmployeeFilter.Location = new Point(636, 93);
+            currentEmployeeFilter.Location = new Point(589, 88);
             currentEmployeeFilter.Margin = new Padding(2);
             currentEmployeeFilter.Name = "currentEmployeeFilter";
             currentEmployeeFilter.ShadowDecoration.CustomizableEdges = customizableEdges2;
@@ -92,7 +97,7 @@
             inactiveEmployeeFilter.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             inactiveEmployeeFilter.Font = new Font("Segoe UI", 9F);
             inactiveEmployeeFilter.ForeColor = Color.White;
-            inactiveEmployeeFilter.Location = new Point(852, 93);
+            inactiveEmployeeFilter.Location = new Point(805, 88);
             inactiveEmployeeFilter.Margin = new Padding(2);
             inactiveEmployeeFilter.Name = "inactiveEmployeeFilter";
             inactiveEmployeeFilter.ShadowDecoration.CustomizableEdges = customizableEdges4;
@@ -109,7 +114,7 @@
             allEmployeeFilter.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             allEmployeeFilter.Font = new Font("Segoe UI", 9F);
             allEmployeeFilter.ForeColor = Color.White;
-            allEmployeeFilter.Location = new Point(1068, 93);
+            allEmployeeFilter.Location = new Point(1021, 88);
             allEmployeeFilter.Margin = new Padding(2);
             allEmployeeFilter.Name = "allEmployeeFilter";
             allEmployeeFilter.ShadowDecoration.CustomizableEdges = customizableEdges6;
@@ -124,11 +129,11 @@
             guna2Panel1.Controls.Add(label2);
             guna2Panel1.Controls.Add(searchButton);
             guna2Panel1.CustomizableEdges = customizableEdges11;
-            guna2Panel1.Location = new Point(13, 145);
+            guna2Panel1.Location = new Point(18, 145);
             guna2Panel1.Margin = new Padding(2);
             guna2Panel1.Name = "guna2Panel1";
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            guna2Panel1.Size = new Size(1920, 41);
+            guna2Panel1.Size = new Size(1884, 41);
             guna2Panel1.TabIndex = 5;
             // 
             // searchTextBox
@@ -142,7 +147,7 @@
             searchTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             searchTextBox.Font = new Font("Segoe UI", 9F);
             searchTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            searchTextBox.Location = new Point(153, 6);
+            searchTextBox.Location = new Point(168, 6);
             searchTextBox.Margin = new Padding(3, 4, 3, 4);
             searchTextBox.Name = "searchTextBox";
             searchTextBox.PlaceholderText = "";
@@ -172,7 +177,7 @@
             searchButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             searchButton.Font = new Font("Segoe UI", 9F);
             searchButton.ForeColor = Color.White;
-            searchButton.Location = new Point(487, 6);
+            searchButton.Location = new Point(502, 6);
             searchButton.Margin = new Padding(2);
             searchButton.Name = "searchButton";
             searchButton.ShadowDecoration.CustomizableEdges = customizableEdges10;
@@ -207,6 +212,19 @@
             employeeCardContainercs1.Size = new Size(1920, 482);
             employeeCardContainercs1.TabIndex = 7;
             // 
+            // guna2ContainerControl1
+            // 
+            guna2ContainerControl1.BorderRadius = 15;
+            guna2ContainerControl1.Controls.Add(employeeCount);
+            guna2ContainerControl1.CustomizableEdges = customizableEdges15;
+            guna2ContainerControl1.Location = new Point(797, 15);
+            guna2ContainerControl1.Margin = new Padding(2);
+            guna2ContainerControl1.Name = "guna2ContainerControl1";
+            guna2ContainerControl1.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            guna2ContainerControl1.Size = new Size(232, 56);
+            guna2ContainerControl1.TabIndex = 8;
+            guna2ContainerControl1.Text = "guna2ContainerControl1";
+            // 
             // EmployeeContainerContainer
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -217,14 +235,15 @@
             Controls.Add(allEmployeeFilter);
             Controls.Add(inactiveEmployeeFilter);
             Controls.Add(currentEmployeeFilter);
-            Controls.Add(employeeCount);
+            Controls.Add(guna2ContainerControl1);
             Margin = new Padding(2);
             Name = "EmployeeContainerContainer";
             Size = new Size(1920, 1080);
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();
+            guna2ContainerControl1.ResumeLayout(false);
+            guna2ContainerControl1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -239,5 +258,6 @@
         private Guna.UI2.WinForms.Guna2TextBox searchTextBox;
         private Guna.UI2.WinForms.Guna2Button searchButton;
         private EmployeeCardContainercs employeeCardContainercs1;
+        private Guna.UI2.WinForms.Guna2ContainerControl guna2ContainerControl1;
     }
 }

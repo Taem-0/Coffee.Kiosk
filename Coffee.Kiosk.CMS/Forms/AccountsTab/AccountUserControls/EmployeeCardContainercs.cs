@@ -11,7 +11,9 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab.AccountUserControls
     public partial class EmployeeCardContainercs : UserControl
     {
         public event EventHandler<DisplayDTO>? OnEmployeeClicked;
+
         private List<DisplayDTO> _currentData = new();
+        private AccountController? _controller;
         private string _sortColumn = "Name";
         private bool _sortAscending = true;
 
@@ -53,26 +55,22 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab.AccountUserControls
         public void LoadEmployees(List<DisplayDTO> employees, AccountController controller)
         {
             _currentData = employees;
-            RenderCards(employees, controller);
+            _controller = controller;
+            RenderCards(employees);
         }
 
-        private AccountController? _controller;
-
-        public void RenderCards(List<DisplayDTO> employees, AccountController? controller = null)
+        public void RenderCards(List<DisplayDTO> employees)
         {
-            if (controller != null) _controller = controller;
-
-            // Remove old cards but keep the header panel
             var toRemove = this.Controls.OfType<EmployeeCard>().ToList();
             foreach (var card in toRemove)
             {
                 card.OnCardClicked -= Card_OnCardClicked;
+                card.OnDeactivated -= Card_OnDeactivated;
                 this.Controls.Remove(card);
                 card.Dispose();
             }
 
             int yOffset = guna2Panel1.Bottom + 4;
-
             foreach (var emp in employees)
             {
                 var card = new EmployeeCard();
@@ -80,6 +78,7 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab.AccountUserControls
                 card.Location = new Point(0, yOffset);
                 card.Width = this.Width;
                 card.OnCardClicked += Card_OnCardClicked;
+                card.OnDeactivated += Card_OnDeactivated;
                 this.Controls.Add(card);
                 yOffset += card.Height + 2;
             }
@@ -90,9 +89,12 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab.AccountUserControls
             OnEmployeeClicked?.Invoke(this, employee);
         }
 
-        private void employeeCard1_Load(object sender, EventArgs e)
+        private void Card_OnDeactivated(object? sender, EventArgs e)
         {
-
+            // Reload current data to reflect status change
+            LoadEmployees(_currentData, _controller!);
         }
+
+        private void employeeCard1_Load(object sender, EventArgs e) { }
     }
 }
