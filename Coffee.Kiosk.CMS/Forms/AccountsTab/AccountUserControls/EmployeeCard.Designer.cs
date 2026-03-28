@@ -30,27 +30,17 @@
         {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeCard));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            employeeProfilePic = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             employeeName = new Label();
             jobTitle = new Label();
             department = new Label();
             status = new Guna.UI2.WinForms.Guna2Button();
-            ((System.ComponentModel.ISupportInitialize)employeeProfilePic).BeginInit();
+            quickDeactButton = new Guna.UI2.WinForms.Guna2ImageButton();
+            profileBox = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            ((System.ComponentModel.ISupportInitialize)profileBox).BeginInit();
             SuspendLayout();
-            // 
-            // employeeProfilePic
-            // 
-            employeeProfilePic.BackColor = SystemColors.ActiveCaption;
-            employeeProfilePic.ImageRotate = 0F;
-            employeeProfilePic.Location = new Point(24, 4);
-            employeeProfilePic.Margin = new Padding(2);
-            employeeProfilePic.Name = "employeeProfilePic";
-            employeeProfilePic.ShadowDecoration.CustomizableEdges = customizableEdges1;
-            employeeProfilePic.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            employeeProfilePic.Size = new Size(48, 48);
-            employeeProfilePic.TabIndex = 0;
-            employeeProfilePic.TabStop = false;
             // 
             // employeeName
             // 
@@ -88,7 +78,7 @@
             // status
             // 
             status.BorderRadius = 20;
-            status.CustomizableEdges = customizableEdges2;
+            status.CustomizableEdges = customizableEdges1;
             status.DisabledState.BorderColor = Color.DarkGray;
             status.DisabledState.CustomBorderColor = Color.DarkGray;
             status.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -96,37 +86,68 @@
             status.FillColor = Color.GreenYellow;
             status.Font = new Font("Segoe UI", 9F);
             status.ForeColor = Color.White;
-            status.Location = new Point(1513, 4);
+            status.Location = new Point(1348, 4);
             status.Margin = new Padding(2);
             status.Name = "status";
-            status.ShadowDecoration.CustomizableEdges = customizableEdges3;
+            status.ShadowDecoration.CustomizableEdges = customizableEdges2;
             status.Size = new Size(188, 33);
             status.TabIndex = 5;
             status.Text = "Current Employee";
+            // 
+            // quickDeactButton
+            // 
+            quickDeactButton.BackgroundImageLayout = ImageLayout.Stretch;
+            quickDeactButton.CheckedState.ImageSize = new Size(64, 64);
+            quickDeactButton.HoverState.ImageSize = new Size(64, 64);
+            quickDeactButton.Image = (Image)resources.GetObject("quickDeactButton.Image");
+            quickDeactButton.ImageOffset = new Point(0, 0);
+            quickDeactButton.ImageRotate = 0F;
+            quickDeactButton.Location = new Point(1745, 7);
+            quickDeactButton.Name = "quickDeactButton";
+            quickDeactButton.PressedState.ImageSize = new Size(64, 64);
+            quickDeactButton.ShadowDecoration.CustomizableEdges = customizableEdges3;
+            quickDeactButton.Size = new Size(40, 40);
+            quickDeactButton.TabIndex = 7;
+            // 
+            // profileBox
+            // 
+            profileBox.BackgroundImageLayout = ImageLayout.Stretch;
+            profileBox.ImageRotate = 0F;
+            profileBox.InitialImage = Properties.Resources.person_972_1024;
+            profileBox.Location = new Point(31, 3);
+            profileBox.Name = "profileBox";
+            profileBox.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            profileBox.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            profileBox.Size = new Size(48, 48);
+            profileBox.TabIndex = 8;
+            profileBox.TabStop = false;
             // 
             // EmployeeCard
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BorderStyle = BorderStyle.FixedSingle;
+            Controls.Add(profileBox);
+            Controls.Add(quickDeactButton);
             Controls.Add(status);
             Controls.Add(department);
             Controls.Add(jobTitle);
             Controls.Add(employeeName);
-            Controls.Add(employeeProfilePic);
             Margin = new Padding(2);
             Name = "EmployeeCard";
-            Size = new Size(1920, 56);
-            ((System.ComponentModel.ISupportInitialize)employeeProfilePic).EndInit();
+            Size = new Size(1880, 55);
+            ((System.ComponentModel.ISupportInitialize)profileBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Guna.UI2.WinForms.Guna2CirclePictureBox employeeProfilePic;
         private Label employeeName;
         private Label jobTitle;
         private Label department;
         private Guna.UI2.WinForms.Guna2Button status;
+        private Guna.UI2.WinForms.Guna2ImageButton quickDeactButton;
+        private Guna.UI2.WinForms.Guna2CirclePictureBox profileBox;
+        private Guna.UI2.WinForms.Guna2CirclePictureBox employeeProfilePic;
     }
 }

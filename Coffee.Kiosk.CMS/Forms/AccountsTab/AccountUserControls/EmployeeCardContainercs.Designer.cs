@@ -68,7 +68,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 11F);
-            label5.Location = new Point(1513, 13);
+            label5.Location = new Point(1375, 13);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
             label5.Size = new Size(62, 25);
@@ -83,7 +83,7 @@
             departmentSortToggle.ImageOffset = new Point(0, 0);
             departmentSortToggle.ImageRotate = 0F;
             departmentSortToggle.ImageSize = new Size(40, 40);
-            departmentSortToggle.Location = new Point(1037, 9);
+            departmentSortToggle.Location = new Point(1066, 9);
             departmentSortToggle.Margin = new Padding(2);
             departmentSortToggle.Name = "departmentSortToggle";
             departmentSortToggle.PressedState.ImageSize = new Size(64, 64);
@@ -99,7 +99,7 @@
             jobSortToggle.ImageOffset = new Point(0, 0);
             jobSortToggle.ImageRotate = 0F;
             jobSortToggle.ImageSize = new Size(40, 40);
-            jobSortToggle.Location = new Point(650, 9);
+            jobSortToggle.Location = new Point(679, 9);
             jobSortToggle.Margin = new Padding(2);
             jobSortToggle.Name = "jobSortToggle";
             jobSortToggle.PressedState.ImageSize = new Size(64, 64);
@@ -111,7 +111,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11F);
-            label3.Location = new Point(921, 13);
+            label3.Location = new Point(950, 13);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
             label3.Size = new Size(112, 25);
@@ -122,7 +122,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11F);
-            label2.Location = new Point(564, 13);
+            label2.Location = new Point(593, 13);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Size = new Size(82, 25);
@@ -137,7 +137,7 @@
             nameSortToggle.ImageOffset = new Point(0, 0);
             nameSortToggle.ImageRotate = 0F;
             nameSortToggle.ImageSize = new Size(40, 40);
-            nameSortToggle.Location = new Point(82, 9);
+            nameSortToggle.Location = new Point(111, 9);
             nameSortToggle.Margin = new Padding(2);
             nameSortToggle.Name = "nameSortToggle";
             nameSortToggle.PressedState.ImageSize = new Size(64, 64);
@@ -149,7 +149,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11F);
-            label1.Location = new Point(21, 13);
+            label1.Location = new Point(50, 13);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(62, 25);
@@ -158,10 +158,12 @@
             // 
             // employeeCard1
             // 
-            employeeCard1.Location = new Point(0, 54);
+            employeeCard1.Anchor = AnchorStyles.None;
+            employeeCard1.BorderStyle = BorderStyle.FixedSingle;
+            employeeCard1.Location = new Point(21, 54);
             employeeCard1.Margin = new Padding(2);
             employeeCard1.Name = "employeeCard1";
-            employeeCard1.Size = new Size(1920, 56);
+            employeeCard1.Size = new Size(1881, 56);
             employeeCard1.TabIndex = 7;
             employeeCard1.Load += employeeCard1_Load;
             // 

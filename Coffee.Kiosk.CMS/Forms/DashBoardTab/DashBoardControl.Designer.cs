@@ -31,28 +31,25 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashBoardControl));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashBoardControl));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             label1 = new Label();
             guna2ContainerControl1 = new Guna.UI2.WinForms.Guna2ContainerControl();
             guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
@@ -91,23 +88,11 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox3).BeginInit();
             SuspendLayout();
             // 
-            // guna2Panel1
-            // 
-            guna2Panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            guna2Panel1.CustomizableEdges = customizableEdges1;
-            guna2Panel1.Location = new Point(0, 0);
-            guna2Panel1.Margin = new Padding(2);
-            guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Panel1.Size = new Size(1962, 59);
-            guna2Panel1.TabIndex = 0;
-            guna2Panel1.Paint += guna2Panel1_Paint;
-            // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            label1.Location = new Point(14, 62);
+            label1.Location = new Point(14, 13);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(171, 41);
@@ -122,12 +107,12 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             guna2ContainerControl1.Controls.Add(guna2PictureBox2);
             guna2ContainerControl1.Controls.Add(label5);
             guna2ContainerControl1.Controls.Add(totalQTYNum);
-            guna2ContainerControl1.CustomizableEdges = customizableEdges5;
+            guna2ContainerControl1.CustomizableEdges = customizableEdges3;
             guna2ContainerControl1.Dock = DockStyle.Fill;
             guna2ContainerControl1.Location = new Point(479, 2);
             guna2ContainerControl1.Margin = new Padding(2);
             guna2ContainerControl1.Name = "guna2ContainerControl1";
-            guna2ContainerControl1.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            guna2ContainerControl1.ShadowDecoration.CustomizableEdges = customizableEdges4;
             guna2ContainerControl1.Size = new Size(436, 166);
             guna2ContainerControl1.TabIndex = 5;
             guna2ContainerControl1.Text = "DataContainer01";
@@ -135,13 +120,13 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             // guna2PictureBox2
             // 
             guna2PictureBox2.BackColor = Color.Transparent;
-            guna2PictureBox2.CustomizableEdges = customizableEdges3;
+            guna2PictureBox2.CustomizableEdges = customizableEdges1;
             guna2PictureBox2.Image = (Image)resources.GetObject("guna2PictureBox2.Image");
             guna2PictureBox2.ImageRotate = 0F;
             guna2PictureBox2.Location = new Point(24, 34);
             guna2PictureBox2.Margin = new Padding(2);
             guna2PictureBox2.Name = "guna2PictureBox2";
-            guna2PictureBox2.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            guna2PictureBox2.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2PictureBox2.Size = new Size(96, 96);
             guna2PictureBox2.TabIndex = 5;
             guna2PictureBox2.TabStop = false;
@@ -186,7 +171,7 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             tableLayoutPanel3.Controls.Add(guna2ContainerControl4, 6, 0);
             tableLayoutPanel3.Controls.Add(guna2ContainerControl3, 4, 0);
             tableLayoutPanel3.Controls.Add(guna2ContainerControl1, 2, 0);
-            tableLayoutPanel3.Location = new Point(14, 126);
+            tableLayoutPanel3.Location = new Point(14, 91);
             tableLayoutPanel3.Margin = new Padding(2);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
@@ -202,12 +187,12 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             guna2ContainerControl2.Controls.Add(guna2PictureBox1);
             guna2ContainerControl2.Controls.Add(transactionsNum);
             guna2ContainerControl2.Controls.Add(label2);
-            guna2ContainerControl2.CustomizableEdges = customizableEdges9;
+            guna2ContainerControl2.CustomizableEdges = customizableEdges7;
             guna2ContainerControl2.Dock = DockStyle.Fill;
             guna2ContainerControl2.Location = new Point(2, 2);
             guna2ContainerControl2.Margin = new Padding(2);
             guna2ContainerControl2.Name = "guna2ContainerControl2";
-            guna2ContainerControl2.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            guna2ContainerControl2.ShadowDecoration.CustomizableEdges = customizableEdges8;
             guna2ContainerControl2.Size = new Size(436, 166);
             guna2ContainerControl2.TabIndex = 6;
             guna2ContainerControl2.Text = "DataContainer01";
@@ -215,13 +200,13 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             // guna2PictureBox1
             // 
             guna2PictureBox1.BackColor = Color.Transparent;
-            guna2PictureBox1.CustomizableEdges = customizableEdges7;
+            guna2PictureBox1.CustomizableEdges = customizableEdges5;
             guna2PictureBox1.Image = (Image)resources.GetObject("guna2PictureBox1.Image");
             guna2PictureBox1.ImageRotate = 0F;
             guna2PictureBox1.Location = new Point(20, 34);
             guna2PictureBox1.Margin = new Padding(2);
             guna2PictureBox1.Name = "guna2PictureBox1";
-            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges6;
             guna2PictureBox1.Size = new Size(96, 96);
             guna2PictureBox1.TabIndex = 2;
             guna2PictureBox1.TabStop = false;
@@ -258,12 +243,12 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             guna2ContainerControl4.Controls.Add(guna2PictureBox4);
             guna2ContainerControl4.Controls.Add(label8);
             guna2ContainerControl4.Controls.Add(totalProfitNum);
-            guna2ContainerControl4.CustomizableEdges = customizableEdges13;
+            guna2ContainerControl4.CustomizableEdges = customizableEdges11;
             guna2ContainerControl4.Dock = DockStyle.Fill;
             guna2ContainerControl4.Location = new Point(1433, 2);
             guna2ContainerControl4.Margin = new Padding(2);
             guna2ContainerControl4.Name = "guna2ContainerControl4";
-            guna2ContainerControl4.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            guna2ContainerControl4.ShadowDecoration.CustomizableEdges = customizableEdges12;
             guna2ContainerControl4.Size = new Size(438, 166);
             guna2ContainerControl4.TabIndex = 8;
             guna2ContainerControl4.Text = "DataContainer01";
@@ -272,13 +257,13 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             // guna2PictureBox4
             // 
             guna2PictureBox4.BackColor = Color.Transparent;
-            guna2PictureBox4.CustomizableEdges = customizableEdges11;
+            guna2PictureBox4.CustomizableEdges = customizableEdges9;
             guna2PictureBox4.Image = (Image)resources.GetObject("guna2PictureBox4.Image");
             guna2PictureBox4.ImageRotate = 0F;
             guna2PictureBox4.Location = new Point(28, 34);
             guna2PictureBox4.Margin = new Padding(2);
             guna2PictureBox4.Name = "guna2PictureBox4";
-            guna2PictureBox4.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            guna2PictureBox4.ShadowDecoration.CustomizableEdges = customizableEdges10;
             guna2PictureBox4.Size = new Size(96, 96);
             guna2PictureBox4.TabIndex = 11;
             guna2PictureBox4.TabStop = false;
@@ -315,24 +300,24 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             guna2ContainerControl3.Controls.Add(guna2PictureBox3);
             guna2ContainerControl3.Controls.Add(label6);
             guna2ContainerControl3.Controls.Add(totalRevenueNum);
-            guna2ContainerControl3.CustomizableEdges = customizableEdges17;
+            guna2ContainerControl3.CustomizableEdges = customizableEdges15;
             guna2ContainerControl3.Dock = DockStyle.Fill;
             guna2ContainerControl3.Location = new Point(956, 2);
             guna2ContainerControl3.Margin = new Padding(2);
             guna2ContainerControl3.Name = "guna2ContainerControl3";
-            guna2ContainerControl3.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            guna2ContainerControl3.ShadowDecoration.CustomizableEdges = customizableEdges16;
             guna2ContainerControl3.Size = new Size(436, 166);
             guna2ContainerControl3.TabIndex = 7;
             guna2ContainerControl3.Text = "DataContainer01";
             // 
             // guna2PictureBox3
             // 
-            guna2PictureBox3.CustomizableEdges = customizableEdges15;
+            guna2PictureBox3.CustomizableEdges = customizableEdges13;
             guna2PictureBox3.ImageRotate = 0F;
             guna2PictureBox3.Location = new Point(29, 34);
             guna2PictureBox3.Margin = new Padding(2);
             guna2PictureBox3.Name = "guna2PictureBox3";
-            guna2PictureBox3.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            guna2PictureBox3.ShadowDecoration.CustomizableEdges = customizableEdges14;
             guna2PictureBox3.Size = new Size(96, 96);
             guna2PictureBox3.TabIndex = 8;
             guna2PictureBox3.TabStop = false;
@@ -363,17 +348,17 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             // 
             // ordersOverTime1
             // 
-            ordersOverTime1.Location = new Point(36, 601);
+            ordersOverTime1.Location = new Point(36, 696);
             ordersOverTime1.Margin = new Padding(2, 2, 2, 2);
             ordersOverTime1.Name = "ordersOverTime1";
-            ordersOverTime1.Size = new Size(752, 216);
+            ordersOverTime1.Size = new Size(755, 315);
             ordersOverTime1.TabIndex = 13;
             // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
-            label10.Location = new Point(36, 330);
+            label10.Location = new Point(36, 295);
             label10.Margin = new Padding(2, 0, 2, 0);
             label10.Name = "label10";
             label10.Size = new Size(339, 35);
@@ -384,7 +369,7 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
-            label11.Location = new Point(999, 330);
+            label11.Location = new Point(999, 295);
             label11.Margin = new Padding(2, 0, 2, 0);
             label11.Name = "label11";
             label11.Size = new Size(166, 35);
@@ -393,38 +378,39 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             // 
             // salesOverTime1
             // 
-            salesOverTime1.Location = new Point(36, 366);
+            salesOverTime1.Location = new Point(36, 332);
             salesOverTime1.Margin = new Padding(2, 2, 2, 2);
             salesOverTime1.Name = "salesOverTime1";
-            salesOverTime1.Size = new Size(752, 216);
+            salesOverTime1.Size = new Size(755, 315);
             salesOverTime1.TabIndex = 12;
             // 
             // dineInvsTakeout1
             // 
             dineInvsTakeout1.BackColor = Color.FromArgb(245, 245, 220);
-            dineInvsTakeout1.Location = new Point(969, 587);
+            dineInvsTakeout1.Location = new Point(970, 695);
             dineInvsTakeout1.Margin = new Padding(2, 2, 2, 2);
             dineInvsTakeout1.Name = "dineInvsTakeout1";
-            dineInvsTakeout1.Size = new Size(340, 230);
+            dineInvsTakeout1.Size = new Size(315, 315);
             dineInvsTakeout1.TabIndex = 18;
             // 
             // topSellingProducts1
             // 
             topSellingProducts1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            topSellingProducts1.Location = new Point(999, 366);
-            topSellingProducts1.Margin = new Padding(2, 2, 2, 2);
+            topSellingProducts1.Location = new Point(999, 331);
+            topSellingProducts1.Margin = new Padding(2);
             topSellingProducts1.Name = "topSellingProducts1";
-            topSellingProducts1.Padding = new Padding(8, 8, 8, 8);
-            topSellingProducts1.Size = new Size(680, 202);
+            topSellingProducts1.Padding = new Padding(8);
+            topSellingProducts1.Size = new Size(885, 360);
             topSellingProducts1.TabIndex = 19;
             // 
             // peakHours1
             // 
+            peakHours1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             peakHours1.BackColor = Color.FromArgb(245, 245, 220);
-            peakHours1.Location = new Point(1447, 587);
+            peakHours1.Location = new Point(1378, 695);
             peakHours1.Margin = new Padding(2, 2, 2, 2);
             peakHours1.Name = "peakHours1";
-            peakHours1.Size = new Size(340, 230);
+            peakHours1.Size = new Size(506, 315);
             peakHours1.TabIndex = 20;
             // 
             // TimeLineDropDown
@@ -433,8 +419,8 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             TimeLineDropDown.BackColor = Color.Brown;
             TimeLineDropDown.BorderColor = Color.Brown;
             TimeLineDropDown.BorderRadius = 17;
-            TimeLineDropDown.BorderThickness = 0;
-            TimeLineDropDown.CustomizableEdges = customizableEdges19;
+            TimeLineDropDown.BorderThickness = 2;
+            TimeLineDropDown.CustomizableEdges = customizableEdges17;
             TimeLineDropDown.DrawMode = DrawMode.OwnerDrawFixed;
             TimeLineDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
             TimeLineDropDown.FillColor = Color.Brown;
@@ -448,13 +434,14 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             TimeLineDropDown.ItemHeight = 30;
             TimeLineDropDown.Items.AddRange(new object[] { "This day", "This month", "This year" });
             TimeLineDropDown.ItemsAppearance.SelectedFont = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TimeLineDropDown.Location = new Point(237, 71);
+            TimeLineDropDown.Location = new Point(214, 18);
             TimeLineDropDown.Margin = new Padding(2);
             TimeLineDropDown.Name = "TimeLineDropDown";
-            TimeLineDropDown.ShadowDecoration.CustomizableEdges = customizableEdges20;
-            TimeLineDropDown.Size = new Size(124, 36);
+            TimeLineDropDown.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            TimeLineDropDown.Size = new Size(161, 36);
             TimeLineDropDown.StartIndex = 0;
             TimeLineDropDown.TabIndex = 2;
+            TimeLineDropDown.TextOffset = new Point(10, 0);
             TimeLineDropDown.SelectedIndexChanged += TimeLineDropDown_SelectedIndexChanged;
             // 
             // TimeLineLabel
@@ -482,7 +469,6 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
             Controls.Add(salesOverTime1);
             Controls.Add(tableLayoutPanel3);
             Controls.Add(label1);
-            Controls.Add(guna2Panel1);
             Margin = new Padding(2);
             Name = "DashBoardControl";
             Size = new Size(1920, 1080);
@@ -505,8 +491,6 @@ namespace Coffee.Kiosk.CMS.Forms.DashBoardTab
         }
 
         #endregion
-
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Label label1;
         private Guna.UI2.WinForms.Guna2ContainerControl guna2ContainerControl1;
         private TableLayoutPanel tableLayoutPanel3;
