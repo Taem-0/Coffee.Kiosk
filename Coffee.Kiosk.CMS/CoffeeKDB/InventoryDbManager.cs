@@ -43,7 +43,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"failed to retrieve inventory\n{ex.Message}");
+                //MessageBox.Show($"failed to retrieve inventory\n{ex.Message}");
             }
             return result;
         }
@@ -79,7 +79,7 @@ namespace Coffee.Kiosk.CMS.CoffeeKDB
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"failed to retrieve inventory\n{ex.Message}");
+                //MessageBox.Show($"failed to retrieve inventory\n{ex.Message}");
             }
             return result;
         }

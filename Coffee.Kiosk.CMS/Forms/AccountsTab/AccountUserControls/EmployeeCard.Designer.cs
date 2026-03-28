@@ -28,18 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeCard));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             employeeProfilePic = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             employeeName = new Label();
             jobTitle = new Label();
             department = new Label();
-            history = new Label();
             status = new Guna.UI2.WinForms.Guna2Button();
-            randoButton = new Guna.UI2.WinForms.Guna2ImageButton();
             ((System.ComponentModel.ISupportInitialize)employeeProfilePic).BeginInit();
             SuspendLayout();
             // 
@@ -47,11 +43,12 @@
             // 
             employeeProfilePic.BackColor = SystemColors.ActiveCaption;
             employeeProfilePic.ImageRotate = 0F;
-            employeeProfilePic.Location = new Point(30, 5);
+            employeeProfilePic.Location = new Point(24, 4);
+            employeeProfilePic.Margin = new Padding(2);
             employeeProfilePic.Name = "employeeProfilePic";
-            employeeProfilePic.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            employeeProfilePic.ShadowDecoration.CustomizableEdges = customizableEdges1;
             employeeProfilePic.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            employeeProfilePic.Size = new Size(60, 60);
+            employeeProfilePic.Size = new Size(48, 48);
             employeeProfilePic.TabIndex = 0;
             employeeProfilePic.TabStop = false;
             // 
@@ -59,9 +56,10 @@
             // 
             employeeName.AutoSize = true;
             employeeName.Font = new Font("Segoe UI", 9F);
-            employeeName.Location = new Point(116, 5);
+            employeeName.Location = new Point(93, 4);
+            employeeName.Margin = new Padding(2, 0, 2, 0);
             employeeName.Name = "employeeName";
-            employeeName.Size = new Size(90, 25);
+            employeeName.Size = new Size(77, 20);
             employeeName.TabIndex = 1;
             employeeName.Text = "Taeza, Rex";
             // 
@@ -69,9 +67,10 @@
             // 
             jobTitle.AutoSize = true;
             jobTitle.Font = new Font("Segoe UI", 9F);
-            jobTitle.Location = new Point(490, 5);
+            jobTitle.Location = new Point(569, 4);
+            jobTitle.Margin = new Padding(2, 0, 2, 0);
             jobTitle.Name = "jobTitle";
-            jobTitle.Size = new Size(60, 25);
+            jobTitle.Size = new Size(49, 20);
             jobTitle.TabIndex = 3;
             jobTitle.Text = "Guard";
             // 
@@ -79,26 +78,17 @@
             // 
             department.AutoSize = true;
             department.Font = new Font("Segoe UI", 9F);
-            department.Location = new Point(796, 5);
+            department.Location = new Point(922, 4);
+            department.Margin = new Padding(2, 0, 2, 0);
             department.Name = "department";
-            department.Size = new Size(92, 25);
+            department.Size = new Size(75, 20);
             department.TabIndex = 3;
             department.Text = "Rev. Army";
-            // 
-            // history
-            // 
-            history.AutoSize = true;
-            history.Font = new Font("Segoe UI", 9F);
-            history.Location = new Point(1102, 5);
-            history.Name = "history";
-            history.Size = new Size(106, 50);
-            history.TabIndex = 4;
-            history.Text = "Last shift In\r\n09/11/2006";
             // 
             // status
             // 
             status.BorderRadius = 20;
-            status.CustomizableEdges = customizableEdges6;
+            status.CustomizableEdges = customizableEdges2;
             status.DisabledState.BorderColor = Color.DarkGray;
             status.DisabledState.CustomBorderColor = Color.DarkGray;
             status.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -106,40 +96,26 @@
             status.FillColor = Color.GreenYellow;
             status.Font = new Font("Segoe UI", 9F);
             status.ForeColor = Color.White;
-            status.Location = new Point(1397, 5);
+            status.Location = new Point(1513, 4);
+            status.Margin = new Padding(2);
             status.Name = "status";
-            status.ShadowDecoration.CustomizableEdges = customizableEdges7;
-            status.Size = new Size(235, 41);
+            status.ShadowDecoration.CustomizableEdges = customizableEdges3;
+            status.Size = new Size(188, 33);
             status.TabIndex = 5;
             status.Text = "Current Employee";
             // 
-            // randoButton
-            // 
-            randoButton.CheckedState.ImageSize = new Size(64, 64);
-            randoButton.HoverState.ImageSize = new Size(64, 64);
-            randoButton.Image = (Image)resources.GetObject("randoButton.Image");
-            randoButton.ImageOffset = new Point(0, 0);
-            randoButton.ImageRotate = 0F;
-            randoButton.Location = new Point(1727, 15);
-            randoButton.Name = "randoButton";
-            randoButton.PressedState.ImageSize = new Size(64, 64);
-            randoButton.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            randoButton.Size = new Size(40, 40);
-            randoButton.TabIndex = 6;
-            // 
             // EmployeeCard
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(randoButton);
             Controls.Add(status);
-            Controls.Add(history);
             Controls.Add(department);
             Controls.Add(jobTitle);
             Controls.Add(employeeName);
             Controls.Add(employeeProfilePic);
+            Margin = new Padding(2);
             Name = "EmployeeCard";
-            Size = new Size(1845, 70);
+            Size = new Size(1920, 56);
             ((System.ComponentModel.ISupportInitialize)employeeProfilePic).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -151,8 +127,6 @@
         private Label employeeName;
         private Label jobTitle;
         private Label department;
-        private Label history;
         private Guna.UI2.WinForms.Guna2Button status;
-        private Guna.UI2.WinForms.Guna2ImageButton randoButton;
     }
 }

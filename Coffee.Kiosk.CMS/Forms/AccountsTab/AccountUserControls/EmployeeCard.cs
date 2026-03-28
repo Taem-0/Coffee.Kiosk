@@ -26,7 +26,6 @@ namespace Coffee.Kiosk.CMS.Forms.AccountsTab.AccountUserControls
             employeeName.Text = employee.FullName;
             jobTitle.Text = employee.JobTitle;
             department.Text = employee.Department;
-            history.Text = "";
 
             status.Text = employee.Status?.ToUpper() == "ACTIVE" ? "Current Employee" : "Inactive Employee";
             status.FillColor = employee.Status?.ToUpper() == "ACTIVE"
